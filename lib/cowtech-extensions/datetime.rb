@@ -4,7 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "active_support"
+require "active_support/all"
 
 module Cowtech
   module Extensions
@@ -12,22 +12,36 @@ module Cowtech
       extend ActiveSupport::Concern
       
       included do
-        mattr_accessor :localized_months
-        mattr_accessor :localized_short_months
-        mattr_accessor :localized_days
-        mattr_accessor :localized_short_days        
+        cattr_accessor :default_localized_months
+        cattr_accessor :default_localized_short_months
+        cattr_accessor :default_localized_days
+        cattr_accessor :default_localized_short_days
+        cattr_accessor :localized_months
+        cattr_accessor :localized_short_months
+        cattr_accessor :localized_days
+        cattr_accessor :localized_short_days
+        self.setup_locale
       end
       
       module ClassMethods
+        def setup_locale
+          self.default_localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+          self.default_localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          self.default_localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+          self.default_localized_short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+          self.localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+          self.localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          self.localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+          self.localized_short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        end
+
         def months(short = true)
           12.times.collect |k| {:value => (i + 1).to_s.rjust(2, "0"), :description => self.send("localized_#{short ? "short_" : ""}months").at(i) }
         end
-
-        def default_localization
-          @localized_months = Date.MONTHNAMES
-          @localized_short_months = Date.ABBR_MONTHNAMES
-          @localized_days = Date.DAYNAMES
-          @localized_short_days = Date.ABBR_DAYNAMES
+        
+        def years(offset = 10, also_future = true)
+          y = Date.today.year
+          (y - offset..(also_future ? y + offset : y)).collect do |year| {:value => year} end
         end
         
         def custom_formats
@@ -43,11 +57,6 @@ module Cowtech
         
         def custom_format(key = "date")
           self.custom_formats.fetch(key.to_s, "%d/%m/%Y")
-        end
-
-        def years(offset = 10, also_future = true)
-          y = Date.today.year
-          (y - offset..(also_future ? y + offset : y)).collect do |year| {:value => year} end
         end
 
         def easter(year = nil)
@@ -83,13 +92,20 @@ module Cowtech
           format = self.class.custom_format($1) if format =~ /^custom::(.+)/    
           unlocal = self.strftime(format || self.class.custom_format("update"))
     
-          # CHANGE LONG DAYS AND MONTHS
-          unlocal.gsub!(/(#{self.class.localized_months.keys.join("|")})/i) do |s| self.class.localized_months[$1] end
-          unlocal.gsub!(/(#{self.class.localized_days.keys.join("|")})/i) do |s| self.class.localized_days[$1] end
+          [
+            [self.class.default_localized_months, self.class.localized_months], [self.class.default_localized_days, self.class.localized_days],
+            [self.class.default_localized_short_months, self.class.localized_short_months], [self.class.default_localized_short_days, self.class.localized_short_days]            
+          ].each do |iter|
+            dict = {}
+            
+            iter[0].each_index { |i| 
+              key = iter[0][i]
+              value = iter[1][i]
+              dict[key] = value
+            }
 
-          # CHANGE SHORT DAYS AND MONTHS
-          unlocal.gsub!(/(#{self.class.localized_short_months.keys.join("|")})/i) do |s| self.class.localized_short_months[$1] end
-          unlocal.gsub!(/(#{self.class.localized_short_days.keys.join("|")})/i) do |s| self.class.localized_short_days[$1] end
+            unlocal.gsub!(/(#{dict.keys.join("|")})/i) { |s| dict[$1] }
+          end
 
           unlocal
         end

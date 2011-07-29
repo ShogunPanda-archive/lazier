@@ -4,9 +4,11 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+require "active_support/all"
+
 module Cowtech
   module Extensions
-    module ActiveRecord
+    module AR
       extend ActiveSupport::Concern
   
       module ClassMethods
