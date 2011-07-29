@@ -20,15 +20,19 @@ module Cowtech
         cattr_accessor :localized_short_months
         cattr_accessor :localized_days
         cattr_accessor :localized_short_days
+        self.default_setup_locale
         self.setup_locale
       end
       
       module ClassMethods
-        def setup_locale
+        def default_setup_locale
           self.default_localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
           self.default_localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
           self.default_localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
           self.default_localized_short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        end
+        
+        def setup_locale
           self.localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
           self.localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
           self.localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
