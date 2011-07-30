@@ -8,9 +8,9 @@ require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
 require "cowtech-extensions/string"
 require "cowtech-extensions/hash"
-require "cowtech-extensions/pathname"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
+require "cowtech-extensions/pathname" if defined?(Pathname)
 require "cowtech-extensions/active_record" if defined?(ActiveRecord)
 
 module Cowtech
@@ -22,63 +22,63 @@ module Cowtech
       yield if block_given?
       
       if what.include?("object") then
-        Object.class_eval do
+        ::Object.class_eval do
           include Cowtech::Extensions::Object
         end
       end
       
       if what.include?("boolean") then
-        TrueClass.class_eval do
+        ::TrueClass.class_eval do
           include Cowtech::Extensions::Object
           include Cowtech::Extensions::Boolean
         end
 
-        FalseClass.class_eval do
+        ::FalseClass.class_eval do
           include Cowtech::Extensions::Object
           include Cowtech::Extensions::Boolean
         end
       end
       
       if what.include?("string") then      
-        String.class_eval do
+        ::String.class_eval do
           include Cowtech::Extensions::String
         end
       end
 
       if what.include?("string") then
-        Hash.class_eval do
+        ::Hash.class_eval do
           include Cowtech::Extensions::Hash  
         end
       end
 
-      if what.include?("pathname") then
-        Pathname.class_eval do
-          include Cowtech::Extensions::Pathname  
-        end
-      end
-      
       if what.include?("datetime") then
-        Time.class_eval do
+        ::Time.class_eval do
           include Cowtech::Extensions::DateTime
         end
 
-        Date.class_eval do
+        ::Date.class_eval do
           include Cowtech::Extensions::DateTime
         end
 
-        DateTime.class_eval do
+        ::DateTime.class_eval do
           include Cowtech::Extensions::DateTime
         end
       end
 
       if what.include?("math") then
-        Math.class_eval do
+        ::Math.class_eval do
           include Cowtech::Extensions::Math
         end
       end
 
+      if defined?(Pathname) && what.include?("pathname") then
+        ::Pathname.class_eval do
+          include Cowtech::Extensions::Pathname  
+        end
+      end
+
       if defined?(ActiveRecord) && what.include?("active_record") then
-        ActiveRecord::Base.class_eval do
+        ::ActiveRecord::Base.class_eval do
           include Cowtech::Extensions::AR
         end
       end      

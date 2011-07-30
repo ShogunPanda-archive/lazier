@@ -107,7 +107,8 @@ module Cowtech
               value = iter[1][i]
               dict[key] = value
             }
-
+            
+            p dict
             unlocal.gsub!(/(#{dict.keys.join("|")})/i) { |s| dict[$1] }
           end
 
