@@ -10,11 +10,10 @@ require "action_view/helpers/number_helper"
 module Cowtech
   module Extensions
     module Object
+      include ActionView::Helpers::NumberHelper
       extend ActiveSupport::Concern
 
-      module InstanceMethods
-        include ActionView::Helpers::NumberHelper
-  
+      module InstanceMethods  
         def as_s
           self.present? ? self.to_s : ""
         end

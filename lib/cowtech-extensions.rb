@@ -4,13 +4,14 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+require "pathname"
 require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
 require "cowtech-extensions/string"
 require "cowtech-extensions/hash"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
-require "cowtech-extensions/pathname" if defined?(Pathname)
+require "cowtech-extensions/pathname"
 require "cowtech-extensions/active_record" if defined?(ActiveRecord)
 
 module Cowtech
@@ -71,7 +72,7 @@ module Cowtech
         end
       end
 
-      if defined?(Pathname) && what.include?("pathname") then
+      if what.include?("pathname") then
         ::Pathname.class_eval do
           include Cowtech::Extensions::Pathname  
         end
