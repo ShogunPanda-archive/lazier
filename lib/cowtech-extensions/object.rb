@@ -5,7 +5,7 @@
 #
 
 require "active_support/all"
-require "action_view/helpers/number_helper"
+require "action_view"
 
 module Cowtech
   module Extensions

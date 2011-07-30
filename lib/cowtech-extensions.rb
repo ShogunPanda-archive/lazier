@@ -12,7 +12,7 @@ require "cowtech-extensions/hash"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
 require "cowtech-extensions/pathname"
-require "cowtech-extensions/active_record" if defined?(ActiveRecord)
+require "cowtech-extensions/activerecord" if defined?(ActiveRecord)
 
 module Cowtech
   module Extensions
