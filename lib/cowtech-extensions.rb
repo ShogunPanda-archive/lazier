@@ -29,10 +29,12 @@ module Cowtech
       
       if what.include?("boolean") then
         TrueClass.class_eval do
+          include Cowtech::Extensions::Object
           include Cowtech::Extensions::Boolean
         end
 
         FalseClass.class_eval do
+          include Cowtech::Extensions::Object
           include Cowtech::Extensions::Boolean
         end
       end
