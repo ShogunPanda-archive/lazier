@@ -12,12 +12,11 @@ require "cowtech-extensions/hash"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
 require "cowtech-extensions/pathname"
-require "cowtech-extensions/activerecord" if defined?(ActiveRecord)
 
 module Cowtech
   module Extensions
     def self.load!(what = [])
-      what = ["object", "boolean", "string", "hash", "pathname", "datetime", "math", "active_record"] if what.count == 0
+      what = ["object", "boolean", "string", "hash", "pathname", "datetime", "math"] if what.count == 0
       what.collect! { |w| w.to_s }
 
       yield if block_given?
@@ -78,7 +77,7 @@ module Cowtech
         end
       end
 
-      if defined?(ActiveRecord) && what.include?("active_record") then
+      if what.include?("activerecord") then
         ::ActiveRecord::Base.class_eval do
           include Cowtech::Extensions::AR
         end
