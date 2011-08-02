@@ -4,7 +4,6 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "pathname"
 require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
 require "cowtech-extensions/string"
@@ -16,7 +15,7 @@ require "cowtech-extensions/pathname"
 module Cowtech
   module Extensions
     def self.load!(what = [])
-      what = ["object", "boolean", "string", "hash", "pathname", "datetime", "math"] if what.count == 0
+      what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
       what.collect! { |w| w.to_s }
 
       yield if block_given?
@@ -45,7 +44,7 @@ module Cowtech
         end
       end
 
-      if what.include?("string") then
+      if what.include?("hash") then
         ::Hash.class_eval do
           include Cowtech::Extensions::Hash  
         end
@@ -72,16 +71,12 @@ module Cowtech
       end
 
       if what.include?("pathname") then
+        require "pathname"
+        
         ::Pathname.class_eval do
           include Cowtech::Extensions::Pathname  
         end
       end
-
-      if what.include?("activerecord") then
-        ::ActiveRecord::Base.class_eval do
-          include Cowtech::Extensions::AR
-        end
-      end      
     end
   end
 end
