@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cowtech-extensions}
-  s.version = "1.0.1.0"
+  s.version = "1.1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Shogun}]
-  s.date = %q{2011-07-31}
+  s.date = %q{2011-08-02}
   s.description = %q{Several Ruby object enhancements.}
   s.email = %q{shogun_panda@me.com}
   s.extra_rdoc_files = [
@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
     "Rakefile",
     "cowtech-extensions.gemspec",
     "lib/cowtech-extensions.rb",
-    "lib/cowtech-extensions/activerecord.rb",
     "lib/cowtech-extensions/boolean.rb",
     "lib/cowtech-extensions/datetime.rb",
     "lib/cowtech-extensions/hash.rb",
