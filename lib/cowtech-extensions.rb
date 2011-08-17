@@ -54,7 +54,7 @@ module Cowtech
         ::Time.class_eval do
           include Cowtech::Extensions::DateTime
         end
-
+        
         ::Date.class_eval do
           include Cowtech::Extensions::DateTime
         end
@@ -62,6 +62,10 @@ module Cowtech
         ::DateTime.class_eval do
           include Cowtech::Extensions::DateTime
         end
+        
+        ::Date.setup_localization
+        ::Time.setup_localization
+        ::DateTime.setup_localization        
       end
 
       if what.include?("math") then
