@@ -62,7 +62,7 @@ module Cowtech
           self.to_boolean ? "Yes" : "No"
         end
   
-        def debug(format = :yaml, must_raise = true)
+        def debug_dump(format = :yaml, must_raise = true)
           rv = ""
 
           begin
@@ -71,7 +71,7 @@ module Cowtech
             rv = self.inspect
           end
 
-          rv = "DEBUG:\n#{rv}"
+          rv = "DEBUG DUMP:\n#{rv}"
           must_raise ? raise(rv) : rv
         end
       end
