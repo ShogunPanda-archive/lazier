@@ -23,10 +23,6 @@ module Cowtech
         def replace_ampersands
           self.gsub(/&amp;(\S+);/, "&\\1;") 
         end
-        
-        def value
-          self
-        end
       end
     end
   end
