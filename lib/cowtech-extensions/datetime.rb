@@ -96,22 +96,16 @@ module Cowtech
 
       module InstanceMethods
         def lstrftime(format = nil)
-          format = self.class.custom_format($1) if format =~ /^custom::(.+)/    
-          unlocal = self.strftime(format || self.class.custom_format("update"))
-    
-          [
-            [self.class.default_localized_months, self.class.localized_months], [self.class.default_localized_days, self.class.localized_days],
-            [self.class.default_localized_short_months, self.class.localized_short_months], [self.class.default_localized_short_days, self.class.localized_short_days]            
-          ].each do |iter|
-            dict = {}
-            
-            iter[0].each_index { |i| 
-              key = iter[0][i]
-              value = iter[1][i]
-              dict[key] = value
-            }
-            
-            unlocal.gsub!(/(#{dict.keys.join("|")})/i) { |s| dict[$1] }
+          format = self.class.custom_format($1) if format =~ /^custom::(.+)/ 
+          format ||= self.class.custom_format("update")
+          unlocal = self.strftime(format)
+      
+          { "%a" => "short_days", "%A" => "days", "%b" => "short_months", "%B" => "months" }.each_pair do |specifier, method|
+            if format.include?(specifier) then
+              from = self.class.send('default_localized_' + method)
+              to = self.class.send('localized_' + method)
+              unlocal.gsub!(/(#{from.join("|")})/i) { |s| to[from.index($1)] }
+            end
           end
 
           unlocal
