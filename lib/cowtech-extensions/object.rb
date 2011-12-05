@@ -19,15 +19,15 @@ module Cowtech
         end
   
         def is_integer?
-          self.is_a?(Integer) || /^([+-]?)(\d+)$/.match(self.as_s.strip)
+          self.is_a?(Integer) || /^([+-]?)(\d+)$/.match(self.ensure_string.strip)
         end
 
         def is_float?
-          self.is_a?(Float) || /^([+-]?)(\d+)([.,]\d*)?$/.match(self.as_s.strip)
+          self.is_a?(Float) || /^([+-]?)(\d+)([.,]\d*)?$/.match(self.ensure_string.strip)
         end
 
         def is_boolean?
-          self.is_a?(TrueClass) || self.is_a?(FalseClass) || self.is_a?(NilClass) || /^(1|0|true|false|yes|no|t|f|y|n)$/i.match(self.as_s.strip)
+          self.is_a?(TrueClass) || self.is_a?(FalseClass) || self.is_a?(NilClass) || /^(1|0|true|false|yes|no|t|f|y|n)$/i.match(self.ensure_string.strip)
         end
 
         def ensure_array
@@ -47,7 +47,7 @@ module Cowtech
         end
   
         def to_boolean
-          (self.is_a?(TrueClass) || /^(1|on|true|yes|t|y)$/i.match(self.as_s.strip)) ? true : false
+          (self.is_a?(TrueClass) || /^(1|on|true|yes|t|y)$/i.match(self.ensure_string.strip)) ? true : false
         end
   
         def round_to_precision(prec = 2)
