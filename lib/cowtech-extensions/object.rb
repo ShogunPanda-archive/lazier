@@ -14,10 +14,6 @@ module Cowtech
       extend ActiveSupport::Concern
 
       module InstanceMethods  
-        def as_s
-          self.present? ? self.to_s : ""
-        end
-  
         def is_number?
           self.is_float? 
         end
@@ -38,6 +34,10 @@ module Cowtech
           self.is_a?(Array) ? self : [self]
         end
           
+        def ensure_string
+          self.present? ? self.to_s : ""
+        end
+
         def to_float
           self.is_float? ? Kernel.Float(self.respond_to?(:gsub) ? self.gsub(",", ".") : self) : 0.0
         end
