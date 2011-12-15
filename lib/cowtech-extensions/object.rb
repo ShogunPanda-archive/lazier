@@ -23,7 +23,7 @@ module Cowtech
         end
 
         def is_float?
-          self.is_a?(Float) || /^([+-]?)(\d+)([.,]\d*)?$/.match(self.ensure_string.strip)
+          self.is_a?(Float) || /^([+-]?)(\d+)([.,]\d+)?$/.match(self.ensure_string.strip)
         end
 
         def is_boolean?
