@@ -11,11 +11,11 @@ module Cowtech
   
       module ClassMethods
         def self.max(a, b)
-          if a > b then a else b end
+          a > b ? a : b
         end
 
         def self.min(a, b)
-          if a < b then a else b end
+          a < b ? a : b
         end
       end
     end

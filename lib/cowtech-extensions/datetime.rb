@@ -48,7 +48,7 @@ module Cowtech
         
         def years(offset = 10, also_future = true)
           y = Date.today.year
-          (y - offset..(also_future ? y + offset : y)).collect do |year| {:value => year} end
+          (y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year} }
         end
         
         def custom_formats
