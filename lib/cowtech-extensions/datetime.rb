@@ -124,7 +124,8 @@ module Cowtech
         end
         
         def utc_time
-          (self.respond_to?(:utc) ? self : self.to_datetime).utc.to_time
+          ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
+					::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
         end
       end
     end
