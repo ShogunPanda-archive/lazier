@@ -102,8 +102,8 @@ module Cowtech
 
 					{ "%a" => "short_days", "%A" => "days", "%b" => "short_months", "%B" => "months" }.each_pair do |specifier, method|
 						if format.include?(specifier) then
-							from = self.class.send('default_localized_' + method)
-							to = self.class.send('localized_' + method)
+							from = self.class.send("default_localized_" + method)
+							to = self.class.send("localized_" + method)
 							unlocal.gsub!(/(#{from.join("|")})/i) { |s| to[from.index($1)] }
 						end
 					end

@@ -15,5 +15,5 @@ http://github.com/ShogunPanda/cowtech-extensions
 
 == Copyright
 
-Copyright (c) 2011 Shogun. See LICENSE.txt for further details.
-
+Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
+Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.

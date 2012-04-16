@@ -12,6 +12,7 @@ Jeweler::Tasks.new do |gem|
 	gem.authors = ["Shogun"]
 	gem.version = Cowtech::Extensions::Version::STRING
 	gem.add_dependency "actionpack"
+	gem.required_ruby_version = '>= 1.9.2'
 end
 
 Jeweler::RubygemsDotOrgTasks.new

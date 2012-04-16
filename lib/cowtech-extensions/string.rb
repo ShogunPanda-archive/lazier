@@ -13,7 +13,7 @@ module Cowtech
 
 			module InstanceMethods
 				def remove_accents
-					self.mb_chars.normalize(:kd).gsub(/[^\-x00-\x7F]/n, '').to_s
+					self.mb_chars.normalize(:kd).gsub(/[^\-x00-\x7F]/n, "").to_s
 				end
 
 				def untitleize
