@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "cowtech-extensions"
-  s.version = "1.4.0"
+  s.version = "1.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Shogun"]
@@ -13,13 +13,11 @@ Gem::Specification.new do |s|
   s.description = "Several Ruby object enhancements."
   s.email = "shogun_panda@me.com"
   s.extra_rdoc_files = [
-    "LICENSE.txt",
     "README.rdoc"
   ]
   s.files = [
     "Gemfile",
     "Gemfile.lock",
-    "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "cowtech-extensions.gemspec",
@@ -36,6 +34,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
+  s.required_ruby_version = Gem::Requirement.new(">= 1.9.2")
   s.rubygems_version = "1.8.15"
   s.summary = "Several Ruby object enhancements."
 
