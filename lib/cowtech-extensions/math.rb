@@ -5,19 +5,19 @@
 #
 
 module Cowtech
-  module Extensions
-    module Math
-      extend ActiveSupport::Concern
-  
-      module ClassMethods
-        def self.max(a, b)
-          a > b ? a : b
-        end
+	module Extensions
+		module Math
+			extend ActiveSupport::Concern
 
-        def self.min(a, b)
-          a < b ? a : b
-        end
-      end
-    end
-  end
+			module ClassMethods
+				def self.max(a, b)
+					a > b ? a : b
+				end
+
+				def self.min(a, b)
+					a < b ? a : b
+				end
+			end
+		end
+	end
 end

@@ -5,15 +5,15 @@
 #
 
 module Cowtech
-  module Extensions
-    module Pathname
-      extend ActiveSupport::Concern
+	module Extensions
+		module Pathname
+			extend ActiveSupport::Concern
 
-      module InstanceMethods
-        def components
-          self.each_filename.collect { |p| p }
-        end
-      end
-    end
-  end
+			module InstanceMethods
+				def components
+					self.each_filename.collect { |p| p }
+				end
+			end
+		end
+	end
 end

@@ -5,19 +5,19 @@
 #
 
 module Cowtech
-  module Extensions
-    module Boolean
-      extend ActiveSupport::Concern
+	module Extensions
+		module Boolean
+			extend ActiveSupport::Concern
 
-      module InstanceMethods
-        def to_i
-          (self == true) ? 1 : 0
-        end
-        
-        def value
-          self
-        end
-      end
-    end
-  end
+			module InstanceMethods
+				def to_i
+					(self == true) ? 1 : 0
+				end
+
+				def value
+					self
+				end
+			end
+		end
+	end
 end
