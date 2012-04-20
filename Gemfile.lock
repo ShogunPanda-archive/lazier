@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     cowtech-extensions (1.4.2)
-      active_support
+      active_support (>= 3.0.0)
 
 GEM
   remote: http://rubygems.org/
