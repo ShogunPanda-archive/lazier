@@ -11,22 +11,20 @@ module Cowtech
 		module String
 			extend ActiveSupport::Concern
 
-			module InstanceMethods
-				def remove_accents
-					self.mb_chars.normalize(:kd).gsub(/[^\-x00-\x7F]/n, "").to_s
-				end
+			def remove_accents
+				self.mb_chars.normalize(:kd).gsub(/[^\-x00-\x7F]/n, "").to_s
+			end
 
-				def untitleize
-					self.downcase.gsub(" ", "-")
-				end
+			def untitleize
+				self.downcase.gsub(" ", "-")
+			end
 
-				def replace_ampersands
-					self.gsub(/&amp;(\S+);/, "&\\1;")
-				end
+			def replace_ampersands
+				self.gsub(/&amp;(\S+);/, "&\\1;")
+			end
 
-				def value
-					self
-				end
+			def value
+				self
 			end
 		end
 	end

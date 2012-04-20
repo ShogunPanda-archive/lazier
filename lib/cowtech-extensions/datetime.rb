@@ -94,39 +94,37 @@ module Cowtech
 				end
 			end
 
-			module InstanceMethods
-				def lstrftime(format = nil)
-					format = self.class.custom_format($1) if format =~ /^custom::(.+)/
-					format ||= self.class.custom_format("update")
-					unlocal = self.strftime(format)
+			def lstrftime(format = nil)
+				format = self.class.custom_format($1) if format =~ /^custom::(.+)/
+				format ||= self.class.custom_format("update")
+				unlocal = self.strftime(format)
 
-					{ "%a" => "short_days", "%A" => "days", "%b" => "short_months", "%B" => "months" }.each_pair do |specifier, method|
-						if format.include?(specifier) then
-							from = self.class.send("default_localized_" + method)
-							to = self.class.send("localized_" + method)
-							unlocal.gsub!(/(#{from.join("|")})/i) { |s| to[from.index($1)] }
-						end
+				{ "%a" => "short_days", "%A" => "days", "%b" => "short_months", "%B" => "months" }.each_pair do |specifier, method|
+					if format.include?(specifier) then
+						from = self.class.send("default_localized_" + method)
+						to = self.class.send("localized_" + method)
+						unlocal.gsub!(/(#{from.join("|")})/i) { |s| to[from.index($1)] }
 					end
-
-					unlocal
 				end
 
-				def local_lstrftime(format = nil)
-					(self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
-				end
+				unlocal
+			end
 
-				def padded_month
-					self.month.to_s.rjust(2, "0")
-				end
+			def local_lstrftime(format = nil)
+				(self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
+			end
 
-				def in_months
-					((self.year - 1) % 2000) * 12 + self.month
-				end
+			def padded_month
+				self.month.to_s.rjust(2, "0")
+			end
 
-				def utc_time
-					ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
-					::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
-				end
+			def in_months
+				((self.year - 1) % 2000) * 12 + self.month
+			end
+
+			def utc_time
+				ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
+				::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
 			end
 		end
 	end

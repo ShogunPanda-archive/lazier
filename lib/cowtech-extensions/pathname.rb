@@ -9,10 +9,8 @@ module Cowtech
 		module Pathname
 			extend ActiveSupport::Concern
 
-			module InstanceMethods
-				def components
-					self.each_filename.collect { |p| p }
-				end
+			def components
+				self.each_filename.collect { |p| p }
 			end
 		end
 	end

@@ -9,14 +9,12 @@ module Cowtech
 		module Boolean
 			extend ActiveSupport::Concern
 
-			module InstanceMethods
-				def to_i
-					(self == true) ? 1 : 0
-				end
+			def to_i
+				(self == true) ? 1 : 0
+			end
 
-				def value
-					self
-				end
+			def value
+				self
 			end
 		end
 	end
