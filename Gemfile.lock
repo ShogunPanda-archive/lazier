@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cowtech-extensions (1.4.2)
+    cowtech-extensions (1.4.3)
       active_support (>= 3.0.0)
 
 GEM
