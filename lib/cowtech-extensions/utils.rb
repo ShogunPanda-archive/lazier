@@ -4,16 +4,11 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "active_support"
-
 module Cowtech
 	module Extensions
-		module Version
-			MAJOR = 1
-			MINOR = 5
-			PATCH = 0
-
-			STRING = [MAJOR, MINOR, PATCH].compact.join(".")
+		module Exceptions
+			class Dump < ::Exception
+			end
 		end
 	end
 end

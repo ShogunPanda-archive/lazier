@@ -70,8 +70,7 @@ module Cowtech
 					rv = self.inspect
 				end
 
-				rv = "DEBUG DUMP:\n#{rv}"
-				must_raise ? raise(rv) : rv
+				must_raise ? raise Cowtech::Extensions::Exceptions::Dump.new(rv) : rv
 			end
 		end
 	end
