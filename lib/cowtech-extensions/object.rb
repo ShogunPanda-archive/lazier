@@ -65,7 +65,11 @@ module Cowtech
 				rv = ""
 
 				begin
-					rv = self.send("to_#{format}")
+					if format == :pretty_json then
+						rv = JSON.pretty_generate(self)
+					else
+						rv = self.send("to_#{format}")
+					end
 				rescue
 					rv = self.inspect
 				end
