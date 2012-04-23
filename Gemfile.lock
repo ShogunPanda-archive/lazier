@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cowtech-extensions (1.4.6)
+    cowtech-extensions (1.5.1)
       actionpack (~> 3.0)
 
 GEM

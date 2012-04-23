@@ -74,7 +74,7 @@ module Cowtech
 					rv = self.inspect
 				end
 
-				must_raise ? raise Cowtech::Extensions::Exceptions::Dump.new(rv) : rv
+				must_raise ? raise(Cowtech::Extensions::Exceptions::Dump.new(rv)) : rv
 			end
 		end
 	end
