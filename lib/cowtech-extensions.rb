@@ -4,6 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+require "cowtech-extensions/utils"
 require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
 require "cowtech-extensions/string"

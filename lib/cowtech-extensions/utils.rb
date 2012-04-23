@@ -7,7 +7,7 @@
 module Cowtech
 	module Extensions
 		module Exceptions
-			class Dump < ::Exception
+			class Dump < ::RuntimeError
 			end
 		end
 	end
