@@ -47,8 +47,8 @@ module Cowtech
           elsif day == 25 && month == 4 && d == 28 && e == 6 && a > 10 then
             day = 18
           end
-#END
-
+          # End
+          
           Date.civil(year, month, day)
         end
 
