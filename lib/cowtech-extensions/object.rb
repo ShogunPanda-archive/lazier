@@ -13,7 +13,7 @@ module Cowtech
 			include ActionView::Helpers::NumberHelper
 			extend ActiveSupport::Concern
 
-			def is_number?
+      def is_number?
 				self.is_float?
 			end
 
@@ -58,7 +58,7 @@ module Cowtech
 			end
 
 			def format_boolean
-				self.to_boolean ? "Yes" : "No"
+        TrueClass.boolean_names[self.to_boolean.to_i]
 			end
 
 			def debug_dump(format = :yaml, must_raise = true)

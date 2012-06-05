@@ -7,3 +7,6 @@
 source "http://rubygems.org"
 
 gemspec
+
+gem "cowtech-extensions", :path => File.dirname(__FILE__)
+gem "pry"

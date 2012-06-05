@@ -7,125 +7,128 @@
 require "active_support/all"
 
 module Cowtech
-	module Extensions
-		module DateTime
-			extend ActiveSupport::Concern
+  module Extensions
+    module DateTime
+      extend ActiveSupport::Concern
 
-			included do
-				cattr_accessor :default_localized_months
-				cattr_accessor :default_localized_short_months
-				cattr_accessor :default_localized_days
-				cattr_accessor :default_localized_short_days
-				cattr_accessor :localized_months
-				cattr_accessor :localized_short_months
-				cattr_accessor :localized_days
-				cattr_accessor :localized_short_days
-			end
+      included do
+        cattr_accessor :date_names
+      end
 
-			module ClassMethods
-				def setup_localization
-					self.default_setup_locale
-					self.setup_locale
-				end
+      module ClassMethods
+        def months(short = true)
+          12.times.collect { |i| {:value => (i + 1).to_s.rjust(2, "0"), :description => self.send("localized_#{short ? "short_" : ""}months").at(i)} }
+        end
 
-				def default_setup_locale
-					self.default_localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-					self.default_localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-					self.default_localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-					self.default_localized_short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-				end
+        def years(offset = 10, also_future = true, reference = nil)
+          y = (reference || Date.today).year
+          (y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year} }
+        end
 
-				def setup_locale
-					self.localized_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-					self.localized_short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-					self.localized_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-					self.localized_short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-				end
+        def easter(year = nil)
+          day = 1
+          month = 3
+          year = Date.today.year if !year.is_integer?
 
-				def months(short = true)
-					12.times.collect { |i| {:value => (i + 1).to_s.rjust(2, "0"), :description => self.send("localized_#{short ? "short_" : ""}months").at(i) } }
-				end
+          # Compute using Gauss Method
+          a = year % 19
+          d = ((19 * a) + 24) % 30
+          e = ((2 * (year % 4)) + (4 * (year % 7)) + (6 * d) + 5) % 7
 
-				def years(offset = 10, also_future = true)
-					y = Date.today.year
-					(y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year} }
-				end
+          if d + e < 10 then
+            day = d + e + 22
+          else
+            day = d + e - 9
+            month = 4
+          end
 
-				def custom_formats
-					@@custom_formats ||= {
-						"date" => "%d/%m/%Y",
-						"time" => "%H:%M:%S",
-						"date-8601" => "%Y-%m-%d",
-						"date-time-8601" => "%Y-%m-%d %H:%M:%S",
-						"iso-8601" => "%FT%T%z",
-						"update" => "%d/%m/%Y %H:%M"
-					}
-				end
+          if day == 26 && month == 4 then
+            day = 19
+          elsif day == 25 && month == 4 && d == 28 && e == 6 && a > 10 then
+            day = 18
+          end
+#END
 
-				def custom_format(key = "date")
-					self.custom_formats.fetch(key.to_s, "%d/%m/%Y")
-				end
+          Date.civil(year, month, day)
+        end
 
-				def easter(year = nil)
-					day = 1
-					month = 3
-					year = Date.today.year if !year.is_integer?
+        def cowtech_extensions_setup
+          DateTime::date_names ||= {
+              :months => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+              :short_months => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+              :days => ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              :short_days => ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+          }
 
-					# GAUSS METHOD
-					a = year % 19
-					d = ((19 * a) + 24) % 30
-					e = ((2 * (year % 4)) + (4 * (year % 7)) + (6 * d) + 5) % 7
+          self.custom_formats.each_pair do |k, v| Time::DATE_FORMATS[k] = v end
+        end
 
-					if d + e < 10 then
-						day = d + e + 22
-					else
-						day = d + e - 9
-						month = 4
-					end
+        def custom_formats
+          @@custom_formats ||= {
+            :ct_date => "%Y-%m-%d",
+            :ct_time => "%H:%M:%S",
+            :ct_date_time => "%F %T",
+            :ct_iso_8601 => "%FT%T%z"
+          }
+        end
 
-					if day == 26 && month == 4 then
-						day = 19
-					elsif day == 25 && month == 4 && d == 28 && e == 6 && a > 10 then
-						day = 18
-					end
-					#END
+        def custom_format(key = "date")
+          key = "ct_#{key}" if key !~ /^ct_/
+          self.custom_formats.fetch(key.to_sym, "%d/%m/%Y")
+        end
+      end
 
-					Date.civil(year, month, day)
-				end
-			end
+      #module InstanceMethods
+        def utc_time
+          ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
+          ::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
+        end
 
-			def lstrftime(format = nil)
-				format = self.class.custom_format($1) if format =~ /^custom::(.+)/
-				format ||= self.class.custom_format("update")
-				unlocal = self.strftime(format)
+        def in_months(base = 2000)
+          ((self.year - 1) - base) * 12 + self.month
+        end
 
-				{ "%a" => "short_days", "%A" => "days", "%b" => "short_months", "%B" => "months" }.each_pair do |specifier, method|
-					if format.include?(specifier) then
-						from = self.class.send("default_localized_" + method)
-						to = self.class.send("localized_" + method)
-						unlocal.gsub!(/(#{from.join("|")})/i) { |s| to[from.index($1)] }
-					end
-				end
+        def padded_month
+          self.month.to_s.rjust(2, "0")
+        end
 
-				unlocal
-			end
+        def lstrftime(format = nil)
+          localized_format = format.gsub(/(%{1,2}[ab])/i) do |match|
+            mrv = match
 
-			def local_lstrftime(format = nil)
-				(self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
-			end
+            if match !~ /^%%/ then
+              case match
+                when "%a"
+                  mrv = ::DateTime.date_names[:short_days][self.wday]
+                when "%A"
+                  mrv = ::DateTime.date_names[:days][self.wday]
+                when "%b"
+                  mrv = ::DateTime.date_names[:short_months][self.month]
+                when "%B"
+                  mrv = ::DateTime.date_names[:months][self.month]
+              end
 
-			def padded_month
-				self.month.to_s.rjust(2, "0")
-			end
+              mrv.sub!("%", "%%")
+            end
 
-			def in_months
-				((self.year - 1) % 2000) * 12 + self.month
-			end
+            mrv
+          end
 
-			def utc_time
-				ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
-				::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
-			end
-		end
-	end
+          self.strftime(localized_format)
+        end
+
+        def to_localized_s(format = nil)
+          self.lstrftime(format = nil)
+        end
+
+        def local_strftime(format = nil)
+          (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).strftime(format)
+        end
+
+        def local_lstrftime(format = nil)
+          (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
+        end
+      #end
+    end
+  end
 end

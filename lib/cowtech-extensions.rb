@@ -15,7 +15,7 @@ require "cowtech-extensions/pathname"
 
 module Cowtech
 	module Extensions
-		def self.load!(what = [])
+		def self.load(what = [])
 			what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
 			what.collect! { |w| w.to_s }
 
@@ -31,13 +31,15 @@ module Cowtech
 				::TrueClass.class_eval do
 					include Cowtech::Extensions::Object
 					include Cowtech::Extensions::Boolean
-				end
+        end
 
 				::FalseClass.class_eval do
-					include Cowtech::Extensions::Object
-					include Cowtech::Extensions::Boolean
+          include Cowtech::Extensions::Object
+          include Cowtech::Extensions::Boolean
 				end
-			end
+
+        TrueClass.cowtech_extensions_setup
+      end
 
 			if what.include?("string") then
 				::String.class_eval do
@@ -64,9 +66,7 @@ module Cowtech
 					include Cowtech::Extensions::DateTime
 				end
 
-				::Date.setup_localization
-				::Time.setup_localization
-				::DateTime.setup_localization
+        #DateTime.cowtech_extensions_setup
 			end
 
 			if what.include?("math") then
