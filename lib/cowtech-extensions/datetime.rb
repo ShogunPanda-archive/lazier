@@ -48,7 +48,7 @@ module Cowtech
             day = 18
           end
           # End
-          
+
           Date.civil(year, month, day)
         end
 
@@ -72,9 +72,20 @@ module Cowtech
           }
         end
 
-        def custom_format(key = "date")
-          key = "ct_#{key}" if key !~ /^ct_/
-          self.custom_formats.fetch(key.to_sym, "%d/%m/%Y")
+        def custom_format(key)
+          self.custom_formats.fetch(key.to_sym, key)
+        end
+
+        def is_valid?(value, format = "%F %T")
+          rv = true
+
+          begin
+            DateTime.strptime(value, format)
+          rescue
+            rv = false
+          end
+
+          rv
         end
       end
 
@@ -114,7 +125,7 @@ module Cowtech
             mrv
           end
 
-          self.strftime(localized_format)
+          self.to_formatted_s(localized_format)
         end
 
         def to_localized_s(format = nil)
