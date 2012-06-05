@@ -43,12 +43,12 @@ module Cowtech
 				end
 
 				def months(short = true)
-					12.times.collect { |i| {value: (i + 1).to_s.rjust(2, "0"), description: self.send("localized_#{short ? "short_" : ""}months").at(i) } }
+					12.times.collect { |i| {:value => (i + 1).to_s.rjust(2, "0"), :description => self.send("localized_#{short ? "short_" : ""}months").at(i) } }
 				end
 
 				def years(offset = 10, also_future = true)
 					y = Date.today.year
-					(y - offset..(also_future ? y + offset : y)).collect { |year| {value: year} }
+					(y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year} }
 				end
 
 				def custom_formats

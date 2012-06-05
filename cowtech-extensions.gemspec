@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
 	s.authors = ["Shogun"]
 	s.email = ["shogun_panda@me.com"]
 	s.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
-	s.summary = %q{A Rails blog engine plugin.}
-	s.description = %q{A Rails blog engine plugin.}
+	s.summary = %q{Several Ruby object enhancements.}
+	s.description = %q{Several Ruby object enhancements.}
 
 	s.rubyforge_project = "cowtech-extensions"
 	s.files = `git ls-files`.split("\n")
@@ -21,6 +21,5 @@ Gem::Specification.new do |s|
 	s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 	s.require_paths = ["lib"]
 
-	s.required_ruby_version = ">= 1.9.2"
 	s.add_dependency("actionpack", "~> 3.0")
 end

@@ -42,19 +42,19 @@ module Cowtech
 			end
 
 			def to_integer
-				self.is_integer? ? Kernel.Integer(self, self.is_a?(String) ? 10 : 0) : 0
-			end
+        self.is_integer? ? Kernel.Integer(self) : 0
+      end
 
 			def to_boolean
 				(self.is_a?(TrueClass) || /^(1|on|true|yes|t|y)$/i.match(self.ensure_string.strip)) ? true : false
 			end
 
 			def round_to_precision(prec = 2)
-				number_with_precision(self, precision: prec)
+				number_with_precision(self, :precision => prec)
 			end
 
-			def format_number(prec = 2, decimal_separator = ",", add_string = "€", k_separator = ".")
-				number_to_currency(self, {precision: prec, separator: decimal_separator, delimiter: k_separator, format: add_string.blank? ? "%n" : "%n %u",  unit: add_string.blank? ? "" : add_string.strip})
+			def format_number(prec = 2, decimal_separator = ",", add_string = "", k_separator = ".")
+				number_to_currency(self, {:precision => prec, :separator => decimal_separator, :delimiter => k_separator, :format => add_string.blank? ? "%n" : "%n %u", :unit => add_string.blank? ? "" : add_string.strip})
 			end
 
 			def format_boolean
