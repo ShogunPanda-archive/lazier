@@ -4,6 +4,11 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+$KCODE='UTF8' if RUBY_VERSION < '1.9'
+
+require "active_support/all"
+require "action_view"
+
 require "cowtech-extensions/utils"
 require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
@@ -15,7 +20,7 @@ require "cowtech-extensions/pathname"
 
 module Cowtech
 	module Extensions
-		def self.load(what = [])
+		def self.load!(*what)
 			what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
 			what.collect! { |w| w.to_s }
 
@@ -65,8 +70,6 @@ module Cowtech
 				::DateTime.class_eval do
 					include Cowtech::Extensions::DateTime
 				end
-
-        #DateTime.cowtech_extensions_setup
 			end
 
 			if what.include?("math") then
@@ -85,4 +88,3 @@ module Cowtech
 		end
 	end
 end
-    

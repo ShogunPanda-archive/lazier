@@ -10,14 +10,33 @@ module Cowtech
 			extend ActiveSupport::Concern
 
 			module ClassMethods
-				def self.max(a, b)
-					a > b ? a : b
-				end
+				def min(*args)
+          args = args.ensure_array.flatten
 
-				def self.min(a, b)
-					a < b ? a : b
-				end
-			end
+          if args.length > 0 then
+            rv = args[0]
+            args.each do |a| rv = a if a < rv end
+          else
+            rv = nil
+          end
+
+          rv
+        end
+
+        def max(*args)
+          args = args.ensure_array.flatten
+
+          if args.length > 0 then
+            rv = args[0]
+            args.each do |a| rv = a if a > rv end
+          else
+            rv = nil
+          end
+
+          rv
+        end
+
+      end
 		end
 	end
 end

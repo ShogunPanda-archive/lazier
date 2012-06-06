@@ -10,7 +10,9 @@ module Cowtech
 			extend ActiveSupport::Concern
 
 			def components
-				self.each_filename.collect { |p| p }
+        rv = []
+				self.each_filename { |p| rv << p }
+        rv
 			end
 		end
 	end

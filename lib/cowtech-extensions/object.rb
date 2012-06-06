@@ -4,9 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "active_support/all"
-require "action_view"
-
+# TODO: To test
 module Cowtech
 	module Extensions
 		module Object

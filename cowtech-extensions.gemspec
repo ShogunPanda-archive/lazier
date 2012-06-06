@@ -4,22 +4,27 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "./lib/cowtech-extensions/version"
+require File.expand_path('../lib/cowtech-extensions/version', __FILE__)
 
-Gem::Specification.new do |s|
-	s.name = "cowtech-extensions"
-	s.version = Cowtech::Extensions::Version::STRING
-	s.authors = ["Shogun"]
-	s.email = ["shogun_panda@me.com"]
-	s.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
-	s.summary = %q{Several Ruby object enhancements.}
-	s.description = %q{Several Ruby object enhancements.}
+Gem::Specification.new do |gem|
+	gem.name = "cowtech-extensions"
+	gem.version = Cowtech::Extensions::Version::STRING
+  gem.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
+  gem.summary = %q{Several Ruby object enhancementa.}
+  gem.description = %q{Several Ruby object enhancements.}
+  gem.rubyforge_project = "cowtech-extensions"
 
-	s.rubyforge_project = "cowtech-extensions"
-	s.files = `git ls-files`.split("\n")
-	s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-	s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-	s.require_paths = ["lib"]
+  gem.authors = ["Shogun"]
+	gem.email = ["shogun_panda@me.com"]
 
-	s.add_dependency("actionpack", "~> 3.0")
+  gem.files = `git ls-files`.split($\)
+  gem.executables = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
+  gem.require_paths = ["lib"]
+
+	gem.add_dependency("actionpack", "~> 3.0")
+
+  gem.add_development_dependency("rspec", "~> 2.10")
+  gem.add_development_dependency("rcov", "~> 1.0.0")
+  gem.add_development_dependency("pry", "~> 0.9.9")
 end

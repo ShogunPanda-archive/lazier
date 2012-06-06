@@ -14,6 +14,7 @@ module Cowtech
       end
 
       module ClassMethods
+        # TODO: To test
         def cowtech_extensions_setup
           TrueClass::boolean_names = ["No", "Yes"]
         end

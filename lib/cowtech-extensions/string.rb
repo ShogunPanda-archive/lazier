@@ -4,15 +4,13 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "active_support/all"
-
 module Cowtech
 	module Extensions
 		module String
 			extend ActiveSupport::Concern
 
 			def remove_accents
-				self.mb_chars.normalize(:kd).gsub(/[^\-x00-\x7F]/n, "").to_s
+				self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, "").to_s
 			end
 
 			def untitleize

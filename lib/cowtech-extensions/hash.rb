@@ -10,7 +10,17 @@ module Cowtech
 			extend ActiveSupport::Concern
 
 			def method_missing(method, *args, &block)
-				(self.has_key?(method.to_sym) || self.has_key?(method.to_s)) ? (self[method.to_sym] || self[method.to_s]) : super(method, *args, &block)
+        rv = nil
+
+        if self.has_key?(method.to_sym) then
+          rv = self[method.to_sym]
+        elsif self.has_key?(method.to_s) then
+          rv = self[method.to_s]
+        else
+          rv = super(method, *args, &block)
+        end
+
+        rv
 			end
 
 			def respond_to?(method)
