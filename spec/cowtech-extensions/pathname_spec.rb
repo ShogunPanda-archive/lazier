@@ -10,8 +10,6 @@ describe Cowtech::Extensions::Pathname do
   let(:reference) { Pathname.new($0) }
 
   describe "#components" do
-    it "should return the components of the path" do
-      ([""] + reference.components).should == reference.to_s.split("/")
-    end
+    it "should return the components of the path" do ([""] + reference.components).should == reference.to_s.split("/") end
   end
 end

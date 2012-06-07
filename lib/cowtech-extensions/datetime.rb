@@ -4,24 +4,30 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-# TODO: To test
 module Cowtech
   module Extensions
     module DateTime
       extend ActiveSupport::Concern
 
-      included do
-        cattr_accessor :date_names
-      end
-
       module ClassMethods
+        def days(short = true)
+          days = Cowtech::Extensions.settings.date_names[short ? :short_days : :long_days]
+          (1..7).to_a.collect { |i|
+            {:value => i.to_s, :label=> days[i - 1]}
+          }
+
+        end
+
         def months(short = true)
-          12.times.collect { |i| {:value => (i + 1).to_s.rjust(2, "0"), :description => self.send("localized_#{short ? "short_" : ""}months").at(i)} }
+          months = Cowtech::Extensions.settings.date_names[short ? :short_months : :long_months]
+          (1..12).collect { |i|
+            {:value => i.to_s.rjust(2, "0"), :label=> months.at(i - 1)}
+          }
         end
 
         def years(offset = 10, also_future = true, reference = nil)
           y = (reference || Date.today).year
-          (y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year} }
+          (y - offset..(also_future ? y + offset : y)).collect { |year| {:value => year, :label => year} }
         end
 
         def easter(year = nil)
@@ -51,94 +57,78 @@ module Cowtech
           Date.civil(year, month, day)
         end
 
-        def cowtech_extensions_setup
-          DateTime::date_names ||= {
-              :months => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-              :short_months => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-              :days => ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-              :short_days => ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-          }
-
-          self.custom_formats.each_pair do |k, v| Time::DATE_FORMATS[k] = v end
-        end
-
-        def custom_formats
-          @@custom_formats ||= {
-            :ct_date => "%Y-%m-%d",
-            :ct_time => "%H:%M:%S",
-            :ct_date_time => "%F %T",
-            :ct_iso_8601 => "%FT%T%z"
-          }
-        end
-
         def custom_format(key)
-          self.custom_formats.fetch(key.to_sym, key)
+          Cowtech::Extensions.settings.date_formats.fetch(key.to_sym, key).ensure_string
         end
 
         def is_valid?(value, format = "%F %T")
           rv = true
 
+          format = self.custom_format(format)
+
           begin
-            DateTime.strptime(value, format)
-          rescue
+            ::DateTime.strptime(value, format)
+          rescue => e
             rv = false
           end
 
           rv
         end
+
+        def rational_offset(tz = ::Time.zone)
+          Rational((tz.tzinfo.current_period.utc_offset / 3600), 24)
+        end
       end
 
-      #module InstanceMethods
-        def utc_time
-          ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
-          ::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
-        end
+      def utc_time
+        ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
+        ::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
+      end
 
-        def in_months(base = 2000)
-          ((self.year - 1) - base) * 12 + self.month
-        end
+      def in_months(base = nil)
+        base ||= Date.today.year
+        ((self.year) - base) * 12 + self.month
+      end
 
-        def padded_month
-          self.month.to_s.rjust(2, "0")
-        end
+      def padded_month
+        self.month.to_s.rjust(2, "0")
+      end
 
-        def lstrftime(format = nil)
-          localized_format = format.gsub(/(%{1,2}[ab])/i) do |match|
-            mrv = match
+      def lstrftime(format = nil)
+        rv = nil
+        names = Cowtech::Extensions.settings.date_names
 
-            if match !~ /^%%/ then
-              case match
-                when "%a"
-                  mrv = ::DateTime.date_names[:short_days][self.wday]
-                when "%A"
-                  mrv = ::DateTime.date_names[:days][self.wday]
-                when "%b"
-                  mrv = ::DateTime.date_names[:short_months][self.month]
-                when "%B"
-                  mrv = ::DateTime.date_names[:months][self.month]
-              end
+        final_format = ::DateTime.custom_format(format).ensure_string.gsub(/(%{1,2}[ab])/i) do |match|
+          mrv = match
 
-              mrv.sub!("%", "%%")
+          if match !~ /^%%/ then
+            case match
+              when "%a"
+                mrv = names[:short_days][self.wday]
+              when "%A"
+                mrv = names[:long_days][self.wday]
+              when "%b"
+                mrv = names[:short_months][self.month - 1]
+              when "%B"
+                mrv = names[:long_months][self.month - 1]
             end
 
-            mrv
+            mrv.sub!("%", "%%")
           end
 
-          self.to_formatted_s(localized_format)
+          mrv
         end
 
-        def to_localized_s(format = nil)
-          self.lstrftime(format = nil)
-        end
+        self.strftime(final_format)
+      end
 
-        def local_strftime(format = nil)
-          (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).strftime(format)
-        end
+      def local_strftime(format = nil)
+        (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).strftime(::DateTime.custom_format(format))
+      end
 
-        def local_lstrftime(format = nil)
-          (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
-        end
-      #end
+      def local_lstrftime(format = nil)
+        (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
+      end
     end
   end
 end

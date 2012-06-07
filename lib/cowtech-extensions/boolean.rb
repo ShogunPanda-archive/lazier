@@ -9,10 +9,6 @@ module Cowtech
 		module Boolean
 			extend ActiveSupport::Concern
 
-      included do
-        cattr_accessor :boolean_names
-      end
-
 			def to_i
 				(self == true) ? 1 : 0
 			end

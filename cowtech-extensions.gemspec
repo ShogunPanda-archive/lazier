@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
 	gem.add_dependency("actionpack", "~> 3.0")
+  gem.add_dependency("tzinfo", "~> 0.3.33")
 
   gem.add_development_dependency("rspec", "~> 2.10")
   gem.add_development_dependency("rcov", "~> 1.0.0")

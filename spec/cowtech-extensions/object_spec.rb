@@ -30,7 +30,7 @@ describe Cowtech::Extensions::Object do
     it "should return true for a invalid number" do
       "s213".is_number?.should be_false
       nil.is_number?.should be_false
-      end
+    end
   end
 
   describe "#is_integer?" do
@@ -80,9 +80,7 @@ describe Cowtech::Extensions::Object do
       0.is_boolean?.should be_true
     end
 
-    it "should return true for a invalid boolean" do
-      "11".is_boolean?.should be_false
-    end
+    it "should return true for a invalid boolean" do  "11".is_boolean?.should be_false end
   end
 
   describe "#ensure_string" do
@@ -106,13 +104,9 @@ describe Cowtech::Extensions::Object do
       "+1.231,45".to_float.should == 1231.45
     end
 
-    it "should return 0.0 for a invalid number without a default" do
-      "s213".to_float.should == 0.0
-    end
+    it "should return 0.0 for a invalid number without a default" do "s213".to_float.should == 0.0 end
 
-    it "should return the default for a invalid number" do
-      "s213".to_float(1.0).should == 1.0
-    end
+    it "should return the default for a invalid number" do "s213".to_float(1.0).should == 1.0 end
   end
 
   describe "#to_integer" do
@@ -123,13 +117,9 @@ describe Cowtech::Extensions::Object do
       "-123".to_integer.should == -123
     end
 
-    it "should return 0 for a invalid number without a default" do
-      "s213".to_integer.should == 0
-    end
+    it "should return 0 for a invalid number without a default" do "s213".to_integer.should == 0 end
 
-    it "should return the default for a invalid number" do
-      "s213".to_integer(1).should == 1
-    end
+    it "should return the default for a invalid number" do "s213".to_integer(1).should == 1 end
   end
 
   describe "#to_boolean" do
@@ -206,8 +196,6 @@ describe Cowtech::Extensions::Object do
       reference.debug_dump(:yaml, false).should == reference.to_yaml
     end
 
-    it "should raise an exception if requested" do
-      expect { {:a => "b"}.debug_dump }.to raise_error(Cowtech::Extensions::Exceptions::Dump)
-    end
+    it "should raise an exception if requested" do expect { {:a => "b"}.debug_dump }.to raise_error(Cowtech::Extensions::Exceptions::Dump) end
   end
 end
