@@ -13,13 +13,6 @@ module Cowtech
         cattr_accessor :boolean_names
       end
 
-      module ClassMethods
-        # TODO: To test
-        def cowtech_extensions_setup
-          TrueClass::boolean_names = ["No", "Yes"]
-        end
-      end
-
 			def to_i
 				(self == true) ? 1 : 0
 			end

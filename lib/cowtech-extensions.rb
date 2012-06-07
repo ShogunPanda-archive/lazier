@@ -20,6 +20,10 @@ require "cowtech-extensions/pathname"
 
 module Cowtech
 	module Extensions
+    def self.settings
+      Cowtech::Extensions::Settings.instance
+    end
+
 		def self.load!(*what)
 			what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
 			what.collect! { |w| w.to_s }
@@ -42,8 +46,6 @@ module Cowtech
           include Cowtech::Extensions::Object
           include Cowtech::Extensions::Boolean
 				end
-
-        TrueClass.cowtech_extensions_setup
       end
 
 			if what.include?("string") then
