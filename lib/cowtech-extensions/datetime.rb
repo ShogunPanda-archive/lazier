@@ -98,7 +98,7 @@ module Cowtech
         rv = nil
         names = Cowtech::Extensions.settings.date_names
 
-        final_format = ::DateTime.custom_format(format).ensure_string.gsub(/(%{1,2}[ab])/i) do |match|
+        final_format = ::DateTime.custom_format(format).ensure_string.gsub(/(%{1,2}[abz])/i) do |match|
           mrv = match
 
           if match !~ /^%%/ then
@@ -111,6 +111,8 @@ module Cowtech
                 mrv = names[:short_months][self.month - 1]
               when "%B"
                 mrv = names[:long_months][self.month - 1]
+              when "%z"
+                mrv = self.formatted_offset(false)  if RUBY_VERSION =~ /^1\.8/ # This is to fix ruby 1.8 bug in OSX
             end
 
             mrv.sub!("%", "%%")
