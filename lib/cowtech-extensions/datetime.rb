@@ -78,6 +78,35 @@ module Cowtech
         def rational_offset(tz = ::Time.zone)
           Rational((tz.tzinfo.current_period.utc_offset / 3600), 24)
         end
+
+        def parameterize_zone(tz)
+          tz = tz.to_s if !tz.is_a?(String)
+
+          if tz =~ /^(\([a-z]+([+-])(\d{2}):(\d{2})\)\s(.+))$/i then
+            "#{$2}#{$3}#{$4}@#{$5.parameterize}"
+          else
+            tz.parameterize
+          end
+        end
+
+        def find_parameterized_zone(tz, as_string = false)
+          tz = tz.to_s if !tz.is_a?(String)
+          tz.gsub!(/^(.\d{4}@)?/, "")
+
+          rv = catch(:zone) do
+            ActiveSupport::TimeZone::MAPPING.each_key do |zone|
+              throw(:zone, zone) if ::DateTime.parameterize_zone(zone) == tz
+            end
+
+            nil
+          end
+
+          if rv then
+            (as_string ? rv : ActiveSupport::TimeZone[rv])
+          else
+            nil
+          end
+        end
       end
 
       def utc_time
@@ -111,6 +140,8 @@ module Cowtech
                 mrv = names[:short_months][self.month - 1]
               when "%B"
                 mrv = names[:long_months][self.month - 1]
+              when "%Z"
+                mrv = self.formatted_offset(true)  if RUBY_VERSION =~ /^1\.8/ # This is to fix ruby 1.8 bug in OSX
               when "%z"
                 mrv = self.formatted_offset(false)  if RUBY_VERSION =~ /^1\.8/ # This is to fix ruby 1.8 bug in OSX
             end

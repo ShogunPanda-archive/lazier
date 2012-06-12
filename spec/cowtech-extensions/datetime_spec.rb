@@ -94,6 +94,22 @@ describe Cowtech::Extensions::DateTime do
     end
   end
 
+  describe "#parameterize_zone" do
+    it "should return the parameterized version of the zone" do
+      DateTime.parameterize_zone("Mountain Time (US & Canada)").should == "mountain-time-us-canada"
+      DateTime.parameterize_zone("(GMT-07:00) Mountain Time (US & Canada)").should == "-0700@mountain-time-us-canada"
+      DateTime.parameterize_zone(ActiveSupport::TimeZone["Mountain Time (US & Canada)"]).should == "-0700@mountain-time-us-canada"
+    end
+  end
+
+  describe "#find_parameterize_zone" do
+    it "should return the parameterized version of the zone" do
+      DateTime.find_parameterized_zone("-0700@mountain-time-us-canada").should == ActiveSupport::TimeZone["Mountain Time (US & Canada)"]
+      DateTime.find_parameterized_zone("-0700@mountain-time-us-canada", true).should == "Mountain Time (US & Canada)"
+      DateTime.find_parameterized_zone("foo").should be_nil
+    end
+  end
+
   describe "#utc_time" do
     it "should convert to UTC Time" do random_reference.utc_time.should be_kind_of(Time) end
   end
