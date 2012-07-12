@@ -91,7 +91,7 @@ module Cowtech
 
         def find_parameterized_zone(tz, as_string = false)
           tz = Date.parameterize_zone(tz) if !tz.is_a?(String)
-          tz.gsub!(/^(.+\d{4}@)?/, "")
+          tz = tz.gsub(/^(.+\d{4}@)?/, "")
 
           rv = catch(:zone) do
             ActiveSupport::TimeZone::MAPPING.each_key do |zone|
