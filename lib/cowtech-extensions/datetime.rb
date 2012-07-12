@@ -90,7 +90,7 @@ module Cowtech
         end
 
         def find_parameterized_zone(tz, as_string = false)
-          tz = tz.to_s if !tz.is_a?(String)
+          tz = Date.parameterize_zone(tz) if !tz.is_a?(String)
           tz.gsub!(/^(.\d{4}@)?/, "")
 
           rv = catch(:zone) do
