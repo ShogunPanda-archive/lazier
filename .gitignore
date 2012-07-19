@@ -2,3 +2,4 @@ coverage/
 pkg/
 .idea/
 Gemfile.lock
+.yardoc
