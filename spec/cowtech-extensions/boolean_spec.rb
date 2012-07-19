@@ -7,6 +7,10 @@
 require "spec_helper"
 
 describe Cowtech::Extensions::Boolean do
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
   describe "#to_i" do
     it "should return 1 for true" do true.to_i.should == 1 end
     it "should return 0 for false" do false.to_i.should == 0 end

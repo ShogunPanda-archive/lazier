@@ -6,13 +6,20 @@
 
 module Cowtech
 	module Extensions
+    # Extension for the boolean values.
 		module Boolean
 			extend ActiveSupport::Concern
 
+      # Converts the boolean to an integer.
+      #
+      # @return [Fixnum] `1` for `true`, `0` for `false`.
 			def to_i
 				(self == true) ? 1 : 0
 			end
 
+      # Returns the boolean itself for use in form helpers.
+      #
+      # @return [Boolean] The boolean value.
 			def value
 				self
 			end

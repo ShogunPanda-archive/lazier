@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
 	gem.name = "cowtech-extensions"
 	gem.version = Cowtech::Extensions::Version::STRING
   gem.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
-  gem.summary = %q{Several Ruby object enhancementa.}
+  gem.summary = %q{Several Ruby object enhancements.}
   gem.description = %q{Several Ruby object enhancements.}
   gem.rubyforge_project = "cowtech-extensions"
 
@@ -22,10 +22,14 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.add_dependency("json", "~> 1.7.0")
 	gem.add_dependency("actionpack", "~> 3.0")
-  gem.add_dependency("tzinfo", "~> 0.3.33")
+  gem.add_dependency("tzinfo", "~> 0.3.0")
 
-  gem.add_development_dependency("rspec", "~> 2.11")
-  gem.add_development_dependency("rcov", "~> 1.0.0")
-  gem.add_development_dependency("pry", "~> 0.9.9")
+  gem.add_development_dependency("rspec", "~> 2.11.0")
+  gem.add_development_dependency("simplecov", "~> 0.6.0")
+  gem.add_development_dependency("pry", "~> 0.9.9.0")
+  gem.add_development_dependency("yard", "~> 0.8.0")
+  gem.add_development_dependency("redcarpet", "~> 2.1.0")
+  gem.add_development_dependency("github-markup", "~> 0.7.0")
 end

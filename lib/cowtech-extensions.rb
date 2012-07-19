@@ -6,10 +6,12 @@
 
 $KCODE='UTF8' if RUBY_VERSION < '1.9'
 
+require "json"
 require "active_support/all"
 require "action_view"
 
-require "cowtech-extensions/utils"
+require "cowtech-extensions/exceptions"
+require "cowtech-extensions/settings"
 require "cowtech-extensions/object"
 require "cowtech-extensions/boolean"
 require "cowtech-extensions/string"
@@ -18,12 +20,35 @@ require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
 require "cowtech-extensions/pathname"
 
+# This is the top level module for Cowtech libraries.
 module Cowtech
+  # Several Ruby object enhancements.
 	module Extensions
+    # Checks if we are running under Ruby 1.8
+    #
+    # @return [Boolean] `true` for Ruby 1.8, `false` otherwise.
+    def self.is_ruby_18?
+      RUBY_VERSION =~ /^1\.8/
+    end
+
+    # Returns the settings for the extensions
+    #
+    # @return [Settings] The settings for the extensions.
     def self.settings
       Cowtech::Extensions::Settings.instance
     end
 
+    # Loads the extensions.
+    #
+    # @param what [Array] The modules to load. Valid values are:
+    #   @option object Extensions for all objects.
+    #   @option boolean Extensions for boolean values.
+    #   @option string Extensions for strings.
+    #   @option hash Extensions for hashs.
+    #   @option datetime Extensions date and time objects.
+    #   @option math Extensions for Math module.
+    #   @option pathname Extensions for path objects.
+    # @return [Settings] The settings for the extensions.
 		def self.load!(*what)
 			what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
 			what.collect! { |w| w.to_s }
@@ -86,7 +111,9 @@ module Cowtech
 				::Pathname.class_eval do
 					include Cowtech::Extensions::Pathname
 				end
-			end
+      end
+
+      Cowtech::Extensions::Settings.instance
 		end
 	end
 end

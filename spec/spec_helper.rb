@@ -5,9 +5,6 @@
 #
 
 require "rubygems"
+require "coverage_helper"
 require "bundler/setup"
 require "cowtech-extensions"
-
-RSpec.configure do |config|
-  Cowtech::Extensions.load!
-end

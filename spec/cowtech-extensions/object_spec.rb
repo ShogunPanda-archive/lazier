@@ -7,6 +7,10 @@
 require "spec_helper"
 
 describe Cowtech::Extensions::Object do
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
   describe "#normalize_number" do
     it "should correctly sanitize numbers" do
       123.normalize_number.should == "123"
@@ -187,13 +191,27 @@ describe Cowtech::Extensions::Object do
       "yes".format_boolean.should == "YYY"
       "abc".format_boolean.should == "NNN"
     end
+
+    it "should support overrides" do
+      Cowtech::Extensions.settings.setup_boolean_names
+      "yes".format_boolean("TTT").should == "TTT"
+      "yes".format_boolean(nil, "FFF").should == "Yes"
+      "abc".format_boolean("TTT").should == "No"
+      "abc".format_boolean(nil, "FFF").should == "FFF"
+    end
   end
 
   describe "#debug_dump" do
     it "should return the correct representation for an object" do
       reference = {:a => "b"}
       reference.debug_dump(:json, false).should == reference.to_json
+      reference.debug_dump(:pretty_json, false).should == JSON.pretty_generate(reference)
       reference.debug_dump(:yaml, false).should == reference.to_yaml
+    end
+
+    it "should inspect the object if the format is not recognized" do
+      reference = {:a => "b"}
+      reference.debug_dump(:unknown, false).should == reference.inspect
     end
 
     it "should raise an exception if requested" do expect { {:a => "b"}.debug_dump }.to raise_error(Cowtech::Extensions::Exceptions::Dump) end

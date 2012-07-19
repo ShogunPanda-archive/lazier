@@ -3,6 +3,16 @@
 Several Ruby object enhancements
 http://github.com/ShogunPanda/cowtech-extensions
 
+## Usage
+
+```ruby
+require "cowtech-extensions"
+Cowtech::Extensions.load!
+```
+
+That's all!
+See documentation for more informations.
+
 ## Contributing to cowtech-extensions
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

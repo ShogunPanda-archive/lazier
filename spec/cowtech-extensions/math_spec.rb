@@ -11,21 +11,31 @@ describe Cowtech::Extensions::Math do
   let(:second) { 2 }
   let(:third) { 0 }
 
-  describe "#min" do
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
+  describe "::min" do
     it "should return the minimum argument" do
-      ::Math.min().should be_nil
       ::Math.min(first).should == first
       ::Math.min(first, second).should == first
       ::Math.min([first, [second, third]]).should == third
     end
+
+    it "should return nil for an empty array" do
+      ::Math.min().should be_nil
+    end
   end
 
-  describe "#max" do
+  describe "::max" do
     it "should return the maximum argument" do
-      ::Math.min().should be_nil
       ::Math.max(first).should == first
       ::Math.max(first, second).should == second
       ::Math.max([first, [second, third]]).should == second
+    end
+
+    it "should return nil for an empty array" do
+      ::Math.max().should be_nil
     end
   end
 end

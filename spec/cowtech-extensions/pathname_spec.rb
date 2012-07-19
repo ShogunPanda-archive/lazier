@@ -9,6 +9,10 @@ require "spec_helper"
 describe Cowtech::Extensions::Pathname do
   let(:reference) { Pathname.new($0) }
 
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
   describe "#components" do
     it "should return the components of the path" do ([""] + reference.components).should == reference.to_s.split("/") end
   end

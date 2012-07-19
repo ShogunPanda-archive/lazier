@@ -12,6 +12,10 @@ describe Cowtech::Extensions::String do
   let(:untitleized_reference) { "abc-òùà-èé-&amp;gt;" }
   let(:amp_reference) { "abc òùà èé &gt;" }
 
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
   describe "#remove_accents" do
     it "should translate accents" do reference.remove_accents.should == translated_reference end
   end
@@ -22,5 +26,14 @@ describe Cowtech::Extensions::String do
 
   describe "#replace_ampersands" do
     it "should remove HTML ampersands" do reference.replace_ampersands.should == amp_reference end
+  end
+
+  describe "#value" do
+    it "should return the string itself" do
+      reference.value.should == reference
+      translated_reference.value.should == translated_reference
+      untitleized_reference.value.should == untitleized_reference
+      amp_reference.value.should == amp_reference
+    end
   end
 end

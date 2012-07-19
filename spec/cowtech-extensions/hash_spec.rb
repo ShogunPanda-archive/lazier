@@ -13,6 +13,10 @@ describe Cowtech::Extensions::Hash do
     rv
   }
 
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
   describe "#method_missing" do
     it "should allow method reference for string key" do reference.a.should == 1 end
     it "should allow method reference for symbol key" do reference.b.should == 2 end

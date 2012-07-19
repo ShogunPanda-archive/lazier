@@ -13,7 +13,11 @@ describe Cowtech::Extensions::DateTime do
     date = DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rational_offset(tz))
   }
 
-  describe "#days" do
+  before(:all) do
+    Cowtech::Extensions.load!
+  end
+
+  describe ".days" do
     it "should return the list of the days of the week" do
       DateTime.days.should be_kind_of(Array)
       DateTime.days[3].should == {:value => "4", :label => "Wed"}
@@ -28,7 +32,7 @@ describe Cowtech::Extensions::DateTime do
     end
   end
 
-  describe "#months" do
+  describe ".months" do
     it "should return the list of the months of the year" do
       DateTime.months.should be_kind_of(Array)
       DateTime.months[6].should == {:value => "07", :label => "Jul"}
@@ -44,16 +48,17 @@ describe Cowtech::Extensions::DateTime do
 
   end
 
-  describe "#years" do
+  describe ".years" do
     it "should return a range of years" do
-      DateTime.years.collect(&:value).should == (Date.today.year - 10..Date.today.year + 10).to_a
-      DateTime.years(5).collect(&:value).should == (Date.today.year - 5..Date.today.year + 5).to_a
-      DateTime.years(5, false).collect(&:value).should == (Date.today.year - 5..Date.today.year).to_a
-      DateTime.years(5, false, Date.civil(1900, 1, 1)).collect(&:value).should == (1895..1900).to_a
+      DateTime.years.should == (Date.today.year - 10..Date.today.year + 10).to_a
+      DateTime.years(5).should == (Date.today.year - 5..Date.today.year + 5).to_a
+      DateTime.years(5, true, nil, true).collect(&:value).should == (Date.today.year - 5..Date.today.year + 5).to_a
+      DateTime.years(5, false).should == (Date.today.year - 5..Date.today.year).to_a
+      DateTime.years(5, false, 1900).should == (1895..1900).to_a
     end
   end
 
-  describe "#easter" do
+  describe ".easter" do
     it "should compute the valid Easter day" do
       {1984 => "0422", 1995 => "0416", 2006 => "0416", 2017 => "0416"}.each do |year, date|
         DateTime.easter(year).strftime("%Y%m%d").should == "#{year}#{date}"
@@ -61,7 +66,7 @@ describe Cowtech::Extensions::DateTime do
     end
   end
 
-  describe "#custom_format" do
+  describe ".custom_format" do
     it "should find the format" do
       DateTime.custom_format(:ct_date).should == "%Y-%m-%d"
       DateTime.custom_format("ct_date").should == "%Y-%m-%d"
@@ -75,7 +80,7 @@ describe Cowtech::Extensions::DateTime do
     it "should return the key if format is not found" do DateTime.custom_format(:ct_unused) == "ct_unused" end
   end
 
-  describe "#is_valid?" do
+  describe ".is_valid?" do
     it "should recognize a valid date" do
       DateTime.is_valid?("2012-04-05", "%F").should be_true
       DateTime.is_valid?("2012-04-05", :ct_date).should be_true
@@ -87,14 +92,14 @@ describe Cowtech::Extensions::DateTime do
     end
   end
 
-  describe "#rational_offset" do
+  describe ".rational_offset" do
     it "should return the correct rational value" do
       DateTime.rational_offset(ActiveSupport::TimeZone[4]).should == Rational(4, 24)
       DateTime.rational_offset(ActiveSupport::TimeZone[-7]).should == Rational(-7, 24)
     end
   end
 
-  describe "#parameterize_zone" do
+  describe ".parameterize_zone" do
     it "should return the parameterized version of the zone" do
       DateTime.parameterize_zone("Mountain Time (US & Canada)").should == "mountain-time-us-canada"
       DateTime.parameterize_zone("(GMT-07:00) Mountain Time (US & Canada)").should == "-0700@mountain-time-us-canada"
@@ -102,7 +107,7 @@ describe Cowtech::Extensions::DateTime do
     end
   end
 
-  describe "#find_parameterize_zone" do
+  describe ".find_parameterize_zone" do
     it "should return the parameterized version of the zone" do
       DateTime.find_parameterized_zone("-0700@mountain-time-us-canada").should == ActiveSupport::TimeZone["Mountain Time (US & Canada)"]
       DateTime.find_parameterized_zone("-0700@mountain-time-us-canada", true).should == "Mountain Time (US & Canada)"
@@ -144,7 +149,13 @@ describe Cowtech::Extensions::DateTime do
       )
 
       fixed_reference.lstrftime(:ct_local_test).should == "3 33 6 66 07 2005 08"
-      end
+    end
+
+    it "should fix Ruby 1.8 %z and %Z bug" do
+      Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.8.7") }
+      fixed_reference.lstrftime("%z").should == "+0700"
+      fixed_reference.lstrftime("%:z").should == "+07:00"
+    end
   end
 
   describe "#local_strftime" do
