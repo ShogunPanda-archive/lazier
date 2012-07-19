@@ -8,7 +8,7 @@ module Cowtech
 	module Extensions
     # Extensions for the Pathname class.
 		module Pathname
-			extend ActiveSupport::Concern
+			extend ::ActiveSupport::Concern
 
       # Returns all the components that are included in this path.
       #

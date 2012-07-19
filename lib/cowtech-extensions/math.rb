@@ -8,7 +8,7 @@ module Cowtech
 	module Extensions
     # Utility methods for Math module.
 		module Math
-			extend ActiveSupport::Concern
+			extend ::ActiveSupport::Concern
 
       # General methods.
 			module ClassMethods

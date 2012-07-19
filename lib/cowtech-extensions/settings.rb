@@ -24,7 +24,7 @@ module Cowtech
       #
       # @return [Settings] The singleton instance of the settings.
       def self.instance
-        @instance ||= Cowtech::Extensions::Settings.new
+        @instance ||= self.new
       end
 
       # Initializes a new settings object.
@@ -86,7 +86,7 @@ module Cowtech
             @date_formats = formats
           end
 
-          @date_formats.each_pair do |k, v| Time::DATE_FORMATS[k] = v end
+          @date_formats.each_pair do |k, v| ::Time::DATE_FORMATS[k] = v end
         end
 
         @date_formats
@@ -102,7 +102,6 @@ module Cowtech
       # @param long_days [Array] The string representation of days.
       # @param short_days [Array] The abbreviated string representation of days.
       # @return [Hash] The new representations.
-
       def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
         long_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] if long_months.blank?
         short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] if short_months.blank?

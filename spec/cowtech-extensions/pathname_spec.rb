@@ -7,10 +7,10 @@
 require "spec_helper"
 
 describe Cowtech::Extensions::Pathname do
-  let(:reference) { Pathname.new($0) }
+  let(:reference) { ::Pathname.new($0) }
 
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
   describe "#components" do

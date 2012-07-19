@@ -8,7 +8,7 @@ module Cowtech
 	module Extensions
     # Extension for the boolean values.
 		module Boolean
-			extend ActiveSupport::Concern
+			extend ::ActiveSupport::Concern
 
       # Converts the boolean to an integer.
       #

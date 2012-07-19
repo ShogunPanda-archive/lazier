@@ -6,25 +6,36 @@
 
 module Cowtech
 	module Extensions
+    # Extensions for Hash objects.
 		module Hash
-			extend ActiveSupport::Concern
+			extend ::ActiveSupport::Concern
 
+      # This is called when the user access a member using dotted notation.
+      #
+      # @param method [String|Symbol] Key to search.
+      # @param args [Array] *Unused.*
+      # @param block [Proc] *Unused.*
+      # @return [Object] The value for the key.
 			def method_missing(method, *args, &block)
-        rv = nil
+       rv = nil
 
-        if self.has_key?(method.to_sym) then
+       if self.has_key?(method.to_sym) then
           rv = self[method.to_sym]
-        elsif self.has_key?(method.to_s) then
+       elsif self.has_key?(method.to_s) then
           rv = self[method.to_s]
-        else
-          rv = super(method, *args, &block)
-        end
+       else
+          rv = ::Hash.method_missing(method, *args, &block)
+       end
 
-        rv
+       rv
 			end
 
+      # This is called when the user access a member using dotted notation.
+      #
+      # @param method [String|Symbol] Key to search.
+      # @return [Boolean] `true` if the key exists, `false` otherwise.
 			def respond_to?(method)
-				(self.has_key?(method.to_sym) || self.has_key?(method.to_s)) ? true : super(method)
+				(self.has_key?(method.to_sym) || self.has_key?(method.to_s)) ? true : ::Hash.respond_to?(method)
 			end
 		end
 	end

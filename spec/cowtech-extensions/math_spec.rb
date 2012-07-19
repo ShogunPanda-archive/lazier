@@ -12,7 +12,7 @@ describe Cowtech::Extensions::Math do
   let(:third) { 0 }
 
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
   describe "::min" do

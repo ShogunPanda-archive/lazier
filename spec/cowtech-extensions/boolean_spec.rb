@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Cowtech::Extensions::Boolean do
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
   describe "#to_i" do

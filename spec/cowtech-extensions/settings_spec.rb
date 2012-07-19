@@ -7,12 +7,9 @@
 require "spec_helper"
 
 describe Cowtech::Extensions::Settings do
-  let(:reference) { Cowtech::Extensions::Settings.instance }
+  let(:reference) { ::Cowtech::Extensions::Settings.instance }
   let(:number_reference) { 123456.654321 }
-  let(:date_reference) {
-    tz = ActiveSupport::TimeZone[7]
-    date = DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rational_offset(tz))
-  }
+  let(:date_reference) { DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rationalize_offset(25200)) }
 
   before(:all) do
     Cowtech::Extensions.load!

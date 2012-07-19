@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Cowtech::Extensions::Object do
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
   describe "#normalize_number" do
@@ -205,7 +205,7 @@ describe Cowtech::Extensions::Object do
     it "should return the correct representation for an object" do
       reference = {:a => "b"}
       reference.debug_dump(:json, false).should == reference.to_json
-      reference.debug_dump(:pretty_json, false).should == JSON.pretty_generate(reference)
+      reference.debug_dump(:pretty_json, false).should == ::JSON.pretty_generate(reference)
       reference.debug_dump(:yaml, false).should == reference.to_yaml
     end
 
@@ -214,6 +214,6 @@ describe Cowtech::Extensions::Object do
       reference.debug_dump(:unknown, false).should == reference.inspect
     end
 
-    it "should raise an exception if requested" do expect { {:a => "b"}.debug_dump }.to raise_error(Cowtech::Extensions::Exceptions::Dump) end
+    it "should raise an exception if requested" do expect { {:a => "b"}.debug_dump }.to raise_error(::Cowtech::Extensions::Exceptions::Dump) end
   end
 end

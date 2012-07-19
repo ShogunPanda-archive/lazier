@@ -35,7 +35,7 @@ module Cowtech
     #
     # @return [Settings] The settings for the extensions.
     def self.settings
-      Cowtech::Extensions::Settings.instance
+      ::Cowtech::Extensions::Settings.instance
     end
 
     # Loads the extensions.
@@ -57,51 +57,55 @@ module Cowtech
 
 			if what.include?("object") then
 				::Object.class_eval do
-					include Cowtech::Extensions::Object
+					include ::Cowtech::Extensions::Object
 				end
 			end
 
 			if what.include?("boolean") then
 				::TrueClass.class_eval do
-					include Cowtech::Extensions::Object
-					include Cowtech::Extensions::Boolean
+					include ::Cowtech::Extensions::Object
+					include ::Cowtech::Extensions::Boolean
         end
 
 				::FalseClass.class_eval do
-          include Cowtech::Extensions::Object
-          include Cowtech::Extensions::Boolean
+          include ::Cowtech::Extensions::Object
+          include ::Cowtech::Extensions::Boolean
 				end
       end
 
 			if what.include?("string") then
 				::String.class_eval do
-					include Cowtech::Extensions::String
+					include ::Cowtech::Extensions::String
 				end
 			end
 
 			if what.include?("hash") then
 				::Hash.class_eval do
-					include Cowtech::Extensions::Hash
+					include ::Cowtech::Extensions::Hash
 				end
 			end
 
 			if what.include?("datetime") then
 				::Time.class_eval do
-					include Cowtech::Extensions::DateTime
+					include ::Cowtech::Extensions::DateTime
 				end
 
 				::Date.class_eval do
-					include Cowtech::Extensions::DateTime
+					include ::Cowtech::Extensions::DateTime
 				end
 
 				::DateTime.class_eval do
-					include Cowtech::Extensions::DateTime
-				end
+					include ::Cowtech::Extensions::DateTime
+        end
+
+        ::ActiveSupport::TimeZone.class_eval do
+          include ::Cowtech::Extensions::TimeZone
+        end
 			end
 
 			if what.include?("math") then
 				::Math.class_eval do
-					include Cowtech::Extensions::Math
+					include ::Cowtech::Extensions::Math
 				end
 			end
 
@@ -109,11 +113,11 @@ module Cowtech
 				require "pathname"
 
 				::Pathname.class_eval do
-					include Cowtech::Extensions::Pathname
+					include ::Cowtech::Extensions::Pathname
 				end
       end
 
-      Cowtech::Extensions::Settings.instance
+      ::Cowtech::Extensions::Settings.instance
 		end
 	end
 end

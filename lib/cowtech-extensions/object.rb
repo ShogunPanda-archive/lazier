@@ -8,8 +8,8 @@ module Cowtech
 	module Extensions
     # Extensions for all objects.
 		module Object
-			include ActionView::Helpers::NumberHelper
-			extend ActiveSupport::Concern
+			include ::ActionView::Helpers::NumberHelper
+			extend ::ActiveSupport::Concern
 
       # Normalizes a number for conversion. Basically this methods removes all separator and ensures that `.` is used for decimal separator.
       #
@@ -32,28 +32,28 @@ module Cowtech
       #
       # @return [Boolean] `true` is a valid integer, `false` otherwise.
 			def is_integer?
-				self.is_a?(Integer) || /^([+-]?)(\d+)$/.match(self.normalize_number)
+				self.is_a?(::Integer) || /^([+-]?)(\d+)$/.match(self.normalize_number)
 			end
 
       # Checks if the object is a valid float.
       #
       # @return [Boolean] `true` is a valid float, `false` otherwise.
 			def is_float?
-				self.is_a?(Float) || /^([+-]?)(\d+)([.,]\d+)?$/.match(self.normalize_number)
+				self.is_a?(::Float) || /^([+-]?)(\d+)([.,]\d+)?$/.match(self.normalize_number)
 			end
 
       # Checks if the object is a valid boolean value.
       #
       # @return [Boolean] `true` is a valid boolean value, `false` otherwise.
 			def is_boolean?
-				self.is_a?(TrueClass) || self.is_a?(FalseClass) || self.is_a?(NilClass) || (self.ensure_string.strip =~ /^(1|0|true|false|yes|no|t|f|y|n)$/i)
+				self.is_a?(::TrueClass) || self.is_a?(::FalseClass) || self.is_a?(::NilClass) || (self.ensure_string.strip =~ /^(1|0|true|false|yes|no|t|f|y|n)$/i)
 			end
 
       # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
       #
       # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
 			def ensure_array
-				self.is_a?(Array) ? self : [self]
+				self.is_a?(::Array) ? self : [self]
 			end
 
       # Makes sure that the object is a string. For `nil`, it returns "".
@@ -68,12 +68,12 @@ module Cowtech
       # @param default_value [Float] The value to return if the conversion is not possible.
       # @return [Float] The float representation of the object.
       def to_float(default_value = 0.0)
-        if self.is_a?(Float)
+        if self.is_a?(::Float)
           self
-        elsif self.is_a?(Integer)
+        elsif self.is_a?(::Integer)
           self.to_f
         else
-				  self.is_float? ? Kernel.Float(self.normalize_number) : default_value
+				  self.is_float? ? ::Kernel.Float(self.normalize_number) : default_value
         end
 			end
 
@@ -82,12 +82,12 @@ module Cowtech
       # @param default_value [Fixnum] The value to return if the conversion is not possible.
       # @return [Fixnum] The integer representation of the object.
 			def to_integer(default_value = 0)
-        if self.is_a?(Integer)
+        if self.is_a?(::Integer)
           self
-        elsif self.is_a?(Float)
+        elsif self.is_a?(::Float)
           self.to_i
         else
-          self.is_integer? ? Kernel.Integer(self.normalize_number) : default_value
+          self.is_integer? ? ::Kernel.Integer(self.normalize_number) : default_value
         end
       end
 
@@ -96,7 +96,7 @@ module Cowtech
       # @return [Boolean] The boolean representation of the object.
 			def to_boolean
         rv = self
-        rv = rv.to_i if rv.is_a?(Float)
+        rv = rv.to_i if rv.is_a?(::Float)
 				(rv.is_a?(TrueClass) || /^(1|on|true|yes|t|y)$/i.match(rv.ensure_string.strip)) ? true : false
 			end
 
@@ -117,10 +117,10 @@ module Cowtech
       # @param k_separator [String] The string to use as thousands separator.
       # @return [String] The string representation of the object.
 			def format_number(prec = nil, decimal_separator = nil, add_string = nil, k_separator = nil)
-        prec = Cowtech::Extensions.settings.format_number[:prec] if prec.nil?
-        decimal_separator = Cowtech::Extensions.settings.format_number[:decimal_separator] if decimal_separator.nil?
-        add_string = Cowtech::Extensions.settings.format_number[:add_string] if add_string.nil?
-        k_separator = Cowtech::Extensions.settings.format_number[:k_separator] if k_separator.nil?
+        prec = ::Cowtech::Extensions.settings.format_number[:prec] if prec.nil?
+        decimal_separator = ::Cowtech::Extensions.settings.format_number[:decimal_separator] if decimal_separator.nil?
+        add_string = ::Cowtech::Extensions.settings.format_number[:add_string] if add_string.nil?
+        k_separator = ::Cowtech::Extensions.settings.format_number[:k_separator] if k_separator.nil?
 
         (self.is_number? && prec >= 0) ? number_to_currency(self, {:precision => prec, :separator => decimal_separator, :delimiter => k_separator, :format => add_string.blank? ? "%n" : "%n %u", :unit => add_string.blank? ? "" : add_string.strip}) : nil
       end
@@ -133,8 +133,8 @@ module Cowtech
       # @return [String] The string representation of the object.
 			def format_boolean(true_name = nil, false_name = nil)
         names = {
-          true => true_name || Cowtech::Extensions.settings.boolean_names[true],
-          false => false_name ||  Cowtech::Extensions.settings.boolean_names[false]
+          true => true_name || ::Cowtech::Extensions.settings.boolean_names[true],
+          false => false_name || ::Cowtech::Extensions.settings.boolean_names[false]
         }
 
         names[self.to_boolean]
@@ -150,7 +150,7 @@ module Cowtech
 
 				begin
 					if format == :pretty_json then
-						rv = JSON.pretty_generate(self)
+						rv = ::JSON.pretty_generate(self)
 					else
 						rv = self.send("to_#{format}")
 					end
@@ -158,7 +158,7 @@ module Cowtech
 					rv = self.inspect
 				end
 
-				must_raise ? raise(Cowtech::Extensions::Exceptions::Dump.new(rv)) : rv
+				must_raise ? raise(::Cowtech::Extensions::Exceptions::Dump.new(rv)) : rv
 			end
 		end
 	end

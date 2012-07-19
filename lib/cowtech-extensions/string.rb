@@ -8,7 +8,7 @@ module Cowtech
 	module Extensions
     # Extensions for the String class.
 		module String
-			extend ActiveSupport::Concern
+			extend ::ActiveSupport::Concern
 
       # Removes accents from the string, normalizing to the normal letter.
       #

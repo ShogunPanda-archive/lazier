@@ -14,11 +14,10 @@ describe Cowtech::Extensions::Hash do
   }
 
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
-  describe "#method_missing" do
-    it "should allow method reference for string key" do reference.a.should == 1 end
+  describe "allows access to keys using method syntax" do
     it "should allow method reference for symbol key" do reference.b.should == 2 end
     it "should use super for missing key" do expect {reference.c}.to raise_error(NoMethodError) end
   end

@@ -13,7 +13,7 @@ describe Cowtech::Extensions::String do
   let(:amp_reference) { "abc òùà èé &gt;" }
 
   before(:all) do
-    Cowtech::Extensions.load!
+    ::Cowtech::Extensions.load!
   end
 
   describe "#remove_accents" do
