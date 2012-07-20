@@ -7,6 +7,7 @@
 $KCODE='UTF8' if RUBY_VERSION < '1.9'
 
 require "json"
+require "tzinfo"
 require "active_support/all"
 require "action_view"
 

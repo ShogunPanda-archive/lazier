@@ -15,6 +15,23 @@ describe Cowtech::Extensions::Settings do
     Cowtech::Extensions.load!
   end
 
+  describe "#initialize" do
+    it "should create good defaults" do
+      settings = ::Cowtech::Extensions::Settings.new
+      settings.format_number.should be_a(Hash)
+      settings.boolean_names.should be_a(Hash)
+      settings.date_names.should be_a(Hash)
+      settings.date_formats.should be_a(Hash)
+    end
+
+    it "should create good defaults for the singleton" do
+      reference.format_number.should be_a(Hash)
+      reference.boolean_names.should be_a(Hash)
+      reference.date_names.should be_a(Hash)
+      reference.date_formats.should be_a(Hash)
+    end
+  end
+
   describe "#setup_format_number" do
     it "should save format numbering options for usage" do
       reference.setup_format_number(2)
