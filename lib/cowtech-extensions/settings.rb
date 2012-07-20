@@ -24,15 +24,15 @@ module Cowtech
       #
       # @return [Settings] The singleton instance of the settings.
       def self.instance
-        @instance ||= self.new()
+        @instance ||= self.new
       end
 
       # Initializes a new settings object.
       def initialize
-        self.setup_format_number()
-        self.setup_boolean_names()
-        self.setup_date_formats()
-        self.setup_date_names()
+        self.setup_format_number
+        self.setup_boolean_names
+        self.setup_date_formats
+        self.setup_date_names
       end
 
       # Setups formatters for a number.
