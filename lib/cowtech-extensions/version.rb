@@ -5,22 +5,22 @@
 #
 
 module Cowtech
-	module Extensions
+  module Extensions
     # The current version of cowtech-extensions, according semantic versioning.
     #
     # @see http://semver.org
-		module Version
+    module Version
       # The major version.
-			MAJOR = 2
+      MAJOR = 2
 
       # The minor version.
-			MINOR = 5
+      MINOR = 5
 
       # The patch version.
-			PATCH = 0
+      PATCH = 1
 
       # The current version of cowtech-extensions.
-			STRING = [MAJOR, MINOR, PATCH].compact.join(".")
-		end
-	end
+      STRING = [MAJOR, MINOR, PATCH].compact.join(".")
+    end
+  end
 end
