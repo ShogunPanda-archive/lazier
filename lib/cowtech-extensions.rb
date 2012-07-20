@@ -54,7 +54,10 @@ module Cowtech
 			what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
 			what.collect! { |w| w.to_s }
 
-			yield if block_given?
+      # Dependency resolving
+      what << "object" if what.include?("datetime")
+      what << "object" if what.include?("math")
+      what.compact.uniq!
 
 			if what.include?("object") then
 				::Object.class_eval do
@@ -117,6 +120,8 @@ module Cowtech
 					include ::Cowtech::Extensions::Pathname
 				end
       end
+
+      yield if block_given?
 
       ::Cowtech::Extensions::Settings.instance
 		end
