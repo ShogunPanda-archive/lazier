@@ -287,6 +287,15 @@ describe Cowtech::Extensions::TimeZone do
     end
   end
 
+  describe "#dst_name" do
+    it "should correctly get zone name with DST" do
+      reference_zone.dst_name.should == "Mountain Time (US & Canada) (Daylight Saving Time)"
+      reference_zone.dst_name("DST").should == "Mountain Time (US & Canada) DST"
+      reference_zone.dst_name(nil, 1000).should be_nil
+      zone_without_dst.to_s_with_dst.should be_nil
+    end
+  end
+
   describe "#dst_correction" do
     it "should correctly detect offset usage" do
       reference_zone.dst_correction.should == 3600
@@ -306,7 +315,7 @@ describe Cowtech::Extensions::TimeZone do
   end
 
   describe "#to_s_with_dst" do
-    it "should correctly format zone name" do
+    it "should correctly format zone with DST" do
       reference_zone.to_s_with_dst.should == "(GMT-06:00) Mountain Time (US & Canada) (Daylight Saving Time)"
       reference_zone.to_s_with_dst("DST").should == "(GMT-06:00) Mountain Time (US & Canada) DST"
       reference_zone.to_s_with_dst(nil, 1000).should be_nil
@@ -315,14 +324,14 @@ describe Cowtech::Extensions::TimeZone do
   end
 
   describe "#to_s_parameterized" do
-    it "should correctly parameterize zone name" do
+    it "should correctly format (parameterized) zone" do
       reference_zone.to_s_parameterized.should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone)
       reference_zone.to_s_parameterized(false).should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone, false)
     end
   end
 
   describe "#to_s_with_dst_parameterized" do
-    it "should correctly parameterize zone name" do
+    it "should correctly format (parameterized) zone with DST" do
       reference_zone.to_s_with_dst_parameterized.should == "-0600@mountain-time-us-canada-daylight-saving-time"
       reference_zone.to_s_with_dst_parameterized("DST").should == "-0600@mountain-time-us-canada-dst"
       reference_zone.to_s_with_dst_parameterized(nil, false, 1000).should be_nil

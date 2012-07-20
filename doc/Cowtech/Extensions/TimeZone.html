@@ -172,6 +172,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#dst_name-instance_method" title="#dst_name (instance method)">- (String) <strong>dst_name</strong>(dst_label = nil, year = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the name for this zone with DST (Daylight Saving Time) active.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#dst_offset-instance_method" title="#dst_offset (instance method)">- (Fixnum|Rational) <strong>dst_offset</strong>(rational = false, year = nil) </a>
     
 
@@ -255,7 +278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the parametized name for this zone.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns a parametized string representation for this zone.</p>
 </div></span>
   
 </li>
@@ -278,7 +301,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the name for this zone with DST (Daylight Saving Time) active.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns a string representation for this zone with DST (Daylight Saving Time) active.</p>
 </div></span>
   
 </li>
@@ -301,7 +324,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the parametized name for this zone with DST (Daylight Saving Time) active.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns a parametized string representation for this zone with DST (Daylight Saving Time) active.</p>
 </div></span>
   
 </li>
@@ -432,15 +455,14 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 373</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_current_offset identifier id'>current_offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_date identifier id'>date</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_date identifier id'>date</span> <span class='opasgn op'>||=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_now identifier id'>now</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_current_offset'>current_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_date'>date</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_date'>date</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
 
-  <span class='rubyid_dst_period identifier id'>dst_period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span>
+  <span class='id identifier rubyid_dst_period'>dst_period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span>
 
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_date identifier id'>date</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_offset identifier id'>dst_offset</span> <span class='colon op'>:</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_offset identifier id'>offset</span><span class='rparen token'>)</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_offset'>dst_offset</span> <span class='op'>:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_offset'>offset</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -535,12 +557,110 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 419</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_correction identifier id'>dst_correction</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_period identifier id'>period</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_std_offset identifier id'>std_offset</span> <span class='colon op'>:</span> <span class='integer val'>0</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_correction'>dst_correction</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_std_offset'>std_offset</span> <span class='op'>:</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="dst_name-instance_method">
+  
+    - (<tt><span class='object_link'><a href="String.html" title="Cowtech::Extensions::String (module)">String</a></span></tt>) <strong>dst_name</strong>(dst_label = nil, year = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the name for this zone with DST (Daylight Saving Time) active.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>dst_label</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Cowtech::Extensions::String (module)">String</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Label for the DST indication. Defaults to <code>(Daylight Saving Time)</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>year</span>
+      
+      
+        <span class='type'>(<tt>Fixnum</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The year to which refer to. Defaults to the current year.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Cowtech::Extensions::String (module)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The name for the zone with DST or <code>nil</code>, if the timezone doesn&#39;t use DST for that year.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+441
+442
+443
+444
+445</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 441</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_name'>dst_name</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(Daylight Saving Time)</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -635,12 +755,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 430</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_offset identifier id'>dst_offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_period identifier id'>period</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_utc_total_offset identifier id'>utc_total_offset</span> <span class='colon op'>:</span> <span class='integer val'>0</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_offset'>dst_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_utc_total_offset'>utc_total_offset</span> <span class='op'>:</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -723,17 +842,16 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 395</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_year identifier id'>year</span> <span class='opasgn op'>||=</span> <span class='colon3 op'>::</span><span class='rubyid_Date constant id'>Date</span><span class='dot token'>.</span><span class='rubyid_today identifier id'>today</span><span class='dot token'>.</span><span class='rubyid_year identifier id'>year</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_year'>year</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span>
 
-  <span class='rubyid_nothern_summer identifier id'>nothern_summer</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_civil identifier id'>civil</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='comma token'>,</span> <span class='integer val'>7</span><span class='comma token'>,</span> <span class='integer val'>15</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span> <span class='comment val'># This is a representation of a summer period in the Northern Hemisphere.</span>
-  <span class='rubyid_southern_summer identifier id'>southern_summer</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_civil identifier id'>civil</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='integer val'>15</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span> <span class='comment val'># This is a representation of a summer period in the Northern Hemisphere.</span>
-
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_nothern_summer identifier id'>nothern_summer</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_southern_summer identifier id'>southern_summer</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='notop op'>!</span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span>
-  <span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_nothern_summer'>nothern_summer</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_civil'>civil</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='int'>7</span><span class='comma'>,</span> <span class='int'>15</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span> <span class='comment'># This is a representation of a summer period in the Northern Hemisphere.
+</span>  <span class='id identifier rubyid_southern_summer'>southern_summer</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_civil'>civil</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>15</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span> <span class='comment'># This is a representation of a summer period in the Northern Hemisphere.
+</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_nothern_summer'>nothern_summer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_southern_summer'>southern_summer</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span>
+  <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -810,11 +928,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 386</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_offset identifier id'>offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_utc_offset identifier id'>utc_offset</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_utc_offset'>utc_offset</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -831,7 +948,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the parametized name for this zone.</p>
+    <p>Returns a parametized string representation for this zone.</p>
 
 
   </div>
@@ -870,7 +987,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The parametized name for this zone.</p>
+        <div class='inline'><p>The parametized string representation for this zone.</p>
 </div>
       
     </li>
@@ -883,17 +1000,16 @@
       <pre class="lines">
 
 
-457
-458
-459</pre>
+468
+469
+470</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 457</span>
+      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 468</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s_parameterized identifier id'>to_s_parameterized</span><span class='lparen token'>(</span><span class='rubyid_with_offset identifier id'>with_offset</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='colon3 op'>::</span><span class='rubyid_ActiveSupport constant id'>ActiveSupport</span><span class='colon2 op'>::</span><span class='rubyid_TimeZone constant id'>TimeZone</span><span class='dot token'>.</span><span class='rubyid_parameterize_zone identifier id'>parameterize_zone</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='comma token'>,</span> <span class='rubyid_with_offset identifier id'>with_offset</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s_parameterized'>to_s_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -910,7 +1026,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the name for this zone with DST (Daylight Saving Time) active.</p>
+    <p>Returns a string representation for this zone with DST (Daylight Saving Time) active.</p>
 
 
   </div>
@@ -966,7 +1082,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The name for the zone with DST or <code>nil</code>, if the timezone doesn&#39;t use DST for that year.</p>
+        <div class='inline'><p>The string representation for the zone with DST or <code>nil</code>, if the timezone doesn&#39;t use DST for that year.</p>
 </div>
       
     </li>
@@ -979,33 +1095,32 @@
       <pre class="lines">
 
 
-441
-442
-443
-444
-445
-446
-447
-448
-449
-450
-451</pre>
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 441</span>
+      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 452</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s_with_dst identifier id'>to_s_with_dst</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_dst_label identifier id'>dst_label</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;(Daylight Saving Time)&quot;</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s_with_dst'>to_s_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(Daylight Saving Time)</span><span class='tstring_end'>&quot;</span></span>
 
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_uses_dst? fid id'>uses_dst?</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span> <span class='rubyid_then then kw'>then</span>
-    <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-    <span class='rubyid_offset identifier id'>offset</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_seconds_to_utc_offset identifier id'>seconds_to_utc_offset</span><span class='lparen token'>(</span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_utc_total_offset identifier id'>utc_total_offset</span><span class='rparen token'>)</span>
-    <span class='dstring node'>&quot;(GMT#{offset}) #{name} #{dst_label}&quot;</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='kw'>then</span>
+    <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_offset'>offset</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_seconds_to_utc_offset'>seconds_to_utc_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_utc_total_offset'>utc_total_offset</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(GMT</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_offset'>offset</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1022,7 +1137,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the parametized name for this zone with DST (Daylight Saving Time) active.</p>
+    <p>Returns a parametized string representation for this zone with DST (Daylight Saving Time) active.</p>
 
 
   </div>
@@ -1095,7 +1210,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The parametized name for this zone with DST or <code>nil</code>, if the timezone doesn&#39;t use DST for that year.</p>
+        <div class='inline'><p>The parametized string representation for this zone with DST or <code>nil</code>, if the timezone doesn&#39;t use DST for that year.</p>
 </div>
       
     </li>
@@ -1108,19 +1223,18 @@
       <pre class="lines">
 
 
-467
-468
-469
-470</pre>
+478
+479
+480
+481</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 467</span>
+      <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 478</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s_with_dst_parameterized identifier id'>to_s_with_dst_parameterized</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_with_offset identifier id'>with_offset</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_to_s_with_dst identifier id'>to_s_with_dst</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='integer val'>? </span><span class='colon2 op'>::</span><span class='rubyid_ActiveSupport constant id'>ActiveSupport</span><span class='colon2 op'>::</span><span class='rubyid_TimeZone constant id'>TimeZone</span><span class='dot token'>.</span><span class='rubyid_parameterize_zone identifier id'>parameterize_zone</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s_with_dst_parameterized'>to_s_with_dst_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_s_with_dst'>to_s_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>?</span> <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1196,10 +1310,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cowtech-extensions/datetime.rb', line 410</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_uses_dst? fid id'>uses_dst?</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_present? fid id'>present?</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1210,9 +1323,9 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Jul 20 10:23:57 2012 by
+  Generated on Fri Jul 20 14:28:07 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.8.7).
+  0.8.2.1 (ruby-1.9.2).
 </div>
 
   </body>
