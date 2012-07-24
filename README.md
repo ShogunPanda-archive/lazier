@@ -1,5 +1,8 @@
 # cowtech-lib
 
+[![Build Status](https://secure.travis-ci.org/ShogunPanda/cowtech-extensions.png?branch=master)](http://travis-ci.org/ShogunPanda/cowtech-extensions)
+[![Dependency Status](https://gemnasium.com/ShogunPanda/cowtech-extensions.png?travis)](https://gemnasium.com/ShogunPanda/cowtech-extensions)
+
 Several Ruby object enhancements
 http://github.com/ShogunPanda/cowtech-extensions
 
