@@ -14,7 +14,7 @@ module Cowtech
       MAJOR = 2
 
       # The minor version.
-      MINOR = 6
+      MINOR = 7
 
       # The patch version.
       PATCH = 0

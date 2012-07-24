@@ -70,7 +70,7 @@ module Cowtech
         # Returns a list of names of all timezones.
         #
         # @param with_dst [Boolean] If include DST version of the zones.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [Array] A list of names of timezones.
         def list_timezones(with_dst = true, dst_label = nil)
           ::ActiveSupport::TimeZone.list_all(with_dst, dst_label)
@@ -79,7 +79,7 @@ module Cowtech
         # Find a zone by its name.
         #
         # @param name [String] The zone name.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [TimeZone] A timezone or `nil` if no zone was found.
         def find_timezone(name = true, dst_label = nil)
           ::ActiveSupport::TimeZone.find(name, dst_label)
@@ -103,7 +103,7 @@ module Cowtech
         #
         # @param tz [String] The zone to unparameterize.
         # @param as_string [Boolean] If return just the zone name.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [String|TimeZone] The found timezone or `nil` if the zone is not valid.
         def unparameterize_zone(tz, as_string = false, dst_label = nil)
           ::ActiveSupport::TimeZone::unparameterize_zone(tz, as_string, dst_label)
@@ -285,12 +285,14 @@ module Cowtech
         # Find a zone by its name.
         #
         # @param name [String] The zone name.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [TimeZone] A timezone or `nil` if no zone was found.
         def find(name, dst_label = nil)
           catch(:zone) do
             ::ActiveSupport::TimeZone.all.each do |zone|
-              throw(:zone, zone) if [zone.to_s, zone.to_s_with_dst(dst_label)].include?(name)
+              zone.aliases.each do |zone_alias|
+                throw(:zone, zone) if [zone.to_str(zone_alias), zone.to_str_with_dst(dst_label, nil, zone_alias)].include?(name)
+              end
             end
 
             nil
@@ -300,19 +302,24 @@ module Cowtech
         # Returns a list of names of all timezones.
         #
         # @param with_dst [Boolean] If include DST version of the zones.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [Array] A list of names of timezones.
         def list_all(with_dst = true, dst_label = nil)
+          dst_label ||= "(DST)"
           dst_key = "DST-#{dst_label}"
-          @zones_names ||= { "STANDARD" => ActiveSupport::TimeZone.all.collect(&:to_s) }
+          @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.collect(&:to_s) }
 
           if with_dst && @zones_names[dst_key].blank? then
             @zones_names[dst_key] = []
 
             ::ActiveSupport::TimeZone.all.each do |zone|
-              @zones_names[dst_key] << zone.to_s
-              @zones_names[dst_key] << zone.to_s_with_dst(dst_label) if zone.uses_dst?
+              zone.aliases.each do |zone_alias|
+                @zones_names[dst_key] << zone.to_str(zone_alias)
+                @zones_names[dst_key] << zone.to_str_with_dst(dst_label, nil, zone_alias) if zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/
+              end
             end
+
+            @zones_names[dst_key]= @zones_names[dst_key].uniq.compact.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
           end
 
           @zones_names[with_dst ? dst_key : "STANDARD"]
@@ -344,14 +351,13 @@ module Cowtech
         #
         # @param tz [String] The zone to unparameterize.
         # @param as_string [Boolean] If return just the zone name.
-        # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
         # @return [String|TimeZone] The found timezone or `nil` if the zone is not valid.
         def unparameterize_zone(tz, as_string = false, dst_label = nil)
           tz = self.parameterize_zone(tz, false)
-
           rv = catch(:zone) do
             self.list_all(true, dst_label).each do |zone|
-              throw(:zone, zone) if self.parameterize_zone(zone, false) == tz
+              throw(:zone, zone) if self.parameterize_zone(zone, false) =~ /(#{Regexp.quote(tz)})$/
             end
 
             nil
@@ -363,9 +369,49 @@ module Cowtech
             nil
           end
         end
+
+        # Compares two timezones. They are sorted by the location name.
+        #
+        # @param left [String|TimeZone] The first zone name to compare.
+        # @param right [String|TimeZone] The second zone name to compare.
+        # @return [Fixnum] The result of comparison, like Ruby's operator `<=>`.
+        def compare(left, right)
+          left = left.to_str if left.is_a?(::ActiveSupport::TimeZone)
+          right = right.to_str if right.is_a?(::ActiveSupport::TimeZone)
+          left.ensure_string.split(" ", 2)[1] <=> right.ensure_string.split(" ", 2)[1]
+        end
       end
 
-      # Returns the current offset for this timezone, taking care of DST (Daylight Saving Time).
+      # Returns a list of valid aliases (city names) for this timezone (basing on offset).
+      #
+      # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
+      # @return [Array] A list of aliases for this timezone
+      def aliases(dst_label = nil)
+        reference = self.name
+        reference = self.class::MAPPING[self.name] if self.class::MAPPING.has_key?(self.name) # We are an alias
+        reference = reference.gsub("_", " ")
+
+        if @aliases.blank? then
+          # First we search for aliases by name
+          @aliases = [reference]
+
+          self.class::MAPPING.each do |name, zone|
+            if zone.gsub("_", " ") == reference then
+              if name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")
+                @aliases << name
+              else
+                @aliases << reference.gsub(/\/.*/, "/" + name)
+              end
+            end
+          end
+
+          @aliases = @aliases.uniq.compact.sort
+        end
+
+        @aliases
+      end
+
+      # Returns the current offset for this timezone, taking care of DST (DST).
       #
       # @param rational [Boolean] If to return the offset as a Rational.
       # @param date [DateTime] The date to consider. Defaults to now.
@@ -388,10 +434,10 @@ module Cowtech
         rational ? self.class.rationalize_offset(rv) : rv
       end
 
-      # Gets a period for this timezone when the DST (Daylight Saving Time) is active (it takes care of different hemispheres).
+      # Gets a period for this timezone when the DST (DST) is active (it takes care of different hemispheres).
       #
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
-      # @return [TimezonePeriod] A period when the DST (Daylight Saving Time) is active or `nil` if the timezone doesn't use DST for that year.
+      # @return [TimezonePeriod] A period when the DST (DST) is active or `nil` if the timezone doesn't use DST for that year.
       def dst_period(year = nil)
         year ||= ::Date.today.year
 
@@ -403,7 +449,7 @@ module Cowtech
         period.dst? ? period : nil
       end
 
-      # Checks if the timezone uses DST (Daylight Saving Time) for that year.
+      # Checks if the timezone uses DST (DST) for that year.
       #
       # @param year [Fixnum] The year to check. Defaults to the current year.
       # @return [Boolean] `true` if the zone uses DST, `false` otherwise.
@@ -411,7 +457,7 @@ module Cowtech
         self.dst_period(year).present?
       end
 
-      # Return the correction applied to the standard offset the timezone when the DST (Daylight Saving Time) is active.
+      # Return the correction applied to the standard offset the timezone when the DST (DST) is active.
       #
       # @param rational [Boolean] If to return the offset as a Rational.
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
@@ -422,35 +468,49 @@ module Cowtech
         rational ? self.class.rationalize_offset(rv) : rv
       end
 
-      # Returns the standard offset for this timezone timezone when the DST (Daylight Saving Time) is active.
+      # Returns the standard offset for this timezone timezone when the DST (DST) is active.
       #
       # @param rational [Boolean] If to return the offset as a Rational.
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
-      # @return [Fixnum|Rational] The DST offset for this timezone or `0` , if the timezone doesn't use DST for that year.
+      # @return [Fixnum|Rational] The DST offset for this timezone or `0`, if the timezone doesn't use DST for that year.
       def dst_offset(rational = false, year = nil)
         period = self.dst_period(year)
         rv = period ? period.utc_total_offset : 0
         rational ? self.class.rationalize_offset(rv) : rv
       end
 
-      # Returns the name for this zone with DST (Daylight Saving Time) active.
+      # Returns the name for this zone with DST (DST) active.
       #
-      # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+      # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+      # @param name [String] The name to use for this zone. Defaults to the zone name.
       # @return [String] The name for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
-      def dst_name(dst_label = nil, year = nil)
-        dst_label ||= "(Daylight Saving Time)"
+      def dst_name(dst_label = nil, year = nil, name = nil)
+        dst_label ||= "(DST)"
+        name ||= self.name
 
         self.uses_dst?(year) ? "#{name} #{dst_label}" : nil
       end
 
-      # Returns a string representation for this zone with DST (Daylight Saving Time) active.
+      # Returns the name for this zone with DST (DST) active.
       #
-      # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+      # @param name [String] The name to use for this zone. Defaults to the zone name.
+      # @param colon [Boolean] If to put the colon in the output string.
+      # @return [String] The name for this zone.
+      def to_str(name = nil, colon = true)
+        name ||= self.aliases.first
+        "(GMT#{self.formatted_offset(colon)}) #{name}"
+      end
+
+      # Returns a string representation for this zone with DST (DST) active.
+      #
+      # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+      # @param name [String] The name to use for this zone. Defaults to the zone name.
       # @return [String] The string representation for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
-      def to_s_with_dst(dst_label = nil, year = nil)
-        dst_label ||= "(Daylight Saving Time)"
+      def to_str_with_dst(dst_label = nil, year = nil, name = nil)
+        dst_label ||= "(DST)"
+        name ||= self.aliases.first
 
         if self.uses_dst?(year) then
           period = self.dst_period(year)
@@ -464,19 +524,21 @@ module Cowtech
       # Returns a parametized string representation for this zone.
       #
       # @param with_offset [Boolean] If to include offset into the representation.
+      # @param name [String] The name to use for this zone. Defaults to the zone name.
       # @return [String] The parametized string representation for this zone.
-      def to_s_parameterized(with_offset = true)
-        ::ActiveSupport::TimeZone.parameterize_zone(self.to_s, with_offset)
+      def to_str_parameterized(with_offset = true, name = nil)
+        ::ActiveSupport::TimeZone.parameterize_zone(name || self.to_str, with_offset)
       end
 
-      # Returns a parametized string representation for this zone with DST (Daylight Saving Time) active.
+      # Returns a parametized string representation for this zone with DST (DST) active.
       #
-      # @param dst_label [String] Label for the DST indication. Defaults to `(Daylight Saving Time)`.
+      # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
       # @param with_offset [Boolean] If to include offset into the representation.
       # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+      # @param name [String] The name to use for this zone. Defaults to the zone name.
       # @return [String] The parametized string representation for this zone with DST or `nil`, if the timezone doesn't use DST for that year.
-      def to_s_with_dst_parameterized(dst_label = nil, with_offset = true, year = nil)
-        rv = self.to_s_with_dst(dst_label, year)
+      def to_str_with_dst_parameterized(dst_label = nil, with_offset = true, year = nil, name = nil)
+        rv = self.to_str_with_dst(dst_label, year, name)
         rv ? ::ActiveSupport::TimeZone.parameterize_zone(rv) : nil
       end
     end

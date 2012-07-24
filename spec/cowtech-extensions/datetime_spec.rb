@@ -224,19 +224,19 @@ describe Cowtech::Extensions::TimeZone do
 
   describe ".parameterize_zone" do
     it "should return the parameterized version of the zone" do
-      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone).should == reference_zone.to_s_parameterized
-      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone).should == reference_zone.to_s_parameterized
-      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone, false).should == reference_zone.to_s_parameterized(false)
+      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone.to_str).should == reference_zone.to_str_parameterized
+      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone.to_str).should == reference_zone.to_str_parameterized
+      ::ActiveSupport::TimeZone.parameterize_zone(reference_zone.to_str, false).should == reference_zone.to_str_parameterized(false)
       ::ActiveSupport::TimeZone.parameterize_zone("INVALID").should == "invalid"
     end
   end
 
   describe ".unparameterize_zone" do
     it "should return the parameterized version of the zone" do
-      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_s_parameterized).should == reference_zone
-      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_s_parameterized, true).should == reference_zone.to_s
-      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_s_with_dst_parameterized).should == reference_zone
-      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_s_with_dst_parameterized, true).should == reference_zone.to_s_with_dst
+      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_str_parameterized).should == reference_zone
+      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_str_parameterized, true).should == reference_zone.to_str
+      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_str_with_dst_parameterized).should == reference_zone
+      ::ActiveSupport::TimeZone.unparameterize_zone(reference_zone.to_str_with_dst_parameterized, true).should == reference_zone.to_str_with_dst
       ::ActiveSupport::TimeZone.unparameterize_zone("INVALID").should == nil
     end
   end
@@ -244,8 +244,8 @@ describe Cowtech::Extensions::TimeZone do
   describe ".find" do
     it "should find timezones" do
       ::ActiveSupport::TimeZone.find("(GMT-07:00) Mountain Time (US & Canada)").should == reference_zone
-      ::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) (Daylight Saving Time)").should == reference_zone
-      ::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) DST", "DST").should == reference_zone
+      ::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) (DST)").should == reference_zone
+      ::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) Daylight Saving Time", "Daylight Saving Time").should == reference_zone
       ::ActiveSupport::TimeZone.find("INVALID", "INVALID").should be_nil
     end
   end
@@ -253,8 +253,8 @@ describe Cowtech::Extensions::TimeZone do
   describe ".list_all" do
     it "should list all timezones" do
       ::ActiveSupport::TimeZone.list_all(false).should == ::ActiveSupport::TimeZone.all.collect(&:to_s)
-      ::ActiveSupport::TimeZone.list_all(true).should include("(GMT-06:00) Mountain Time (US & Canada) (Daylight Saving Time)")
-      ::ActiveSupport::TimeZone.list_all(true, "DST").should include("(GMT-06:00) Mountain Time (US & Canada) DST")
+      ::ActiveSupport::TimeZone.list_all(true).should include("(GMT-06:00) #{reference_zone.aliases.first} (DST)")
+      ::ActiveSupport::TimeZone.list_all(true, "Daylight Saving Time").should include("(GMT-06:00) #{reference_zone.aliases.first} Daylight Saving Time")
     end
   end
 
@@ -288,11 +288,11 @@ describe Cowtech::Extensions::TimeZone do
   end
 
   describe "#dst_name" do
-    it "should correctly get zone name with DST" do
-      reference_zone.dst_name.should == "Mountain Time (US & Canada) (Daylight Saving Time)"
-      reference_zone.dst_name("DST").should == "Mountain Time (US & Canada) DST"
+    it "should correctly get zone name with Daylight Saving Time" do
+      reference_zone.dst_name.should == "Mountain Time (US & Canada) (DST)"
+      reference_zone.dst_name("Daylight Saving Time").should == "Mountain Time (US & Canada) Daylight Saving Time"
       reference_zone.dst_name(nil, 1000).should be_nil
-      zone_without_dst.to_s_with_dst.should be_nil
+      zone_without_dst.to_str_with_dst.should be_nil
     end
   end
 
@@ -314,28 +314,31 @@ describe Cowtech::Extensions::TimeZone do
     end
   end
 
-  describe "#to_s_with_dst" do
-    it "should correctly format zone with DST" do
-      reference_zone.to_s_with_dst.should == "(GMT-06:00) Mountain Time (US & Canada) (Daylight Saving Time)"
-      reference_zone.to_s_with_dst("DST").should == "(GMT-06:00) Mountain Time (US & Canada) DST"
-      reference_zone.to_s_with_dst(nil, 1000).should be_nil
-      zone_without_dst.to_s_with_dst.should be_nil
+  describe "#to_str_with_dst" do
+    it "should correctly format zone with Daylight Saving Time" do
+      reference_zone.to_str_with_dst.should == "(GMT-06:00) #{reference_zone.aliases.first} (DST)"
+      reference_zone.to_str_with_dst("Daylight Saving Time").should == "(GMT-06:00) #{reference_zone.aliases.first} Daylight Saving Time"
+      reference_zone.to_str_with_dst("Daylight Saving Time", nil, "NAME").should == "(GMT-06:00) NAME Daylight Saving Time"
+      reference_zone.to_str_with_dst(nil, 1000).should be_nil
+      zone_without_dst.to_str_with_dst.should be_nil
     end
   end
 
-  describe "#to_s_parameterized" do
+  describe "#to_str_parameterized" do
     it "should correctly format (parameterized) zone" do
-      reference_zone.to_s_parameterized.should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone)
-      reference_zone.to_s_parameterized(false).should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone, false)
+      reference_zone.to_str_parameterized.should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone.to_str)
+      reference_zone.to_str_parameterized(false).should == ::ActiveSupport::TimeZone.parameterize_zone(reference_zone.to_str, false)
+      reference_zone.to_str_parameterized(false, "NAME SPACE").should == ::ActiveSupport::TimeZone.parameterize_zone("NAME SPACE", false)
     end
   end
 
-  describe "#to_s_with_dst_parameterized" do
-    it "should correctly format (parameterized) zone with DST" do
-      reference_zone.to_s_with_dst_parameterized.should == "-0600@mountain-time-us-canada-daylight-saving-time"
-      reference_zone.to_s_with_dst_parameterized("DST").should == "-0600@mountain-time-us-canada-dst"
-      reference_zone.to_s_with_dst_parameterized(nil, false, 1000).should be_nil
-      zone_without_dst.to_s_with_dst_parameterized.should be_nil
+  describe "#to_str_with_dst_parameterized" do
+    it "should correctly format (parameterized) zone with Daylight Saving Time" do
+      reference_zone.to_str_with_dst_parameterized.should == "-0600@america-denver-dst"
+      reference_zone.to_str_with_dst_parameterized("Daylight Saving Time").should == "-0600@america-denver-daylight-saving-time"
+      reference_zone.to_str_with_dst_parameterized(nil, false, 1000).should be_nil
+      reference_zone.to_str_with_dst_parameterized("Daylight Saving Time", true, nil, "NAME SPACE").should == "-0600@name-space-daylight-saving-time"
+      zone_without_dst.to_str_with_dst_parameterized.should be_nil
     end
   end
 end
