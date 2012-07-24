@@ -17,7 +17,7 @@ module Cowtech
       MINOR = 7
 
       # The patch version.
-      PATCH = 0
+      PATCH = 1
 
       # The current version of cowtech-extensions.
       STRING = [MAJOR, MINOR, PATCH].compact.join(".")

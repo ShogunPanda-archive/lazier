@@ -7,15 +7,15 @@
 require File.expand_path('../lib/cowtech-extensions/version', __FILE__)
 
 Gem::Specification.new do |gem|
-	gem.name = "cowtech-extensions"
-	gem.version = Cowtech::Extensions::Version::STRING
+  gem.name = "cowtech-extensions"
+  gem.version = Cowtech::Extensions::Version::STRING
   gem.homepage = "http://github.com/ShogunPanda/cowtech-extensions"
   gem.summary = %q{Several Ruby object enhancements.}
   gem.description = %q{Several Ruby object enhancements.}
   gem.rubyforge_project = "cowtech-extensions"
 
   gem.authors = ["Shogun"]
-	gem.email = ["shogun_panda@me.com"]
+  gem.email = ["shogun_panda@me.com"]
 
   gem.files = `git ls-files`.split($\)
   gem.executables = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -23,12 +23,13 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency("json", "~> 1.7.0")
-	gem.add_dependency("actionpack", "~> 3.0")
+  gem.add_dependency("actionpack", "~> 3.0")
   gem.add_dependency("tzinfo", "~> 0.3.0")
 
   gem.add_development_dependency("rspec", "~> 2.11.0")
+  gem.add_development_dependency("rake", "~> 0.9.0")
   gem.add_development_dependency("simplecov", "~> 0.6.0")
-  gem.add_development_dependency("pry", "~> 0.9.9.0")
+  gem.add_development_dependency("pry", "~> 0.9.10")
   gem.add_development_dependency("yard", "~> 0.8.0")
   gem.add_development_dependency("redcarpet", "~> 2.1.0")
   gem.add_development_dependency("github-markup", "~> 0.7.0")
