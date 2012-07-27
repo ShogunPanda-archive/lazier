@@ -6,7 +6,7 @@
 
 module Cowtech
   module Extensions
-    # The current version of cowtech-extensions, according semantic versioning.
+    # The current version of cowtech-extensions, according to semantic versioning.
     #
     # @see http://semver.org
     module Version
