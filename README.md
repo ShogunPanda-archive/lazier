@@ -1,4 +1,4 @@
-# cowtech-lib
+# cowtech-extensions
 
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/cowtech-extensions.png?branch=master)](http://travis-ci.org/ShogunPanda/cowtech-extensions)
 [![Dependency Status](https://gemnasium.com/ShogunPanda/cowtech-extensions.png?travis)](https://gemnasium.com/ShogunPanda/cowtech-extensions)
