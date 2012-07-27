@@ -11,6 +11,7 @@ require "tzinfo"
 require "active_support/all"
 require "action_view"
 
+require "cowtech-extensions/version" if !defined?(Cowtech::Extensions::Version)
 require "cowtech-extensions/exceptions"
 require "cowtech-extensions/settings"
 require "cowtech-extensions/object"
@@ -20,7 +21,6 @@ require "cowtech-extensions/hash"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
 require "cowtech-extensions/pathname"
-require "cowtech-extensions/version" if !defined?(Cowtech::Extensions::Version)
 
 # This is the top level module for Cowtech libraries.
 module Cowtech
