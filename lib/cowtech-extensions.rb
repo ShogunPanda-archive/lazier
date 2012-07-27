@@ -20,6 +20,7 @@ require "cowtech-extensions/hash"
 require "cowtech-extensions/datetime"
 require "cowtech-extensions/math"
 require "cowtech-extensions/pathname"
+require "cowtech-extensions/version" if !defined?(Cowtech::Extensions::Version)
 
 # This is the top level module for Cowtech libraries.
 module Cowtech
