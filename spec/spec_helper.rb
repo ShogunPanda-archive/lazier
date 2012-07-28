@@ -8,3 +8,9 @@ require "rubygems"
 require "coverage_helper"
 require "bundler/setup"
 require "cowtech-extensions"
+
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end

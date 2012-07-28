@@ -18,52 +18,52 @@ describe Cowtech::Extensions::Settings do
   describe "#initialize" do
     it "should create good defaults" do
       settings = ::Cowtech::Extensions::Settings.new
-      settings.format_number.should be_a(Hash)
-      settings.boolean_names.should be_a(Hash)
-      settings.date_names.should be_a(Hash)
-      settings.date_formats.should be_a(Hash)
+      expect(settings.format_number).to be_a(Hash)
+      expect(settings.boolean_names).to be_a(Hash)
+      expect(settings.date_names).to be_a(Hash)
+      expect(settings.date_formats).to be_a(Hash)
     end
 
     it "should create good defaults for the singleton" do
-      reference.format_number.should be_a(Hash)
-      reference.boolean_names.should be_a(Hash)
-      reference.date_names.should be_a(Hash)
-      reference.date_formats.should be_a(Hash)
+      expect(reference.format_number).to be_a(Hash)
+      expect(reference.boolean_names).to be_a(Hash)
+      expect(reference.date_names).to be_a(Hash)
+      expect(reference.date_formats).to be_a(Hash)
     end
   end
 
   describe "#setup_format_number" do
     it "should save format numbering options for usage" do
       reference.setup_format_number(2)
-      number_reference.format_number.should == "123,456.65"
+      expect(number_reference.format_number).to eq("123,456.65")
 
       reference.setup_format_number(3, "A")
-      number_reference.format_number.should == "123,456A654"
+      expect(number_reference.format_number).to eq("123,456A654")
 
       reference.setup_format_number(4, "A", "B")
-      number_reference.format_number.should == "123,456A6543 B"
+      expect(number_reference.format_number).to eq("123,456A6543 B")
 
       reference.setup_format_number(5, "A", "B", "C")
-      number_reference.format_number.should == "123C456A65432 B"
+      expect(number_reference.format_number).to eq("123C456A65432 B")
 
       reference.setup_format_number
-      number_reference.format_number.should == "123,456.65"
+      expect(number_reference.format_number).to eq("123,456.65")
     end
   end
 
   describe "#setup_boolean_names" do
     it "should save names for boolean values" do
       reference.setup_boolean_names("TRUE1")
-      [true.format_boolean, false.format_boolean].should == ["TRUE1", "No"]
+      expect([true.format_boolean, false.format_boolean]).to eq(["TRUE1", "No"])
 
       reference.setup_boolean_names(nil, "FALSE1")
-      [true.format_boolean, false.format_boolean].should == ["Yes", "FALSE1"]
+      expect([true.format_boolean, false.format_boolean]).to eq(["Yes", "FALSE1"])
 
       reference.setup_boolean_names("TRUE2", "FALSE2")
-      [true.format_boolean, false.format_boolean].should == ["TRUE2", "FALSE2"]
+      expect([true.format_boolean, false.format_boolean]).to eq(["TRUE2", "FALSE2"])
 
       reference.setup_boolean_names
-      [true.format_boolean, false.format_boolean].should == ["Yes", "No"]
+      expect([true.format_boolean, false.format_boolean]).to eq(["Yes", "No"])
     end
   end
 
@@ -72,20 +72,20 @@ describe Cowtech::Extensions::Settings do
       reference.setup_date_formats(nil, true)
 
       reference.setup_date_formats({:c1 => "%Y"})
-      date_reference.lstrftime(:ct_date) == date_reference.strftime("%Y-%m-%d")
-      date_reference.lstrftime(:c1) == date_reference.year.to_s
+      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
+      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats({:c1 => "%Y"}, true)
-      date_reference.lstrftime(:ct_date).should == "ct_date"
-      date_reference.lstrftime(:c1).should == date_reference.year.to_s
+      expect(date_reference.lstrftime(:ct_date)).to eq("ct_date")
+      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats()
-      date_reference.lstrftime(:ct_date).should == date_reference.strftime("%Y-%m-%d")
-      date_reference.lstrftime(:c1).should == date_reference.year.to_s
+      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
+      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats(nil, true)
-      date_reference.lstrftime(:ct_date) == date_reference.strftime("%Y-%m-d")
-      date_reference.lstrftime(:c1).should == "c1"
+      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
+      expect(date_reference.lstrftime(:c1)).to eq("c1")
     end
   end
 
@@ -100,19 +100,19 @@ describe Cowtech::Extensions::Settings do
       short_days = 7.times.collect {|i| (i + 1).to_s}
 
       reference.setup_date_names(long_months)
-      date_reference.lstrftime(:sdn).should == "66 Jun Tuesday Tue"
+      expect(date_reference.lstrftime(:sdn)).to eq("66 Jun Tuesday Tue")
 
       reference.setup_date_names(long_months, short_months)
-      date_reference.lstrftime(:sdn).should == "66 6 Tuesday Tue"
+      expect(date_reference.lstrftime(:sdn)).to eq("66 6 Tuesday Tue")
 
       reference.setup_date_names(long_months, short_months, long_days)
-      date_reference.lstrftime(:sdn).should == "66 6 33 Tue"
+      expect(date_reference.lstrftime(:sdn)).to eq("66 6 33 Tue")
 
       reference.setup_date_names(long_months, short_months, long_days, short_days)
-      date_reference.lstrftime(:sdn).should == "66 6 33 3"
+      expect(date_reference.lstrftime(:sdn)).to eq("66 6 33 3")
 
       reference.setup_date_names
-      date_reference.lstrftime(:sdn).should == "June Jun Tuesday Tue"
+      expect(date_reference.lstrftime(:sdn)).to eq("June Jun Tuesday Tue")
     end
   end
 end

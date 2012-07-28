@@ -6,7 +6,7 @@ describe Cowtech::Extensions do
       original_ruby_version = RUBY_VERSION
 
       ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.8.7") }
-      ::Cowtech::Extensions.is_ruby_18?.should be_true
+      expect(::Cowtech::Extensions.is_ruby_18?).to be_true
       ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", original_ruby_version) }
     end
 
@@ -14,7 +14,7 @@ describe Cowtech::Extensions do
       original_ruby_version = RUBY_VERSION
 
       ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.9.3") }
-      ::Cowtech::Extensions.is_ruby_18?.should be_false
+      expect(::Cowtech::Extensions.is_ruby_18?).to be_false
       ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", original_ruby_version) }
     end
   end
@@ -24,24 +24,34 @@ describe Cowtech::Extensions do
       ::Cowtech::Extensions.load!
 
       it "for Boolean" do
-        true.should respond_to("value")
-        true.should respond_to("to_i")
+        expect(true).to respond_to("value")
+        expect(true).to respond_to("to_i")
       end
 
       it "for DateTime" do
-        ::DateTime.should respond_to("custom_format")
-        ::DateTime.now.should respond_to("lstrftime")
+        expect(::DateTime).to respond_to("custom_format")
+        expect(::DateTime.now).to respond_to("lstrftime")
       end
 
-      it "for Hash" do {:a => "b"}.should respond_to("a") end
+      it "for Hash" do
+        expect({:a => "b"}).to respond_to("a")
+      end
 
-      it "for Math" do ::Math.should respond_to("min") end
+      it "for Math" do
+        expect(::Math).to respond_to("min")
+      end
 
-      it "for Object" do 0.should respond_to("debug_dump") end
+      it "for Object" do
+        expect(0).to respond_to("debug_dump")
+      end
 
-      it "for Pathname" do ::Pathname.new($0).should respond_to("components") end
+      it "for Pathname" do
+        expect(::Pathname.new($0)).to respond_to("components")
+      end
 
-      it "for String" do "".should respond_to("remove_accents") end
+      it "for String" do
+        expect("").to respond_to("remove_accents")
+      end
     end
   end
 end

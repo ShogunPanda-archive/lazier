@@ -14,6 +14,8 @@ describe Cowtech::Extensions::Pathname do
   end
 
   describe "#components" do
-    it "should return the components of the path" do ([""] + reference.components).should == reference.to_s.split("/") end
+    it "should return the components of the path" do
+      expect([""] + reference.components).to eq(reference.to_s.split("/"))
+    end
   end
 end

@@ -12,14 +12,19 @@ describe Cowtech::Extensions::Boolean do
   end
 
   describe "#to_i" do
-    it "should return 1 for true" do true.to_i.should == 1 end
-    it "should return 0 for false" do false.to_i.should == 0 end
+    it "should return 1 for true" do
+      expect(true.to_i).to eq(1)
+    end
+
+    it "should return 0 for false" do
+      expect(false.to_i).to eq(0)
+    end
   end
 
   describe "#value" do
     it "should return self" do
-      true.value.should be_true
-      false.value.should be_false
+      expect(true.value).to be_true
+      expect(false.value).to be_false
     end
   end
 end

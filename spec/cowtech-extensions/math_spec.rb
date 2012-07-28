@@ -17,25 +17,25 @@ describe Cowtech::Extensions::Math do
 
   describe "::min" do
     it "should return the minimum argument" do
-      ::Math.min(first).should == first
-      ::Math.min(first, second).should == first
-      ::Math.min([first, [second, third]]).should == third
+      expect(::Math.min(first)).to eq(first)
+      expect(::Math.min(first, second)).to eq(first)
+      expect(::Math.min([first, [second, third]])).to eq(third)
     end
 
     it "should return nil for an empty array" do
-      ::Math.min().should be_nil
+      expect(::Math.min()).to be_nil
     end
   end
 
   describe "::max" do
     it "should return the maximum argument" do
-      ::Math.max(first).should == first
-      ::Math.max(first, second).should == second
-      ::Math.max([first, [second, third]]).should == second
+      expect(::Math.max(first)).to eq(first)
+      expect(::Math.max(first, second)).to eq(second)
+      expect(::Math.max([first, [second, third]])).to eq(second)
     end
 
     it "should return nil for an empty array" do
-      ::Math.max().should be_nil
+      expect(::Math.max()).to be_nil
     end
   end
 end

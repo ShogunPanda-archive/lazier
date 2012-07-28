@@ -17,23 +17,29 @@ describe Cowtech::Extensions::String do
   end
 
   describe "#remove_accents" do
-    it "should translate accents" do reference.remove_accents.should == translated_reference end
+    it "should translate accents" do
+      expect(reference.remove_accents).to eq(translated_reference)
+    end
   end
 
   describe "#untitleize" do
-    it "should convert spaces to dashes" do reference.untitleize.should == untitleized_reference end
+    it "should convert spaces to dashes" do
+      expect(reference.untitleize).to eq(untitleized_reference)
+    end
   end
 
   describe "#replace_ampersands" do
-    it "should remove HTML ampersands" do reference.replace_ampersands.should == amp_reference end
+    it "should remove HTML ampersands" do
+      expect(reference.replace_ampersands).to eq(amp_reference)
+    end
   end
 
   describe "#value" do
     it "should return the string itself" do
-      reference.value.should == reference
-      translated_reference.value.should == translated_reference
-      untitleized_reference.value.should == untitleized_reference
-      amp_reference.value.should == amp_reference
+      expect(reference.value).to eq(reference)
+      expect(translated_reference.value).to eq(translated_reference)
+      expect(untitleized_reference.value).to eq(untitleized_reference)
+      expect(amp_reference.value).to eq(amp_reference)
     end
   end
 end
