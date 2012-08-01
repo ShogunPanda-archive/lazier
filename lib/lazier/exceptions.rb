@@ -4,6 +4,11 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-source "http://rubygems.org"
-
-gemspec
+module Lazier
+  # Exceptions for lazier.
+  module Exceptions
+    # This exception is raised from {Object#debug_dump} when `must_raise` is `true`.
+    class Dump < ::RuntimeError
+    end
+  end
+end

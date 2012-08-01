@@ -1,19 +1,19 @@
 # encoding: utf-8
 #
-# This file is part of the cowtech-extensions gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
+# This file is part of the lazier gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 require "spec_helper"
 
-describe Cowtech::Extensions::DateTime do
+describe Lazier::DateTime do
   let(:random_reference) { ::DateTime.civil(1990 + rand(30), 1 + rand(10), 1 + rand(25), 1 + rand(20), 1 + rand(58), 1 + rand(58)).in_time_zone }
   let(:fixed_reference){ ::DateTime.civil(2005, 6, 7, 8, 9, 10, ::DateTime.rationalize_offset(25200)) }
   let(:reference_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ::Cowtech::Extensions.load!
+    ::Lazier.load!
   end
 
   describe ".days" do
@@ -23,7 +23,7 @@ describe Cowtech::Extensions::DateTime do
       expect(::DateTime.days(false)).to be_kind_of(::Array)
       expect(::DateTime.days(false)[3]).to eq({:value => "4", :label => "Wednesday"})
 
-      ::Cowtech::Extensions.settings.setup_date_names(nil, nil, 7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s})
+      ::Lazier.settings.setup_date_names(nil, nil, 7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s})
       expect(::DateTime.days).to be_kind_of(::Array)
       expect(::DateTime.days[3]).to eq({:value => "4", :label => "4"})
       expect(::DateTime.days(false)).to be_kind_of(::Array)
@@ -38,7 +38,7 @@ describe Cowtech::Extensions::DateTime do
       expect(::DateTime.months(false)).to be_kind_of(::Array)
       expect(::DateTime.months(false)[6]).to eq({:value => "07", :label => "July"})
 
-      ::Cowtech::Extensions.settings.setup_date_names(12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s}, nil, nil)
+      ::Lazier.settings.setup_date_names(12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s}, nil, nil)
       expect(::DateTime.months).to be_kind_of(::Array)
       expect(::DateTime.months[6]).to eq({:value => "07", :label => "7"})
       expect(::DateTime.months(false)).to be_kind_of(::Array)
@@ -111,7 +111,7 @@ describe Cowtech::Extensions::DateTime do
       expect(::DateTime.custom_format(:ct_date)).to eq("%Y-%m-%d")
       expect(::DateTime.custom_format("ct_date")).to eq("%Y-%m-%d")
 
-      ::Cowtech::Extensions.settings.setup_date_formats({:ct_foo => "%ABC"})
+      ::Lazier.settings.setup_date_formats({:ct_foo => "%ABC"})
 
       expect(::DateTime.custom_format(:ct_foo)).to eq("%ABC")
       expect(::DateTime.custom_format("ct_foo")).to eq("%ABC")
@@ -160,11 +160,11 @@ describe Cowtech::Extensions::DateTime do
       expect(fixed_reference.lstrftime("%F")).to eq("2005-06-07")
       expect(fixed_reference.lstrftime(:ct_iso_8601)).to eq("2005-06-07T08:09:10+0700")
 
-      ::Cowtech::Extensions.settings.setup_date_names
-      ::Cowtech::Extensions.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_names
+      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
       expect(fixed_reference.lstrftime(:ct_local_test)).to eq("Tue Tuesday Jun June 07 2005 08")
 
-      ::Cowtech::Extensions.settings.setup_date_names(
+      ::Lazier.settings.setup_date_names(
           12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s},
           7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s}
       )
@@ -184,7 +184,7 @@ describe Cowtech::Extensions::DateTime do
   describe "#local_strftime" do
     it "should retrieve the date in the current timezone" do
       ::Time.zone = ::ActiveSupport::TimeZone[0]
-      ::Cowtech::Extensions.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
       expect(fixed_reference.local_strftime(:ct_local_test)).to eq("Tue Tuesday Jun June 07 2005 01")
     end
   end
@@ -193,10 +193,10 @@ describe Cowtech::Extensions::DateTime do
     it "should retrieve the date in the current timezone" do
       ::Time.zone = ::ActiveSupport::TimeZone[0]
 
-      ::Cowtech::Extensions.settings.setup_date_names
-      ::Cowtech::Extensions.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_names
+      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
 
-      ::Cowtech::Extensions.settings.setup_date_names(
+      ::Lazier.settings.setup_date_names(
           12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s},
           7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s}
       )
@@ -206,12 +206,12 @@ describe Cowtech::Extensions::DateTime do
   end
 end
 
-describe Cowtech::Extensions::TimeZone do
+describe Lazier::TimeZone do
   let(:reference_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ::Cowtech::Extensions.load!
+    ::Lazier.load!
   end
 
   describe ".rationalize_offset" do
@@ -288,6 +288,8 @@ describe Cowtech::Extensions::TimeZone do
   describe "#uses_dst?" do
     it "should correctly detect offset usage" do
       expect(reference_zone.uses_dst?).to be_true
+      expect(reference_zone.uses_dst?(DateTime.civil(2012, 7, 15))).to be_true
+      expect(reference_zone.uses_dst?(DateTime.civil(2012, 1, 15))).to be_false
       expect(reference_zone.uses_dst?(1000)).to be_false
       expect(zone_without_dst.uses_dst?).to be_false
     end

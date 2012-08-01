@@ -1,19 +1,19 @@
 # encoding: utf-8
 #
-# This file is part of the cowtech-extensions gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
+# This file is part of the lazier gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 require "spec_helper"
 
-describe Cowtech::Extensions::String do
+describe Lazier::String do
   let(:reference) { "abc òùà èé &amp;gt;" }
   let(:translated_reference) { "abc oua ee &amp;gt;" }
   let(:untitleized_reference) { "abc-òùà-èé-&amp;gt;" }
   let(:amp_reference) { "abc òùà èé &gt;" }
 
   before(:all) do
-    ::Cowtech::Extensions.load!
+    ::Lazier.load!
   end
 
   describe "#remove_accents" do

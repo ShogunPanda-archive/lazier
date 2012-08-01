@@ -1,23 +1,23 @@
-# cowtech-extensions
+# lazier
 
-[![Build Status](https://secure.travis-ci.org/ShogunPanda/cowtech-extensions.png?branch=master)](http://travis-ci.org/ShogunPanda/cowtech-extensions)
-[![Dependency Status](https://gemnasium.com/ShogunPanda/cowtech-extensions.png?travis)](https://gemnasium.com/ShogunPanda/cowtech-extensions)
+[![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
+[![Dependency Status](https://gemnasium.com/ShogunPanda/lazier.png?travis)](https://gemnasium.com/ShogunPanda/lazier)
 
 Several Ruby object enhancements.
 
-http://github.com/ShogunPanda/cowtech-extensions
+http://github.com/ShogunPanda/lazier
 
 ## Usage
 
 ```ruby
-require "cowtech-extensions"
-Cowtech::Extensions.load!
+require "lazier"
+Lazier.load!
 ```
 
 That's all!
 See documentation for more informations.
 
-## Contributing to cowtech-extensions
+## Contributing to lazier
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.

@@ -1,14 +1,14 @@
 # encoding: utf-8
 #
-# This file is part of the cowtech-extensions gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
+# This file is part of the lazier gem. Copyright (C) 2011 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 require "spec_helper"
 
-describe Cowtech::Extensions::Object do
+describe Lazier::Object do
   before(:all) do
-    ::Cowtech::Extensions.load!
+    ::Lazier.load!
   end
 
   describe "#normalize_number" do
@@ -180,7 +180,7 @@ describe Cowtech::Extensions::Object do
       expect(123123.456789.format_number(3, "@", "$")).to eq("123,123@457 $")
       expect("123123.456789".format_number(3, "@", "$", "!")).to eq("123!123@457 $")
 
-      Cowtech::Extensions.settings.setup_format_number(5, ",", "£", ".")
+      Lazier.settings.setup_format_number(5, ",", "£", ".")
       expect(123123.456789.format_number).to eq("123.123,45679 £")
     end
 
@@ -197,13 +197,13 @@ describe Cowtech::Extensions::Object do
     end
 
     it "should support localization" do
-      Cowtech::Extensions.settings.setup_boolean_names("YYY", "NNN")
+      Lazier.settings.setup_boolean_names("YYY", "NNN")
       expect("yes".format_boolean).to eq("YYY")
       expect("abc".format_boolean).to eq("NNN")
     end
 
     it "should support overrides" do
-      Cowtech::Extensions.settings.setup_boolean_names
+      Lazier.settings.setup_boolean_names
       expect("yes".format_boolean("TTT")).to eq("TTT")
       expect("yes".format_boolean(nil, "FFF")).to eq("Yes")
       expect("abc".format_boolean("TTT")).to eq("No")
@@ -225,7 +225,7 @@ describe Cowtech::Extensions::Object do
     end
 
     it "should raise an exception if requested" do
-      expect { {:a => "b"}.debug_dump }.to raise_error(::Cowtech::Extensions::Exceptions::Dump)
+      expect { {:a => "b"}.debug_dump }.to raise_error(::Lazier::Exceptions::Dump)
     end
   end
 end
