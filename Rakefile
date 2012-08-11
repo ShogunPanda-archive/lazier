@@ -12,7 +12,7 @@ RSpec::Core::RakeTask.new("spec")
 namespace :spec do
   desc "Run all specs with coverage"
   task :coverage do
-    ENV["COWTECH_EXTENSIONS_COVERAGE"] = "TRUE"
+    ENV["LAZIER_COVERAGE"] = "TRUE"
     Rake::Task["spec"].invoke
   end
 end

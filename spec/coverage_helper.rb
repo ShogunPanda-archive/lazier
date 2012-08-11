@@ -7,7 +7,7 @@
 require "simplecov"
 require "pathname"
 
-if ENV["COWTECH_EXTENSIONS_COVERAGE"] == "TRUE" then
+if ENV["LAZIER_COVERAGE"] == "TRUE" then
   root = Pathname.new(File.dirname(__FILE__)) + ".."
 
   SimpleCov.start do
