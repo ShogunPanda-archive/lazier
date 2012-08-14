@@ -13,6 +13,9 @@ describe Lazier::Object do
 
   describe "#normalize_number" do
     it "should correctly sanitize numbers" do
+      expect(true.normalize_number).to eq("1")
+      expect(false.normalize_number).to eq("0")
+      expect(nil.normalize_number).to eq("0")
       expect(123.normalize_number).to eq("123")
       expect("123.45".normalize_number).to eq("123.45")
       expect("1,23.45".normalize_number).to eq("123.45")
@@ -31,20 +34,22 @@ describe Lazier::Object do
       expect("+1.231,45".is_number?).to be_true
     end
 
-    it "should return true for a invalid number" do
+    it "should return false for a invalid number" do
       expect("s213".is_number?).to be_false
-      expect(nil.is_number?).to be_false
     end
   end
 
   describe "#is_integer?" do
     it "should return true for a valid number" do
+      expect(true.is_integer?).to be_true
+      expect(false.is_integer?).to be_true
+      expect(nil.is_integer?).to be_true
       expect("123".is_integer?).to be_true
       expect("-123".is_integer?).to be_true
       expect("+123".is_integer?).to be_true
     end
 
-    it "should return true for a invalid number" do
+    it "should return false for a invalid number" do
       expect("s123".is_integer?).to be_false
       expect("123.12".is_integer?).to be_false
     end
@@ -52,6 +57,9 @@ describe Lazier::Object do
 
   describe "#is_float?" do
     it "should return true for a valid number" do
+      expect(true.is_float?).to be_true
+      expect(false.is_float?).to be_true
+      expect(nil.is_float?).to be_true
       expect("123.45".is_float?).to be_true
       expect("1,23.45".is_float?).to be_true
       expect("-1.23.45".is_float?).to be_true
@@ -59,9 +67,8 @@ describe Lazier::Object do
       expect("+1.231,45".is_float?).to be_true
     end
 
-    it "should return true for a invalid number" do
+    it "should return false for a invalid number" do
       expect("s213".is_float?).to be_false
-      expect(nil.is_float?).to be_false
     end
   end
 
@@ -84,7 +91,7 @@ describe Lazier::Object do
       expect(0.is_boolean?).to be_true
     end
 
-    it "should return true for a invalid boolean" do
+    it "should return false for a invalid boolean" do
       expect("11".is_boolean?).to be_false
     end
   end
@@ -101,6 +108,9 @@ describe Lazier::Object do
 
   describe "#to_float" do
     it "should correctly convert number" do
+      expect(true.to_float).to eq(1.0)
+      expect(false.to_float).to eq(0.0)
+      expect(nil.to_float).to eq(0.0)
       expect(123.45.to_float).to eq(123.45)
       expect(123.to_float).to eq(123.00)
       expect("123.45".to_float).to eq(123.45)
@@ -121,6 +131,9 @@ describe Lazier::Object do
 
   describe "#to_integer" do
     it "should correctly convert number" do
+      expect(true.to_integer).to eq(1)
+      expect(false.to_integer).to eq(0)
+      expect(nil.to_integer).to eq(0)
       expect(123.45.to_integer).to eq(123)
       expect(123.to_integer).to eq(123)
       expect("+123".to_integer).to eq(123)
