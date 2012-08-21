@@ -69,7 +69,11 @@ module Lazier
     #
     # @return [String] The string representation of the object.
     def ensure_string
-      self.present? ? self.to_s : ""
+      if self.is_a?(::String) then
+        self
+      else
+        self.present? ? self.to_s : ""
+      end
     end
 
     # Converts the object to a float.
