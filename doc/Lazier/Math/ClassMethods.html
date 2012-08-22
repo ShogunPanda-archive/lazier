@@ -240,17 +240,18 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/math.rb', line 34</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_max'>max</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_max identifier id'>max</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
 
-  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='kw'>then</span>
-    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span> <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_rv'>rv</span> <span class='kw'>end</span>
-  <span class='kw'>end</span>
+  <span class='rubyid_args identifier id'>args</span> <span class='assign token'>=</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='dot token'>.</span><span class='rubyid_flatten identifier id'>flatten</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span> <span class='rubyid_then then kw'>then</span>
+    <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_args identifier id'>args</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_a identifier id'>a</span><span class='bitor op'>|</span> <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_a identifier id'>a</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_a identifier id'>a</span> <span class='gt op'>&gt;</span> <span class='rubyid_rv identifier id'>rv</span> <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='id identifier rubyid_rv'>rv</span>
-<span class='kw'>end</span></pre>
+  <span class='rubyid_rv identifier id'>rv</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -332,17 +333,18 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/math.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_min identifier id'>min</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
 
-  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='kw'>then</span>
-    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span> <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_rv'>rv</span> <span class='kw'>end</span>
-  <span class='kw'>end</span>
+  <span class='rubyid_args identifier id'>args</span> <span class='assign token'>=</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='dot token'>.</span><span class='rubyid_flatten identifier id'>flatten</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span> <span class='rubyid_then then kw'>then</span>
+    <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_args identifier id'>args</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_a identifier id'>a</span><span class='bitor op'>|</span> <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_a identifier id'>a</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_a identifier id'>a</span> <span class='lt op'>&lt;</span> <span class='rubyid_rv identifier id'>rv</span> <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='id identifier rubyid_rv'>rv</span>
-<span class='kw'>end</span></pre>
+  <span class='rubyid_rv identifier id'>rv</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -353,9 +355,9 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Aug 21 08:49:05 2012 by
+  Generated on Wed Aug 22 16:33:55 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.2).
+  0.8.2.1 (ruby-1.8.7).
 </div>
 
   </body>
