@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the lazier gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -184,7 +184,7 @@ module Lazier
     # Returns the number of months passed between the beginning of the base year and the current date.
     #
     # ```ruby
-    # DateTime.civil(2012, 6, 1).in_months(2011)
+    # DateTime.civil(2013, 6, 1).in_months(2011)
     # # => 18
     # ```
     #
@@ -424,6 +424,19 @@ module Lazier
       rational ? self.class.rationalize_offset(rv) : rv
     end
 
+    # Return the current alias for this timezone.
+    def current_alias
+      identifier = self.tzinfo.identifier
+
+      catch(:alias) do
+        self.aliases.each do |a|
+          throw(:alias, a) if a == identifier
+        end
+
+        self.aliases.first
+      end
+    end
+
     # Returns the standard offset for this timezone.
     #
     # @param rational [Boolean] If to return the offset as a Rational.
@@ -501,7 +514,7 @@ module Lazier
     # @param colon [Boolean] If to put the colon in the output string.
     # @return [String] The name for this zone.
     def to_str(name = nil, colon = true)
-      name ||= self.aliases.first
+      name ||= self.current_alias
       "(GMT#{self.formatted_offset(colon)}) #{name}"
     end
 
@@ -513,7 +526,7 @@ module Lazier
     # @return [String] The string representation for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
     def to_str_with_dst(dst_label = nil, year = nil, name = nil)
       dst_label ||= "(DST)"
-      name ||= self.aliases.first
+      name ||= self.current_alias
 
       if self.uses_dst?(year) then
         period = self.dst_period(year)

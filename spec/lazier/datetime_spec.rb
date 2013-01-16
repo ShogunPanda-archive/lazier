@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the lazier gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -208,6 +208,7 @@ end
 
 describe Lazier::TimeZone do
   let(:reference_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
+  let(:reference_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
@@ -274,6 +275,15 @@ describe Lazier::TimeZone do
     it "should correctly return current zone offset" do
       expect(reference_zone.current_offset(false, ::DateTime.civil(2012, 1, 15))).to eq(reference_zone.offset)
       expect(reference_zone.current_offset(true, ::DateTime.civil(2012, 7, 15))).to eq(reference_zone.dst_offset(true))
+    end
+  end
+
+  describe "#current_alias" do
+    it "should correctly return current zone alias or the first one" do
+      zone = ActiveSupport::TimeZone["America/Halifax"]
+      expect(zone.current_alias).to eq("America/Halifax")
+      zone.tzinfo.stub(:identifier).and_return("INVALID")
+      expect(zone.current_alias).to eq("America/Atlantic Time (Canada)")
     end
   end
 
