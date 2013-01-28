@@ -126,8 +126,8 @@ module Lazier
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
         a, b, c = easter_independent(year)
-        d, e, g, i, k = easter_dependent(b, c)
-        h, l, m = easter_finalize(a, b, d, e, g, i, k)
+        x, e, i, k = easter_dependent(b, c)
+        h, l, m = easter_finalize(a, x, e, i, k)
 
         day = ((h + l - (7 * m) + 114) % 31) + 1
         month = ((h + l - (7 * m) + 114) / 31.0).floor
@@ -178,22 +178,24 @@ module Lazier
         # @param c [Fixnum] Variable from #easter_independent.
         # @return [Array] Partial variables for calculus.
         def easter_dependent(b, c)
-          f = ((b + 8) / 25.0).floor
-          [(b / 4.0).floor, b % 4, ((b - f + 1) / 3.0).floor, (c / 4.0).floor, c % 4]
+          [
+            b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor,
+            b % 4,
+            (c / 4.0).floor,
+            c % 4
+          ]
         end
 
         # Part three of Easter calculation.
         #
         # @param a [Fixnum] Variable from #easter_independent.
-        # @param b [Fixnum] Variable from #easter_independent.
-        # @param d [Fixnum] Variable from #easter_dependent.
+        # @param x [Fixnum] Variable from #easter_independent.
         # @param e [Fixnum] Variable from #easter_dependent.
-        # @param g [Fixnum] Variable from #easter_dependent.
         # @param i [Fixnum] Variable from #easter_dependent.
         # @param k [Fixnum] Variable from #easter_dependent.
         # @return [Array] Partial variables for calculus.
-        def easter_finalize(a, b, d, e, g, i, k)
-          h = ((19 * a) + b - d - g + 15) % 30
+        def easter_finalize(a, x, e, i, k)
+          h = ((19 * a) + x + 15) % 30
           l = (32 + (2 * e) + (2 * i) - h - k) % 7
           m = ((a + (11 * h) + (22 * l)) / 451.0).floor
 
