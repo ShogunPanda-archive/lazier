@@ -126,12 +126,10 @@ module Lazier
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
         c  = year / 100
-        g = year % 19
         k = (c - 17) / 25
-        i = (c - (c / 4) - ((c - k) / 3) + (19 * g) + 15) % 30
-        i = i - (i / 28) * (1 - (i / 28) * (29 / (i + 1)) * ((21 - g) / 11))
-        j = (year + (year / 4) + i + 2 - c + (c / 4) ) % 7
-        l = i - j
+        i = (c - (c / 4) - ((c - k) / 3) + (19 * (year % 19)) + 15) % 30
+        i = i - (i / 28) * (1 - (i / 28) * (29 / (i + 1)) * ((21 - (year % 19)) / 11))
+        l = i - ((year + (year / 4) + i + 2 - c + (c / 4) ) % 7)
         month = 3 + ((l + 40) / 44)
         day = l + 28 - (31 * (month / 4))
 
