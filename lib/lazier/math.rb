@@ -16,15 +16,7 @@ module Lazier
       # @param args [Array] A collection of object to compare (with the `<` operator).
       # @return [Object] The minimum value or `nil` (if the collection is empty).
       def min(*args)
-        rv = nil
-
-        args = args.ensure_array.flatten
-        if args.length > 0 then
-          rv = args[0]
-          args.each do |a| rv = a if a < rv end
-        end
-
-        rv
+        args.ensure_array.flatten.min
       end
 
       # Returns the maximum value in the arguments
@@ -32,15 +24,7 @@ module Lazier
       # @param args [Array] A collection of object to compare (with the `>` operator).
       # @return [Object] The maximum value or `nil` (if the collection is empty).
       def max(*args)
-        rv = nil
-
-        args = args.ensure_array.flatten
-        if args.length > 0 then
-          rv = args[0]
-          args.each do |a| rv = a if a > rv end
-        end
-
-        rv
+        args.ensure_array.flatten.max
       end
     end
   end

@@ -125,18 +125,13 @@ module Lazier
         year = ::Date.today.year if !year.is_integer?
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
-        a = year % 19
         b = (year / 100.0).floor
-        c = year % 100
-        d = (b / 4.0).floor
-        e = b % 4
-        f = ((b + 8) / 25.0).floor
-        g = ((b - f + 1) / 3.0).floor
-        h = ((19 * a) + b - d - g + 15) % 30
-        i = (c / 4.0).floor
-        k = c % 4
-        l = (32 + (2 * e) + (2 * i) - h - k) % 7
-        m = ((a + (11 * h) + (22 * l)) / 451.0).floor
+        g = ((b - (((b + 8) / 25.0).floor) + 1) / 3.0).floor
+        h = ((19 * (year % 19)) + b - ((b / 4.0).floor) - g + 15) % 30
+        i = ((year % 100) / 4.0).floor
+        k = (year % 100) % 4
+        l = (32 + (2 * (b % 4)) + (2 * i) - h - k) % 7
+        m = ((year % 19)+ (11 * h) + (22 * l)) / 451.0).floor
 
         day = ((h + l - (7 * m) + 114) % 31) + 1
         month = ((h + l - (7 * m) + 114) / 31.0).floor
@@ -382,32 +377,17 @@ module Lazier
     end
 
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
-    #
-    # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
     # @return [Array] A list of aliases for this timezone
-    def aliases(dst_label = nil)
-      reference = self.name
-      reference = self.class::MAPPING[self.name] if self.class::MAPPING.has_key?(self.name) # We are an alias
-      reference = reference.gsub("_", " ")
+    def aliases
+      reference = (self.class::MAPPING.has_key?(self.name) ? self.class::MAPPING[self.name] : self.name).gsub("_", " ")
 
-      if @aliases.blank? then
-        # First we search for aliases by name
-        @aliases = [reference]
-
-        self.class::MAPPING.each do |name, zone|
-          if zone.gsub("_", " ") == reference then
-            if name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")
-              @aliases << name
-            else
-              @aliases << reference.gsub(/\/.*/, "/" + name)
-            end
-          end
+      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone|
+        if zone.gsub("_", " ") == reference then
+          (name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/" + name)
+        else
+          nil
         end
-
-        @aliases = @aliases.uniq.compact.sort
-      end
-
-      @aliases
+      }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
@@ -479,19 +459,18 @@ module Lazier
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The correction for dst.
     def dst_correction(rational = false, year = nil)
-      period = self.dst_period(year)
-      rv = period ? period.std_offset : 0
-      rational ? self.class.rationalize_offset(rv) : rv
+      self.dst_offset(rational, year, :std_offset)
     end
 
     # Returns the standard offset for this timezone timezone when the Daylight Saving Time (DST) is active.
     #
     # @param rational [Boolean] If to return the offset as a Rational.
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+    # @param method [Symbol] The method to use for getting the offset. Default is total offset from UTC.
     # @return [Fixnum|Rational] The DST offset for this timezone or `0`, if the timezone doesn't use DST for that year.
-    def dst_offset(rational = false, year = nil)
+    def dst_offset(rational = false, year = nil, method = :utc_total_offset)
       period = self.dst_period(year)
-      rv = period ? period.utc_total_offset : 0
+      rv = period ? period.send(method) : 0
       rational ? self.class.rationalize_offset(rv) : rv
     end
 
