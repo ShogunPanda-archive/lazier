@@ -131,7 +131,7 @@ module Lazier
         i = ((year % 100) / 4.0).floor
         k = (year % 100) % 4
         l = (32 + (2 * (b % 4)) + (2 * i) - h - k) % 7
-        m = ((year % 19)+ (11 * h) + (22 * l)) / 451.0).floor
+        m = (((year % 19) + (11 * h) + (22 * l)) / 451.0).floor
 
         day = ((h + l - (7 * m) + 114) % 31) + 1
         month = ((h + l - (7 * m) + 114) / 31.0).floor
