@@ -341,23 +341,13 @@ module Lazier
       # @return [Array] A list of names of timezones.
       def list_all(with_dst = true, dst_label = nil)
         dst_label ||= "(DST)"
-        dst_key = "DST-#{dst_label}"
+
         @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.collect(&:to_s) }
+        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.collect { |zone|
+          zone.aliases.collect { |zone_alias| [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil] }
+        }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
 
-        if with_dst && @zones_names[dst_key].blank? then
-          @zones_names[dst_key] = []
-
-          ::ActiveSupport::TimeZone.all.each do |zone|
-            zone.aliases.each do |zone_alias|
-              @zones_names[dst_key] << zone.to_str(zone_alias)
-              @zones_names[dst_key] << zone.to_str_with_dst(dst_label, nil, zone_alias) if zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/
-            end
-          end
-
-          @zones_names[dst_key]= @zones_names[dst_key].uniq.compact.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
-        end
-
-        @zones_names[with_dst ? dst_key : "STANDARD"]
+        @zones_names["#{with_dst ? "DST[#{dst_label}]-" : ""}STANDARD"]
       end
 
       # Returns a string representation of a timezone.
