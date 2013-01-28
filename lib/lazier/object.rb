@@ -118,7 +118,7 @@ module Lazier
     # @param prec [Fixnum] The precision to keep.
     # @return [Float] The rounded float representaton of the object.
     def round_to_precision(prec = 2)
-      (self.is_number? && prec >= 0) ? number_with_precision(self, :precision => prec) : nil
+      (self.is_number? && prec >= 0) ? number_with_precision(self, precision: prec) : nil
     end
 
     # Formats a number.
@@ -135,7 +135,7 @@ module Lazier
       add_string = ::Lazier.settings.format_number[:add_string] if add_string.nil?
       k_separator = ::Lazier.settings.format_number[:k_separator] if k_separator.nil?
 
-      (self.is_number? && prec >= 0) ? number_to_currency(self, {:precision => prec, :separator => decimal_separator, :delimiter => k_separator, :format => add_string.blank? ? "%n" : "%n %u", :unit => add_string.blank? ? "" : add_string.strip}) : nil
+      (self.is_number? && prec >= 0) ? number_to_currency(self, {precision: prec, separator: decimal_separator, delimiter: k_separator, format: (add_string.blank? ? "%n" : "%n %u"), unit: (add_string.blank? ? "" : add_string.strip)}) : nil
     end
 
     # Formats a boolean.

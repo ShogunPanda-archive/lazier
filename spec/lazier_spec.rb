@@ -40,7 +40,7 @@ describe Lazier do
       end
 
       it "for Hash" do
-        expect({:a => "b"}).to respond_to("a")
+        expect({a: "b"}).to respond_to("a")
       end
 
       it "for Math" do

@@ -22,15 +22,15 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency("json", "~> 1.7.0")
-  gem.add_dependency("actionpack", "~> 3.0")
-  gem.add_dependency("tzinfo", "~> 0.3.0")
+  gem.add_dependency("json", "~> 1.7.6")
+  gem.add_dependency("actionpack", "~> 3.2.11")
+  gem.add_dependency("tzinfo", "~> 0.3.35")
 
-  gem.add_development_dependency("rspec", "~> 2.11.0")
-  gem.add_development_dependency("rake", "~> 0.9.0")
-  gem.add_development_dependency("simplecov", "~> 0.7.0")
+  gem.add_development_dependency("rspec", "~> 2.12.0")
+  gem.add_development_dependency("rake", "~> 10.0.3")
+  gem.add_development_dependency("simplecov", "~> 0.7.1")
   gem.add_development_dependency("pry", ">= 0")
-  gem.add_development_dependency("yard", "~> 0.8.0")
+  gem.add_development_dependency("yard", "~> 0.8.3")
   gem.add_development_dependency("redcarpet", "~> 2.2.2")
-  gem.add_development_dependency("github-markup", "~> 0.7.0")
+  gem.add_development_dependency("github-markup", "~> 0.7.5")
 end

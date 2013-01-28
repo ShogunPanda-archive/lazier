@@ -6,17 +6,15 @@
 
 module Lazier
   # Settings for the extensions.
+  #
+  # @attr [Hash] format_number Settings for numbers formatting.
+  # @attr [Hash] boolean_names String representations of booleans.
+  # @attr [Hash] date_names String representations of days and months.
+  # @attr [Hash] date_formats Custom date and time formats.
   class Settings
-    # Settings for numbers formatting.
     attr_reader :format_number
-
-    # String representations of booleans.
     attr_reader :boolean_names
-
-    # String representations of days and months.
     attr_reader :date_names
-
-    # Custom date and time formats.
     attr_reader :date_formats
 
     # Returns the singleton instance of the settings.
@@ -43,12 +41,7 @@ module Lazier
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
     def setup_format_number(prec = 2, decimal_separator = ".", add_string = "", k_separator = ",")
-      @format_number = {
-        :prec => prec,
-        :decimal_separator => decimal_separator,
-        :add_string => add_string,
-        :k_separator => k_separator
-      }
+      @format_number = { prec: prec, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator}
     end
 
     # Setups strings representation of booleans.
@@ -70,12 +63,7 @@ module Lazier
     # @param replace [Boolean] If to discard current formats.
     # @return [Hash] The new formats.
     def setup_date_formats(formats = nil, replace = false)
-      formats = {
-          :ct_date => "%Y-%m-%d",
-          :ct_time => "%H:%M:%S",
-          :ct_date_time => "%F %T",
-          :ct_iso_8601 => "%FT%T%z"
-      } if formats.blank?
+      formats = {ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" } if formats.blank?
 
       if formats.is_a?(::Hash) then
         if !replace then
@@ -107,12 +95,7 @@ module Lazier
       long_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]  if long_days.blank?
       short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]  if short_days.blank?
 
-      @date_names = {
-        :long_months => long_months,
-        :short_months => short_months,
-        :long_days => long_days,
-        :short_days => short_days
-      }
+      @date_names = { long_months: long_months, short_months: short_months, long_days: long_days, short_days: short_days }
     end
   end
 end

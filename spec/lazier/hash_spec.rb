@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Lazier::Hash do
   let(:reference) {
-    rv = {:a => 1, "b" => 2}
+    rv = {a: 1, "b" => 2}
     rv.default = 0
     rv
   }

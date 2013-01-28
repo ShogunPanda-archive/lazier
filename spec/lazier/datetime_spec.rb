@@ -19,30 +19,30 @@ describe Lazier::DateTime do
   describe ".days" do
     it "should return the list of the days of the week" do
       expect(::DateTime.days).to be_kind_of(::Array)
-      expect(::DateTime.days[3]).to eq({:value => "4", :label => "Wed"})
+      expect(::DateTime.days[3]).to eq({value: "4", label: "Wed"})
       expect(::DateTime.days(false)).to be_kind_of(::Array)
-      expect(::DateTime.days(false)[3]).to eq({:value => "4", :label => "Wednesday"})
+      expect(::DateTime.days(false)[3]).to eq({value: "4", label: "Wednesday"})
 
       ::Lazier.settings.setup_date_names(nil, nil, 7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s})
       expect(::DateTime.days).to be_kind_of(::Array)
-      expect(::DateTime.days[3]).to eq({:value => "4", :label => "4"})
+      expect(::DateTime.days[3]).to eq({value: "4", label: "4"})
       expect(::DateTime.days(false)).to be_kind_of(::Array)
-      expect(::DateTime.days(false)[3]).to eq({:value => "4", :label => "44"})
+      expect(::DateTime.days(false)[3]).to eq({value: "4", label: "44"})
     end
   end
 
   describe ".months" do
     it "should return the list of the months of the year" do
       expect(::DateTime.months).to be_kind_of(::Array)
-      expect(::DateTime.months[6]).to eq({:value => "07", :label => "Jul"})
+      expect(::DateTime.months[6]).to eq({value: "07", label: "Jul"})
       expect(::DateTime.months(false)).to be_kind_of(::Array)
-      expect(::DateTime.months(false)[6]).to eq({:value => "07", :label => "July"})
+      expect(::DateTime.months(false)[6]).to eq({value: "07", label: "July"})
 
       ::Lazier.settings.setup_date_names(12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s}, nil, nil)
       expect(::DateTime.months).to be_kind_of(::Array)
-      expect(::DateTime.months[6]).to eq({:value => "07", :label => "7"})
+      expect(::DateTime.months[6]).to eq({value: "07", label: "7"})
       expect(::DateTime.months(false)).to be_kind_of(::Array)
-      expect(::DateTime.months(false)[6]).to eq({:value => "07", :label => "77"})
+      expect(::DateTime.months(false)[6]).to eq({value: "07", label: "77"})
     end
 
   end
@@ -111,7 +111,7 @@ describe Lazier::DateTime do
       expect(::DateTime.custom_format(:ct_date)).to eq("%Y-%m-%d")
       expect(::DateTime.custom_format("ct_date")).to eq("%Y-%m-%d")
 
-      ::Lazier.settings.setup_date_formats({:ct_foo => "%ABC"})
+      ::Lazier.settings.setup_date_formats({ct_foo: "%ABC"})
 
       expect(::DateTime.custom_format(:ct_foo)).to eq("%ABC")
       expect(::DateTime.custom_format("ct_foo")).to eq("%ABC")
@@ -161,7 +161,7 @@ describe Lazier::DateTime do
       expect(fixed_reference.lstrftime(:ct_iso_8601)).to eq("2005-06-07T08:09:10+0700")
 
       ::Lazier.settings.setup_date_names
-      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_formats({ct_local_test: "%a %A %b %B %d %Y %H"})
       expect(fixed_reference.lstrftime(:ct_local_test)).to eq("Tue Tuesday Jun June 07 2005 08")
 
       ::Lazier.settings.setup_date_names(
@@ -184,7 +184,7 @@ describe Lazier::DateTime do
   describe "#local_strftime" do
     it "should retrieve the date in the current timezone" do
       ::Time.zone = ::ActiveSupport::TimeZone[0]
-      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_formats({ct_local_test: "%a %A %b %B %d %Y %H"})
       expect(fixed_reference.local_strftime(:ct_local_test)).to eq("Tue Tuesday Jun June 07 2005 01")
     end
   end
@@ -194,7 +194,7 @@ describe Lazier::DateTime do
       ::Time.zone = ::ActiveSupport::TimeZone[0]
 
       ::Lazier.settings.setup_date_names
-      ::Lazier.settings.setup_date_formats({:ct_local_test => "%a %A %b %B %d %Y %H"})
+      ::Lazier.settings.setup_date_formats({ct_local_test: "%a %A %b %B %d %Y %H"})
 
       ::Lazier.settings.setup_date_names(
           12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s},

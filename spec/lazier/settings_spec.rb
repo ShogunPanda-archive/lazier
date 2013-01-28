@@ -71,11 +71,11 @@ describe Lazier::Settings do
     it "should save formats for date formatting" do
       reference.setup_date_formats(nil, true)
 
-      reference.setup_date_formats({:c1 => "%Y"})
+      reference.setup_date_formats({c1: "%Y"})
       expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
       expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
-      reference.setup_date_formats({:c1 => "%Y"}, true)
+      reference.setup_date_formats({c1: "%Y"}, true)
       expect(date_reference.lstrftime(:ct_date)).to eq("ct_date")
       expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
@@ -92,7 +92,7 @@ describe Lazier::Settings do
   describe "#setup_date_names" do
     it "should save names for days and months" do
       reference.setup_date_names
-      reference.setup_date_formats({:sdn => "%B %b %A %a"})
+      reference.setup_date_formats({sdn: "%B %b %A %a"})
 
       long_months = 12.times.collect {|i| (i + 1).to_s * 2}
       short_months = 12.times.collect {|i| (i + 1).to_s}

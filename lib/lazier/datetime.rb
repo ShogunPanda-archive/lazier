@@ -19,7 +19,7 @@ module Lazier
       def days(short = true)
         days = ::Lazier.settings.date_names[short ? :short_days : :long_days]
         (1..7).to_a.collect { |i|
-          {:value => i.to_s, :label=> days[i - 1]}
+          {value: i.to_s, label: days[i - 1]}
         }
 
       end
@@ -32,7 +32,7 @@ module Lazier
       def months(short = true)
         months = ::Lazier.settings.date_names[short ? :short_months : :long_months]
         (1..12).collect { |i|
-          {:value => i.to_s.rjust(2, "0"), :label=> months.at(i - 1)}
+          {value: i.to_s.rjust(2, "0"), label: months.at(i - 1)}
         }
       end
 
@@ -56,7 +56,7 @@ module Lazier
       # @return [Array] A range of years. Every entry is
       def years(offset = 10, also_future = true, reference = nil, as_objects = false)
         y = reference || ::Date.today.year
-        (y - offset..(also_future ? y + offset : y)).collect { |year| as_objects ? {:value => year, :label => year} : year }
+        (y - offset..(also_future ? y + offset : y)).collect { |year| as_objects ? {value: year, label: year} : year }
       end
 
       # Returns all the availabe timezones.
