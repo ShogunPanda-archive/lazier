@@ -95,13 +95,7 @@ module Lazier
     # @param default_value [Fixnum] The value to return if the conversion is not possible.
     # @return [Fixnum] The integer representation of the object.
     def to_integer(default_value = 0)
-      if self.is_a?(::Integer)
-        self
-      elsif self.is_a?(::Float)
-        self.to_i
-      else
-        self.is_integer? ? ::Kernel.Integer(self.normalize_number) : default_value
-      end
+      self.is_a?(::Integer) ? self : self.to_float(default_value).to_i
     end
 
     # Converts the object to a boolean.
@@ -130,12 +124,19 @@ module Lazier
     # @param k_separator [String] The string to use as thousands separator.
     # @return [String] The string representation of the object.
     def format_number(prec = nil, decimal_separator = nil, add_string = nil, k_separator = nil)
-      prec = ::Lazier.settings.format_number[:prec] if prec.nil?
-      decimal_separator = ::Lazier.settings.format_number[:decimal_separator] if decimal_separator.nil?
-      add_string = ::Lazier.settings.format_number[:add_string] if add_string.nil?
-      k_separator = ::Lazier.settings.format_number[:k_separator] if k_separator.nil?
+      prec ||= ::Lazier.settings.format_number[:prec]
+      decimal_separator ||= ::Lazier.settings.format_number[:decimal_separator]
+      add_string ||= ::Lazier.settings.format_number[:add_string]
+      k_separator ||= ::Lazier.settings.format_number[:k_separator]
+      format = "%n"
+      unit = ""
 
-      (self.is_number? && prec >= 0) ? number_to_currency(self, {precision: prec, separator: decimal_separator, delimiter: k_separator, format: (add_string.blank? ? "%n" : "%n %u"), unit: (add_string.blank? ? "" : add_string.strip)}) : nil
+      if add_string.present? then
+        format = "%n %u"
+        unit = add_string
+      end
+
+      (self.is_number? && prec >= 0) ? number_to_currency(self, {precision: prec, separator: decimal_separator, delimiter: k_separator, format: format, unit: unit}) : nil
     end
 
     # Formats a boolean.
