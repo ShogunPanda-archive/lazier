@@ -4,8 +4,6 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-$KCODE='UTF8' if RUBY_VERSION < '1.9'
-
 require "json"
 require "tzinfo"
 require "active_support/all"
@@ -51,77 +49,82 @@ module Lazier
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
     what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
-    what.collect! { |w| w.to_s }
-
-    # Dependency resolving
-    what << "object" if what.include?("datetime")
-    what << "object" if what.include?("math")
-    what.compact.uniq!
-
-    if what.include?("object") then
-      ::Object.class_eval do
-        include ::Lazier::Object
-      end
-    end
-
-    if what.include?("boolean") then
-      ::TrueClass.class_eval do
-        include ::Lazier::Object
-        include ::Lazier::Boolean
-      end
-
-      ::FalseClass.class_eval do
-        include ::Lazier::Object
-        include ::Lazier::Boolean
-      end
-    end
-
-    if what.include?("string") then
-      ::String.class_eval do
-        include ::Lazier::String
-      end
-    end
-
-    if what.include?("hash") then
-      ::Hash.class_eval do
-        include ::Lazier::Hash
-      end
-    end
-
-    if what.include?("datetime") then
-      ::Time.class_eval do
-        include ::Lazier::DateTime
-      end
-
-      ::Date.class_eval do
-        include ::Lazier::DateTime
-      end
-
-      ::DateTime.class_eval do
-        include ::Lazier::DateTime
-      end
-
-      ::ActiveSupport::TimeZone.class_eval do
-        include ::Lazier::TimeZone
-      end
-    end
-
-    if what.include?("math") then
-      ::Math.class_eval do
-        include ::Lazier::Math
-      end
-    end
-
-    if what.include?("pathname") then
-      require "pathname"
-
-      ::Pathname.class_eval do
-        include ::Lazier::Pathname
-      end
-    end
+    what.collect! { |w| Lazier.send("load_#{w}") }
 
     yield if block_given?
-
     ::Lazier::Settings.instance
+  end
+
+  # Loads Object extensions.
+  def self.load_object
+    ::Object.class_eval do
+      include ::Lazier::Object
+    end
+  end
+
+  # Loads Boolean extensions.
+  def self.load_boolean
+    ::TrueClass.class_eval do
+      include ::Lazier::Object
+      include ::Lazier::Boolean
+    end
+
+    ::FalseClass.class_eval do
+      include ::Lazier::Object
+      include ::Lazier::Boolean
+    end
+  end
+
+  # Loads String extensions.
+  def self.load_string
+    ::String.class_eval do
+      include ::Lazier::String
+    end
+  end
+
+  # Loads Hash extensions.
+  def self.load_hash
+    ::Hash.class_eval do
+      include ::Lazier::Hash
+    end
+  end
+
+  # Loads DateTime extensions.
+  def self.load_datetime
+    Lazier.load_object
+
+    ::Time.class_eval do
+      include ::Lazier::DateTime
+    end
+
+    ::Date.class_eval do
+      include ::Lazier::DateTime
+    end
+
+    ::DateTime.class_eval do
+      include ::Lazier::DateTime
+    end
+
+    ::ActiveSupport::TimeZone.class_eval do
+      include ::Lazier::TimeZone
+    end
+  end
+
+  # Loads Math extensions.
+  def self.load_math
+    Lazier.load_object
+
+    ::Math.class_eval do
+      include ::Lazier::Math
+    end
+  end
+
+  # Loads Pathname extensions.
+  def self.load_pathname
+    require "pathname"
+
+    ::Pathname.class_eval do
+      include ::Lazier::Pathname
+    end
   end
 end

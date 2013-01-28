@@ -6,7 +6,7 @@
 <title>
   Module: Lazier::TimeZone
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.8.3
   
 </title>
 
@@ -523,31 +523,30 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 388</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_aliases identifier id'>aliases</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_reference identifier id'>reference</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span>
-  <span class='rubyid_reference identifier id'>reference</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='colon2 op'>::</span><span class='rubyid_MAPPING constant id'>MAPPING</span><span class='lbrack token'>[</span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='colon2 op'>::</span><span class='rubyid_MAPPING constant id'>MAPPING</span><span class='dot token'>.</span><span class='rubyid_has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='comment val'># We are an alias</span>
-  <span class='rubyid_reference identifier id'>reference</span> <span class='assign token'>=</span> <span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot; &quot;</span><span class='rparen token'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_aliases'>aliases</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>MAPPING</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>MAPPING</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='comment'># We are an alias
+</span>  <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@aliases ivar id'>@aliases</span><span class='dot token'>.</span><span class='rubyid_blank? fid id'>blank?</span> <span class='rubyid_then then kw'>then</span>
-    <span class='comment val'># First we search for aliases by name</span>
-    <span class='rubyid_@aliases ivar id'>@aliases</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_reference identifier id'>reference</span><span class='rbrack token'>]</span>
+  <span class='kw'>if</span> <span class='ivar'>@aliases</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='kw'>then</span>
+    <span class='comment'># First we search for aliases by name
+</span>    <span class='ivar'>@aliases</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_reference'>reference</span><span class='rbracket'>]</span>
 
-    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='colon2 op'>::</span><span class='rubyid_MAPPING constant id'>MAPPING</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_zone identifier id'>zone</span><span class='bitor op'>|</span>
-      <span class='rubyid_if if kw'>if</span> <span class='rubyid_zone identifier id'>zone</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot; &quot;</span><span class='rparen token'>)</span> <span class='eq op'>==</span> <span class='rubyid_reference identifier id'>reference</span> <span class='rubyid_then then kw'>then</span>
-        <span class='rubyid_if if kw'>if</span> <span class='rubyid_name identifier id'>name</span> <span class='eq op'>==</span> <span class='string val'>&quot;International Date Line West&quot;</span> <span class='orop op'>||</span> <span class='rubyid_name identifier id'>name</span> <span class='eq op'>==</span> <span class='string val'>&quot;UTC&quot;</span> <span class='orop op'>||</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='string val'>&quot;(US &amp; Canada)&quot;</span><span class='rparen token'>)</span>
-          <span class='rubyid_@aliases ivar id'>@aliases</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_name identifier id'>name</span>
-        <span class='rubyid_else else kw'>else</span>
-          <span class='rubyid_@aliases ivar id'>@aliases</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\/.*/</span><span class='comma token'>,</span> <span class='string val'>&quot;/&quot;</span> <span class='plus op'>+</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-        <span class='rubyid_end end kw'>end</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>MAPPING</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_zone'>zone</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_reference'>reference</span> <span class='kw'>then</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>International Date Line West</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UTC</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(US &amp; Canada)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+          <span class='ivar'>@aliases</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span>
+        <span class='kw'>else</span>
+          <span class='ivar'>@aliases</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\/.*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
 
-    <span class='rubyid_@aliases ivar id'>@aliases</span> <span class='assign token'>=</span> <span class='rubyid_@aliases ivar id'>@aliases</span><span class='dot token'>.</span><span class='rubyid_uniq identifier id'>uniq</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
-  <span class='rubyid_end end kw'>end</span>
+    <span class='ivar'>@aliases</span> <span class='op'>=</span> <span class='ivar'>@aliases</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span>
+  <span class='kw'>end</span>
 
-  <span class='rubyid_@aliases ivar id'>@aliases</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='ivar'>@aliases</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -593,18 +592,17 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 428</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_current_alias identifier id'>current_alias</span>
-  <span class='rubyid_identifier identifier id'>identifier</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_tzinfo identifier id'>tzinfo</span><span class='dot token'>.</span><span class='rubyid_identifier identifier id'>identifier</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_current_alias'>current_alias</span>
+  <span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_tzinfo'>tzinfo</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span>
 
-  <span class='rubyid_catch identifier id'>catch</span><span class='lparen token'>(</span><span class='symbol val'>:alias</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_aliases identifier id'>aliases</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_a identifier id'>a</span><span class='bitor op'>|</span>
-      <span class='rubyid_throw identifier id'>throw</span><span class='lparen token'>(</span><span class='symbol val'>:alias</span><span class='comma token'>,</span> <span class='rubyid_a identifier id'>a</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_a identifier id'>a</span> <span class='eq op'>==</span> <span class='rubyid_identifier identifier id'>identifier</span>
-    <span class='rubyid_end end kw'>end</span>
+  <span class='id identifier rubyid_catch'>catch</span><span class='lparen'>(</span><span class='symbol'>:alias</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_aliases'>aliases</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span>
+      <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:alias</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span> <span class='op'>==</span> <span class='id identifier rubyid_identifier'>identifier</span>
+    <span class='kw'>end</span>
 
-    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_aliases identifier id'>aliases</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_aliases'>aliases</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -702,15 +700,14 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 418</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_current_offset identifier id'>current_offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_date identifier id'>date</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_date identifier id'>date</span> <span class='opasgn op'>||=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_now identifier id'>now</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_current_offset'>current_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_date'>date</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_date'>date</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
 
-  <span class='rubyid_dst_period identifier id'>dst_period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span>
+  <span class='id identifier rubyid_dst_period'>dst_period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span>
 
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_date identifier id'>date</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_offset identifier id'>dst_offset</span> <span class='colon op'>:</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_offset identifier id'>offset</span><span class='rparen token'>)</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_offset'>dst_offset</span> <span class='op'>:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_offset'>offset</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -805,12 +802,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 481</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_correction identifier id'>dst_correction</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_period identifier id'>period</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_std_offset identifier id'>std_offset</span> <span class='colon op'>:</span> <span class='integer val'>0</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_correction'>dst_correction</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_std_offset'>std_offset</span> <span class='op'>:</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -923,13 +919,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 504</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_name identifier id'>dst_name</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_dst_label identifier id'>dst_label</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;(DST)&quot;</span>
-  <span class='rubyid_name identifier id'>name</span> <span class='opasgn op'>||=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_name'>dst_name</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(DST)</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 
-  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_uses_dst? fid id'>uses_dst?</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='dstring node'>&quot;#{name} #{dst_label}&quot;</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1024,12 +1019,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 492</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_offset identifier id'>dst_offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_period identifier id'>period</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_utc_total_offset identifier id'>utc_total_offset</span> <span class='colon op'>:</span> <span class='integer val'>0</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_offset'>dst_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_utc_total_offset'>utc_total_offset</span> <span class='op'>:</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1112,17 +1106,16 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 453</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_year identifier id'>year</span> <span class='opasgn op'>||=</span> <span class='colon3 op'>::</span><span class='rubyid_Date constant id'>Date</span><span class='dot token'>.</span><span class='rubyid_today identifier id'>today</span><span class='dot token'>.</span><span class='rubyid_year identifier id'>year</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_year'>year</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span>
 
-  <span class='rubyid_nothern_summer identifier id'>nothern_summer</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_civil identifier id'>civil</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='comma token'>,</span> <span class='integer val'>7</span><span class='comma token'>,</span> <span class='integer val'>15</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span> <span class='comment val'># This is a representation of a summer period in the Northern Hemisphere.</span>
-  <span class='rubyid_southern_summer identifier id'>southern_summer</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='rubyid_DateTime constant id'>DateTime</span><span class='dot token'>.</span><span class='rubyid_civil identifier id'>civil</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='integer val'>15</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span> <span class='comment val'># This is a representation of a summer period in the Northern Hemisphere.</span>
-
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_nothern_summer identifier id'>nothern_summer</span><span class='rparen token'>)</span>
-  <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_southern_summer identifier id'>southern_summer</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='notop op'>!</span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span>
-  <span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span> <span class='integer val'>? </span><span class='rubyid_period identifier id'>period</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_nothern_summer'>nothern_summer</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_civil'>civil</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='int'>7</span><span class='comma'>,</span> <span class='int'>15</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span> <span class='comment'># This is a representation of a summer period in the Northern Hemisphere.
+</span>  <span class='id identifier rubyid_southern_summer'>southern_summer</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_civil'>civil</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>15</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span> <span class='comment'># This is a representation of a summer period in the Northern Hemisphere.
+</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_nothern_summer'>nothern_summer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_southern_summer'>southern_summer</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span>
+  <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span> <span class='op'>?</span> <span class='id identifier rubyid_period'>period</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1199,11 +1192,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 444</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_offset identifier id'>offset</span><span class='lparen token'>(</span><span class='rubyid_rational identifier id'>rational</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_utc_offset identifier id'>utc_offset</span>
-  <span class='rubyid_rational identifier id'>rational</span> <span class='integer val'>? </span><span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_rationalize_offset identifier id'>rationalize_offset</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_rv identifier id'>rv</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_utc_offset'>utc_offset</span>
+  <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1297,11 +1289,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 516</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_str identifier id'>to_str</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_colon identifier id'>colon</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_name identifier id'>name</span> <span class='opasgn op'>||=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_current_alias identifier id'>current_alias</span>
-  <span class='dstring node'>&quot;(GMT#{self.formatted_offset(colon)}) #{name}&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_str'>to_str</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_colon'>colon</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_current_alias'>current_alias</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(GMT</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_formatted_offset'>formatted_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_colon'>colon</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1394,10 +1385,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 545</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_str_parameterized identifier id'>to_str_parameterized</span><span class='lparen token'>(</span><span class='rubyid_with_offset identifier id'>with_offset</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='colon3 op'>::</span><span class='rubyid_ActiveSupport constant id'>ActiveSupport</span><span class='colon2 op'>::</span><span class='rubyid_TimeZone constant id'>TimeZone</span><span class='dot token'>.</span><span class='rubyid_parameterize_zone identifier id'>parameterize_zone</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span> <span class='orop op'>||</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_to_str identifier id'>to_str</span><span class='comma token'>,</span> <span class='rubyid_with_offset identifier id'>with_offset</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_str_parameterized'>to_str_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_str'>to_str</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1516,19 +1506,18 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 527</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_str_with_dst identifier id'>to_str_with_dst</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_dst_label identifier id'>dst_label</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;(DST)&quot;</span>
-  <span class='rubyid_name identifier id'>name</span> <span class='opasgn op'>||=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_current_alias identifier id'>current_alias</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(DST)</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_current_alias'>current_alias</span>
 
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_uses_dst? fid id'>uses_dst?</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span> <span class='rubyid_then then kw'>then</span>
-    <span class='rubyid_period identifier id'>period</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span>
-    <span class='rubyid_offset identifier id'>offset</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_class identifier id'>class</span><span class='dot token'>.</span><span class='rubyid_seconds_to_utc_offset identifier id'>seconds_to_utc_offset</span><span class='lparen token'>(</span><span class='rubyid_period identifier id'>period</span><span class='dot token'>.</span><span class='rubyid_utc_total_offset identifier id'>utc_total_offset</span><span class='rparen token'>)</span>
-    <span class='dstring node'>&quot;(GMT#{offset}) #{name} #{dst_label}&quot;</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='kw'>then</span>
+    <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_offset'>offset</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_seconds_to_utc_offset'>seconds_to_utc_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_utc_total_offset'>utc_total_offset</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(GMT</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_offset'>offset</span><span class='rbrace'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1656,11 +1645,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 556</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_str_with_dst_parameterized identifier id'>to_str_with_dst_parameterized</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_with_offset identifier id'>with_offset</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_to_str_with_dst identifier id'>to_str_with_dst</span><span class='lparen token'>(</span><span class='rubyid_dst_label identifier id'>dst_label</span><span class='comma token'>,</span> <span class='rubyid_year identifier id'>year</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='integer val'>? </span><span class='colon2 op'>::</span><span class='rubyid_ActiveSupport constant id'>ActiveSupport</span><span class='colon2 op'>::</span><span class='rubyid_TimeZone constant id'>TimeZone</span><span class='dot token'>.</span><span class='rubyid_parameterize_zone identifier id'>parameterize_zone</span><span class='lparen token'>(</span><span class='rubyid_rv identifier id'>rv</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_str_with_dst_parameterized'>to_str_with_dst_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>?</span> <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1740,14 +1728,13 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 468</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_uses_dst? fid id'>uses_dst?</span><span class='lparen token'>(</span><span class='rubyid_reference identifier id'>reference</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:year</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:utc</span><span class='rparen token'>)</span> <span class='rubyid_then then kw'>then</span> <span class='comment val'># This is a date like object</span>
-    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_year identifier id'>year</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_present? fid id'>present?</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_period_for_utc identifier id'>period_for_utc</span><span class='lparen token'>(</span><span class='rubyid_reference identifier id'>reference</span><span class='dot token'>.</span><span class='rubyid_utc identifier id'>utc</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_dst? fid id'>dst?</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_dst_period identifier id'>dst_period</span><span class='lparen token'>(</span><span class='rubyid_reference identifier id'>reference</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_present? fid id'>present?</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:year</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:utc</span><span class='rparen'>)</span> <span class='kw'>then</span> <span class='comment'># This is a date like object
+</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_period_for_utc'>period_for_utc</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dst?'>dst?</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1758,9 +1745,9 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Jan 16 10:02:58 2013 by
+  Generated on Sun Jan 27 17:35:48 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.8.7).
+  0.8.3 (ruby-1.9.3).
 </div>
 
   </body>
