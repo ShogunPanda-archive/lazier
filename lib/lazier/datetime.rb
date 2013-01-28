@@ -127,10 +127,8 @@ module Lazier
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
         a, b, c = easter_independent(year)
         x, e, i, k = easter_dependent(b, c)
-        h, l, m = easter_finalize(a, x, e, i, k)
+        day, month = easter_summarize(easter_finalize(a, x, e, i, k))
 
-        day = ((h + l - (7 * m) + 114) % 31) + 1
-        month = ((h + l - (7 * m) + 114) / 31.0).floor
         ::Date.civil(year, month, day)
       end
 
@@ -197,9 +195,17 @@ module Lazier
         def easter_finalize(a, x, e, i, k)
           h = ((19 * a) + x + 15) % 30
           l = (32 + (2 * e) + (2 * i) - h - k) % 7
-          m = ((a + (11 * h) + (22 * l)) / 451.0).floor
 
-          [h, l, m]
+          [h, l, ((a + (11 * h) + (22 * l)) / 451.0).floor]
+        end
+
+        # Final part of Easter calculation.
+        #
+        # @param a [Fixnum] Variable from #easter_finalize.
+        # @return [Array] Day and month of Easter daye.
+        def easter_summarize(prev)
+          h, l, m = prev
+          [((h + l - (7 * m) + 114) % 31) + 1, ((h + l - (7 * m) + 114) / 31.0).floor]
         end
     end
 
