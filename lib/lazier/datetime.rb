@@ -420,11 +420,11 @@ module Lazier
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
-      reference = (self.class::MAPPING.has_key?(self.name) ? self.class::MAPPING[self.name] : self.name).gsub("_", " ")
+      reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
 
       @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone|
         if zone.gsub("_", " ") == reference then
-          (name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/" + name)
+          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
         else
           nil
         end
