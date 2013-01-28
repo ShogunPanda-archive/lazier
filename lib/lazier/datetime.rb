@@ -125,14 +125,12 @@ module Lazier
         year = ::Date.today.year if !year.is_integer?
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
-        c  = year / 100
-        k = (c - 17) / 25
-        i = (c - (c / 4) - ((c - k) / 3) + (19 * (year % 19)) + 15) % 30
-        i = i - (i / 28) * (1 - (i / 28) * (29 / (i + 1)) * ((21 - (year % 19)) / 11))
-        l = i - ((year + (year / 4) + i + 2 - c + (c / 4) ) % 7)
-        month = 3 + ((l + 40) / 44)
-        day = l + 28 - (31 * (month / 4))
+        a, b, c = easter_independent(year)
+        d, e, g, i, k = easter_dependent(b, c)
+        h, l, m = easter_finalize(a, b, d, e, g, i, k)
 
+        day = ((h + l - (7 * m) + 114) % 31) + 1
+        month = ((h + l - (7 * m) + 114) / 31.0).floor
         ::Date.civil(year, month, day)
       end
 
@@ -164,6 +162,43 @@ module Lazier
 
         rv
       end
+
+      private
+        # Part one of Easter calculation.
+        #
+        # @param year [Fixnum] The year to compute the date for.
+        # @return [Array] Partial variables for calculus.
+        def easter_independent(year)
+          [year % 19, (year / 100.0).floor, year % 100]
+        end
+
+        # Part two of Easter calculation.
+        #
+        # @param b [Fixnum] Variable from #easter_independent.
+        # @param c [Fixnum] Variable from #easter_independent.
+        # @return [Array] Partial variables for calculus.
+        def easter_dependent(b, c)
+          f = ((b + 8) / 25.0).floor
+          [(b / 4.0).floor, b % 4, ((b - f + 1) / 3.0).floor, (c / 4.0).floor, c % 4]
+        end
+
+        # Part three of Easter calculation.
+        #
+        # @param a [Fixnum] Variable from #easter_independent.
+        # @param b [Fixnum] Variable from #easter_independent.
+        # @param d [Fixnum] Variable from #easter_dependent.
+        # @param e [Fixnum] Variable from #easter_dependent.
+        # @param g [Fixnum] Variable from #easter_dependent.
+        # @param i [Fixnum] Variable from #easter_dependent.
+        # @param k [Fixnum] Variable from #easter_dependent.
+        # @return [Array] Partial variables for calculus.
+        def easter_finalize(a, b, d, e, g, i, k)
+          h = ((19 * a) + b - d - g + 15) % 30
+          l = (32 + (2 * e) + (2 * i) - h - k) % 7
+          m = ((a + (11 * h) + (22 * l)) / 451.0).floor
+
+          [h, l, m]
+        end
     end
 
     # Returns the UTC::Time representation of the current datetime.
@@ -377,11 +412,11 @@ module Lazier
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
-      reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
+      reference = (self.class::MAPPING.has_key?(self.name) ? self.class::MAPPING[self.name] : self.name).gsub("_", " ")
 
       @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone|
         if zone.gsub("_", " ") == reference then
-          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
+          (name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/" + name)
         else
           nil
         end
