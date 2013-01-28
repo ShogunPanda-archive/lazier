@@ -125,16 +125,16 @@ module Lazier
         year = ::Date.today.year if !year.is_integer?
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
-        b = (year / 100.0).floor
-        g = ((b - (((b + 8) / 25.0).floor) + 1) / 3.0).floor
-        h = ((19 * (year % 19)) + b - ((b / 4.0).floor) - g + 15) % 30
-        i = ((year % 100) / 4.0).floor
-        k = (year % 100) % 4
-        l = (32 + (2 * (b % 4)) + (2 * i) - h - k) % 7
-        m = (((year % 19) + (11 * h) + (22 * l)) / 451.0).floor
+        c  = year / 100
+        g = year % 19
+        k = (c - 17) / 25
+        i = (c - (c / 4) - ((c - k) / 3) + (19 * g) + 15) % 30
+        i = i - (i / 28) * (1 - (i / 28) * (29 / (i + 1)) * ((21 - g) / 11))
+        j = (year + (year / 4) + i + 2 - c + (c / 4) ) % 7
+        l = i - j
+        month = 3 + ((l + 40) / 44)
+        day = l + 28 - (31 * (month / 4))
 
-        day = ((h + l - (7 * m) + 114) % 31) + 1
-        month = ((h + l - (7 * m) + 114) / 31.0).floor
         ::Date.civil(year, month, day)
       end
 
@@ -379,11 +379,11 @@ module Lazier
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
-      reference = (self.class::MAPPING.has_key?(self.name) ? self.class::MAPPING[self.name] : self.name).gsub("_", " ")
+      reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
 
       @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone|
         if zone.gsub("_", " ") == reference then
-          (name == "International Date Line West" || name == "UTC" || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/" + name)
+          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
         else
           nil
         end
