@@ -19,8 +19,10 @@ module Lazier
 
     # Returns the singleton instance of the settings.
     #
+    # @param force [Boolean] If to force recreation of the instance.
     # @return [Settings] The singleton instance of the settings.
-    def self.instance
+    def self.instance(force = false)
+      @instance = nil if force
       @instance ||= self.new
     end
 

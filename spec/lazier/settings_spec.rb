@@ -15,6 +15,23 @@ describe Lazier::Settings do
     Lazier.load!
   end
 
+  describe ".instance" do
+    it "should create a new instance" do
+      expect(::Lazier::Settings.instance).to be_a(::Lazier::Settings)
+    end
+
+    it "should always return the same instance" do
+      instance = ::Lazier::Settings.instance
+      ::Lazier::Settings.should_not_receive(:new)
+      expect(::Lazier::Settings.instance).to eq(instance)
+    end
+
+    it "should recreate an instance" do
+      other = ::Lazier::Settings.instance
+      expect(::Lazier::Settings.instance(true)).not_to eq(other)
+    end
+  end
+
   describe "#initialize" do
     it "should create good defaults" do
       settings = ::Lazier::Settings.new

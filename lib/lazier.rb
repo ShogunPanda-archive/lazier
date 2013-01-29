@@ -128,24 +128,25 @@ module Lazier
 
   # Get the list of available translation for the current locale.
   #
-  # @return [R18N::Translation] The translation
+  # @return [R18N::Translation] The translation object.
   def self.i18n
     Lazier.localize if !Lazier.localized?
-    ::R18n.get.try(:t)
+    @i18n
   end
 
   # Set the current locale for messages.
   #
   # @param locale [String] The new locale. Default is the current system locale.
+  # @return [R18n::Translation] The new translation object.
   def self.localize(locale = nil)
     @i18n_locales_path ||= ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../locales/")
-    locale ? ::R18n.set(locale, @i18n_locales_path) : ::R18n.set(:en, @i18n_locales_path)
+    @i18n = R18n::I18n.new([locale, ENV["LANG"], R18n::I18n.system_locale].compact, @i18n_locales_path).t.lazier
   end
 
   # Check whether the i18n support have been enabled.
   #
   # @return [Boolean] Whether the i18n support have been enabled or not.
   def self.localized?
-    @i18n_locales_path.present?
+    @i18n.present?
   end
 end
