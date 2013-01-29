@@ -201,7 +201,7 @@ module Lazier
 
         # Final part of Easter calculation.
         #
-        # @param a [Fixnum] Variable from #easter_finalize.
+        # @param prev [Fixnum] Variable from #easter_finalize.
         # @return [Array] Day and month of Easter daye.
         def easter_summarize(prev)
           h, l, m = prev

@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency("json", "~> 1.7.6")
-  gem.add_dependency("actionpack", "~> 3.2.11")
+  gem.add_dependency("actionpack", ">= 3.2.11") # We don't use ~> to enable use with 4.0
   gem.add_dependency("tzinfo", "~> 0.3.35")
 
   gem.add_development_dependency("rspec", "~> 2.12.0")

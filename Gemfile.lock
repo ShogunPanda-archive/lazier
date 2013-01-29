@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    lazier (1.9.9)
-      actionpack (~> 3.2.11)
+    lazier (2.0.0)
+      actionpack (>= 3.2.11)
       json (~> 1.7.6)
       tzinfo (~> 0.3.35)
 

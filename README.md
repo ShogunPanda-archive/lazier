@@ -6,7 +6,9 @@
 
 Several Ruby object enhancements.
 
-http://github.com/ShogunPanda/lazier
+http://sw.cow.tc/lazier
+
+http://rdoc.info/gems/lazier
 
 ## Usage
 
