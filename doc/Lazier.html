@@ -371,7 +371,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Check whether #localized have been called.</p>
+    <span class="summary_desc"><div class='inline'><p>Check whether the i18n support have been enabled.</p>
 </div></span>
   
 </li>
@@ -451,13 +451,13 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-131
 132
 133
-134</pre>
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
@@ -498,8 +498,9 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       
       
         &mdash;
-        <div class='inline'><p>The modules to load. Valid values are:
-@option object Extensions for all objects.
+        <div class='inline'><p>The modules to load. Valid values are:</p>
+
+<p>@option object Extensions for all objects.
 @option boolean Extensions for boolean values.
 @option string Extensions for strings.
 @option hash Extensions for hashs.
@@ -536,7 +537,6 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-45
 46
 47
 48
@@ -544,10 +544,11 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 50
 51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_what'>what</span><span class='rparen'>)</span>
   <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
@@ -588,7 +589,6 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-63
 64
 65
 66
@@ -598,10 +598,11 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 70
 71
 72
-73</pre>
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_boolean'>load_boolean</span>
   <span class='op'>::</span><span class='const'>TrueClass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -644,7 +645,6 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-90
 91
 92
 93
@@ -662,10 +662,11 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 105
 106
 107
-108</pre>
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -716,14 +717,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-83
 84
 85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_hash'>load_hash</span>
   <span class='op'>::</span><span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -760,16 +761,16 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-111
 112
 113
 114
 115
 116
-117</pre>
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_math'>load_math</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -808,14 +809,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-56
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
   <span class='op'>::</span><span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -852,16 +853,16 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-120
 121
 122
 123
 124
 125
-126</pre>
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_pathname'>load_pathname</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pathname</span><span class='tstring_end'>&quot;</span></span>
@@ -900,14 +901,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-76
 77
 78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_string'>load_string</span>
   <span class='op'>::</span><span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -930,7 +931,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Set the current locale for messages</p>
+    <p>Set the current locale for messages.</p>
 
 
   </div>
@@ -965,13 +966,13 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-139
 140
 141
-142</pre>
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@i18n_locales_path</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -993,7 +994,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Check whether #localized have been called.</p>
+    <p>Check whether the i18n support have been enabled.</p>
 
 
   </div>
@@ -1011,7 +1012,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       
       
         &mdash;
-        <div class='inline'><p>Whether the #localized method have been called or not.</p>
+        <div class='inline'><p>Whether the i18n support have been enabled or not.</p>
 </div>
       
     </li>
@@ -1024,12 +1025,12 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-147
 148
-149</pre>
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
   <span class='ivar'>@i18n_locales_path</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1050,7 +1051,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the settings for the extensions</p>
+    <p>Returns the settings for the extensions.</p>
 
 
   </div>
@@ -1103,7 +1104,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 29 07:59:54 2013 by
+  Generated on Tue Jan 29 08:05:14 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.9.3).
 </div>

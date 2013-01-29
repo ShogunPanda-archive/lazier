@@ -23,7 +23,7 @@ require "lazier/pathname"
 
 # Several Ruby object enhancements.
 module Lazier
-  # Returns the settings for the extensions
+  # Returns the settings for the extensions.
   #
   # @return [Settings] The settings for the extensions.
   def self.settings
@@ -34,6 +34,7 @@ module Lazier
   # Loads the extensions.
   #
   # @param what [Array] The modules to load. Valid values are:
+  #
   #   @option object Extensions for all objects.
   #   @option boolean Extensions for boolean values.
   #   @option string Extensions for strings.
@@ -133,7 +134,7 @@ module Lazier
     ::R18n.get.try(:t)
   end
 
-  # Set the current locale for messages
+  # Set the current locale for messages.
   #
   # @param locale [String] The new locale. Default is the current system locale.
   def self.localize(locale = nil)
@@ -141,9 +142,9 @@ module Lazier
     locale ? ::R18n.set(locale, @i18n_locales_path) : ::R18n.set(:en, @i18n_locales_path)
   end
 
-  # Check whether #localized have been called.
+  # Check whether the i18n support have been enabled.
   #
-  # @return [Boolean] Whether the #localized method have been called or not.
+  # @return [Boolean] Whether the i18n support have been enabled or not.
   def self.localized?
     @i18n_locales_path.present?
   end
