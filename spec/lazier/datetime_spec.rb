@@ -171,14 +171,6 @@ describe Lazier::DateTime do
 
       expect(fixed_reference.lstrftime(:ct_local_test)).to eq("3 33 6 66 07 2005 08")
     end
-
-    it "should fix Ruby 1.8 %z and %Z bug" do
-      original_ruby_version = RUBY_VERSION
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.9.3") }
-      expect(fixed_reference.lstrftime("%z")).to eq("+0700")
-      expect(fixed_reference.lstrftime("%:z")).to eq("+07:00")
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", original_ruby_version) }
-    end
   end
 
   describe "#local_strftime" do

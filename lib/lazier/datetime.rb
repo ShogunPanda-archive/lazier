@@ -246,32 +246,8 @@ module Lazier
     def lstrftime(format = nil)
       rv = nil
       names = ::Lazier.settings.date_names
-
-      final_format = ::DateTime.custom_format(format).ensure_string.gsub(/(%{1,2}:?[abz])/i) do |match|
-        mrv = match
-
-        # Handling of %z is to fix ruby 1.8 bug in OSX: http://bugs.ruby-lang.org/issues/2396
-        if match !~ /^%%/ then
-          case match
-            when "%a"
-              mrv = names[:short_days][self.wday]
-            when "%A"
-              mrv = names[:long_days][self.wday]
-            when "%b"
-              mrv = names[:short_months][self.month - 1]
-            when "%B"
-              mrv = names[:long_months][self.month - 1]
-            when "%z"
-              mrv = ::Lazier.is_ruby_18? ? self.formatted_offset(false) : nil
-            when "%:z"
-              mrv = ::Lazier.is_ruby_18? ? self.formatted_offset(true) : nil
-          end
-        end
-
-        mrv ? mrv.sub("%", "%%") : match
-      end
-
-      self.strftime(final_format)
+      substitutions = {"%a" => names[:short_days][self.wday], "%A" => names[:long_days][self.wday], "%b" => names[:short_months][self.month - 1], "%B" => names[:long_months][self.month - 1]}
+      self.strftime(::DateTime.custom_format(format).ensure_string.gsub(/(?<!%)(%[ab])/i) {|mo| substitutions[mo] })
     end
 
     # Formats a datetime in the current timezone.

@@ -22,13 +22,6 @@ require "lazier/pathname"
 
 # Several Ruby object enhancements.
 module Lazier
-  # Checks if we are running under Ruby 1.8
-  #
-  # @return [Boolean] `true` for Ruby 1.8, `false` otherwise.
-  def self.is_ruby_18?
-    RUBY_VERSION =~ /^1\.8/
-  end
-
   # Returns the settings for the extensions
   #
   # @return [Settings] The settings for the extensions.

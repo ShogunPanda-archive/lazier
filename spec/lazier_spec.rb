@@ -7,24 +7,6 @@
 require "spec_helper"
 
 describe Lazier do
-  describe ".is_ruby_18?" do
-    it "it return true for Ruby 1.8" do
-      original_ruby_version = RUBY_VERSION
-
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.8.7") }
-      expect(::Lazier.is_ruby_18?).to be_true
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", original_ruby_version) }
-    end
-
-    it "it return false otherwise" do
-      original_ruby_version = RUBY_VERSION
-
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", "1.9.3") }
-      expect(::Lazier.is_ruby_18?).to be_false
-      ::Kernel::silence_warnings { Object.const_set("RUBY_VERSION", original_ruby_version) }
-    end
-  end
-
   describe ".load!" do
     describe "should load all extensions by default" do
       ::Lazier.load!
