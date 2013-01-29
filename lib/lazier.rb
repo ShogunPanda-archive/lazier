@@ -128,7 +128,7 @@ module Lazier
 
   # Get the list of available translation for the current locale.
   #
-  # @return The translation
+  # @return [R18N::Translation] The translation
   def self.i18n
     Lazier.localize if !Lazier.localized?
     ::R18n.get.try(:t)
