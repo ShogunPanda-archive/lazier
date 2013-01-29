@@ -127,6 +127,29 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#i18n-class_method" title="i18n (class method)">+ (Object) <strong>i18n</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the list of available translation for the current locale.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#load%21-class_method" title="load! (class method)">+ (Settings) <strong>load!</strong>(*what) </a>
     
 
@@ -311,6 +334,52 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#localize-class_method" title="localize (class method)">+ (Object) <strong>localize</strong>(locale = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Set the current locale for messages.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#localized%3F-class_method" title="localized? (class method)">+ (Boolean) <strong>localized?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Check whether #localized have been called.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#settings-class_method" title="settings (class method)">+ (Settings) <strong>settings</strong> </a>
     
 
@@ -341,7 +410,66 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="load!-class_method">
+  <h3 class="signature first" id="i18n-class_method">
+  
+    + (<tt><span class='object_link'><a href="Lazier/Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>i18n</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the list of available translation for the current locale.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>The translation</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133
+134</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 131</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span>
+  <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
+  <span class='op'>::</span><span class='const'>R18n</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:t</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load!-class_method">
   
     + (<tt><span class='object_link'><a href="Lazier/Settings.html" title="Lazier::Settings (class)">Settings</a></span></tt>) <strong>load!</strong>(*what) 
   
@@ -408,20 +536,24 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-43
-44
 45
 46
 47
 48
-49</pre>
+49
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_what'>what</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
+
   <span class='id identifier rubyid_what'>what</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>object</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>string</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>datetime</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>math</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pathname</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_what'>what</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>==</span> <span class='int'>0</span>
-  <span class='id identifier rubyid_what'>what</span><span class='period'>.</span><span class='id identifier rubyid_collect!'>collect!</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_w'>w</span><span class='op'>|</span> <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>load_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_w'>w</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_what'>what</span><span class='period'>.</span><span class='id identifier rubyid_collect!'>collect!</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_w'>w</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>load_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_w'>w</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 
   <span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
   <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Settings</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -456,20 +588,20 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-59
-60
-61
-62
 63
 64
 65
 66
 67
 68
-69</pre>
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_boolean'>load_boolean</span>
   <span class='op'>::</span><span class='const'>TrueClass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -512,10 +644,6 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-86
-87
-88
-89
 90
 91
 92
@@ -530,10 +658,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 101
 102
 103
-104</pre>
+104
+105
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -584,14 +716,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-79
-80
-81
-82
-83</pre>
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_hash'>load_hash</span>
   <span class='op'>::</span><span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -628,16 +760,16 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-107
-108
-109
-110
 111
 112
-113</pre>
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_math'>load_math</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -676,14 +808,14 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-52
-53
-54
-55
-56</pre>
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
   <span class='op'>::</span><span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -720,16 +852,16 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-116
-117
-118
-119
 120
 121
-122</pre>
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_pathname'>load_pathname</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pathname</span><span class='tstring_end'>&quot;</span></span>
@@ -768,19 +900,139 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-72
-73
-74
-75
-76</pre>
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_string'>load_string</span>
   <span class='op'>::</span><span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>String</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="localize-class_method">
+  
+    + (<tt><span class='object_link'><a href="Lazier/Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>localize</strong>(locale = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Set the current locale for messages</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>locale</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Lazier/String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The new locale. Default is the current system locale.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+139
+140
+141
+142</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 139</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@i18n_locales_path</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_locale'>locale</span> <span class='op'>?</span> <span class='op'>::</span><span class='const'>R18n</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span> <span class='ivar'>@i18n_locales_path</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='op'>::</span><span class='const'>R18n</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='symbol'>:en</span><span class='comma'>,</span> <span class='ivar'>@i18n_locales_path</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="localized?-class_method">
+  
+    + (<tt><span class='object_link'><a href="Lazier/Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>localized?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Check whether #localized have been called.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Lazier/Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether the #localized method have been called or not.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 147</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
+  <span class='ivar'>@i18n_locales_path</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -829,14 +1081,16 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
       <pre class="lines">
 
 
-28
 29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span>
+  <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localize'>localize</span> <span class='kw'>if</span> <span class='op'>!</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_localized?'>localized?</span>
   <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Settings</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -849,7 +1103,7 @@ Licensed under the MIT license, which can be found at <a href="http://www.openso
 </div>
 
     <div id="footer">
-  Generated on Mon Jan 28 20:23:45 2013 by
+  Generated on Tue Jan 29 07:59:54 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.9.3).
 </div>

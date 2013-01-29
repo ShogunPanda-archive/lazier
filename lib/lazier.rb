@@ -8,6 +8,7 @@ require "json"
 require "tzinfo"
 require "active_support/all"
 require "action_view"
+require "r18n-desktop"
 
 require "lazier/version" if !defined?(Lazier::Version)
 require "lazier/exceptions"
@@ -26,6 +27,7 @@ module Lazier
   #
   # @return [Settings] The settings for the extensions.
   def self.settings
+    ::Lazier.localize if !Lazier.localized?
     ::Lazier::Settings.instance
   end
 
@@ -41,8 +43,10 @@ module Lazier
   #   @option pathname Extensions for path objects.
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
+    ::Lazier.localize if !Lazier.localized?
+
     what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
-    what.collect! { |w| Lazier.send("load_#{w}") }
+    what.collect! { |w| ::Lazier.send("load_#{w}") }
 
     yield if block_given?
     ::Lazier::Settings.instance
@@ -119,5 +123,28 @@ module Lazier
     ::Pathname.class_eval do
       include ::Lazier::Pathname
     end
+  end
+
+  # Get the list of available translation for the current locale.
+  #
+  # @return The translation
+  def self.i18n
+    Lazier.localize if !Lazier.localized?
+    ::R18n.get.try(:t)
+  end
+
+  # Set the current locale for messages
+  #
+  # @param locale [String] The new locale. Default is the current system locale.
+  def self.localize(locale = nil)
+    @i18n_locales_path ||= ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../locales/")
+    locale ? ::R18n.set(locale, @i18n_locales_path) : ::R18n.set(:en, @i18n_locales_path)
+  end
+
+  # Check whether #localized have been called.
+  #
+  # @return [Boolean] Whether the #localized method have been called or not.
+  def self.localized?
+    @i18n_locales_path.present?
   end
 end

@@ -51,8 +51,8 @@ module Lazier
     # @param false_name [String] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
     def setup_boolean_names(true_name = nil, false_name = nil)
-      true_name ||= "Yes"
-      false_name ||= "No"
+      true_name ||= Lazier.i18n.boolean[0]
+      false_name ||= Lazier.i18n.boolean[1]
       @boolean_names = {true => true_name, false => false_name}
     end
 
@@ -90,10 +90,10 @@ module Lazier
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
     def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
-      long_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] if long_months.blank?
-      short_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] if short_months.blank?
-      long_days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]  if long_days.blank?
-      short_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]  if short_days.blank?
+      long_months = Lazier.i18n.date.long_months if long_months.blank?
+      short_months = Lazier.i18n.date.short_months if short_months.blank?
+      long_days = Lazier.i18n.date.long_days if long_days.blank?
+      short_days = Lazier.i18n.date.short_days if short_days.blank?
 
       @date_names = { long_months: long_months, short_months: short_months, long_days: long_days, short_days: short_days }
     end
