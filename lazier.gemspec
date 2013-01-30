@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.required_ruby_version = ">= 1.9.2"
+
   gem.add_dependency("json", "~> 1.7.6")
   gem.add_dependency("actionpack", ">= 3.2.11") # We don't use ~> to enable use with 4.0
   gem.add_dependency("tzinfo", "~> 0.3.35")
