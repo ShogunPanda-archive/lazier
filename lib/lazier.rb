@@ -12,6 +12,7 @@ require "r18n-desktop"
 
 require "lazier/version" if !defined?(Lazier::Version)
 require "lazier/exceptions"
+require "lazier/i18n"
 require "lazier/settings"
 require "lazier/object"
 require "lazier/boolean"
@@ -27,7 +28,6 @@ module Lazier
   #
   # @return [Settings] The settings for the extensions.
   def self.settings
-    ::Lazier.localize if !Lazier.localized?
     ::Lazier::Settings.instance
   end
 
@@ -44,8 +44,6 @@ module Lazier
   #   @option pathname Extensions for path objects.
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
-    ::Lazier.localize if !Lazier.localized?
-
     what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
     what.collect! { |w| ::Lazier.send("load_#{w}") }
 
@@ -124,29 +122,5 @@ module Lazier
     ::Pathname.class_eval do
       include ::Lazier::Pathname
     end
-  end
-
-  # Get the list of available translation for the current locale.
-  #
-  # @return [R18N::Translation] The translation object.
-  def self.i18n
-    Lazier.localize if !Lazier.localized?
-    @i18n
-  end
-
-  # Set the current locale for messages.
-  #
-  # @param locale [String] The new locale. Default is the current system locale.
-  # @return [R18n::Translation] The new translation object.
-  def self.localize(locale = nil)
-    @i18n_locales_path ||= ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../locales/")
-    @i18n = R18n::I18n.new([locale, ENV["LANG"], R18n::I18n.system_locale].compact, @i18n_locales_path).t.lazier
-  end
-
-  # Check whether the i18n support have been enabled.
-  #
-  # @return [Boolean] Whether the i18n support have been enabled or not.
-  def self.localized?
-    @i18n.present?
   end
 end

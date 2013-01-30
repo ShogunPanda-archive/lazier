@@ -13,6 +13,7 @@ describe Lazier::Settings do
 
   before(:all) do
     Lazier.load!
+    ::Lazier::Settings.instance.i18n = :en
   end
 
   describe ".instance" do
@@ -108,6 +109,7 @@ describe Lazier::Settings do
 
   describe "#setup_date_names" do
     it "should save names for days and months" do
+      reference.i18n = :en
       reference.setup_date_names
       reference.setup_date_formats({sdn: "%B %b %A %a"})
 

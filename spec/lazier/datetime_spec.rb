@@ -13,9 +13,8 @@ describe Lazier::DateTime do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ::Lazier.localize(:en)
-    ::Lazier::Settings.instance(true)
-    ::Lazier.load!
+    Lazier.load!
+    ::Lazier::Settings.instance.i18n = :en
   end
 
   describe ".days" do
@@ -206,8 +205,9 @@ describe Lazier::TimeZone do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
+    ::Lazier::Settings.instance(true)
+    ::Lazier::Settings.instance.i18n = :en
     ::Lazier.load!
-    ::Lazier.localize(:en)
   end
 
   describe ".rationalize_offset" do

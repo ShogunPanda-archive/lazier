@@ -11,11 +11,15 @@ module Lazier
   # @attr [Hash] boolean_names String representations of booleans.
   # @attr [Hash] date_names String representations of days and months.
   # @attr [Hash] date_formats Custom date and time formats.
+  # @attr [R18n::Translation] i18n The translation object.
+
   class Settings
     attr_reader :format_number
     attr_reader :boolean_names
     attr_reader :date_names
     attr_reader :date_formats
+
+    include Lazier::I18n
 
     # Returns the singleton instance of the settings.
     #
@@ -28,10 +32,25 @@ module Lazier
 
     # Initializes a new settings object.
     def initialize
+      self.i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      self.setup
+    end
+
+    # Setups the current instance.
+    def setup
       self.setup_format_number
       self.setup_boolean_names
       self.setup_date_formats
       self.setup_date_names
+    end
+
+    # Set the current locale for messages.
+    #
+    # @param locale [String] The new locale. Default is the current system locale.
+    # @return [R18n::Translation] The new translation object.
+    def i18n=(locale)
+      super(locale)
+      self.setup
     end
 
     # Setups formatters for a number.
@@ -53,8 +72,8 @@ module Lazier
     # @param false_name [String] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
     def setup_boolean_names(true_name = nil, false_name = nil)
-      true_name ||= Lazier.i18n.boolean[0]
-      false_name ||= Lazier.i18n.boolean[1]
+      true_name ||= self.i18n.boolean[0]
+      false_name ||= self.i18n.boolean[1]
       @boolean_names = {true => true_name, false => false_name}
     end
 
@@ -92,10 +111,10 @@ module Lazier
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
     def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
-      long_months = Lazier.i18n.date.long_months if long_months.blank?
-      short_months = Lazier.i18n.date.short_months if short_months.blank?
-      long_days = Lazier.i18n.date.long_days if long_days.blank?
-      short_days = Lazier.i18n.date.short_days if short_days.blank?
+      long_months = self.i18n.date.long_months if long_months.blank?
+      short_months = self.i18n.date.short_months if short_months.blank?
+      long_days = self.i18n.date.long_days if long_days.blank?
+      short_days = self.i18n.date.short_days if short_days.blank?
 
       @date_names = { long_months: long_months, short_months: short_months, long_days: long_days, short_days: short_days }
     end

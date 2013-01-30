@@ -42,38 +42,4 @@ describe Lazier do
       end
     end
   end
-
-  describe ".i18n" do
-    it "should run localize if needed" do
-      Lazier.instance_variable_set(:@i18n, nil)
-      Lazier.should_receive(:localize)
-      Lazier.i18n
-    end
-  end
-
-  describe ".localize" do
-    it "should set the right locale path" do
-      Lazier.localize
-      expect(Lazier.instance_variable_get(:@i18n_locales_path)).to eq(File.absolute_path(::Pathname.new(File.dirname(__FILE__)).to_s + "/../locales/"))
-    end
-
-    it "should set using system locale if called without arguments" do
-      R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact, File.absolute_path(::Pathname.new(File.dirname(__FILE__)).to_s + "/../locales/")).and_call_original
-      Lazier.localize
-    end
-
-    it "should set the requested locale" do
-      R18n::I18n.should_receive(:new).with([:it, ENV["LANG"], R18n::I18n.system_locale].compact, File.absolute_path(::Pathname.new(File.dirname(__FILE__)).to_s + "/../locales/")).and_call_original
-      Lazier.localize(:it)
-    end
-  end
-
-  describe ".localize?" do
-    it "should respect the value of the internal variable" do
-      Lazier.instance_variable_set(:@i18n, nil)
-      expect(Lazier.localized?).to be_false
-      Lazier.localize(:en)
-      expect(Lazier.localized?).to be_true
-    end
-  end
 end
