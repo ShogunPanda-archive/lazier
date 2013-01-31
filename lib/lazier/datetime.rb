@@ -387,14 +387,7 @@ module Lazier
     # @return [Array] A list of aliases for this timezone
     def aliases
       reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
-
-      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone|
-        if zone.gsub("_", " ") == reference then
-          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
-        else
-          nil
-        end
-      }).uniq.compact.sort
+      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, refeence) }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
@@ -543,5 +536,20 @@ module Lazier
       rv = self.to_str_with_dst(dst_label, year, name)
       rv ? ::ActiveSupport::TimeZone.parameterize_zone(rv) : nil
     end
+
+    private
+      # Formats a time zone alias.
+      #
+      # @param name [String] The zone name.
+      # @param zone [String] The zone.
+      # @param reference [String] The main name for the zone.
+      # @return [String|nil] The formatted alias.
+      def format_alias(name, zone, reference)
+        if zone.gsub("_", " ") == reference then
+          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
+        else
+          nil
+        end
+      end
   end
 end

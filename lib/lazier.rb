@@ -89,16 +89,10 @@ module Lazier
   def self.load_datetime
     Lazier.load_object
 
-    ::Time.class_eval do
-      include ::Lazier::DateTime
-    end
-
-    ::Date.class_eval do
-      include ::Lazier::DateTime
-    end
-
-    ::DateTime.class_eval do
-      include ::Lazier::DateTime
+    [::Time, ::Date, ::DateTime].each do |c|
+      c.class_eval do
+        include ::Lazier::DateTime
+      end
     end
 
     ::ActiveSupport::TimeZone.class_eval do
