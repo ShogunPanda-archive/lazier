@@ -319,9 +319,7 @@ module Lazier
         dst_label ||= "(DST)"
 
         @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.collect(&:to_s) }
-        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.collect { |zone|
-          zone.aliases.collect { |zone_alias| [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil] }
-        }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
+        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.collect { |zone| fetch_aliases(zone, dst_label) }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
 
         @zones_names["#{with_dst ? "DST[#{dst_label}]-" : ""}STANDARD"]
       end
@@ -381,13 +379,24 @@ module Lazier
         right = right.to_str if right.is_a?(::ActiveSupport::TimeZone)
         left.ensure_string.split(" ", 2)[1] <=> right.ensure_string.split(" ", 2)[1]
       end
+
+      private
+        # Returns a list of aliases for a given time zone.
+        #
+        # @param zone [ActiveSupport::TimeZone] The zone.
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
+        def fetch_aliases(zone, dst_label = "(DST)")
+          zone.aliases.collect { |zone_alias|
+            [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil]
+          }
+        end
     end
 
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
       reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
-      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, refeence) }).uniq.compact.sort
+      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
