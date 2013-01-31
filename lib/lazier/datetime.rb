@@ -244,10 +244,7 @@ module Lazier
     # @param format [String] A format or a custom format name to use for formatting.
     # @return [String] The formatted date.
     def lstrftime(format = nil)
-      rv = nil
-      names = ::Lazier.settings.date_names
-      substitutions = {"%a" => names[:short_days][self.wday], "%A" => names[:long_days][self.wday], "%b" => names[:short_months][self.month - 1], "%B" => names[:long_months][self.month - 1]}
-      self.strftime(::DateTime.custom_format(format).ensure_string.gsub(/(?<!%)(%[ab])/i) {|mo| substitutions[mo] })
+      self.strftime(::DateTime.custom_format(format).ensure_string.gsub(/(?<!%)(%[ab])/i) {|mo| localize_time_component(mo) })
     end
 
     # Formats a datetime in the current timezone.
@@ -266,6 +263,17 @@ module Lazier
     def local_lstrftime(format = nil)
       (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
     end
+
+    private
+      # Returns a component of the date in the current locale.
+      #
+      # @param component [String] The component to localize.
+      # @return [String] The localized component.
+      def localize_time_component(component)
+        type = {"%a" => :short_days, "%A" => :long_days, "%b" => :short_months, "%B" => :long_months}.fetch(component, "")
+        index = component =~ /%a/i ? self.wday : self.month - 1
+        ::Lazier.settings.date_names.fetch(type, [])[index]
+      end
   end
 
   # Extensions for timezone objects.
