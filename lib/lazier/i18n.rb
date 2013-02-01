@@ -5,6 +5,7 @@
 #
 
 module Lazier
+  # Provides an easy way to localized messages in a class.
   module I18n
     # Setup all I18n translations.
     #
