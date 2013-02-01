@@ -125,9 +125,11 @@ module Lazier
         year = ::Date.today.year if !year.is_integer?
 
         # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
-        a, b, c = easter_independent(year)
-        x, e, i, k = easter_dependent(b, c)
-        day, month = easter_summarize(easter_finalize(a, x, e, i, k))
+        data = easter_start(year)
+        data = easter_part_1(data)
+        data = easter_part_2(year, data)
+        data = easter_part_3(year,  data)
+        day, month = easter_end(data)
 
         ::Date.civil(year, month, day)
       end
@@ -165,17 +167,16 @@ module Lazier
         # Part one of Easter calculation.
         #
         # @param year [Fixnum] The year to compute the date for.
-        # @return [Array] Partial variables for calculus.
-        def easter_independent(year)
+        # @return [Array] Partial variables for #easter_part_1.
+        def easter_start(year)
           [year % 19, (year / 100.0).floor, year % 100]
         end
 
         # Part two of Easter calculation.
-        #
-        # @param b [Fixnum] Variable from #easter_independent.
-        # @param c [Fixnum] Variable from #easter_independent.
-        # @return [Array] Partial variables for calculus.
-        def easter_dependent(b, c)
+        # @param data [Fixnum] Partial variables from #easter_start.
+        # @return [Array] Partial variables for #easter_part_2.
+        def easter_part_1(data)
+          a, b, c = data
           [
             b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor,
             b % 4,
@@ -186,25 +187,30 @@ module Lazier
 
         # Part three of Easter calculation.
         #
-        # @param a [Fixnum] Variable from #easter_independent.
-        # @param x [Fixnum] Variable from #easter_independent.
-        # @param e [Fixnum] Variable from #easter_dependent.
-        # @param i [Fixnum] Variable from #easter_dependent.
-        # @param k [Fixnum] Variable from #easter_dependent.
-        # @return [Array] Partial variables for calculus.
-        def easter_finalize(a, x, e, i, k)
+        # @param data [Fixnum] Partial variables from #easter_part_1.
+        # @return [Array] Partial variables for #easter_part_3.
+        def easter_part_2(year, data)
+          a = year % 19
+          x, e, i, k = data
           h = ((19 * a) + x + 15) % 30
-          l = (32 + (2 * e) + (2 * i) - h - k) % 7
+          [h, (32 + (2 * e) + (2 * i) - h - k) % 7]
+        end
 
+        # Part four of Easter calculation
+        # @param data [Arrays] Partial variables from #easter_part_2.
+        # @return [Array] Partial variables for #easter_end.
+        def easter_part_3(year, data)
+          a = year % 19
+          h, l = data
           [h, l, ((a + (11 * h) + (22 * l)) / 451.0).floor]
         end
 
         # Final part of Easter calculation.
         #
-        # @param prev [Fixnum] Variable from #easter_finalize.
-        # @return [Array] Day and month of Easter daye.
-        def easter_summarize(prev)
-          h, l, m = prev
+        # @param data [Fixnum] Variable from #easter_part_3.
+        # @return [Array] Day and month of Easter day.
+        def easter_end(data)
+          h, l, m = data
           [((h + l - (7 * m) + 114) % 31) + 1, ((h + l - (7 * m) + 114) / 31.0).floor]
         end
     end
