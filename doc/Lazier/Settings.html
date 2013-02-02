@@ -132,6 +132,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -157,6 +159,8 @@
   
   
   
+    
+      <span class="note title readonly">readonly</span>
     
     
   
@@ -184,6 +188,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -209,6 +215,8 @@
   
   
   
+    
+      <span class="note title readonly">readonly</span>
     
     
   
@@ -477,13 +485,13 @@
       <pre class="lines">
 
 
-34
-35
-36
-37</pre>
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -500,11 +508,11 @@
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="boolean_names=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details first">
   <h3 class="signature first" id="boolean_names-instance_method">
   
-    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>boolean_names</strong> 
+    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>boolean_names</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -530,7 +538,7 @@
       
       
         &mdash;
-        <div class='inline'><p>the current value of boolean_names</p>
+        <div class='inline'><p>String representations of booleans.</p>
 </div>
       
     </li>
@@ -543,15 +551,221 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_boolean_names'>boolean_names</span>
-  <span class='ivar'>@boolean_names</span>
+<span class='kw'>class</span> <span class='const'>Settings</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:format_number</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:boolean_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_formats</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
+
+  <span class='comment'># Returns the singleton instance of the settings.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Initializes a new settings object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups the current instance.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_names'>setup_date_names</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Set the current locale for messages.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param locale [String] The new locale. Default is the current system locale.
+</span>  <span class='comment'># @return [R18n::Translation] The new translation object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups formatters for a number.
+</span>  <span class='comment'># @see Object#format_number
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param prec [Fixnum] The precision to show.
+</span>  <span class='comment'># @param decimal_separator [String] The string to use as decimal separator.
+</span>  <span class='comment'># @param add_string [String] The string to append to the number.
+</span>  <span class='comment'># @param k_separator [String] The string to use as thousands separator.
+</span>  <span class='comment'># @return [Hash] The new formatters.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of booleans.
+</span>  <span class='comment'># @see Object#format_boolean
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='ivar'>@boolean_names</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='kw'>true</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_true_name'>true_name</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_false_name'>false_name</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups custom formats for dates and times.
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @return [Hash] The new formats.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_replace'>replace</span> <span class='kw'>then</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span>
+      <span class='kw'>end</span>
+
+      <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Time</span><span class='op'>::</span><span class='const'>DATE_FORMATS</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@date_formats</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of days and months.
+</span>  <span class='comment'># @see DateTime::ClassMethods#days
+</span>  <span class='comment'># @see DateTime::ClassMethods#months
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param long_months [Array] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -559,11 +773,11 @@
 </div>
     
       
-      <span id="date_formats=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
   <h3 class="signature " id="date_formats-instance_method">
   
-    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>date_formats</strong> 
+    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>date_formats</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -589,7 +803,7 @@
       
       
         &mdash;
-        <div class='inline'><p>the current value of date_formats</p>
+        <div class='inline'><p>Custom date and time formats.</p>
 </div>
       
     </li>
@@ -602,15 +816,221 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_date_formats'>date_formats</span>
-  <span class='ivar'>@date_formats</span>
+<span class='kw'>class</span> <span class='const'>Settings</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:format_number</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:boolean_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_formats</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
+
+  <span class='comment'># Returns the singleton instance of the settings.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Initializes a new settings object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups the current instance.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_names'>setup_date_names</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Set the current locale for messages.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param locale [String] The new locale. Default is the current system locale.
+</span>  <span class='comment'># @return [R18n::Translation] The new translation object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups formatters for a number.
+</span>  <span class='comment'># @see Object#format_number
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param prec [Fixnum] The precision to show.
+</span>  <span class='comment'># @param decimal_separator [String] The string to use as decimal separator.
+</span>  <span class='comment'># @param add_string [String] The string to append to the number.
+</span>  <span class='comment'># @param k_separator [String] The string to use as thousands separator.
+</span>  <span class='comment'># @return [Hash] The new formatters.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of booleans.
+</span>  <span class='comment'># @see Object#format_boolean
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='ivar'>@boolean_names</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='kw'>true</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_true_name'>true_name</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_false_name'>false_name</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups custom formats for dates and times.
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @return [Hash] The new formats.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_replace'>replace</span> <span class='kw'>then</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span>
+      <span class='kw'>end</span>
+
+      <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Time</span><span class='op'>::</span><span class='const'>DATE_FORMATS</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@date_formats</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of days and months.
+</span>  <span class='comment'># @see DateTime::ClassMethods#days
+</span>  <span class='comment'># @see DateTime::ClassMethods#months
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param long_months [Array] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -618,11 +1038,11 @@
 </div>
     
       
-      <span id="date_names=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
   <h3 class="signature " id="date_names-instance_method">
   
-    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>date_names</strong> 
+    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>date_names</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -648,7 +1068,7 @@
       
       
         &mdash;
-        <div class='inline'><p>the current value of date_names</p>
+        <div class='inline'><p>String representations of days and months.</p>
 </div>
       
     </li>
@@ -661,15 +1081,221 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_date_names'>date_names</span>
-  <span class='ivar'>@date_names</span>
+<span class='kw'>class</span> <span class='const'>Settings</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:format_number</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:boolean_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_formats</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
+
+  <span class='comment'># Returns the singleton instance of the settings.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Initializes a new settings object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups the current instance.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_names'>setup_date_names</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Set the current locale for messages.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param locale [String] The new locale. Default is the current system locale.
+</span>  <span class='comment'># @return [R18n::Translation] The new translation object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups formatters for a number.
+</span>  <span class='comment'># @see Object#format_number
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param prec [Fixnum] The precision to show.
+</span>  <span class='comment'># @param decimal_separator [String] The string to use as decimal separator.
+</span>  <span class='comment'># @param add_string [String] The string to append to the number.
+</span>  <span class='comment'># @param k_separator [String] The string to use as thousands separator.
+</span>  <span class='comment'># @return [Hash] The new formatters.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of booleans.
+</span>  <span class='comment'># @see Object#format_boolean
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='ivar'>@boolean_names</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='kw'>true</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_true_name'>true_name</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_false_name'>false_name</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups custom formats for dates and times.
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @return [Hash] The new formats.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_replace'>replace</span> <span class='kw'>then</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span>
+      <span class='kw'>end</span>
+
+      <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Time</span><span class='op'>::</span><span class='const'>DATE_FORMATS</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@date_formats</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of days and months.
+</span>  <span class='comment'># @see DateTime::ClassMethods#days
+</span>  <span class='comment'># @see DateTime::ClassMethods#months
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param long_months [Array] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -677,11 +1303,11 @@
 </div>
     
       
-      <span id="format_number=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
   <h3 class="signature " id="format_number-instance_method">
   
-    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>format_number</strong> 
+    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>format_number</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -707,7 +1333,7 @@
       
       
         &mdash;
-        <div class='inline'><p>the current value of format_number</p>
+        <div class='inline'><p>Settings for numbers formatting.</p>
 </div>
       
     </li>
@@ -720,15 +1346,221 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_number'>format_number</span>
-  <span class='ivar'>@format_number</span>
+<span class='kw'>class</span> <span class='const'>Settings</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:format_number</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:boolean_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_formats</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
+
+  <span class='comment'># Returns the singleton instance of the settings.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Initializes a new settings object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups the current instance.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_names'>setup_date_names</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Set the current locale for messages.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param locale [String] The new locale. Default is the current system locale.
+</span>  <span class='comment'># @return [R18n::Translation] The new translation object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups formatters for a number.
+</span>  <span class='comment'># @see Object#format_number
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param prec [Fixnum] The precision to show.
+</span>  <span class='comment'># @param decimal_separator [String] The string to use as decimal separator.
+</span>  <span class='comment'># @param add_string [String] The string to append to the number.
+</span>  <span class='comment'># @param k_separator [String] The string to use as thousands separator.
+</span>  <span class='comment'># @return [Hash] The new formatters.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of booleans.
+</span>  <span class='comment'># @see Object#format_boolean
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='ivar'>@boolean_names</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='kw'>true</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_true_name'>true_name</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_false_name'>false_name</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups custom formats for dates and times.
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @return [Hash] The new formats.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_replace'>replace</span> <span class='kw'>then</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span>
+      <span class='kw'>end</span>
+
+      <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Time</span><span class='op'>::</span><span class='const'>DATE_FORMATS</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@date_formats</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of days and months.
+</span>  <span class='comment'># @see DateTime::ClassMethods#days
+</span>  <span class='comment'># @see DateTime::ClassMethods#months
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param long_months [Array] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -766,7 +1598,7 @@
       
       
         &mdash;
-        <div class='inline'><p>the current value of i18n</p>
+        <div class='inline'><p>The translation object.</p>
 </div>
       
     </li>
@@ -779,15 +1611,221 @@
       <pre class="lines">
 
 
-16
-17
-18</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_i18n'>i18n</span>
-  <span class='ivar'>@i18n</span>
+<span class='kw'>class</span> <span class='const'>Settings</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:format_number</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:boolean_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_names</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:date_formats</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span>
+
+  <span class='comment'># Returns the singleton instance of the settings.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Initializes a new settings object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/../../locales/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups the current instance.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_date_names'>setup_date_names</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Set the current locale for messages.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param locale [String] The new locale. Default is the current system locale.
+</span>  <span class='comment'># @return [R18n::Translation] The new translation object.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups formatters for a number.
+</span>  <span class='comment'># @see Object#format_number
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param prec [Fixnum] The precision to show.
+</span>  <span class='comment'># @param decimal_separator [String] The string to use as decimal separator.
+</span>  <span class='comment'># @param add_string [String] The string to append to the number.
+</span>  <span class='comment'># @param k_separator [String] The string to use as thousands separator.
+</span>  <span class='comment'># @return [Hash] The new formatters.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of booleans.
+</span>  <span class='comment'># @see Object#format_boolean
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='ivar'>@boolean_names</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='kw'>true</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_true_name'>true_name</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_false_name'>false_name</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups custom formats for dates and times.
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @return [Hash] The new formats.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_replace'>replace</span> <span class='kw'>then</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span>
+      <span class='kw'>end</span>
+
+      <span class='ivar'>@date_formats</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Time</span><span class='op'>::</span><span class='const'>DATE_FORMATS</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='ivar'>@date_formats</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Setups strings representation of days and months.
+</span>  <span class='comment'># @see DateTime::ClassMethods#days
+</span>  <span class='comment'># @see DateTime::ClassMethods#months
+</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param long_months [Array] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @return [Hash] The new representations.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+    <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span> <span class='kw'>if</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -864,13 +1902,13 @@
       <pre class="lines">
 
 
-28
-29
-30
-31</pre>
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -912,15 +1950,15 @@
       <pre class="lines">
 
 
-40
-41
-42
-43
 44
-45</pre>
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
@@ -1020,14 +2058,14 @@
       <pre class="lines">
 
 
-74
-75
-76
-77
-78</pre>
+78
+79
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_boolean'>boolean</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -1126,10 +2164,6 @@
       <pre class="lines">
 
 
-86
-87
-88
-89
 90
 91
 92
@@ -1141,10 +2175,14 @@
 98
 99
 100
-101</pre>
+101
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>ct_date:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%H:%M:%S</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_date_time:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F %T</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ct_iso_8601:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%FT%T%z</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
@@ -1292,17 +2330,17 @@
       <pre class="lines">
 
 
-113
-114
-115
-116
 117
 118
 119
-120</pre>
+120
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_months'>short_months</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_long_days'>long_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_short_days'>short_days</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_long_months'>long_months</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_date'>date</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span> <span class='kw'>if</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
@@ -1438,12 +2476,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_prec'>prec</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>prec:</span> <span class='id identifier rubyid_prec'>prec</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='id identifier rubyid_k_separator'>k_separator</span><span class='rbrace'>}</span>
@@ -1458,7 +2496,7 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Jan 31 20:15:56 2013 by
+  Generated on Sat Feb  2 09:19:09 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.9.3).
 </div>

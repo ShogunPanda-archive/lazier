@@ -7,12 +7,16 @@
 module Lazier
   # Settings for the extensions.
   #
-  # @attr [Hash] format_number Settings for numbers formatting.
-  # @attr [Hash] boolean_names String representations of booleans.
-  # @attr [Hash] date_names String representations of days and months.
-  # @attr [Hash] date_formats Custom date and time formats.
-  # @attr [R18n::Translation] i18n The translation object.
-
+  # @attribute [r] format_number
+  #   @return [Hash] Settings for numbers formatting.
+  # @attribute [r] boolean_names
+  #   @return [Hash] String representations of booleans.
+  # @attribute [r] date_names
+  #   @return [Hash] String representations of days and months.
+  # @attribute [r] date_formats
+  #   @return [Hash] Custom date and time formats.
+  # @attribute [r] i18n
+  #   @return [R18n::Translation] The translation object.
   class Settings
     attr_reader :format_number
     attr_reader :boolean_names
