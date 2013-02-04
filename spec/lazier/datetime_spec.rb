@@ -13,7 +13,6 @@ describe Lazier::DateTime do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ENV["LANG"] = "en"
     Lazier.load!
     ::Lazier::Settings.instance.i18n = :en
   end
@@ -206,7 +205,6 @@ describe Lazier::TimeZone do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ENV["LANG"] = "en"
     ::Lazier::Settings.instance(true)
     ::Lazier::Settings.instance.i18n = :en
     ::Lazier.load!

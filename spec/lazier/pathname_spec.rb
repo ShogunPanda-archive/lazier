@@ -10,7 +10,6 @@ describe Lazier::Pathname do
   let(:reference) { ::Pathname.new($0) }
 
   before(:all) do
-    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 

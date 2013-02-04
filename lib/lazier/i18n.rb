@@ -38,16 +38,13 @@ module Lazier
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
         path = (@i18n_locales_path || "").to_s
-        locales = [locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l.to_s, path)}.uniq.compact
+        locales = [locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l.to_s, path)}
+        locales << "en" # Add english as a fallback
+        locales = locales.uniq.compact
 
-        begin
-          raise Lazier::Exceptions::MissingTranslation if locales.blank?
-          translation = R18n::I18n.new(locales, path)
-          raise Lazier::Exceptions::MissingTranslation if !translation
-          translation.t.send((@i18n_root || "").to_s)
-        rescue Lazier::Exceptions::MissingTranslation => e
-          raise e
-        end
+        translation = R18n::I18n.new(locales, path)
+        raise Lazier::Exceptions::MissingTranslation.new(locales, path) if !translation
+        translation.t.send((@i18n_root || "").to_s)
       end
 
       # Find a locale file in a path.

@@ -13,7 +13,6 @@ describe Lazier::String do
   let(:amp_reference) { "abc òùà èé &gt;" }
 
   before(:all) do
-    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 

@@ -12,7 +12,6 @@ describe Lazier::Settings do
   let(:date_reference) { DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rationalize_offset(25200)) }
 
   before(:all) do
-    ENV["LANG"] = "en"
     Lazier.load!
     ::Lazier::Settings.instance.i18n = :en
   end

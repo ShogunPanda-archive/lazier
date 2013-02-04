@@ -14,7 +14,6 @@ describe Lazier::Hash do
   }
 
   before(:all) do
-    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 

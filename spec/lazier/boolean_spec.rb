@@ -8,7 +8,6 @@ require "spec_helper"
 
 describe Lazier::Boolean do
   before(:all) do
-    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 
