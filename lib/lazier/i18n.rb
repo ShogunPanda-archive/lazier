@@ -37,7 +37,17 @@ module Lazier
       # @param locale [Symbol] The new locale. Default is the current system locale.
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
-        R18n::I18n.new([locale, ENV["LANG"], R18n::I18n.system_locale].compact, @i18n_locales_path.ensure_string).t.send(@i18n_root.ensure_string)
+        path = (@i18n_locales_path || "").to_s
+        locales = [locale, ENV["LANG"], R18n::I18n.system_locale].select { |l| File.exists?("#{path}/#{l}.yml") }.uniq.compact
+
+        begin
+          raise Lazier::Exceptions::MissingTranslation if locales.blank?
+          translation = R18n::I18n.new(locales, path)
+          raise Lazier::Exceptions::MissingTranslation if !translation
+          translation.t.send((@i18n_root || "").to_s)
+        rescue Lazier::Exceptions::MissingTranslation => e
+          raise e
+        end
       end
   end
 end

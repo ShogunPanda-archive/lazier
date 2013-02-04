@@ -12,12 +12,16 @@ end
 
 describe Lazier::I18n do
   let(:object) { Container.new }
+  let(:root_path) { ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/") }
+  before(:each) do
+    ENV["LANG"] = "en"
+  end
 
   describe "#i18n_setup" do
     it "should set the root and the path" do
-      object.i18n_setup("ROOT", "PATH")
+      object.i18n_setup("ROOT", root_path)
       expect(object.instance_variable_get(:@i18n_root)).to eq(:ROOT)
-      expect(object.instance_variable_get(:@i18n_locales_path)).to eq("PATH")
+      expect(object.instance_variable_get(:@i18n_locales_path)).to eq(root_path)
     end
   end
 
@@ -40,24 +44,37 @@ describe Lazier::I18n do
 
   describe "#i18n_load_locale" do
     it "should set using system locale if called without arguments" do
-      object.i18n_setup("ROOT", "PATH")
-      R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact, "PATH").and_call_original
+      object.i18n_setup("ROOT", root_path)
+      R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact, root_path).and_call_original
       object.i18n = nil
     end
 
     it "should set the requested locale" do
-      object.i18n_setup("ROOT", "PATH")
-      R18n::I18n.should_receive(:new).with([:it, ENV["LANG"], R18n::I18n.system_locale].compact, "PATH").and_call_original
+      object.i18n_setup("ROOT", root_path)
+      R18n::I18n.should_receive(:new).with([:it, ENV["LANG"], R18n::I18n.system_locale].compact, root_path).and_call_original
       object.i18n = :it
     end
 
     it "should call the root" do
       Lazier.load!
       t = Object.new
-      object.i18n_setup("ROOT", ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      object.i18n_setup("ROOT", root_path)
       R18n::I18n.any_instance.should_receive(:t).and_return(t)
       t.should_receive("ROOT")
       object.i18n = :it
+    end
+
+    it "should only pass valid translations" do
+      object.i18n_setup("ROOT", root_path)
+      R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact, root_path).and_call_original
+      object.i18n = "INVALID"
+    end
+
+    it "should raise an exception if no valid translation are found" do
+      ENV["LANG"] = "INVALID"
+      R18n::I18n.stub(:system_locale).and_return("INVALID")
+      object.i18n_setup("ROOT", root_path)
+      expect { object.i18n = "INVALID" }.to raise_error(Lazier::Exceptions::MissingTranslation)
     end
   end
 end

@@ -10,5 +10,9 @@ module Lazier
     # This exception is raised from {Object#debug_dump} when `must_raise` is `true`.
     class Dump < ::RuntimeError
     end
+
+    # This exception is raised from {I18n I18n} if no valid translation are found in the specified path.
+    class MissingTranslation < Exception
+    end
   end
 end
