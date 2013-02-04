@@ -13,6 +13,7 @@ end
 describe Lazier::I18n do
   let(:object) { Container.new }
   let(:root_path) { ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/") }
+
   before(:each) do
     ENV["LANG"] = "en"
   end

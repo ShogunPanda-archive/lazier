@@ -8,6 +8,7 @@ require "spec_helper"
 
 describe Lazier::Object do
   before(:all) do
+    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 

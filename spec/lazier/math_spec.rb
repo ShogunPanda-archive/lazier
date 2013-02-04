@@ -12,6 +12,7 @@ describe Lazier::Math do
   let(:third) { 0 }
 
   before(:all) do
+    ENV["LANG"] = "en"
     ::Lazier.load!
   end
 
