@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lazier (2.6.0)
+    lazier (2.6.1)
       actionpack (>= 3.2.11)
       json (~> 1.7.6)
       r18n-desktop (~> 1.1.3)
