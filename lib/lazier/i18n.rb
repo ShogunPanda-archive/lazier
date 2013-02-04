@@ -38,7 +38,7 @@ module Lazier
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
         path = (@i18n_locales_path || "").to_s
-        locales = [locale, ENV["LANG"], R18n::I18n.system_locale].select { |l| File.exists?("#{path}/#{l}.yml") }.uniq.compact
+        locales = [locale, (ENV["LANG"] || :en), R18n::I18n.system_locale].select { |l| File.exists?("#{path}/#{l}.yml") }.uniq.compact
 
         begin
           raise Lazier::Exceptions::MissingTranslation if locales.blank?
