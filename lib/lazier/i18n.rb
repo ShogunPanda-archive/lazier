@@ -40,7 +40,7 @@ module Lazier
         path = (@i18n_locales_path || "").to_s
         locales = [locale, (ENV["LANG"] || :en), R18n::I18n.system_locale].select { |l| File.exists?("#{path}/#{l}.yml") }.uniq.compact
 
-        p [path, locales]
+        p [path, locales, [locale, (ENV["LANG"] || :en), R18n::I18n.system_locale], Dir.glob(path).to_a]
         begin
           raise Lazier::Exceptions::MissingTranslation if locales.blank?
           translation = R18n::I18n.new(locales, path)
