@@ -41,13 +41,13 @@ describe Lazier::I18n do
 
   describe "#i18n_load_locale" do
     it "should set using system locale if called without arguments" do
-      object.i18n_setup("ROOT", root_path)
+      object.i18n_setup("lazier", root_path)
       R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact.uniq, root_path).and_call_original
       object.i18n = nil
     end
 
     it "should set the requested locale" do
-      object.i18n_setup("ROOT", root_path)
+      object.i18n_setup("lazier", root_path)
       R18n::I18n.should_receive(:new).with(["it", ENV["LANG"], R18n::I18n.system_locale].compact.uniq, root_path).and_call_original
       object.i18n = :it
     end
@@ -62,7 +62,7 @@ describe Lazier::I18n do
     end
 
     it "should only pass valid translations" do
-      object.i18n_setup("ROOT", root_path)
+      object.i18n_setup("lazier", root_path)
       R18n::I18n.should_receive(:new).with([ENV["LANG"], R18n::I18n.system_locale].compact.uniq, root_path).and_call_original
       object.i18n = "INVALID"
     end
@@ -70,7 +70,7 @@ describe Lazier::I18n do
     it "should raise an exception if no valid translation are found" do
       ENV["LANG"] = "INVALID"
       R18n::I18n.stub(:system_locale).and_return("INVALID")
-      object.i18n_setup("ROOT", root_path)
+      object.i18n_setup("ROOT", "/dev/")
       expect { object.i18n = "INVALID" }.to raise_error(Lazier::Exceptions::MissingTranslation)
     end
   end
