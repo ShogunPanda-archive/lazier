@@ -9,6 +9,7 @@ require "spec_helper"
 describe Lazier do
   describe ".load!" do
     describe "should load all extensions by default" do
+      ENV["LANG"] = "en"
       ::Lazier.load!
 
       it "for Boolean" do

@@ -38,9 +38,8 @@ module Lazier
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
         path = (@i18n_locales_path || "").to_s
-        locales = [locale, (ENV["LANG"] || :en), R18n::I18n.system_locale].select { |l| File.exists?("#{path}/#{l}.yml") }.uniq.compact
+        locales = [locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l.to_s, path)}.uniq.compact
 
-        p [path, locales, [locale, (ENV["LANG"] || :en), R18n::I18n.system_locale], Dir.glob(path).to_a]
         begin
           raise Lazier::Exceptions::MissingTranslation if locales.blank?
           translation = R18n::I18n.new(locales, path)
@@ -49,6 +48,15 @@ module Lazier
         rescue Lazier::Exceptions::MissingTranslation => e
           raise e
         end
+      end
+
+      # Find a locale file in a path.
+      #
+      # @param locale [String] The locale to find.
+      # @param path [String] The path where look into.
+      # @return [String|nil] The version of the locale found or `nil`, if nothing was found.
+      def find_locale_in_path(locale, path)
+        [locale, locale[0, 5], locale[0, 2]].select {|l| File.exists?("#{path}/#{l}.yml") }.first
       end
   end
 end
