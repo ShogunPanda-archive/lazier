@@ -16,8 +16,9 @@ describe Lazier::I18n do
 
   before(:each) do
     ENV["LANG"] = "en"
+    R18n::I18n.stub(:system_locale).and_return("en")
   end
-  
+
   describe "#i18n_setup" do
     it "should set the root and the path" do
       object.i18n_setup("ROOT", root_path)
