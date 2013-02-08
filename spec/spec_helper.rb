@@ -5,7 +5,6 @@
 #
 
 require "rubygems"
-require "coverage_helper"
 require "bundler/setup"
 require "lazier"
 
