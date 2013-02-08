@@ -1087,9 +1087,10 @@
   <div class="discussion">
     <p>Returns a string representation of a timezone.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pacific Time (US &amp; Canada)</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='comment'># =&gt; &quot;-0800@pacific-time-us-canada&quot;
-</span></code></pre>
+<p><code>ruby
+DateTime.parameterize_zone(ActiveSupport::TimeZone["Pacific Time (US &amp; Canada)"])
+# =&gt; "-0800@pacific-time-us-canada"
+</code></p>
 
 
   </div>
@@ -1434,13 +1435,15 @@
   <div class="discussion">
     <p>Returns a range of years.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_years'>years</span><span class='lparen'>(</span><span class='int'>3</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='int'>2010</span><span class='rparen'>)</span>
-<span class='comment'># =&gt; [2007, 2008, 2009, 2010]
-</span></code></pre>
+<p><code>ruby
+Date.years(3, false, 2010)
+# =&gt; [2007, 2008, 2009, 2010]
+</code></p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_years'>years</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='int'>2010</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
-<span class='comment'># =&gt; [{:value=&gt;2009, :label=&gt;2009}, {:value=&gt;2010, :label=&gt;2010}, {:value=&gt;2011, :label=&gt;2011}]
-</span></code></pre>
+<p><code>ruby
+Date.years(1, true, 2010, true)
+# =&gt; [{:value=&gt;2009, :label=&gt;2009}, {:value=&gt;2010, :label=&gt;2010}, {:value=&gt;2011, :label=&gt;2011}]
+</code></p>
 
 
   </div>
@@ -1565,7 +1568,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Feb  5 10:05:04 2013 by
+  Generated on Thu Feb  7 23:34:11 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.4 (ruby-1.9.3).
 </div>
