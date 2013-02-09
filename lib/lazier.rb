@@ -13,6 +13,7 @@ require "r18n-desktop"
 require "lazier/version" if !defined?(Lazier::Version)
 require "lazier/exceptions"
 require "lazier/i18n"
+require "lazier/localizer"
 require "lazier/settings"
 require "lazier/object"
 require "lazier/boolean"

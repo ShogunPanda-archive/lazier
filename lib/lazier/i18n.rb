@@ -6,11 +6,22 @@
 
 module Lazier
   # Provides an easy way to localized messages in a class.
+  #
+  # @attribute [r] i18n_locale
+  #   @return [String|Symbol|nil] The current locale.
+  # @attribute [r] i18n_root
+  #   @return [Symbol] The root level of the translation.
+  # @attribute [r] i18n_locales_path
+  #   @return [String] The path where the translations are stored.
   module I18n
+    attr_reader :i18n_locale
+    attr_reader :i18_root
+    attr_reader :i18n_locales_path
+
     # Setup all I18n translations.
     #
-    # @param root [Symbol] The root level of translation.
-    # @param path [String] The path where the translation are stored.
+    # @param root [Symbol] The root level of the translation.
+    # @param path [String] The path where the translations are stored.
     def i18n_setup(root, path)
       @i18n_root = root.to_sym
       @i18n_locales_path = path
@@ -25,9 +36,10 @@ module Lazier
 
     # Set the current locale for messages.
     #
-    # @param locale [String] The new locale. Default is the current system locale.
+    # @param locale [String|Symbol|nil] The new locale. Default is the current system locale.
     # @return [R18n::Translation] The new translation object.
     def i18n=(locale)
+      @i18n_locale = locale
       @i18n = i18n_load_locale(locale)
     end
 
