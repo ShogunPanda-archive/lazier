@@ -1,7 +1,8 @@
 # lazier
 
-[![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
+[![Gem Version](https://badge.fury.io/rb/lazier.png)](http://badge.fury.io/rb/lazier)
 [![Dependency Status](https://gemnasium.com/ShogunPanda/lazier.png?travis)](https://gemnasium.com/ShogunPanda/lazier)
+[![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/lazier.png)](https://codeclimate.com/github/ShogunPanda/lazier)
 
 Several Ruby object enhancements.
