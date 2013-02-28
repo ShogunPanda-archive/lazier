@@ -14,20 +14,15 @@ module Lazier
     #
     # @return [String] The normalized number.
     def normalize_number
-      rv = ""
-
-      if self == true then
-        rv = "1"
+      if self.is_a?(TrueClass) then
+        "1"
       elsif !self then
-        rv = "0"
+        "0"
       else
-        rv = self.ensure_string.strip
-        rv = rv.split(/[\.,]/)
+        rv = self.ensure_string.strip.split(/[\.,]/)
         rv[-1] = "." + rv[-1] if rv.length > 1
-        rv = rv.join("")
+        rv.join("")
       end
-
-      rv
     end
 
     # Checks if the object is a valid number.

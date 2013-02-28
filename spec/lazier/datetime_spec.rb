@@ -349,8 +349,8 @@ describe Lazier::TimeZone do
     it "should correctly format (parameterized) zone with Daylight Saving Time" do
       expect(reference_zone.to_str_with_dst_parameterized).to eq("-0600@america-denver-dst")
       expect(reference_zone.to_str_with_dst_parameterized("Daylight Saving Time")).to eq("-0600@america-denver-daylight-saving-time")
-      expect(reference_zone.to_str_with_dst_parameterized(nil, false, 1000)).to be_nil
-      expect(reference_zone.to_str_with_dst_parameterized("Daylight Saving Time", true, nil, "NAME SPACE")).to eq("-0600@name-space-daylight-saving-time")
+      expect(reference_zone.to_str_with_dst_parameterized(nil, 1000)).to be_nil
+      expect(reference_zone.to_str_with_dst_parameterized("Daylight Saving Time", nil, "NAME SPACE")).to eq("-0600@name-space-daylight-saving-time")
       expect(zone_without_dst.to_str_with_dst_parameterized).to be_nil
     end
   end

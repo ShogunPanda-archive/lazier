@@ -15,7 +15,7 @@ module Lazier
   #   @return [String] The path where the translations are stored.
   module I18n
     attr_reader :i18n_locale
-    attr_reader :i18_root
+    attr_reader :i18n_root
     attr_reader :i18n_locales_path
 
     # Setup all I18n translations.

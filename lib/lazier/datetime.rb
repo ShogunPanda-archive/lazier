@@ -156,7 +156,7 @@ module Lazier
 
         begin
           ::DateTime.strptime(value.ensure_string, format)
-        rescue => e
+        rescue => _
           rv = false
         end
 
@@ -176,7 +176,7 @@ module Lazier
         # @param data [Fixnum] Partial variables from #easter_start.
         # @return [Array] Partial variables for #easter_part_2.
         def easter_part_1(data)
-          a, b, c = data
+          _, b, c = data
           [
             b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor,
             b % 4,
@@ -420,9 +420,6 @@ module Lazier
     # @return [Fixnum|Rational] The offset of this timezone.
     def current_offset(rational = false, date = nil)
       date ||= ::DateTime.now
-
-      dst_period = self.dst_period
-
       rv = (self.period_for_utc(date.utc).dst? ? self.dst_offset : self.offset)
       rational ? self.class.rationalize_offset(rv) : rv
     end
@@ -551,11 +548,10 @@ module Lazier
     # Returns a parameterized string representation for this zone with Daylight Saving Time (DST) active.
     #
     # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
-    # @param with_offset [Boolean] If to include offset into the representation.
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The parameterized string representation for this zone with DST or `nil`, if the timezone doesn't use DST for that year.
-    def to_str_with_dst_parameterized(dst_label = nil, with_offset = true, year = nil, name = nil)
+    def to_str_with_dst_parameterized(dst_label = nil, year = nil, name = nil)
       rv = self.to_str_with_dst(dst_label, year, name)
       rv ? ::ActiveSupport::TimeZone.parameterize_zone(rv) : nil
     end

@@ -16,17 +16,13 @@ module Lazier
     # @param block [Proc] *Unused.*
     # @return [Object] The value for the key.
     def method_missing(method, *args, &block)
-     rv = nil
-
      if self.has_key?(method.to_sym) then
-        rv = self[method.to_sym]
+        self[method.to_sym]
      elsif self.has_key?(method.to_s) then
-        rv = self[method.to_s]
+        self[method.to_s]
      else
-        rv = ::Hash.method_missing(method, *args, &block)
+        ::Hash.method_missing(method, *args, &block)
      end
-
-     rv
     end
 
     # This is called when the user access a member using dotted notation.
