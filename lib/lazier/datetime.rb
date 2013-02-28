@@ -124,7 +124,7 @@ module Lazier
       def easter(year = nil)
         year = ::Date.today.year if !year.is_integer?
 
-        # Compute using Anonymouse Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
+        # Compute using Anonymous Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
         data = easter_start(year)
         data = easter_part_1(data)
         data = easter_part_2(year, data)
@@ -456,10 +456,10 @@ module Lazier
     def dst_period(year = nil)
       year ||= ::Date.today.year
 
-      nothern_summer = ::DateTime.civil(year, 7, 15).utc # This is a representation of a summer period in the Northern Hemisphere.
+      northern_summer = ::DateTime.civil(year, 7, 15).utc # This is a representation of a summer period in the Northern Hemisphere.
       southern_summer = ::DateTime.civil(year, 1, 15).utc # This is a representation of a summer period in the Northern Hemisphere.
 
-      period = self.period_for_utc(nothern_summer)
+      period = self.period_for_utc(northern_summer)
       period = self.period_for_utc(southern_summer) if !period.dst?
       period.dst? ? period : nil
     end
@@ -539,22 +539,22 @@ module Lazier
       end
     end
 
-    # Returns a parametized string representation for this zone.
+    # Returns a parameterized string representation for this zone.
     #
     # @param with_offset [Boolean] If to include offset into the representation.
     # @param name [String] The name to use for this zone. Defaults to the zone name.
-    # @return [String] The parametized string representation for this zone.
+    # @return [String] The parameterized string representation for this zone.
     def to_str_parameterized(with_offset = true, name = nil)
       ::ActiveSupport::TimeZone.parameterize_zone(name || self.to_str, with_offset)
     end
 
-    # Returns a parametized string representation for this zone with Daylight Saving Time (DST) active.
+    # Returns a parameterized string representation for this zone with Daylight Saving Time (DST) active.
     #
     # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
     # @param with_offset [Boolean] If to include offset into the representation.
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @param name [String] The name to use for this zone. Defaults to the zone name.
-    # @return [String] The parametized string representation for this zone with DST or `nil`, if the timezone doesn't use DST for that year.
+    # @return [String] The parameterized string representation for this zone with DST or `nil`, if the timezone doesn't use DST for that year.
     def to_str_with_dst_parameterized(dst_label = nil, with_offset = true, year = nil, name = nil)
       rv = self.to_str_with_dst(dst_label, year, name)
       rv ? ::ActiveSupport::TimeZone.parameterize_zone(rv) : nil
