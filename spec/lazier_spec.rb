@@ -43,4 +43,37 @@ describe Lazier do
       end
     end
   end
+
+  describe ".find_class" do
+    module LazierTest
+      class TestClass
+
+      end
+    end
+
+    it "should return a valid class" do
+      expect(::Lazier.find_class("String")).to eq(String)
+      expect(::Lazier.find_class("TestClass", "::LazierTest::%CLASS%")).to eq(::LazierTest::TestClass)
+    end
+
+    it "should raise an exception if the class is not found" do
+      expect { ::Lazier.find_class(:invalid) }.to raise_error(::NameError)
+    end
+
+    it "should not expand engine scope if the class starts with ::" do
+      expect { ::Lazier.find_class("::TestClass", "::LazierTest::%CLASS%") }.to raise_error(::NameError)
+    end
+
+    it "should only use scope if requested to" do
+      expect { ::Lazier.find_class("::Fixnum", "::LazierTest::%CLASS%", true) }.to raise_error(::NameError)
+    end
+
+    it "should return anything but string or symbol as their class" do
+      expect(::Lazier.find_class(nil)).to eq(NilClass)
+      expect(::Lazier.find_class(1)).to eq(Fixnum)
+      expect(::Lazier.find_class(["A"])).to eq(Array)
+      expect(::Lazier.find_class({a: "b"})).to eq(Hash)
+      expect(::Lazier.find_class(Hash)).to eq(Hash)
+    end
+  end
 end

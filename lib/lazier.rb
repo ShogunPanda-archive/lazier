@@ -118,4 +118,30 @@ module Lazier
       include ::Lazier::Pathname
     end
   end
+
+  # Finds a class to instantiate.
+  #
+  # @param cls [Symbol|String|Object] If a `String` or a `Symbol` or a `Class`, then it will be the class to instantiate. Otherwise the class of the object will returned.
+  # @param scope [String] An additional scope to find the class. `%CLASS%` will be substituted with the class name.
+  # @param only_in_scope [Boolean] If only try to instantiate the class in the scope.
+  # @return [Class] The found class.
+  def self.find_class(cls, scope = "::%CLASS%", only_in_scope = false)
+    if cls.is_a?(String) || cls.is_a?(Symbol) then
+      rv = nil
+
+      cls = cls.to_s.camelize
+      if only_in_scope then
+        cls.gsub!(/^::/, "")
+      else
+        rv = (cls.constantize rescue nil)
+      end
+
+      rv = ((scope || "").to_s.gsub("%CLASS%", cls).constantize rescue nil) if !rv && cls !~ /^::/ && scope.present?
+      rv || raise(NameError.new("", cls))
+    elsif cls.is_a?(Class)
+      cls
+    else
+      cls.class
+    end
+  end
 end
