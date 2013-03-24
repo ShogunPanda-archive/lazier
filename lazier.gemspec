@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 1.9.3"
 
   gem.add_dependency("json", "~> 1.7.7")
-  gem.add_dependency("actionpack", ">= 3.2.12") # We don't use ~> to enable use with 4.0
+  gem.add_dependency("actionpack", ">= 3.2.13") # We don't use ~> to enable use with 4.0
   gem.add_dependency("tzinfo", "~> 0.3.35")
   gem.add_dependency("r18n-desktop", "~> 1.1.4")
 end
