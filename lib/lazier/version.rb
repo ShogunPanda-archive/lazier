@@ -13,7 +13,7 @@ module Lazier
     MAJOR = 2
 
     # The minor version.
-    MINOR = 7
+    MINOR = 8
 
     # The patch version.
     PATCH = 0
