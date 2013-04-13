@@ -8,7 +8,7 @@ module Lazier
   # Exceptions for lazier.
   module Exceptions
     # This exception is raised from {Object#debug_dump} when `must_raise` is `true`.
-    class Dump < ::RuntimeError
+    class Dump < ::StandardError
     end
 
     # This exception is raised from {I18n I18n} if no valid translation are found in the specified path.

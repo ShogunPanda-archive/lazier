@@ -126,7 +126,7 @@ module Lazier
   # @param only_in_scope [Boolean] If only try to instantiate the class in the scope.
   # @return [Class] The found class.
   def self.find_class(cls, scope = "::%CLASS%", only_in_scope = false)
-    if cls.is_a?(String) || cls.is_a?(Symbol) then
+    if cls.is_a?(::String) || cls.is_a?(::Symbol) then
       rv = nil
       cls = cls.to_s.camelize
 
@@ -139,7 +139,7 @@ module Lazier
       rv = search_class(scope.to_s.gsub("%CLASS%", cls)) if !rv && cls !~ /^::/ && scope.present? # Search inside scope
       rv || raise(NameError.new("", cls))
     else
-      cls.is_a?(Class) ? cls : cls.class
+      cls.is_a?(::Class) ? cls : cls.class
     end
   end
 
