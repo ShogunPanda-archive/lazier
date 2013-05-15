@@ -31,21 +31,21 @@ module Lazier
     # @return [Settings] The singleton instance of the settings.
     def self.instance(force = false)
       @instance = nil if force
-      @instance ||= self.new
+      @instance ||= ::Lazier::Settings.new
     end
 
     # Initializes a new settings object.
     def initialize
-      self.i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-      self.setup
+      i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      setup
     end
 
     # Setups the current instance.
     def setup
-      self.setup_format_number
-      self.setup_boolean_names
-      self.setup_date_formats
-      self.setup_date_names
+      setup_format_number
+      setup_boolean_names
+      setup_date_formats
+      setup_date_names
     end
 
     # Set the current locale for messages.
@@ -54,19 +54,19 @@ module Lazier
     # @return [R18n::Translation] The new translation object.
     def i18n=(locale)
       super(locale)
-      self.setup
+      setup
     end
 
     # Setups formatters for a number.
     # @see Object#format_number
     #
-    # @param prec [Fixnum] The precision to show.
+    # @param precision [Fixnum] The precision to show.
     # @param decimal_separator [String] The string to use as decimal separator.
     # @param add_string [String] The string to append to the number.
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
-    def setup_format_number(prec = 2, decimal_separator = ".", add_string = "", k_separator = ",")
-      @format_number = { prec: prec, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator}
+    def setup_format_number(precision = 2, decimal_separator = ".", add_string = "", k_separator = ",")
+      @format_number = { prec: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator}
     end
 
     # Setups strings representation of booleans.
@@ -75,10 +75,9 @@ module Lazier
     # @param true_name [String] The string representation of `true`. Defaults to `Yes`.
     # @param false_name [String] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
+    # TODO@PI: Verify test
     def setup_boolean_names(true_name = nil, false_name = nil)
-      true_name ||= self.i18n.boolean[0]
-      false_name ||= self.i18n.boolean[1]
-      @boolean_names = {true => true_name, false => false_name}
+      @boolean_names = {true => true_name || i18n.boolean[0], false => false_name || i18n.boolean[1]}
     end
 
     # Setups custom formats for dates and times.
@@ -87,19 +86,11 @@ module Lazier
     # @param formats [Hash] The format to add or replace.
     # @param replace [Boolean] If to discard current formats.
     # @return [Hash] The new formats.
+    # TODO@PI: Verify test
     def setup_date_formats(formats = nil, replace = false)
-      formats = {ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" } if formats.blank?
-
-      if formats.is_a?(::Hash) then
-        if !replace then
-          @date_formats ||= {}
-          @date_formats.merge!(formats)
-        else
-          @date_formats = formats
-        end
-
-        @date_formats.each_pair do |k, v| ::Time::DATE_FORMATS[k] = v end
-      end
+      @date_formats = {} if replace
+      @date_formats.merge!(formats.ensure({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
+      ::Time::DATE_FORMATS.merge!(@date_formats)
 
       @date_formats
     end
@@ -114,13 +105,14 @@ module Lazier
     # @param long_days [Array] The string representation of days.
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
+    # TODO@PI: Verify test
     def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
-      long_months = self.i18n.date.long_months if long_months.blank?
-      short_months = self.i18n.date.short_months if short_months.blank?
-      long_days = self.i18n.date.long_days if long_days.blank?
-      short_days = self.i18n.date.short_days if short_days.blank?
-
-      @date_names = { long_months: long_months, short_months: short_months, long_days: long_days, short_days: short_days }
+      @date_names = {
+        long_months: long_months.ensure(definitions.long_months),
+        short_months: short_months.ensure(definitions.short_months),
+        long_days: long_days.ensure(definitions.long_days),
+        short_days: short_days.ensure(definitions.short_days)
+      }
     end
   end
 end

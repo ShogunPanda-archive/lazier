@@ -18,9 +18,7 @@ module Lazier
     #
     # @return The string with all accents removed.
     def remove_accents
-      silence_warnings {
-        self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, "").to_s
-      }
+      silence_warnings { mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, "").to_s }
     end
 
     # Returns the tagged version of a string.
@@ -34,14 +32,14 @@ module Lazier
     #
     # @return [String] The untitleized version of the string.
     def untitleize
-      self.downcase.gsub(" ", "-")
+      downcase.gsub(" ", "-")
     end
 
     # Returns the string with all `&amp;` replaced with `&`.
     #
     # @return [String] The string with all `&amp;` replaced with `&`.
     def replace_ampersands
-      self.gsub(/&amp;(\S+);/, "&\\1;")
+      gsub(/&amp;(\S+);/, "&\\1;")
     end
 
     # Returns the string itself for use in form helpers.

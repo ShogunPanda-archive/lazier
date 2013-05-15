@@ -13,7 +13,7 @@ module Lazier
     #
     # @return [Fixnum] `1` for `true`, `0` for `false`.
     def to_i
-      self.is_a?(TrueClass) ? 1 : 0
+      is_a?(TrueClass) ? 1 : 0
     end
 
     # Returns the boolean itself for use in form helpers.

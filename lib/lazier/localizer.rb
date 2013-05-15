@@ -15,10 +15,8 @@ module Lazier
     # @param path [String] The path where the translations are stored.
     # @param locale [String|Symbol] The locale to use for localization.
     def initialize(root = nil, path = nil, locale = nil)
-      root ||= :lazier
-      path ||= ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/")
-      self.i18n_setup(root, path)
-      self.i18n = locale
+      i18n_setup(root || :lazier, path || ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      i18n = locale
     end
 
     # Localize a message.
@@ -27,7 +25,7 @@ module Lazier
     # @param args [Array] Optional arguments to localize the message.
     # @return [String|R18n::Untranslated] The localized message.
     def self.localize(message, *args)
-      self.new.i18n.send(message, *args)
+      Lazier::Localizer.new.i18n.send(message, *args)
     end
 
     # Localize a message in a specified locale.
@@ -37,7 +35,7 @@ module Lazier
     # @param args [Array] Optional arguments to localize the message.
     # @return [String|R18n::Untranslated] The localized message.
     def self.localize_on_locale(locale, message, *args)
-      self.new(nil, nil, locale).i18n.send(message, *args)
+      Lazier::Localizer.new(nil, nil, locale).i18n.send(message, *args)
     end
   end
 end

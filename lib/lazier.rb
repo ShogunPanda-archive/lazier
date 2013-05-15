@@ -9,6 +9,7 @@ require "tzinfo"
 require "active_support/all"
 require "action_view"
 require "r18n-desktop"
+require "hashie"
 
 require "lazier/version" if !defined?(Lazier::Version)
 require "lazier/exceptions"
@@ -45,18 +46,14 @@ module Lazier
   #   @option pathname Extensions for path objects.
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
-    what = ["object", "boolean", "string", "hash", "datetime", "math", "pathname"] if what.count == 0
-    what.collect! { |w| ::Lazier.send("load_#{w}") }
-
+    (what.present? ? what : ["object", "boolean", "string", "hash", "datetime", "math", "pathname"]).each { |w| ::Lazier.send("load_#{w}") }
     yield if block_given?
     ::Lazier::Settings.instance
   end
 
   # Loads Object extensions.
   def self.load_object
-    ::Object.class_eval do
-      include ::Lazier::Object
-    end
+    ::Object.class_eval { include ::Lazier::Object }
   end
 
   # Loads Boolean extensions.
@@ -74,14 +71,13 @@ module Lazier
 
   # Loads String extensions.
   def self.load_string
-    ::String.class_eval do
-      include ::Lazier::String
-    end
+    ::String.class_eval { include ::Lazier::String }
   end
 
   # Loads Hash extensions.
   def self.load_hash
     ::Hash.class_eval do
+      include Hashie::Extensions::MethodAccess
       include ::Lazier::Hash
     end
   end
@@ -91,32 +87,22 @@ module Lazier
     Lazier.load_object
 
     [::Time, ::Date, ::DateTime].each do |c|
-      c.class_eval do
-        include ::Lazier::DateTime
-      end
+      c.class_eval { include ::Lazier::DateTime }
     end
 
-    ::ActiveSupport::TimeZone.class_eval do
-      include ::Lazier::TimeZone
-    end
+    ::ActiveSupport::TimeZone.class_eval { include ::Lazier::TimeZone }
   end
 
   # Loads Math extensions.
   def self.load_math
     Lazier.load_object
-
-    ::Math.class_eval do
-      include ::Lazier::Math
-    end
+    ::Math.class_eval { include ::Lazier::Math }
   end
 
   # Loads Pathname extensions.
   def self.load_pathname
     require "pathname"
-
-    ::Pathname.class_eval do
-      include ::Lazier::Pathname
-    end
+    ::Pathname.class_eval { include ::Lazier::Pathname }
   end
 
   # Finds a class to instantiate.

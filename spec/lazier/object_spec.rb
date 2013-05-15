@@ -224,21 +224,16 @@ describe Lazier::Object do
     end
   end
 
-  describe "#debug_dump" do
+  describe "#analyze" do
     it "should return the correct representation for an object" do
       reference = {a: "b"}
-      expect(reference.debug_dump(:json, false)).to eq(reference.to_json)
-      expect(reference.debug_dump(:pretty_json, false)).to eq(::JSON.pretty_generate(reference))
-      expect(reference.debug_dump(:yaml, false)).to eq(reference.to_yaml)
-    end
-
-    it "should inspect the object if the format is not recognized" do
-      reference = {a: "b"}
-      expect(reference.debug_dump(:unknown, false)).to eq(reference.inspect)
+      expect(reference.analyze(:json, false)).to eq(reference.to_json)
+      expect(reference.analyze(:pretty_json, false)).to eq(::JSON.pretty_generate(reference))
+      expect(reference.analyze(:yaml, false)).to eq(reference.to_yaml)
     end
 
     it "should raise an exception if requested" do
-      expect { {a: "b"}.debug_dump }.to raise_error(::Lazier::Exceptions::Dump)
+      expect { {a: "b"}.analyze }.to raise_error(::Lazier::Exceptions::Dump)
     end
   end
 end

@@ -7,18 +7,18 @@
 module Lazier
   # Exceptions for lazier.
   module Exceptions
-    # This exception is raised from {Object#debug_dump} when `must_raise` is `true`.
-    class Dump < ::StandardError
+    # This exception is raised to debug code.
+    class Debug < ::StandardError
     end
 
     # This exception is raised from {I18n I18n} if no valid translation are found in the specified path.
-    class MissingTranslation < Exception
+    class MissingTranslation < StandardError
       # Creates a new missing translation exception.
       #
       # @param locales [Array] The locales that was requested to load.
       # @param path [String] The path where was request to search for translations.
       def initialize(locales, path)
-        super("Unable to load any of the following translation in #{path}: #{locales.to_json}.")
+        super("Unable to load any of the following translation in #{path}: #{locales.join(", ")}.")
       end
     end
   end

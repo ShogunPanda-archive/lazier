@@ -9,28 +9,16 @@ module Lazier
   module Hash
     extend ::ActiveSupport::Concern
 
-    # This is called when the user access a member using dotted notation.
-    #
-    # @param method [String|Symbol] Key to search.
-    # @param args [Array] *Unused.*
-    # @param block [Proc] *Unused.*
-    # @return [Object] The value for the key.
-    def method_missing(method, *args, &block)
-     if self.has_key?(method.to_sym) then
-        self[method.to_sym]
-     elsif self.has_key?(method.to_s) then
-        self[method.to_s]
-     else
-        ::Hash.method_missing(method, *args, &block)
-     end
-    end
+    # TODO@PI: deep_symbolize_keys
 
-    # This is called when the user access a member using dotted notation.
+    # TODO@PI: deep_stringify_keys
+
+    # Returns an HashWithIndifferentAccess based on this hash.
     #
-    # @param method [String|Symbol] Key to search.
-    # @return [Boolean] `true` if the key exists, `false` otherwise.
-    def respond_to?(method)
-      (self.has_key?(method.to_sym) || self.has_key?(method.to_s)) ? true : ::Hash.respond_to?(method)
+    # @return [HashWithIndifferentAccess] The new HashWithIndifferentAccess object.
+    # TODO@PI: Test me
+    def indifferentiate
+      HashWithIndifferentAccess.new(self)
     end
   end
 end
