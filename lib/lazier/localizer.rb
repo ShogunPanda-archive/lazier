@@ -16,7 +16,7 @@ module Lazier
     # @param locale [String|Symbol] The locale to use for localization.
     def initialize(root = nil, path = nil, locale = nil)
       i18n_setup(root || :lazier, path || ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-      i18n = locale
+      self.i18n = locale
     end
 
     # Localize a message.
