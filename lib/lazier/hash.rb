@@ -9,16 +9,18 @@ module Lazier
   module Hash
     extend ::ActiveSupport::Concern
 
-    # TODO@PI: deep_symbolize_keys
-
-    # TODO@PI: deep_stringify_keys
-
-    # Returns an HashWithIndifferentAccess based on this hash.
+    # Returns an hash making sure that it and all its hash values have indifferent access.
     #
+    # @param complete [Boolean] If even value must be deeply made with indifferent access.
     # @return [HashWithIndifferentAccess] The new HashWithIndifferentAccess object.
     # TODO@PI: Test me
-    def indifferentiate
-      HashWithIndifferentAccess.new(self)
+    def with_deep_indifferent_access(complete = true)
+      method = complete ? :with_deep_indifferent_access : :with_indifferent_access
+
+      inject(HashWithIndifferentAccess.new) { |rv, (k,v)|
+        rv[k] = v.is_a?(Hash) ? v.send(method) : v
+        rv
+      }
     end
   end
 end

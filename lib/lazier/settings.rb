@@ -66,7 +66,7 @@ module Lazier
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
     def setup_format_number(precision = 2, decimal_separator = ".", add_string = "", k_separator = ",")
-      @format_number = { prec: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator}
+      @format_number = HashWithIndifferentAcces.new({prec: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator})
     end
 
     # Setups strings representation of booleans.
@@ -89,7 +89,7 @@ module Lazier
     # TODO@PI: Verify test
     def setup_date_formats(formats = nil, replace = false)
       @date_formats = {} if replace
-      @date_formats.merge!(formats.ensure({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
+      @date_formats.merge!(formats.ensure_hash({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }).with_indifferent_access)
       ::Time::DATE_FORMATS.merge!(@date_formats)
 
       @date_formats
@@ -107,12 +107,14 @@ module Lazier
     # @return [Hash] The new representations.
     # TODO@PI: Verify test
     def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
+      definitions = self.i18n.date
+
       @date_names = {
         long_months: long_months.ensure(definitions.long_months),
         short_months: short_months.ensure(definitions.short_months),
         long_days: long_days.ensure(definitions.long_days),
         short_days: short_days.ensure(definitions.short_days)
-      }
+      }.with_indifferent_access
     end
   end
 end

@@ -48,6 +48,17 @@ module Lazier
       is_a?(::TrueClass) || !self || to_s =~ ::Lazier::Object::BOOLEAN_MATCHER
     end
 
+    # Makes sure that the object is set to something meaningful.
+    #
+    # @params default_value [String] The default value to return if the `verifier` or the block returns true.
+    # @params verifier [Symbol] The method used to verify if the object is NOT meaningful. *Ignored if a block is passed.*
+    # @return [String] The current object or the `default_value`.
+    # TODO@PI: Test me
+    def ensure(default_value, verifier = :blank?)
+      valid = block_given? ? yield(self) : send(verifier)
+      !valid ? self : default_value
+    end
+
     # Makes sure that the object is a string.
     #
     # @params default_value [String] The default value to return if the object is `nil`.
@@ -67,7 +78,21 @@ module Lazier
       is_a?(::Array) ? self : (default_value || [self])
     end
 
-    # TODO@PI: #ensure_hash
+    # Makes sure that the object is an hash. For non hash objects, return an hash basing on the `default_value` parameter.
+    #
+    # @params default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+    # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
+    # TODO@PI: Test me
+    def ensure_hash(default_value = nil)
+      if is_a?(::Hash) then
+        self
+      elsif default_value.is_a?(::Hash) then
+        default_value
+      else
+        key = :key if !default_value.is_a?(::String) && !default_value.is_a?(::Symbol)
+        {key => self}
+      end
+    end
 
     # Converts the object to a boolean.
     #
@@ -129,6 +154,17 @@ module Lazier
     def format_boolean(true_name = nil, false_name = nil)
       settings = ::Lazier.settings.boolean_names
       to_boolean ? (true_name || settings[true]) : (false_name || settings[false])
+    end
+
+    # Prepares an object to be printed in list summaries, like `[01/04] Opening this...`.
+    #
+    # @param length [Fixnum] The minimum length of the label.
+    # @param filler [String] The minimum length of the label.
+    # @param formatter [Symbol] The method to use to format the label. Must accept the `length` and the `filler arguments.
+    # @return [String] The object inspected and formatted.
+    # TODO@PI: Test me
+    def indexize(length = 2, filler = "0", formatter = :rjust)
+      self.ensure_string.send(formatter, length, filler)
     end
 
     # Inspects an object.

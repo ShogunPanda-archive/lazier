@@ -10,13 +10,13 @@ module Lazier
   # @see http://semver.org
   module Version
     # The major version.
-    MAJOR = 2
+    MAJOR = 3
 
     # The minor version.
-    MINOR = 8
+    MINOR = 0
 
     # The patch version.
-    PATCH = 1
+    PATCH = 0
 
     # The current version of lazier.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

@@ -4,7 +4,6 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-# TODO@PI: Review everything
 module Lazier
   # Extensions for date and time objects.
   module DateTime
@@ -17,12 +16,11 @@ module Lazier
       #
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of days.
+      # TODO@PI: Verify test
       def days(short = true)
-        days = ::Lazier.settings.date_names[short ? :short_days : :long_days]
-        (1..7).to_a.collect { |i|
-          {value: i.to_s, label: days[i - 1]}
+        ::Lazier.settings.date_names[short ? :short_days : :long_days].collect.with_index {|label, index|
+          {value: (i + 1).to_s, label: label}
         }
-
       end
 
       # Returns strings representations of months.
@@ -30,10 +28,10 @@ module Lazier
       #
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of months.
+      # TODO@PI: Verify test
       def months(short = true)
-        months = ::Lazier.settings.date_names[short ? :short_months : :long_months]
-        (1..12).collect { |i|
-          {value: i.to_s.rjust(2, "0"), label: months.at(i - 1)}
+        ::Lazier.settings.date_names[short ? :short_months : :long_months].collect.with_index {|label, index|
+          {value: (i + 1).to_s.rjust(2, "0"), label: label}
         }
       end
 
@@ -129,7 +127,7 @@ module Lazier
         data = easter_start(year)
         data = easter_part_1(data)
         data = easter_part_2(year, data)
-        data = easter_part_3(year,  data)
+        data = easter_part_3(year, data)
         day, month = easter_end(data)
 
         ::Date.civil(year, month, day)
@@ -141,7 +139,7 @@ module Lazier
       # @param key [Symbol] The name of the format to search.
       # @return [String] The format or the name itself (if the format has not been found).
       def custom_format(key)
-        ::Lazier.settings.date_formats.fetch(key.to_sym, key).ensure_string
+        ::Lazier.settings.date_formats.fetch(key, key)
       end
 
       # Checks if the date is valid against to a specific format.
@@ -150,18 +148,9 @@ module Lazier
       # @param value [String] The value to check.
       # @param format [String] The format to check the value against.
       # @return [Boolean] `true` if the value is valid against the format, `false` otherwise.
+      # TODO@PI: Verify test
       def is_valid?(value, format = "%F %T")
-        rv = true
-
-        format = self.custom_format(format)
-
-        begin
-          ::DateTime.strptime(value.ensure_string, format)
-        rescue => _
-          rv = false
-        end
-
-        rv
+        !(::DateTime.strptime(value, self.custom_format(format)) rescue nil).nil?
       end
 
       private
@@ -178,6 +167,7 @@ module Lazier
         # @return [Array] Partial variables for #easter_part_2.
         def easter_part_1(data)
           _, b, c = data
+
           [
             b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor,
             b % 4,
@@ -219,9 +209,9 @@ module Lazier
     # Returns the UTC::Time representation of the current datetime.
     #
     # @return [UTC::Time] The UTC::Time representation of the current datetime.
+    # TODO@PI: Verify test
     def utc_time
-      ua = (self.respond_to?(:utc) ? self : self.to_datetime).utc
-      ::Time.utc(ua.year, ua.month, ua.day, ua.hour, ua.min, ua.sec)
+      utc.to_time
     end
 
     # Returns the number of months passed between the beginning of the base year and the current date.
@@ -233,16 +223,17 @@ module Lazier
     #
     # @param base [DateTime] The base year to start computation from. Default to current year.
     # @return [Fixnum] Returns the number of months passed between the beginning of the base year and the current date.
+    # TODO@PI: Verify test
     def in_months(base = nil)
-      base ||= ::Date.today.year
-      ((self.year) - base) * 12 + self.month
+      (year - (base || ::Date.today.year)) * 12 + month
     end
 
     # Returns the current month number with leading 0.
     #
     # @return [String] The current month number with leading 0.
+    # TODO@PI: Verify test
     def padded_month
-      self.month.to_s.rjust(2, "0")
+      month.indexize
     end
 
     # Formats a datetime, looking up also custom formats.
@@ -250,16 +241,18 @@ module Lazier
     #
     # @param format [String] A format or a custom format name to use for formatting.
     # @return [String] The formatted date.
+    # TODO@PI: Verify test
     def lstrftime(format = nil)
-      self.strftime(::DateTime.custom_format(format).ensure_string.gsub(/(?<!%)(%[ab])/i) {|mo| localize_time_component(mo) })
+      strftime(::DateTime.custom_format(format).gsub(/(?<!%)(%[ab])/i) {|mo| localize_time_component(mo) })
     end
 
     # Formats a datetime in the current timezone.
     #
     # @param format [String] The format to use for formatting.
     # @return [String] The formatted date.
+    # TODO@PI: Verify test
     def local_strftime(format = nil)
-      (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).strftime(::DateTime.custom_format(format))
+      (respond_to?(:in_time_zone) ? in_time_zone : self).strftime(::DateTime.custom_format(format))
     end
 
     # Formats a datetime in the current timezone, looking up also custom formats.
@@ -267,8 +260,9 @@ module Lazier
     #
     # @param format [String] A format or a custom format name.
     # @return [String] The formatted date.
+    # TODO@PI: Verify test
     def local_lstrftime(format = nil)
-      (self.respond_to?(:in_time_zone) ? self.in_time_zone : self).lstrftime(format)
+      (respond_to?(:in_time_zone) ? in_time_zone : self).lstrftime(format)
     end
 
     private
@@ -276,10 +270,11 @@ module Lazier
       #
       # @param component [String] The component to localize.
       # @return [String] The localized component.
+      # TODO@PI: Verify test
       def localize_time_component(component)
         type = {"%a" => :short_days, "%A" => :long_days, "%b" => :short_months, "%B" => :long_months}.fetch(component, "")
-        index = component =~ /%a/i ? self.wday : self.month - 1
-        ::Lazier.settings.date_names.fetch(type, [])[index]
+        index = component =~ /%a/i ? wday : month - 1
+        ::Lazier.settings.date_names[type][index]
       end
   end
 
@@ -293,9 +288,9 @@ module Lazier
       #
       # @param offset [Fixnum] The offset to convert.
       # @return [Rational] The converted offset.
+      # TODO@PI: Verify test
       def rationalize_offset(offset)
-        offset = offset.try(:offset) if !offset.is_a?(::Fixnum)
-        ::TZInfo::OffsetRationals.rational_for_offset(offset.to_integer)
+        ::TZInfo::OffsetRationals.rational_for_offset(offset.is_a?(::Fixnum) ? offset.offset : offset)
       end
 
       # Returns a +HH:MM formatted representation of the offset.
@@ -303,9 +298,9 @@ module Lazier
       # @param offset [Rational|Fixnum] The offset to represent, in seconds or as a rational.
       # @param colon [Boolean] If to put the colon in the output string.
       # @return [String] The formatted offset.
+      # TODO@PI: Verify test
       def format_offset(offset, colon = true)
-        offset = (offset * 86400).to_i if offset.is_a?(::Rational)
-        offset.is_a?(::Fixnum) ? self.seconds_to_utc_offset(offset, colon) : nil
+        self.seconds_to_utc_offset(offset.is_a?(::Rational) ? (offset * 86400).to_i : offset, colon)
       end
 
       # Find a zone by its name.
@@ -367,21 +362,20 @@ module Lazier
       # @param as_string [Boolean] If return just the zone name.
       # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
       # @return [String|TimeZone] The found timezone or `nil` if the zone is not valid.
+      # TODO@PI: Verify test
       def unparameterize_zone(tz, as_string = false, dst_label = nil)
-        tz = self.parameterize_zone(tz, false)
+        tz = parameterize_zone(tz, false)
+        matcher = /(#{Regexp.quote(tz)})$/
+
         rv = catch(:zone) do
-          self.list_all(true, dst_label).each do |zone|
-            throw(:zone, zone) if self.parameterize_zone(zone, false) =~ /(#{Regexp.quote(tz)})$/
+          list_all(true, dst_label).each do |zone|
+            throw(:zone, zone) if parameterize_zone(zone, false) =~ matcher
           end
 
           nil
         end
 
-        if rv then
-          (as_string ? rv : self.find(rv, dst_label))
-        else
-          nil
-        end
+        rv ? (as_string ? rv : self.find(rv, dst_label)) : nil
       end
 
       # Compares two timezones. They are sorted by the location name.
@@ -400,18 +394,22 @@ module Lazier
         #
         # @param zone [ActiveSupport::TimeZone] The zone.
         # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
+        # TODO@PI: Verify test
         def fetch_aliases(zone, dst_label = "(DST)")
+          matcher = /(#{Regexp.quote(dst_label)})$/
+
           zone.aliases.collect { |zone_alias|
-            [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ /(#{Regexp.quote(dst_label)})$/) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil]
+            [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ matcher) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil]
           }
         end
     end
 
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
+    # TODO@PI: Verify test
     def aliases
-      reference = self.class::MAPPING.fetch(self.name, self.name).gsub("_", " ")
-      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
+      reference = MAPPING.fetch(name, name).gsub("_", " ")
+      @aliases ||= ([reference] + MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
@@ -419,22 +417,26 @@ module Lazier
     # @param rational [Boolean] If to return the offset as a Rational.
     # @param date [DateTime] The date to consider. Defaults to now.
     # @return [Fixnum|Rational] The offset of this timezone.
+    # TODO@PI: Verify test
     def current_offset(rational = false, date = nil)
       date ||= ::DateTime.now
-      rv = (self.period_for_utc(date.utc).dst? ? self.dst_offset : self.offset)
+      rv = (period_for_utc(date.utc).dst? ? dst_offset : offset)
       rational ? self.class.rationalize_offset(rv) : rv
     end
 
-    # Return the current alias for this timezone.
+    # Returns the current alias for this timezone.
+    #
+    # @return [String] The current alias or the first alias of the current timezone.
+    # TODO@PI: Verify test
     def current_alias
-      identifier = self.tzinfo.identifier
+      identifier = tzinfo.identifier
 
       catch(:alias) do
-        self.aliases.each do |a|
+        aliases.each do |a|
           throw(:alias, a) if a == identifier
         end
 
-        self.aliases.first
+        aliases.first
       end
     end
 
@@ -442,9 +444,9 @@ module Lazier
     #
     # @param rational [Boolean] If to return the offset as a Rational.
     # @return [Fixnum|Rational] The offset of this timezone.
+    # TODO@PI: Verify test
     def offset(rational = false)
-      rv = self.utc_offset
-      rational ? self.class.rationalize_offset(rv) : rv
+      rational ? self.class.rationalize_offset(utc_offset) : utc_offset
     end
 
     # Gets a period for this timezone when the Daylight Saving Time (DST) is active (it takes care of different hemispheres).
@@ -455,7 +457,7 @@ module Lazier
       year ||= ::Date.today.year
 
       northern_summer = ::DateTime.civil(year, 7, 15).utc # This is a representation of a summer period in the Northern Hemisphere.
-      southern_summer = ::DateTime.civil(year, 1, 15).utc # This is a representation of a summer period in the Northern Hemisphere.
+      southern_summer = ::DateTime.civil(year, 1, 15).utc # This is a representation of a summer period in the Southern Hemisphere.
 
       period = self.period_for_utc(northern_summer)
       period = self.period_for_utc(southern_summer) if !period.dst?
@@ -468,9 +470,9 @@ module Lazier
     # @return [Boolean] `true` if the zone uses DST for that date or year, `false` otherwise.
     def uses_dst?(reference = nil)
       if reference.respond_to?(:year) && reference.respond_to?(:utc) then # This is a date like object
-        self.dst_period(reference.year).present? && self.period_for_utc(reference.utc).dst?
+        dst_period(reference.year).present? && period_for_utc(reference.utc).dst?
       else
-        self.dst_period(reference).present?
+        dst_period(reference).present?
       end
     end
 
@@ -480,7 +482,7 @@ module Lazier
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The correction for dst.
     def dst_correction(rational = false, year = nil)
-      self.dst_offset(rational, year, :std_offset)
+      dst_offset(rational, year, :std_offset)
     end
 
     # Returns the standard offset for this timezone timezone when the Daylight Saving Time (DST) is active.
@@ -490,7 +492,7 @@ module Lazier
     # @param method [Symbol] The method to use for getting the offset. Default is total offset from UTC.
     # @return [Fixnum|Rational] The DST offset for this timezone or `0`, if the timezone doesn't use DST for that year.
     def dst_offset(rational = false, year = nil, method = :utc_total_offset)
-      period = self.dst_period(year)
+      period = dst_period(year)
       rv = period ? period.send(method) : 0
       rational ? self.class.rationalize_offset(rv) : rv
     end
@@ -501,11 +503,9 @@ module Lazier
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The name for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
+    # TODO@PI: Verify test
     def dst_name(dst_label = nil, year = nil, name = nil)
-      dst_label ||= "(DST)"
-      name ||= self.name
-
-      self.uses_dst?(year) ? "#{name} #{dst_label}" : nil
+      uses_dst?(year) ? "#{name || self.name} #{dst_label || "(DST)"}" : nil
     end
 
     # Returns the name for this zone with Daylight Saving Time (DST) active.
@@ -514,8 +514,7 @@ module Lazier
     # @param colon [Boolean] If to put the colon in the output string.
     # @return [String] The name for this zone.
     def to_str(name = nil, colon = true)
-      name ||= self.current_alias
-      "(GMT#{self.formatted_offset(colon)}) #{name}"
+      "(GMT#{self.formatted_offset(colon)}) #{name || current_alias}"
     end
 
     # Returns a string representation for this zone with Daylight Saving Time (DST) active.
@@ -524,17 +523,9 @@ module Lazier
     # @param year [Fixnum] The year to which refer to. Defaults to the current year.
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The string representation for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
+    # TODO@PI: Verify test
     def to_str_with_dst(dst_label = nil, year = nil, name = nil)
-      dst_label ||= "(DST)"
-      name ||= self.current_alias
-
-      if self.uses_dst?(year) then
-        period = self.dst_period(year)
-        offset = self.class.seconds_to_utc_offset(period.utc_total_offset)
-        "(GMT#{offset}) #{name} #{dst_label}"
-      else
-        nil
-      end
+      self.uses_dst?(year) ? "(GMT#{self.class.seconds_to_utc_offset(dst_period(year).utc_total_offset)}) #{name || current_alias} #{dst_label || "(DST)"}" : 0
     end
 
     # Returns a parameterized string representation for this zone.
@@ -543,7 +534,7 @@ module Lazier
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The parameterized string representation for this zone.
     def to_str_parameterized(with_offset = true, name = nil)
-      ::ActiveSupport::TimeZone.parameterize_zone(name || self.to_str, with_offset)
+      ::ActiveSupport::TimeZone.parameterize_zone(name || to_str, with_offset)
     end
 
     # Returns a parameterized string representation for this zone with Daylight Saving Time (DST) active.
@@ -553,7 +544,7 @@ module Lazier
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The parameterized string representation for this zone with DST or `nil`, if the timezone doesn't use DST for that year.
     def to_str_with_dst_parameterized(dst_label = nil, year = nil, name = nil)
-      rv = self.to_str_with_dst(dst_label, year, name)
+      rv = to_str_with_dst(dst_label, year, name)
       rv ? ::ActiveSupport::TimeZone.parameterize_zone(rv) : nil
     end
 
@@ -564,12 +555,9 @@ module Lazier
       # @param zone [String] The zone.
       # @param reference [String] The main name for the zone.
       # @return [String|nil] The formatted alias.
+      # TODO@PI: Verify test
       def format_alias(name, zone, reference)
-        if zone.gsub("_", " ") == reference then
-          (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}")
-        else
-          nil
-        end
+        zone.gsub("_", " ") == reference ? (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}") : nil
       end
   end
 end

@@ -6,6 +6,7 @@
 
 require "spec_helper"
 
+# TODO@PI: Test only with_deep_indifferent_access
 describe Lazier::Hash do
   let(:reference) {
     rv = {a: 1, "b" => 2}
