@@ -49,7 +49,6 @@ module Lazier
     # @params default_value [String] The default value to return if the `verifier` or the block returns true.
     # @params verifier [Symbol] The method used to verify if the object is NOT meaningful. *Ignored if a block is passed.*
     # @return [String] The current object or the `default_value`.
-    # TODO@PI: Test me
     def ensure(default_value, verifier = :blank?)
       valid = block_given? ? yield(self) : send(verifier)
       !valid ? self : default_value
@@ -57,12 +56,11 @@ module Lazier
 
     # Makes sure that the object is a string.
     #
-    # @params default_value [String] The default value to return if the object is `nil`.
-    # @params stringifier [Symbol] The method used to convert the object to a string.
+    # @params default_value [String] The default value to return if the object is `nil`. It is also passed to the block stringifier.
+    # @params stringifier [Symbol] The method used to convert the object to a string. *Ignored if a block is passed.*
     # @return [String] The string representation of the object.
-    # TODO@PI: Verify test - New arguments
     def ensure_string(default_value = "", stringifier = :to_s)
-      !nil? ? send(stringifier) : default_value
+      !nil? ? (block_given? ? yield(self, default_value) : send(stringifier)) : default_value
     end
 
     # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
@@ -73,7 +71,6 @@ module Lazier
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
-    # TODO@PI: Verify test - New interface
     def ensure_array(default_value = nil, uniq = false, compact = false, sanitizer = nil, &block)
       rv = is_a?(::Array) ? self : (default_value || [self])
       rv.collect!(&(block || sanitizer))
@@ -87,20 +84,20 @@ module Lazier
     # @params default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if a block is present.*
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
-    # TODO@PI: Test me
-    def ensure_hash(default_value = nil, sanitizer = nil, &block)
+    def ensure_hash(default_value = nil, sanitizer = nil)
       rv = if is_a?(::Hash) then
         self
       elsif default_value.is_a?(::Hash) then
         default_value
       else
-        key = :key if !default_value.is_a?(::String) && !default_value.is_a?(::Symbol)
+        key = default_value.is_a?(::String) || default_value.is_a?(::Symbol) ? default_value : :key
         {key => self}
       end
 
       if block_given? || sanitizer then
         rv.inject({}) {|h, (k, v)|
           h[k] = block_given? ? yield(v) : v.send(sanitizer)
+          h
         }
       else
         rv
@@ -175,7 +172,6 @@ module Lazier
     # @param filler [String] The minimum length of the label.
     # @param formatter [Symbol] The method to use to format the label. Must accept the `length` and the `filler arguments.
     # @return [String] The object inspected and formatted.
-    # TODO@PI: Test me
     def indexize(length = 2, filler = "0", formatter = :rjust)
       self.ensure_string.send(formatter, length, filler)
     end

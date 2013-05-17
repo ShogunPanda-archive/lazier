@@ -96,6 +96,26 @@ describe Lazier::Object do
     end
   end
 
+  describe "#ensure" do
+    it "should assign a default value to an object" do
+      expect(nil.ensure("VALUE")).to eq("VALUE")
+      expect([].ensure("VALUE")).to eq("VALUE")
+      expect({}.ensure("VALUE")).to eq("VALUE")
+      expect("".ensure("VALUE")).to eq("VALUE")
+    end
+
+    it "should use a different verifier" do
+      expect(nil.ensure("VALUE", :present?)).to be_nil
+      expect("".ensure("VALUE", :present?)).to eq("")
+      expect("STRING".ensure("VALUE", :present?)).to eq("VALUE")
+    end
+
+    it "should use the provided block as verifier" do
+      expect([].ensure("VALUE") {|o| o.length == 1} ).to eq([])
+      expect(["STRING"].ensure("VALUE") {|o| o.length == 1} ).to eq("VALUE")
+    end
+  end
+
   describe "#ensure_string" do
     it "should correctly handle strings" do
       expect(" abc ".ensure_string).to eq(" abc ")
@@ -103,6 +123,55 @@ describe Lazier::Object do
       expect(1.0.ensure_string).to eq("1.0")
       expect(:abc.ensure_string).to eq("abc")
       expect(nil.ensure_string).to eq("")
+    end
+
+    it "should default to the default value for nil values" do
+      expect(nil.ensure_string("DEFAULT")).to eq("DEFAULT")
+    end
+
+    it "should use a different method or the provided block to stringify value" do
+      expect([1, 2, 3].ensure_string("", :join)).to eq("123")
+      expect([1, 2, 3].ensure_string("-") {|a, v| a.join(v)} ).to eq("1-2-3")
+    end
+  end
+
+  describe "#ensure_array" do
+    it "should convert to an array with the object it self or a default value" do
+      expect(nil.ensure_array).to eq([nil])
+      expect("A".ensure_array).to eq(["A"])
+      expect({a: "b"}.ensure_array).to eq([{a: "b"}])
+      expect(nil.ensure_array(["1"])).to eq(["1"])
+      expect("A".ensure_array(["2"])).to eq(["2"])
+      expect({a: "b"}.ensure_array(["3"])).to eq(["3"])
+    end
+
+    it "should sanitize elements of the array using a method or a block" do
+      expect(" 123 ".ensure_array).to eq([" 123 "])
+      expect(" 123 ".ensure_array(nil, false, false, :strip)).to eq(["123"])
+      expect(" 123 ".ensure_array(nil, false, false) { |e| e.reverse }).to eq([" 321 "])
+    end
+
+    it "should unicize and compact array if requested to" do
+      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, true, false)).to eq([1, 2, 3, nil])
+      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, false, true)).to eq([1, 2, 3, 3, 2, 1])
+      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, true, true)).to eq([1, 2, 3])
+    end
+  end
+
+  describe "#ensure_hash" do
+    it "should return an hash" do
+      expect({a: "b"}.ensure_hash).to eq({a: "b"})
+      expect(nil.ensure_hash({a: "b"})).to eq({a: "b"})
+
+      expect(1.ensure_hash).to eq({key: 1})
+      expect(1.ensure_hash(:test)).to eq({test: 1})
+      expect(1.ensure_hash("test")).to eq({"test" => 1})
+      expect(1.ensure_hash(2)).to eq({key: 1})
+    end
+
+    it "should sanitize values" do
+      expect(" 1 ".ensure_hash(nil, &:strip)).to eq({key: "1"})
+      expect(1.ensure_hash(nil) { |v| v * 2 }).to eq({key: 2})
     end
   end
 
@@ -223,6 +292,14 @@ describe Lazier::Object do
       expect("yes".format_boolean(nil, "FFF")).to eq("Yes")
       expect("abc".format_boolean("TTT")).to eq("No")
       expect("abc".format_boolean(nil, "FFF")).to eq("FFF")
+    end
+  end
+
+  describe "#indexize" do
+    it "should format for printing" do
+      expect(1.indexize).to eq("01")
+      expect(21.indexize(3, "A")).to eq("A21")
+      expect(21.indexize(3, "A", :ljust)).to eq("21A")
     end
   end
 

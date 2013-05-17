@@ -393,8 +393,8 @@ module Lazier
     # Returns a list of valid aliases (city names) for this timezone (basing on offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
-      reference = MAPPING.fetch(name, name).gsub("_", " ")
-      @aliases ||= ([reference] + MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
+      reference = self.class::MAPPING.fetch(name, name).gsub("_", " ")
+      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
@@ -505,7 +505,7 @@ module Lazier
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The string representation for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
     def to_str_with_dst(dst_label = nil, year = nil, name = nil)
-      self.uses_dst?(year) ? "(GMT#{self.class.seconds_to_utc_offset(dst_period(year).utc_total_offset)}) #{name || current_alias} #{dst_label || "(DST)"}" : 0
+      self.uses_dst?(year) ? "(GMT#{self.class.seconds_to_utc_offset(dst_period(year).utc_total_offset)}) #{name || current_alias} #{dst_label || "(DST)"}" : nil
     end
 
     # Returns a parameterized string representation for this zone.
