@@ -65,8 +65,8 @@ module Lazier
     # @param add_string [String] The string to append to the number.
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
-    def setup_format_number(precision = 2, decimal_separator = ".", add_string = "", k_separator = ",")
-      @format_number = HashWithIndifferentAcces.new({prec: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator})
+    def setup_format_number(precision = 2, decimal_separator = ".", add_string = nil, k_separator = ",")
+      @format_number = ::HashWithIndifferentAccess.new({precision: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator})
     end
 
     # Setups strings representation of booleans.
@@ -75,7 +75,6 @@ module Lazier
     # @param true_name [String] The string representation of `true`. Defaults to `Yes`.
     # @param false_name [String] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
-    # TODO@PI: Verify test
     def setup_boolean_names(true_name = nil, false_name = nil)
       @boolean_names = {true => true_name || i18n.boolean[0], false => false_name || i18n.boolean[1]}
     end
@@ -86,10 +85,10 @@ module Lazier
     # @param formats [Hash] The format to add or replace.
     # @param replace [Boolean] If to discard current formats.
     # @return [Hash] The new formats.
-    # TODO@PI: Verify test
     def setup_date_formats(formats = nil, replace = false)
-      @date_formats = {} if replace
-      @date_formats.merge!(formats.ensure_hash({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }).with_indifferent_access)
+      @date_formats = HashWithIndifferentAccess.new if replace || !@date_formats
+
+      @date_formats.merge!(formats.ensure_hash({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
       ::Time::DATE_FORMATS.merge!(@date_formats)
 
       @date_formats
@@ -105,7 +104,6 @@ module Lazier
     # @param long_days [Array] The string representation of days.
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
-    # TODO@PI: Verify test
     def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
       definitions = self.i18n.date
 

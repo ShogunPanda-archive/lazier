@@ -19,30 +19,30 @@ describe Lazier::DateTime do
 
   describe ".days" do
     it "should return the list of the days of the week" do
-      expect(::DateTime.days).to be_kind_of(::Array)
+      expect(::DateTime.days).to be_a(::Array)
       expect(::DateTime.days[3]).to eq({value: "4", label: "Wed"})
-      expect(::DateTime.days(false)).to be_kind_of(::Array)
+      expect(::DateTime.days(false)).to be_a(::Array)
       expect(::DateTime.days(false)[3]).to eq({value: "4", label: "Wednesday"})
 
       ::Lazier.settings.setup_date_names(nil, nil, 7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s})
-      expect(::DateTime.days).to be_kind_of(::Array)
+      expect(::DateTime.days).to be_a(::Array)
       expect(::DateTime.days[3]).to eq({value: "4", label: "4"})
-      expect(::DateTime.days(false)).to be_kind_of(::Array)
+      expect(::DateTime.days(false)).to be_a(::Array)
       expect(::DateTime.days(false)[3]).to eq({value: "4", label: "44"})
     end
   end
 
   describe ".months" do
     it "should return the list of the months of the year" do
-      expect(::DateTime.months).to be_kind_of(::Array)
+      expect(::DateTime.months).to be_a(::Array)
       expect(::DateTime.months[6]).to eq({value: "07", label: "Jul"})
-      expect(::DateTime.months(false)).to be_kind_of(::Array)
+      expect(::DateTime.months(false)).to be_a(::Array)
       expect(::DateTime.months(false)[6]).to eq({value: "07", label: "July"})
 
       ::Lazier.settings.setup_date_names(12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s}, nil, nil)
-      expect(::DateTime.months).to be_kind_of(::Array)
+      expect(::DateTime.months).to be_a(::Array)
       expect(::DateTime.months[6]).to eq({value: "07", label: "7"})
-      expect(::DateTime.months(false)).to be_kind_of(::Array)
+      expect(::DateTime.months(false)).to be_a(::Array)
       expect(::DateTime.months(false)[6]).to eq({value: "07", label: "77"})
     end
 

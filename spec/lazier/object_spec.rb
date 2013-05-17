@@ -177,10 +177,10 @@ describe Lazier::Object do
       expect(123.456789.round_to_precision(2)).to eq("123.46")
       expect(123.456789.round_to_precision(0)).to eq("123")
       expect("123.456789".round_to_precision(2)).to eq("123.46")
+      expect(123.456789.round_to_precision(-1)).to eq("123")
     end
 
     it "should return nil for non numeric values" do
-      expect(123.456789.round_to_precision(-1)).to eq(nil)
       expect("abc".round_to_precision(-1)).to eq(nil)
     end
   end
@@ -195,10 +195,12 @@ describe Lazier::Object do
 
       Lazier.settings.setup_format_number(5, ",", "£", ".")
       expect(123123.456789.format_number).to eq("123.123,45679 £")
+
+      Lazier.settings.setup_format_number(2)
+      expect(123.456789.format_number(-1)).to eq("123")
     end
 
     it "should return nil for non numeric values" do
-      expect(123.456789.format_number(-1)).to eq(nil)
       expect("abc".format_number(-1)).to eq(nil)
     end
   end
@@ -233,7 +235,7 @@ describe Lazier::Object do
     end
 
     it "should raise an exception if requested" do
-      expect { {a: "b"}.analyze }.to raise_error(::Lazier::Exceptions::Dump)
+      expect { {a: "b"}.analyze }.to raise_error(::Lazier::Exceptions::Debug)
     end
   end
 end

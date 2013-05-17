@@ -17,7 +17,6 @@ module Lazier
     # ```
     #
     # @return [Array] A list of all components that are included in this path.
-    # TODO@PI: Verify test
     def components
       each_filename.to_a
     end

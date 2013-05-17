@@ -10,40 +10,36 @@ module Lazier
     include ::ActionView::Helpers::NumberHelper
     extend ::ActiveSupport::Concern
 
-    BOOLEAN_MATCHER = /^(.*(1|0|true|false|yes|no|t|f|y|n).*)$/i
-    BOOLEAN_TRUE_MATCHER = /^(.*(1|true|yes|t|y).*)$/i
+    BOOLEAN_MATCHER = /^(\s*(1|0|true|false|yes|no|t|f|y|n)\s*)$/i
+    BOOLEAN_TRUE_MATCHER = /^(\s*(1|true|yes|t|y)\s*)$/i
     INTEGER_MATCHER = /^([+-]?)(\d+)$/
     FLOAT_MATCHER = /^([+-]?)(\d+)([.,]\d+)?$/
 
     # Normalizes a number for conversion. Basically this methods removes all separator and ensures that `.` is used for decimal separator.
     #
     # @return [String] The normalized number.
-    # TODO@PI: Verify test
     def normalize_number
-      is_boolean? ? to_i : ensure_string.strip.gsub(/[\.,](?=(.*[\.,]))/, "").gsub(",", ".")
+      is_boolean? ? to_i.to_s : ensure_string.strip.gsub(/[\.,](?=(.*[\.,]))/, "").gsub(",", ".")
     end
 
     # Checks if the object is a valid integer.
     #
     # @return [Boolean] `true` is a valid integer, `false` otherwise.
-    # TODO@PI: Verify test
     def is_integer?
-      is_a?(::Integer) || normalize_number =~ ::Lazier::Object::INTEGER_MATCHER
+      is_a?(::Integer) || is_a?(::TrueClass) || !self || normalize_number =~ ::Lazier::Object::INTEGER_MATCHER
     end
 
     # Checks if the object is a valid float.
     #
     # @return [Boolean] `true` is a valid float, `false` otherwise.
-    # TODO@PI: Verify test
     def is_float?
-      is_a?(::Numeric) || normalize_number =~ ::Lazier::Object::FLOAT_MATCHER
+      is_a?(::Numeric) || is_a?(::TrueClass) || !self || normalize_number =~ ::Lazier::Object::FLOAT_MATCHER
     end
     alias :is_number? :is_float?
 
     # Checks if the object is a valid boolean value.
     #
     # @return [Boolean] `true` is a valid boolean value, `false` otherwise.
-    # TODO@PI: Verify test
     def is_boolean?
       is_a?(::TrueClass) || !self || to_s =~ ::Lazier::Object::BOOLEAN_MATCHER
     end
@@ -114,9 +110,8 @@ module Lazier
     # Converts the object to a boolean.
     #
     # @return [Boolean] The boolean representation of the object.
-    # TODO@PI: Verify test
     def to_boolean
-      is_a?(TrueClass) || self == 1.0 || ensure_string =~ ::Lazier::Object::BOOLEAN_TRUE_MATCHER
+      is_a?(TrueClass) || self == 1.0 || self == 1 || ensure_string =~ ::Lazier::Object::BOOLEAN_TRUE_MATCHER
     end
 
     # Converts the object to a integer.
@@ -131,7 +126,6 @@ module Lazier
     #
     # @param default_value [Float] The value to return if the conversion is not possible.
     # @return [Float] The float representation of the object.
-    # TODO@PI: Verify test
     def to_float(default_value = 0.0)
       is_float? ? ::Kernel.Float(is_a?(::Numeric) ? self : normalize_number) : default_value
     end
@@ -140,9 +134,8 @@ module Lazier
     #
     # @param precision [Fixnum] The precision to keep.
     # @return [Float] The rounded float representaton of the object.
-    # TODO@PI: Verify test
     def round_to_precision(precision = 2)
-      is_number? ? number_with_precision(self, precision: precision) : nil
+      is_number? ? number_with_precision(to_float, precision: [precision, 0].max) : nil
     end
 
     # Formats a number.
@@ -153,13 +146,16 @@ module Lazier
     # @param add_string [String] The string to append to the number.
     # @param k_separator [String] The string to use as thousands separator.
     # @return [String] The string representation of the object.
-    # TODO@PI: Verify test
     def format_number(precision = nil, decimal_separator = nil, add_string = nil, k_separator = nil)
-      settings = ::Lazier.settings.format_number
-      add_string ||= settings[:add_string]
-      format, unit = (add_string  ? ["%n %u", add_string] : ["%n", ""])
+      if is_number? then
+        settings = ::Lazier.settings.format_number
+        add_string ||= settings[:add_string]
+        format, unit = (add_string  ? ["%n %u", add_string] : ["%n", ""])
 
-      number_to_currency(self, {precision: precision || settings[:precision], separator: decimal_separator || settings[:decimal_separator], delimiter: k_separator || settings[k_separator], format: format, unit: unit})
+        number_to_currency(self, {precision: [precision || settings[:precision], 0].max, separator: decimal_separator || settings[:decimal_separator], delimiter: k_separator || settings[:k_separator], format: format, unit: unit})
+      else
+        nil
+      end
     end
 
     # Formats a boolean.
@@ -190,7 +186,7 @@ module Lazier
     # @param as_exception [Boolean] If raise an exception.
     # @return [String] The object inspected and formatted.
     def analyze(format = :yaml, as_exception = true)
-      rv = case :format
+      rv = case format
         when :pretty_json
           ::JSON.pretty_generate(self)
         else

@@ -36,17 +36,10 @@ describe Lazier::Settings do
   describe "#initialize" do
     it "should create good defaults" do
       settings = ::Lazier::Settings.new
-      expect(settings.format_number).to be_a(Hash)
-      expect(settings.boolean_names).to be_a(Hash)
-      expect(settings.date_names).to be_a(Hash)
-      expect(settings.date_formats).to be_a(Hash)
-    end
-
-    it "should create good defaults for the singleton" do
-      expect(reference.format_number).to be_a(Hash)
-      expect(reference.boolean_names).to be_a(Hash)
-      expect(reference.date_names).to be_a(Hash)
-      expect(reference.date_formats).to be_a(Hash)
+      expect(settings.format_number).to be_a(::HashWithIndifferentAccess)
+      expect(settings.boolean_names).to be_a(::Hash)
+      expect(settings.date_names).to be_a(::HashWithIndifferentAccess)
+      expect(settings.date_formats).to be_a(::HashWithIndifferentAccess)
     end
   end
 
@@ -91,18 +84,18 @@ describe Lazier::Settings do
 
       reference.setup_date_formats({c1: "%Y"})
       expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
-      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
+      expect(date_reference.lstrftime("c1")).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats({c1: "%Y"}, true)
-      expect(date_reference.lstrftime(:ct_date)).to eq("ct_date")
+      expect(date_reference.lstrftime("ct_date")).to eq("ct_date")
       expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats()
       expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
-      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
+      expect(date_reference.lstrftime("c1")).to eq(date_reference.year.to_s)
 
       reference.setup_date_formats(nil, true)
-      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
+      expect(date_reference.lstrftime("ct_date")).to eq(date_reference.strftime("%Y-%m-%d"))
       expect(date_reference.lstrftime(:c1)).to eq("c1")
     end
   end
@@ -122,13 +115,13 @@ describe Lazier::Settings do
       expect(date_reference.lstrftime(:sdn)).to eq("66 Jun Tuesday Tue")
 
       reference.setup_date_names(long_months, short_months)
-      expect(date_reference.lstrftime(:sdn)).to eq("66 6 Tuesday Tue")
+      expect(date_reference.lstrftime("sdn")).to eq("66 6 Tuesday Tue")
 
       reference.setup_date_names(long_months, short_months, long_days)
       expect(date_reference.lstrftime(:sdn)).to eq("66 6 33 Tue")
 
       reference.setup_date_names(long_months, short_months, long_days, short_days)
-      expect(date_reference.lstrftime(:sdn)).to eq("66 6 33 3")
+      expect(date_reference.lstrftime("sdn")).to eq("66 6 33 3")
 
       reference.setup_date_names
       expect(date_reference.lstrftime(:sdn)).to eq("June Jun Tuesday Tue")
