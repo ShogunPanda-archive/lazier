@@ -49,10 +49,13 @@ module Lazier
       # @param locale [Symbol] The new locale. Default is the current system locale.
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
+        locales = []
+
         begin
           path = @i18n_locales_path.ensure_string
-          locales = [locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l, path)} + ["en"]
-          translation = R18n::I18n.new(locales.uniq.compact, path).t.send(@i18n_root)
+          locales = [locale, ENV["LANG"], R18n::I18n.system_locale, "en"].select { |l| find_locale_in_path(l, path)}.uniq
+
+          translation = R18n::I18n.new(locales.collect(&:to_s), path).t.send(@i18n_root)
           raise ArgumentError if translation.is_a?(R18n::Untranslated)
           translation
         rescue
@@ -66,7 +69,7 @@ module Lazier
       # @param path [String] The path where look into.
       # @return [String|nil] The version of the locale found or `nil`, if nothing was found.
       def find_locale_in_path(locale, path)
-        [locale, locale[0, 5], locale[0, 2]].select {|l| File.exists?("#{path}/#{l}.yml") }.first
+        locale ? [locale, locale[0, 5], locale[0, 2]].select {|l| File.exists?("#{path}/#{l}.yml") }.first : nil
       end
   end
 end
