@@ -49,18 +49,25 @@ module Lazier
       # @param locale [Symbol] The new locale. Default is the current system locale.
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
-        locales = []
+        path = @i18n_locales_path.ensure_string
+        locales = validate_locales([locale], path)
 
         begin
-          path = @i18n_locales_path.ensure_string
-          locales = [locale, ENV["LANG"], R18n::I18n.system_locale, "en"].select { |l| find_locale_in_path(l, path)}.uniq
-
-          translation = R18n::I18n.new(locales.collect(&:to_s), path).t.send(@i18n_root)
+          translation = R18n::I18n.new(locales, path).t.send(@i18n_root)
           raise ArgumentError if translation.is_a?(R18n::Untranslated)
           translation
         rescue
           raise Lazier::Exceptions::MissingTranslation.new(locales, path)
         end
+      end
+
+      # Validates locales for messages.
+      #
+      # @param locales [Array] The list of locales to validate. English is added as fallback.
+      # @param path [String] The path where look into.
+      # @return [Array] The list of valid locales.
+      def validate_locales(locales, path)
+        (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path)}.uniq.collect(&:to_s)
       end
 
       # Find a locale file in a path.
