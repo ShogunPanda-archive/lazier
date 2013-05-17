@@ -10,9 +10,16 @@ module Lazier
     include ::ActionView::Helpers::NumberHelper
     extend ::ActiveSupport::Concern
 
+    # Expression to match a boolean value.
     BOOLEAN_MATCHER = /^(\s*(1|0|true|false|yes|no|t|f|y|n)\s*)$/i
+
+    # Expression to match a true value.
     BOOLEAN_TRUE_MATCHER = /^(\s*(1|true|yes|t|y)\s*)$/i
+
+    # Expression to match a integer value.
     INTEGER_MATCHER = /^([+-]?)(\d+)$/
+
+    # Expression to match a float value.
     FLOAT_MATCHER = /^([+-]?)(\d+)([.,]\d+)?$/
 
     # Normalizes a number for conversion. Basically this methods removes all separator and ensures that `.` is used for decimal separator.
@@ -46,8 +53,8 @@ module Lazier
 
     # Makes sure that the object is set to something meaningful.
     #
-    # @params default_value [String] The default value to return if the `verifier` or the block returns true.
-    # @params verifier [Symbol] The method used to verify if the object is NOT meaningful. *Ignored if a block is passed.*
+    # @param default_value [String] The default value to return if the `verifier` or the block returns true.
+    # @param verifier [Symbol] The method used to verify if the object is NOT meaningful. *Ignored if a block is passed.*
     # @return [String] The current object or the `default_value`.
     def ensure(default_value, verifier = :blank?)
       valid = block_given? ? yield(self) : send(verifier)
@@ -56,8 +63,8 @@ module Lazier
 
     # Makes sure that the object is a string.
     #
-    # @params default_value [String] The default value to return if the object is `nil`. It is also passed to the block stringifier.
-    # @params stringifier [Symbol] The method used to convert the object to a string. *Ignored if a block is passed.*
+    # @param default_value [String] The default value to return if the object is `nil`. It is also passed to the block stringifier.
+    # @param stringifier [Symbol] The method used to convert the object to a string. *Ignored if a block is passed.*
     # @return [String] The string representation of the object.
     def ensure_string(default_value = "", stringifier = :to_s)
       !nil? ? (block_given? ? yield(self, default_value) : send(stringifier)) : default_value
@@ -65,7 +72,7 @@ module Lazier
 
     # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
     #
-    # @params default_value [Array|NilClass] The default array to use. If not specified, an array containing the object is returned.
+    # @param default_value [Array|NilClass] The default array to use. If not specified, an array containing the object is returned.
     # @param uniq [Boolean] If to remove duplicates from the array before sanitizing.
     # @param compact [Boolean] If to compact the array before sanitizing.
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
@@ -81,7 +88,7 @@ module Lazier
 
     # Makes sure that the object is an hash. For non hash objects, return an hash basing on the `default_value` parameter.
     #
-    # @params default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+    # @param default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if a block is present.*
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
     def ensure_hash(default_value = nil, sanitizer = nil)
