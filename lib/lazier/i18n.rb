@@ -50,9 +50,9 @@ module Lazier
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
         begin
-          path = (@i18n_locales_path || "").to_s
-          locales = ([locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l.to_s, path)} + ["en"]).uniq.compact
-          translation = R18n::I18n.new(locales, path).t.send(@i18n_root)
+          path = @i18n_locales_path.ensure_string
+          locales = [locale, ENV["LANG"], R18n::I18n.system_locale].collect { |l| find_locale_in_path(l.to_s, path)} + ["en"]
+          translation = R18n::I18n.new(locales.uniq.compact, path).t.send(@i18n_root)
           raise ArgumentError if translation.is_a?(R18n::Untranslated)
           translation
         rescue
