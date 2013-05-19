@@ -115,7 +115,7 @@ module Lazier
     #
     # @return [Boolean] The boolean representation of the object.
     def to_boolean
-      is_a?(TrueClass) || self == 1.0 || self == 1 || ensure_string =~ ::Lazier::Object::BOOLEAN_TRUE_MATCHER
+      is_a?(TrueClass) || self == 1.0 || self == 1 || ensure_string =~ ::Lazier::Object::BOOLEAN_TRUE_MATCHER || false
     end
 
     # Converts the object to a integer.

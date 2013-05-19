@@ -211,15 +211,15 @@ describe Lazier::TimeZone do
 
   describe ".rationalize_offset" do
     it "should return the correct rational value" do
-      expect(::ActiveSupport::TimeZone.rationalize_offset(::ActiveSupport::TimeZone[4])).to eq(::Rational(1, 6))
-      expect(::ActiveSupport::TimeZone.rationalize_offset(-25200)).to eq(::Rational(-7, 24))
+      expect(::ActiveSupport::TimeZone.rationalize_offset(::ActiveSupport::TimeZone[4])).to eq(Rational(1, 6))
+      expect(::ActiveSupport::TimeZone.rationalize_offset(-25200)).to eq(Rational(-7, 24))
     end
   end
 
   describe ".format_offset" do
     it "should correctly format an offset" do
       expect(::ActiveSupport::TimeZone.format_offset(-25200)).to eq("-07:00")
-      expect(::ActiveSupport::TimeZone.format_offset(::Rational(-4, 24), false)).to eq("-0400")
+      expect(::ActiveSupport::TimeZone.format_offset(Rational(-4, 24), false)).to eq("-0400")
     end
   end
 
@@ -311,7 +311,7 @@ describe Lazier::TimeZone do
   describe "#dst_correction" do
     it "should correctly detect offset usage" do
       expect(reference_zone.dst_correction).to eq(3600)
-      expect(reference_zone.dst_correction(true)).to eq(::Rational(1, 24))
+      expect(reference_zone.dst_correction(true)).to eq(Rational(1, 24))
       expect(reference_zone.dst_correction(false, 1000)).to eq(0)
       expect(zone_without_dst.dst_correction).to eq(0)
     end
