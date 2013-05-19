@@ -16,7 +16,7 @@ describe Lazier::I18n do
 
   before(:each) do
     ENV["LANG"] = "en"
-    R18n::I18n.stub(:system_locale).and_return("en")
+    ::R18n::I18n.stub(:system_locale).and_return("en")
   end
 
   describe "#i18n_setup" do
@@ -41,42 +41,41 @@ describe Lazier::I18n do
       object.i18n = :en
       expect(object.instance_variable_get(:@i18n)).to eq("LOCALE")
     end
-
   end
 
   describe "#i18n_load_locale" do
     it "should set using system locale if called without arguments" do
       object.i18n_setup("lazier", root_path)
-      R18n::I18n.should_receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
+      ::R18n::I18n.should_receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
       object.i18n = nil
     end
 
     it "should set the requested locale" do
       object.i18n_setup("lazier", root_path)
-      R18n::I18n.should_receive(:new).with(["it", ENV["LANG"]].compact.uniq, root_path).and_call_original
+      ::R18n::I18n.should_receive(:new).with(["it", ENV["LANG"]].compact.uniq, root_path).and_call_original
       object.i18n = :it
     end
 
     it "should call the root" do
       Lazier.load!
-      t = Object.new
+      t = ::Object.new
       object.i18n_setup("ROOT", root_path)
-      R18n::I18n.any_instance.should_receive(:t).and_return(t)
+      ::R18n::I18n.any_instance.should_receive(:t).and_return(t)
       t.should_receive("ROOT")
       object.i18n = :it
     end
 
     it "should only pass valid translations" do
       object.i18n_setup("lazier", root_path)
-      R18n::I18n.should_receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
+      ::R18n::I18n.should_receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
       object.i18n = "INVALID"
     end
 
     it "should raise an exception if no valid translation are found" do
       ENV["LANG"] = "INVALID"
-      R18n::I18n.stub(:system_locale).and_return("INVALID")
+      ::R18n::I18n.stub(:system_locale).and_return("INVALID")
       object.i18n_setup("ROOT", "/dev/")
-      expect { object.i18n = "INVALID" }.to raise_error(Lazier::Exceptions::MissingTranslation)
+      expect { object.i18n = "INVALID" }.to raise_error(::Lazier::Exceptions::MissingTranslation)
     end
   end
 end

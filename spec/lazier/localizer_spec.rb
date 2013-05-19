@@ -11,19 +11,19 @@ describe Lazier::Localizer do
     it "should call i18n_setup and then i18n=" do
       ::Lazier::Localizer.any_instance.should_receive(:i18n_setup).with("ROOT", "PATH")
       ::Lazier::Localizer.any_instance.should_receive(:i18n=).with(:it)
-      Lazier::Localizer.new("ROOT", "PATH", :it)
+      ::Lazier::Localizer.new("ROOT", "PATH", :it)
     end
 
     it "should setup default arguments" do
       ::Lazier::Localizer.any_instance.should_receive(:i18n_setup).with(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
       ::Lazier::Localizer.any_instance.should_receive(:i18n=).with(nil)
-      Lazier::Localizer.new
+      ::Lazier::Localizer.new
     end
   end
 
   describe ".localize" do
     it "should create a new localizer and forward the message" do
-      obj = Object.new
+      obj = ::Object.new
       obj.should_receive(:string).with("ARGUMENT")
       ::Lazier::Localizer.should_receive(:new).and_call_original
       ::Lazier::Localizer.any_instance.should_receive(:i18n).and_return(obj)
@@ -33,7 +33,7 @@ describe Lazier::Localizer do
 
   describe ".localize" do
     it "should create a new localizer and forward the message" do
-      obj = Object.new
+      obj = ::Object.new
       obj.should_receive(:string).with("ARGUMENT")
       ::Lazier::Localizer.should_receive(:new).with(nil, nil, :it).and_call_original
       ::Lazier::Localizer.any_instance.should_receive(:i18n).and_return(obj)

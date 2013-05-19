@@ -45,7 +45,6 @@ describe Lazier::DateTime do
       expect(::DateTime.months(false)).to be_a(::Array)
       expect(::DateTime.months(false)[6]).to eq({value: "07", label: "77"})
     end
-
   end
 
   describe ".years" do
@@ -212,15 +211,15 @@ describe Lazier::TimeZone do
 
   describe ".rationalize_offset" do
     it "should return the correct rational value" do
-      expect(::ActiveSupport::TimeZone.rationalize_offset(::ActiveSupport::TimeZone[4])).to eq(Rational(1, 6))
-      expect(::ActiveSupport::TimeZone.rationalize_offset(-25200)).to eq(Rational(-7, 24))
+      expect(::ActiveSupport::TimeZone.rationalize_offset(::ActiveSupport::TimeZone[4])).to eq(::Rational(1, 6))
+      expect(::ActiveSupport::TimeZone.rationalize_offset(-25200)).to eq(::Rational(-7, 24))
     end
   end
 
   describe ".format_offset" do
     it "should correctly format an offset" do
       expect(::ActiveSupport::TimeZone.format_offset(-25200)).to eq("-07:00")
-      expect(::ActiveSupport::TimeZone.format_offset(Rational(-4, 24), false)).to eq("-0400")
+      expect(::ActiveSupport::TimeZone.format_offset(::Rational(-4, 24), false)).to eq("-0400")
     end
   end
 
@@ -293,8 +292,8 @@ describe Lazier::TimeZone do
   describe "#uses_dst?" do
     it "should correctly detect offset usage" do
       expect(reference_zone.uses_dst?).to be_true
-      expect(reference_zone.uses_dst?(DateTime.civil(2012, 7, 15))).to be_true
-      expect(reference_zone.uses_dst?(DateTime.civil(2012, 1, 15))).to be_false
+      expect(reference_zone.uses_dst?(::DateTime.civil(2012, 7, 15))).to be_true
+      expect(reference_zone.uses_dst?(::DateTime.civil(2012, 1, 15))).to be_false
       expect(reference_zone.uses_dst?(1000)).to be_false
       expect(zone_without_dst.uses_dst?).to be_false
     end
@@ -312,7 +311,7 @@ describe Lazier::TimeZone do
   describe "#dst_correction" do
     it "should correctly detect offset usage" do
       expect(reference_zone.dst_correction).to eq(3600)
-      expect(reference_zone.dst_correction(true)).to eq(Rational(1, 24))
+      expect(reference_zone.dst_correction(true)).to eq(::Rational(1, 24))
       expect(reference_zone.dst_correction(false, 1000)).to eq(0)
       expect(zone_without_dst.dst_correction).to eq(0)
     end
