@@ -12,4 +12,4 @@ gemspec
 gem "rspec", "~> 2.12.0"
 gem "rake", "~> 10.0.4"
 gem "simplecov", ">= 0.7.1"
-gem "coveralls", "~> 0.6.7", require: false
+gem "coveralls", ">= 0.6.7", require: false
