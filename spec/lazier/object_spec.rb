@@ -303,16 +303,16 @@ describe Lazier::Object do
     end
   end
 
-  describe "#analyze" do
+  describe "#for_debug" do
     it "should return the correct representation for an object" do
       reference = {a: "b"}
-      expect(reference.analyze(:json, false)).to eq(reference.to_json)
-      expect(reference.analyze(:pretty_json, false)).to eq(::JSON.pretty_generate(reference))
-      expect(reference.analyze(:yaml, false)).to eq(reference.to_yaml)
+      expect(reference.for_debug(:json, false)).to eq(reference.to_json)
+      expect(reference.for_debug(:pretty_json, false)).to eq(::JSON.pretty_generate(reference))
+      expect(reference.for_debug(:yaml, false)).to eq(reference.to_yaml)
     end
 
     it "should raise an exception if requested" do
-      expect { {a: "b"}.analyze }.to raise_error(::Lazier::Exceptions::Debug)
+      expect { {a: "b"}.for_debug }.to raise_error(::Lazier::Exceptions::Debug)
     end
   end
 end

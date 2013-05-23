@@ -188,7 +188,7 @@ module Lazier
     # @param format The format to use.
     # @param as_exception [Boolean] If raise an exception.
     # @return [String] The object inspected and formatted.
-    def analyze(format = :yaml, as_exception = true)
+    def for_debug(format = :yaml, as_exception = true)
       rv = case format
         when :pretty_json
           ::JSON.pretty_generate(self)

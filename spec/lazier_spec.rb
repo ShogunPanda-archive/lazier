@@ -31,7 +31,7 @@ describe Lazier do
       end
 
       it "for Object" do
-        expect(0).to respond_to("analyze")
+        expect(0).to respond_to("for_debug")
       end
 
       it "for Pathname" do

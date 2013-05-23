@@ -14,6 +14,7 @@ gem "rake", "~> 10.0.4"
 
 # Documentation
 gem "simplecov", ">= 0.7.1"
+gem "coveralls", "~> 0.6.7", require: false
 gem "pry", ">= 0"
 gem "yard", ">= 0.8.6"
 gem "kramdown", ">= 1.0.2"
