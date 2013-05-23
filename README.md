@@ -4,6 +4,7 @@
 [![Dependency Status](https://gemnasium.com/ShogunPanda/lazier.png?travis)](https://gemnasium.com/ShogunPanda/lazier)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/lazier.png)](https://codeclimate.com/github/ShogunPanda/lazier)
+[![Coverage Status](https://coveralls.io/repos/ShogunPanda/lazier/badge.png)](https://coveralls.io/r/ShogunPanda/lazier)
 
 Several Ruby object enhancements.
 
