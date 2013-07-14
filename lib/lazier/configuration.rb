@@ -33,7 +33,7 @@ module Lazier
       if options[:readonly] then
         class_eval <<-ACCESSOR
           def #{property_name}=(_)
-            raise ArgumentError.new(i18n.configuration.readonly("#{property_name}", "#{name}"))
+            raise ArgumentError.new(@lazier_i18n.configuration.readonly("#{property_name}", "#{name}"))
           end
         ACCESSOR
       end

@@ -371,7 +371,7 @@ Options are as follows:</p>
   <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:readonly</span><span class='rbracket'>]</span> <span class='kw'>then</span>
     <span class='id identifier rubyid_class_eval'>class_eval</span> <span class='heredoc_beg'>&lt;&lt;-ACCESSOR</span>
 <span class='tstring_content'>      def </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_property_name'>property_name</span><span class='rbrace'>}</span><span class='tstring_content'>=(_)
-        raise ArgumentError.new(i18n.configuration.readonly(&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_property_name'>property_name</span><span class='rbrace'>}</span><span class='tstring_content'>&quot;, &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'>&quot;))
+        raise ArgumentError.new(@lazier_i18n.configuration.readonly(&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_property_name'>property_name</span><span class='rbrace'>}</span><span class='tstring_content'>&quot;, &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_content'>&quot;))
       end
 </span><span class='heredoc_end'>    ACCESSOR
 </span>  <span class='kw'>end</span>
@@ -386,7 +386,7 @@ Options are as follows:</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Jul 14 14:23:56 2013 by
+  Generated on Sun Jul 14 14:27:29 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
