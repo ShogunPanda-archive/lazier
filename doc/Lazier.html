@@ -6,7 +6,7 @@
 <title>
   Module: Lazier
   
-    &mdash; Documentation by YARD 0.8.6.1
+    &mdash; Documentation by YARD 0.8.6.2
   
 </title>
 
@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/lazier.rb<span class="defines">,<br />
-  lib/lazier/hash.rb,<br /> lib/lazier/i18n.rb,<br /> lib/lazier/math.rb,<br /> lib/lazier/object.rb,<br /> lib/lazier/string.rb,<br /> lib/lazier/boolean.rb,<br /> lib/lazier/version.rb,<br /> lib/lazier/datetime.rb,<br /> lib/lazier/settings.rb,<br /> lib/lazier/pathname.rb,<br /> lib/lazier/localizer.rb,<br /> lib/lazier/exceptions.rb</span>
+  lib/lazier/hash.rb,<br /> lib/lazier/i18n.rb,<br /> lib/lazier/math.rb,<br /> lib/lazier/string.rb,<br /> lib/lazier/object.rb,<br /> lib/lazier/boolean.rb,<br /> lib/lazier/version.rb,<br /> lib/lazier/datetime.rb,<br /> lib/lazier/settings.rb,<br /> lib/lazier/pathname.rb,<br /> lib/lazier/localizer.rb,<br /> lib/lazier/exceptions.rb,<br /> lib/lazier/configuration.rb</span>
 </dd>
   
 </dl>
@@ -105,7 +105,7 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Lazier/Localizer.html" title="Lazier::Localizer (class)">Localizer</a></span>, <span class='object_link'><a href="Lazier/Settings.html" title="Lazier::Settings (class)">Settings</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Lazier/Configuration.html" title="Lazier::Configuration (class)">Configuration</a></span>, <span class='object_link'><a href="Lazier/Localizer.html" title="Lazier::Localizer (class)">Localizer</a></span>, <span class='object_link'><a href="Lazier/Settings.html" title="Lazier::Settings (class)">Settings</a></span>
     
   
 </p>
@@ -458,7 +458,6 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-114
 115
 116
 117
@@ -474,10 +473,11 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
 127
 128
 129
-130</pre>
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_class'>find_class</span><span class='lparen'>(</span><span class='id identifier rubyid_cls'>cls</span><span class='comma'>,</span> <span class='id identifier rubyid_scope'>scope</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::%CLASS%</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_only_in_scope'>only_in_scope</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_cls'>cls</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_cls'>cls</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Symbol</span><span class='rparen'>)</span> <span class='kw'>then</span>
@@ -570,14 +570,14 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-48
 49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_what'>what</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_what'>what</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_what'>what</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>object</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>string</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>datetime</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>math</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pathname</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_w'>w</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>load_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_w'>w</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -614,7 +614,6 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-60
 61
 62
 63
@@ -624,10 +623,11 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
 67
 68
 69
-70</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_boolean'>load_boolean</span>
   <span class='op'>::</span><span class='const'>TrueClass</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -670,7 +670,6 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-86
 87
 88
 89
@@ -678,10 +677,11 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
 91
 92
 93
-94</pre>
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -722,15 +722,15 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-78
 79
 80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_hash'>load_hash</span>
   <span class='op'>::</span><span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
@@ -768,13 +768,13 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-97
 98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_math'>load_math</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -810,12 +810,12 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
   <span class='op'>::</span><span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span> <span class='rbrace'>}</span>
@@ -850,13 +850,13 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-103
 104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_pathname'>load_pathname</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pathname</span><span class='tstring_end'>&quot;</span></span>
@@ -892,12 +892,12 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_string'>load_string</span>
   <span class='op'>::</span><span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>String</span> <span class='rbrace'>}</span>
@@ -949,12 +949,12 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
       <pre class="lines">
 
 
-32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span>
   <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Settings</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -969,9 +969,9 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
 </div>
 
     <div id="footer">
-  Generated on Thu May 23 10:33:26 2013 by
+  Generated on Sun Jul 14 13:14:05 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.1 (ruby-1.9.3).
+  0.8.6.2 (ruby-1.9.3).
 </div>
 
   </body>

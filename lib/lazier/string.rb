@@ -27,7 +27,7 @@ module Lazier
     # @return [String] The string with any invalid UTF-8 sequences replaced.
     def ensure_valid_utf8(replacement = "")
       # This odd line is because if need to specify a different encoding (without losing infos) to replace invalid bytes and then we go back to utf-8
-      encode("utf-16", invalid: :replace, undef: :replace, replace: replacement).encode("utf-8")
+      !defined?(JRUBY_VERSION) ? encode("utf-16", invalid: :replace, undef: :replace, replace: replacement).encode("utf-8") : raise RuntimeError.new("Sorry, Lazier::String#ensure_valid_utf8 is not available on JRuby.")
     end
 
     # Returns the tagged version of a string.

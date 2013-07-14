@@ -20,9 +20,9 @@ module Lazier
     # Defines a property on the configuration.
     # Options are as follows:
     #
-    # * :default: Specify a default value for this property.
-    # * :required: Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
-    # * :readonly: Specify if the property is readonly, which means that it can only defined on creation of the configuration.
+    # * :default - Specify a default value for this property.
+    # * :required - Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
+    # * :readonly - Specify if the property is readonly, which means that it can only defined during creation of the configuration.
     #
     # @param property_name [String|Symbol] The new property name.
     # @param options [Hash] The options for the property.

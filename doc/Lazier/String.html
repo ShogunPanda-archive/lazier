@@ -6,7 +6,7 @@
 <title>
   Module: Lazier::String
   
-    &mdash; Documentation by YARD 0.8.6.1
+    &mdash; Documentation by YARD 0.8.6.2
   
 </title>
 
@@ -116,6 +116,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#ensure_valid_utf8-instance_method" title="#ensure_valid_utf8 (instance method)">- (String) <strong>ensure_valid_utf8</strong>(replacement = &quot;&quot;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Makes sure the string only contains valid UTF-8 sequences.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#remove_accents-instance_method" title="#remove_accents (instance method)">- (Object) <strong>remove_accents</strong> </a>
     
 
@@ -216,7 +239,87 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="remove_accents-instance_method">
+  <h3 class="signature first" id="ensure_valid_utf8-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Lazier::String (module)">String</a></span></tt>) <strong>ensure_valid_utf8</strong>(replacement = &quot;&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Makes sure the string only contains valid UTF-8 sequences.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>replacement</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The string to use to replace invalid sequences.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The string with any invalid UTF-8 sequences replaced.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_valid_utf8'>ensure_valid_utf8</span><span class='lparen'>(</span><span class='id identifier rubyid_replacement'>replacement</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='comment'># This odd line is because if need to specify a different encoding (without losing infos) to replace invalid bytes and then we go back to utf-8
+</span>  <span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-16</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>invalid:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>undef:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>replace:</span> <span class='id identifier rubyid_replacement'>replacement</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-8</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_accents-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>remove_accents</strong> 
   
@@ -319,12 +422,12 @@
       <pre class="lines">
 
 
-41
-42
-43</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_ampersands'>replace_ampersands</span>
   <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>&amp;amp;(\S+);</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;\\1;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -383,12 +486,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_untitleize'>untitleize</span>
   <span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -440,12 +543,12 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span>
   <span class='kw'>self</span>
@@ -460,9 +563,9 @@
 </div>
 
     <div id="footer">
-  Generated on Thu May 23 10:33:27 2013 by
+  Generated on Sun Jul 14 13:14:05 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.1 (ruby-1.9.3).
+  0.8.6.2 (ruby-1.9.3).
 </div>
 
   </body>
