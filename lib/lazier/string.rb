@@ -21,6 +21,15 @@ module Lazier
       silence_warnings { mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, "").to_s }
     end
 
+    # Makes sure the string only contains valid UTF-8 sequences.
+    #
+    # @param replacement [String] The string to use to replace invalid sequences.
+    # @return [String] The string with any invalid UTF-8 sequences replaced.
+    def ensure_valid_utf8(replacement = "")
+      # This odd line is because if need to specify a different encoding (without losing infos) to replace invalid bytes and then we go back to utf-8
+      encode("utf-16", invalid: :replace, undef: :replace, replace: replacement).encode("utf-8")
+    end
+
     # Returns the tagged version of a string.
     #
     # The string is downcased and spaces are substituted with `-`.

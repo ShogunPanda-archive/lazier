@@ -51,3 +51,7 @@
         - "Gio"
         - "Ven"
         - "Sab"
+    configuration:
+      not_defined: "La proprietà %1 non è definita per %2."
+      required: "La proprietà %1 è obbligatoria per %2."
+      readonly: "La proprietà %1 è in sola lettura per %2."

@@ -49,7 +49,7 @@ module Lazier
       # @param locale [Symbol] The new locale. Default is the current system locale.
       # @return [R18n::Translation] The new translation object.
       def i18n_load_locale(locale)
-        path = @i18n_locales_path.ensure_string
+        path = @i18n_locales_path || ""
         locales = validate_locales([locale], path)
 
         begin

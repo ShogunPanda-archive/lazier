@@ -15,6 +15,7 @@ require "lazier/version" if !defined?(Lazier::Version)
 require "lazier/exceptions"
 require "lazier/i18n"
 require "lazier/localizer"
+require "lazier/configuration"
 require "lazier/settings"
 require "lazier/object"
 require "lazier/boolean"

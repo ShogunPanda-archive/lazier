@@ -52,3 +52,7 @@
         - "Thu"
         - "Fri"
         - "Sat"
+    configuration:
+      not_defined: "Property %1 is not defined for %2."
+      required: "Property %1 is required for %2."
+      readonly: "Property %1 is readonly for %2."
