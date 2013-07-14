@@ -8,11 +8,11 @@ module Lazier
   # Exceptions for lazier.
   module Exceptions
     # This exception is raised to debug code.
-    class Debug < ::StandardError
+    class Debug < ::RuntimeError
     end
 
     # This exception is raised from {I18n I18n} if no valid translation are found in the specified path.
-    class MissingTranslation < StandardError
+    class MissingTranslation < RuntimeError
       # Creates a new missing translation exception.
       #
       # @param locales [Array] The locales that was requested to load.

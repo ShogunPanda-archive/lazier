@@ -13,6 +13,7 @@ module Lazier
     #
     # @param attributes [Hash] The initial values of properties of this configuration.
     def initialize(attributes = {}, &block)
+      @lazier_i18n = Lazier::Localizer.new(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/")).i18n
       i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
       super(attributes, &block)
     end
@@ -43,21 +44,21 @@ module Lazier
       #
       # @param property [String|Symbol] The property to check.
       def assert_property_exists!(property)
-        raise ArgumentError.new(i18n.configuration.not_found(property, self.class.name)) if !self.class.property?(property)
+        raise ArgumentError.new(@lazier_i18n.configuration.not_found(property, self.class.name)) if !self.class.property?(property)
       end
 
       # Checks if a property has been set.
       #
       # @param property [String|Symbol] The property to check.
       def assert_property_set!(property)
-        raise ArgumentError.new(i18n.configuration.required(property, self.class.name)) if send(property).nil?
+        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if send(property).nil?
       end
 
       # Checks if a property is required.
       #
       # @param property [String|Symbol] The property to check.
       def assert_property_required!(property, value)
-        raise ArgumentError.new(i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.nil?
+        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.nil?
       end
   end
 end
