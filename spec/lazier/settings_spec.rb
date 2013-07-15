@@ -90,7 +90,7 @@ describe Lazier::Settings do
       expect(date_reference.lstrftime("ct_date")).to eq("ct_date")
       expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
 
-      reference.setup_date_formats()
+      reference.setup_date_formats
       expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
       expect(date_reference.lstrftime("c1")).to eq(date_reference.year.to_s)
 

@@ -23,7 +23,7 @@ describe Lazier::Math do
     end
 
     it "should return nil for an empty array" do
-      expect(::Math.min()).to be_nil
+      expect(::Math.min).to be_nil
     end
   end
 
@@ -35,7 +35,7 @@ describe Lazier::Math do
     end
 
     it "should return nil for an empty array" do
-      expect(::Math.max()).to be_nil
+      expect(::Math.max.to be_nil
     end
   end
 end
