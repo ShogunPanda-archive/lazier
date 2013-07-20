@@ -147,14 +147,15 @@ describe Lazier::Object do
 
     it "should sanitize elements of the array using a method or a block" do
       expect(" 123 ".ensure_array).to eq([" 123 "])
-      expect(" 123 ".ensure_array(nil, false, false, :strip)).to eq(["123"])
+      expect(" 123 ".ensure_array(nil, false, false, false, :strip)).to eq(["123"])
       expect(" 123 ".ensure_array(nil, false, false) { |e| e.reverse }).to eq([" 321 "])
     end
 
-    it "should unicize and compact array if requested to" do
-      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, true, false)).to eq([1, 2, 3, nil])
-      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, false, true)).to eq([1, 2, 3, 3, 2, 1])
-      expect([1, 2, 3, nil, 3, 2, 1].ensure_array(nil, true, true)).to eq([1, 2, 3])
+    it "should unicize, compact and flatten, array if requested to" do
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, false)).to eq([1, 2, 3, nil, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, false, true)).to eq([1, 2, 3, 3, 2, 1, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, true)).to eq([1, 2, 3, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, true, true)).to eq([1, 2, 3, 4])
     end
   end
 
@@ -163,7 +164,7 @@ describe Lazier::Object do
       expect({a: "b"}.ensure_hash).to eq({a: "b"})
       expect(nil.ensure_hash({a: "b"})).to eq({a: "b"})
 
-      expect(1.ensure_hash).to eq({key: 1})
+      expect(1.ensure_hash).to eq({})
       expect(1.ensure_hash(:test)).to eq({test: 1})
       expect(1.ensure_hash("test")).to eq({"test" => 1})
       expect(1.ensure_hash(2)).to eq({key: 1})

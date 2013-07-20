@@ -75,14 +75,16 @@ module Lazier
     # @param default_value [Array|NilClass] The default array to use. If not specified, an array containing the object is returned.
     # @param uniq [Boolean] If to remove duplicates from the array before sanitizing.
     # @param compact [Boolean] If to compact the array before sanitizing.
+    # @param flatten [Boolean] If to flatten the array before sanitizing.
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
-    def ensure_array(default_value = nil, uniq = false, compact = false, sanitizer = nil, &block)
+    def ensure_array(default_value = nil, uniq = false, compact = false, flatten = nil, sanitizer = nil, &block)
       rv = is_a?(::Array) ? dup : (default_value || [self])
       rv.collect!(&(block || sanitizer))
       rv.uniq! if uniq
       rv.compact! if compact
+      rv.flatten! if flatten
       rv
     end
 
@@ -91,7 +93,7 @@ module Lazier
     # @param default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if a block is present.*
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
-    def ensure_hash(default_value = nil, sanitizer = nil)
+    def ensure_hash(default_value = {}, sanitizer = nil)
       rv = if is_a?(::Hash) then
         self
       elsif default_value.is_a?(::Hash) then
