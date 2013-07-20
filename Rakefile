@@ -17,7 +17,6 @@ end
 
 desc "Get the current release version"
 task :version, :with_name do |_, args|
-  args.with_defaults(with_name: false)
   gem = Bundler::GemHelper.instance.gemspec
   puts [args[:with_name] == "true" ? gem.name : nil, gem.version].compact.join("-")
 end
