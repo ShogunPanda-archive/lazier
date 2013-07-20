@@ -105,13 +105,114 @@
 
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure_access-instance_method" title="#ensure_access (instance method)">- (Object) <strong>ensure_access</strong>(access) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
 
   
+    <span class="summary_desc"><div class='inline'><p>Makes sure that the keys of the hash are accessible in the desired way.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="ensure_access-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>ensure_access</strong>(access) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Makes sure that the keys of the hash are accessible in the desired way.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>access</span>
+      
+      
+        <span class='type'>(<tt>Symbol|NilClass</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The requested access for the keys. Can be <code>:strings</code>, <code>:symbols</code> or <code>:indifferent</code>. If <code>nil</code> the keys are not modified.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>strings:</span> <span class='symbol'>:stringify_keys</span><span class='comma'>,</span> <span class='label'>symbols:</span> <span class='symbol'>:symbolize_keys</span><span class='comma'>,</span> <span class='label'>indifferent:</span> <span class='symbol'>:with_indifferent_access</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>?</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
     <div id="footer">
-  Generated on Sat Jul 20 12:56:18 2013 by
+  Generated on Sat Jul 20 13:22:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
