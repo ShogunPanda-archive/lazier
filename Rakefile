@@ -23,7 +23,7 @@ end
 
 desc "Prepare the release"
 task :prerelease => ["spec:coverage", "docs"] do
-  ["git add -a", "git commit -am \\'Version #{Bundler::GemHelper.instance.gemspec.version}\\'"].each do |cmd|
+  ["git add -A", "git commit -am \"Version #{Bundler::GemHelper.instance.gemspec.version}\""].each do |cmd|
     system(cmd) || raise("Failed Execution of: #{cmd}")
   end
 end
