@@ -23,7 +23,7 @@ describe Lazier::Settings do
 
     it "should always return the same instance" do
       instance = ::Lazier::Settings.instance
-      ::Lazier::Settings.should_not_receive(:new)
+      expect(::Lazier::Settings).not_to receive(:new)
       expect(::Lazier::Settings.instance).to eq(instance)
     end
 

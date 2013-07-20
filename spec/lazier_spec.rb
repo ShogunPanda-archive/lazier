@@ -45,10 +45,8 @@ describe Lazier do
   end
 
   describe ".find_class" do
-    module LazierTest
-      class TestClass
-
-      end
+    before(:each) do
+      stub_const("::LazierTest::TestClass", Class.new)
     end
 
     it "should return a valid class" do

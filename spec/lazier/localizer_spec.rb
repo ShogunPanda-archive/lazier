@@ -9,14 +9,14 @@ require "spec_helper"
 describe Lazier::Localizer do
   describe "#initialize" do
     it "should call i18n_setup and then i18n=" do
-      ::Lazier::Localizer.any_instance.should_receive(:i18n_setup).with("ROOT", "PATH")
-      ::Lazier::Localizer.any_instance.should_receive(:i18n=).with(:it)
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n_setup).with("ROOT", "PATH")
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n=).with(:it)
       ::Lazier::Localizer.new("ROOT", "PATH", :it)
     end
 
     it "should setup default arguments" do
-      ::Lazier::Localizer.any_instance.should_receive(:i18n_setup).with(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
-      ::Lazier::Localizer.any_instance.should_receive(:i18n=).with(nil)
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n_setup).with(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n=).with(nil)
       ::Lazier::Localizer.new
     end
   end
@@ -24,19 +24,21 @@ describe Lazier::Localizer do
   describe ".localize" do
     it "should create a new localizer and forward the message" do
       obj = ::Object.new
-      obj.should_receive(:string).with("ARGUMENT")
-      ::Lazier::Localizer.should_receive(:new).and_call_original
-      ::Lazier::Localizer.any_instance.should_receive(:i18n).and_return(obj)
-      ::Lazier::Localizer.localize(:string, "ARGUMENT")
+      expect(obj).to receive(:string).with("ARGUMENT")
+
+      expect(::Lazier::Localizer).to receive(:new).and_call_original
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n).and_return(obj)
+      ::Lazier::Localizer.localize_on_locale(:it, :string, "ARGUMENT")
     end
   end
 
   describe ".localize" do
     it "should create a new localizer and forward the message" do
       obj = ::Object.new
-      obj.should_receive(:string).with("ARGUMENT")
-      ::Lazier::Localizer.should_receive(:new).with(nil, nil, :it).and_call_original
-      ::Lazier::Localizer.any_instance.should_receive(:i18n).and_return(obj)
+      expect(obj).to receive(:string).with("ARGUMENT")
+
+      expect(::Lazier::Localizer).to receive(:new).with(nil, nil, :it).and_call_original
+      expect_any_instance_of(::Lazier::Localizer).to receive(:i18n).and_return(obj)
       ::Lazier::Localizer.localize_on_locale(:it, :string, "ARGUMENT")
     end
   end

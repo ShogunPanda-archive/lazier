@@ -65,35 +65,35 @@ describe Lazier::DateTime do
 
   describe ".list_timezones" do
     it "should forward to ActiveSupport::TimeZone" do
-      ::ActiveSupport::TimeZone.should_receive(:list_all)
+      expect(::ActiveSupport::TimeZone).to receive(:list_all)
       ::DateTime.list_timezones
     end
   end
 
   describe ".find_timezone" do
     it "should forward to ActiveSupport::TimeZone" do
-      ::ActiveSupport::TimeZone.should_receive(:find)
+      expect(::ActiveSupport::TimeZone).to receive(:find)
       ::DateTime.find_timezone(reference_zone.name)
     end
   end
 
   describe ".rationalize_offset" do
     it "should return the correct rational value" do
-      ::ActiveSupport::TimeZone.should_receive(:rationalize_offset)
+      expect(::ActiveSupport::TimeZone).to receive(:rationalize_offset)
       ::DateTime.rationalize_offset(0)
     end
   end
 
   describe ".parameterize_zone" do
     it "should forward to ActiveSupport::TimeZone" do
-      ::ActiveSupport::TimeZone.should_receive(:parameterize_zone)
+      expect(::ActiveSupport::TimeZone).to receive(:parameterize_zone)
       ::DateTime.parameterize_zone(reference_zone)
     end
   end
 
   describe ".unparameterize_zone" do
     it "should forward to ActiveSupport::TimeZone" do
-      ::ActiveSupport::TimeZone.should_receive(:unparameterize_zone)
+      expect(::ActiveSupport::TimeZone).to receive(:unparameterize_zone)
       ::DateTime.unparameterize_zone(reference_zone)
     end
   end
@@ -276,7 +276,7 @@ describe Lazier::TimeZone do
     it "should correctly return current zone alias or the first one" do
       zone = ActiveSupport::TimeZone["America/Halifax"]
       expect(zone.current_alias).to eq("America/Halifax")
-      zone.tzinfo.stub(:identifier).and_return("INVALID")
+      allow(zone.tzinfo).to receive(:identifier).and_return("INVALID")
       expect(zone.current_alias).to eq("America/Atlantic Time (Canada)")
     end
   end
