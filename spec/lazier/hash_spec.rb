@@ -26,4 +26,17 @@ describe Lazier::Hash do
       expect(reference["b"]["f"]).to eq(4)
     end
   end
+
+  describe "#ensure_access" do
+    it "should make sure that the requested access is granted" do
+      expect({"a" => "b"}.ensure_access(:strings)).to eq({"a" => "b"})
+      expect({"a" => "b"}.ensure_access(:symbols)).to eq({a: "b"})
+      expect({"a" => "b"}.ensure_access(:indifferent)).to be_a(::HashWithIndifferentAccess)
+      expect({"a" => "b"}.ensure_access(:other)).to eq({"a" => "b"})
+      expect({a: "b"}.ensure_access(:strings)).to eq({"a" => "b"})
+      expect({a: "b"}.ensure_access(:symbols)).to eq({a: "b"})
+      expect({a: "b"}.ensure_access(:indifferent)).to be_a(::HashWithIndifferentAccess)
+      expect({a: "b"}.ensure_access(:other)).to eq({a: "b"})
+    end
+  end
 end

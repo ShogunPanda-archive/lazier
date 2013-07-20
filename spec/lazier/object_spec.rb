@@ -162,17 +162,24 @@ describe Lazier::Object do
   describe "#ensure_hash" do
     it "should return an hash" do
       expect({a: "b"}.ensure_hash).to eq({a: "b"})
-      expect(nil.ensure_hash({a: "b"})).to eq({a: "b"})
+      expect(nil.ensure_hash(nil, {a: "b"})).to eq({a: "b"})
 
       expect(1.ensure_hash).to eq({})
-      expect(1.ensure_hash(:test)).to eq({test: 1})
-      expect(1.ensure_hash("test")).to eq({"test" => 1})
-      expect(1.ensure_hash(2)).to eq({key: 1})
+      expect(1.ensure_hash(nil, :test)).to eq({test: 1})
+      expect(1.ensure_hash(nil, "test")).to eq({"test" => 1})
+      expect(1.ensure_hash(nil, 2)).to eq({key: 1})
     end
 
     it "should sanitize values" do
-      expect(" 1 ".ensure_hash(nil, &:strip)).to eq({key: "1"})
-      expect(1.ensure_hash(nil) { |v| v * 2 }).to eq({key: 2})
+      expect(" 1 ".ensure_hash(nil, :key, &:strip)).to eq({key: "1"})
+      expect(1.ensure_hash(nil, :key) { |v| v * 2 }).to eq({key: 2})
+    end
+
+    it "should grant access" do
+      reference = {a: "b"}
+
+      expect(reference).to receive(:ensure_access).with("ACCESS")
+      reference.ensure_hash("ACCESS")
     end
   end
 

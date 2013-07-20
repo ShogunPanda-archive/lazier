@@ -88,7 +88,7 @@ module Lazier
     def setup_date_formats(formats = nil, replace = false)
       @date_formats = HashWithIndifferentAccess.new if replace || !@date_formats
 
-      @date_formats.merge!(formats.ensure_hash({ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
+      @date_formats.merge!(formats.ensure_hash(nil, {ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
       ::Time::DATE_FORMATS.merge!(@date_formats)
 
       @date_formats

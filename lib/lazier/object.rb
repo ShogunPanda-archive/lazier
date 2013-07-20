@@ -90,10 +90,13 @@ module Lazier
 
     # Makes sure that the object is an hash. For non hash objects, return an hash basing on the `default_value` parameter.
     #
-    # @param default_value [Hash|Object|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+    # @param access [Symbol|NilClass] The requested access for the keys of the returned object. Can be `:strings`, `:symbols` or `indifferent`. If `nil` the keys are not modified.
+    # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`). Passing `nil` is equal to pass an empty Hash.
     # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if a block is present.*
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
-    def ensure_hash(default_value = {}, sanitizer = nil)
+    def ensure_hash(access = nil, default_value = nil, sanitizer = nil)
+      default_value = {} if default_value.nil?
+
       rv = if is_a?(::Hash) then
         self
       elsif default_value.is_a?(::Hash) then
@@ -104,13 +107,13 @@ module Lazier
       end
 
       if block_given? || sanitizer then
-        rv.inject({}) {|h, (k, v)|
+        rv = rv.inject({}) {|h, (k, v)|
           h[k] = block_given? ? yield(v) : v.send(sanitizer)
           h
         }
-      else
-        rv
       end
+
+      rv.ensure_access(access)
     end
 
     # Converts the object to a boolean.
