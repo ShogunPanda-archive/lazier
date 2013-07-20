@@ -12,7 +12,7 @@ RSpec::Core::RakeTask.new("spec:coverage") { |t| t.ruby_opts = "-r./spec/coverag
 
 desc "Generate the documentation"
 task :docs do
-  system("yardoc") || raise("Documentation execution failed.")
+  system("yardoc") || raise("Failed Execution of: yardoc")
 end
 
 desc "Get the current release version"
