@@ -113,7 +113,7 @@ module Lazier
         }
       end
 
-      rv.ensure_access(access)
+      rv.respond_to?(:ensure_access) ? rv.ensure_access(access) :rv
     end
 
     # Converts the object to a boolean.
