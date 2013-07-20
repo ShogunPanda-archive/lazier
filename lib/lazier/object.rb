@@ -81,11 +81,8 @@ module Lazier
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
     def ensure_array(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &block)
       rv = is_a?(::Array) ? dup : (default_value || [self])
-      rv.collect!(&(block || sanitizer))
-      rv.uniq! if uniq
-      rv.compact! if compact
-      rv.flatten! if flatten
-      rv
+      rv = manipulate_array(rv, uniq, compact, flatten).collect(&(block || sanitizer)) if block_given? || sanitizer
+      manipulate_array(rv, uniq, compact, flatten)
     end
 
     # Makes sure that the object is an hash. For non hash objects, return an hash basing on the `default_value` parameter.
@@ -203,5 +200,20 @@ module Lazier
 
       as_exception ? raise(::Lazier::Exceptions::Debug.new(rv)) : rv
     end
+
+    private
+      # Performs manipulation on an array.
+      #
+      # @param rv [Array] The input array.
+      # @param uniq [Boolean] If to remove duplicates from the array.
+      # @param compact [Boolean] If to compact the array.
+      # @param flatten [Boolean] If to flatten the array.
+      # @return [Array] The manipulated array.
+      def manipulate_array(rv, uniq, compact, flatten)
+        rv = rv.flatten if flatten
+        rv = rv.uniq if uniq
+        rv = rv.compact if compact
+        rv
+      end
   end
 end
