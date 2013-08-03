@@ -9,23 +9,27 @@ require "spec_helper"
 describe Lazier::Configuration do
   class ConfigurationSpecSample < ::Lazier::Configuration
     property :readwrite, default: "1"
-    property :required, default: "1"
+    property :required, required: true
     property :readonly, default: "2", readonly: true
   end
 
   describe "#property" do
     it "should correctly define property and get it defaults" do
-      expect(ConfigurationSpecSample.new.readwrite).to eq("1")
-      expect(ConfigurationSpecSample.new(readwrite: "3").readwrite).to eq("3")
-      expect(ConfigurationSpecSample.new.readonly).to eq("2")
-      expect(ConfigurationSpecSample.new(readonly: "4").readonly).to eq("4")
+      expect(ConfigurationSpecSample.new(required: 1).readwrite).to eq("1")
+      expect(ConfigurationSpecSample.new(required: 1, readwrite: "3").readwrite).to eq("3")
+      expect(ConfigurationSpecSample.new(required: 1).readonly).to eq("2")
+      expect(ConfigurationSpecSample.new(required: 1, readonly: "4").readonly).to eq("4")
     end
 
     it "should not allow writing readonly properties" do
-      reference = ConfigurationSpecSample.new
+      reference = ConfigurationSpecSample.new(required: 1)
 
       expect { reference.readonly = "4" }.to raise_error(ArgumentError)
       expect(reference.readonly).to eq("2")
+    end
+
+    it "should blow up for require properties" do
+      expect { ConfigurationSpecSample.new }.to raise_error(ArgumentError)
     end
   end
 end

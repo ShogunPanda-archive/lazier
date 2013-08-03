@@ -25,7 +25,7 @@ module Lazier
     # @param args [Array] Optional arguments to localize the message.
     # @return [String|R18n::Untranslated] The localized message.
     def self.localize(message, *args)
-      Lazier::Localizer.new.i18n.send(message, *args)
+      new.i18n.send(message, *args)
     end
 
     # Localize a message in a specified locale.
@@ -35,7 +35,7 @@ module Lazier
     # @param args [Array] Optional arguments to localize the message.
     # @return [String|R18n::Untranslated] The localized message.
     def self.localize_on_locale(locale, message, *args)
-      Lazier::Localizer.new(nil, nil, locale).i18n.send(message, *args)
+      new(nil, nil, locale).i18n.send(message, *args)
     end
   end
 end

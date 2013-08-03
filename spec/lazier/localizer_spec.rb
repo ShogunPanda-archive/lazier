@@ -28,11 +28,11 @@ describe Lazier::Localizer do
 
       expect(::Lazier::Localizer).to receive(:new).and_call_original
       expect_any_instance_of(::Lazier::Localizer).to receive(:i18n).and_return(obj)
-      ::Lazier::Localizer.localize_on_locale(:it, :string, "ARGUMENT")
+      ::Lazier::Localizer.localize(:string, "ARGUMENT")
     end
   end
 
-  describe ".localize" do
+  describe ".localize_on_locale" do
     it "should create a new localizer and forward the message" do
       obj = ::Object.new
       expect(obj).to receive(:string).with("ARGUMENT")
