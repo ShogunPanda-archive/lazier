@@ -53,7 +53,8 @@ module Lazier
         locales = validate_locales([locale], path)
 
         begin
-          translation = R18n::I18n.new(locales, path).t.send(@i18n_root)
+          tokens = @i18n_root.to_s.split(/[:.]/)
+          translation = tokens.inject(R18n::I18n.new(locales, path).t) {|accu, token| accu.send(token) }
           raise ArgumentError if translation.is_a?(R18n::Untranslated)
           translation
         rescue
