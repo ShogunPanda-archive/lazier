@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun_panda@cowtech.it>.
+# This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.rubyforge_project = "lazier"
 
   gem.authors = ["Shogun"]
-  gem.email = ["shogun_panda@cowtech.it"]
+  gem.email = ["shogun@cowtech.it"]
 
   gem.files = `git ls-files`.split($\)
   gem.executables = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
