@@ -79,15 +79,11 @@
     
   
     
-      <dt class="r2">Includes:</dt>
-      <dd class="r2">ActionView::Helpers::NumberHelper</dd>
-      
-    
   
   
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/lazier/object.rb</dd>
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lazier/object.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -559,7 +555,6 @@
 
 
   
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -643,13 +638,13 @@
       <pre class="lines">
 
 
+58
 59
 60
-61
-62</pre>
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='kw'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span><span class='comma'>,</span> <span class='id identifier rubyid_verifier'>verifier</span> <span class='op'>=</span> <span class='symbol'>:blank?</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_valid'>valid</span> <span class='op'>=</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_verifier'>verifier</span><span class='rparen'>)</span>
@@ -806,14 +801,14 @@
       <pre class="lines">
 
 
+81
 82
 83
 84
-85
-86</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_dup'>dup</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -922,6 +917,7 @@
       <pre class="lines">
 
 
+93
 94
 95
 96
@@ -941,11 +937,10 @@
 110
 111
 112
-113
-114</pre>
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_default_value'>default_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1053,12 +1048,12 @@
       <pre class="lines">
 
 
+68
 69
-70
-71</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_stringifier'>stringifier</span> <span class='op'>=</span> <span class='symbol'>:to_s</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_default_value'>default_value</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_stringifier'>stringifier</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_default_value'>default_value</span>
@@ -1148,8 +1143,6 @@
       <pre class="lines">
 
 
-193
-194
 195
 196
 197
@@ -1157,10 +1150,12 @@
 199
 200
 201
-202</pre>
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_for_debug'>for_debug</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='symbol'>:yaml</span><span class='comma'>,</span> <span class='id identifier rubyid_as_exception'>as_exception</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_format'>format</span>
@@ -1264,13 +1259,13 @@
       <pre class="lines">
 
 
-173
-174
 175
-176</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_boolean'>format_boolean</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_settings'>settings</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_boolean_names'>boolean_names</span>
@@ -1402,6 +1397,7 @@
       <pre class="lines">
 
 
+154
 155
 156
 157
@@ -1412,18 +1408,23 @@
 162
 163
 164
-165</pre>
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 154</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_number'>format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_is_number?'>is_number?</span> <span class='kw'>then</span>
     <span class='id identifier rubyid_settings'>settings</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_format_number'>format_number</span>
     <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>||=</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:add_string</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_unit'>unit</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_add_string'>add_string</span>  <span class='op'>?</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%n %u</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
-    <span class='id identifier rubyid_number_to_currency'>number_to_currency</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>precision:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:precision</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='comma'>,</span> <span class='label'>separator:</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:decimal_separator</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>delimiter:</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:k_separator</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='label'>unit:</span> <span class='id identifier rubyid_unit'>unit</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%0.</span><span class='embexpr_beg'>#{</span><span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:precision</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='embexpr_end'>}</span><span class='tstring_content'>f</span><span class='tstring_end'>&quot;</span></span> <span class='op'>%</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rv'>rv</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(\d)(?=(\d{3})+(?!\d))</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\\1</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:k_separator</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:decimal_separator</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_add_string'>add_string</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_add_string'>add_string</span>
+    <span class='id identifier rubyid_rv'>rv</span>
   <span class='kw'>else</span>
     <span class='kw'>nil</span>
   <span class='kw'>end</span>
@@ -1530,12 +1531,12 @@
       <pre class="lines">
 
 
-184
-185
-186</pre>
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_indexize'>indexize</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_filler'>filler</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_formatter'>formatter</span> <span class='op'>=</span> <span class='symbol'>:rjust</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_formatter'>formatter</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_filler'>filler</span><span class='rparen'>)</span>
@@ -1587,12 +1588,12 @@
       <pre class="lines">
 
 
+49
 50
-51
-52</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_boolean?'>is_boolean?</span>
   <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>!</span><span class='kw'>self</span> <span class='op'>||</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>BOOLEAN_MATCHER</span>
@@ -1648,12 +1649,12 @@
       <pre class="lines">
 
 
+41
 42
-43
-44</pre>
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_float?'>is_float?</span>
   <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Numeric</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>!</span><span class='kw'>self</span> <span class='op'>||</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>FLOAT_MATCHER</span>
@@ -1705,12 +1706,12 @@
       <pre class="lines">
 
 
+34
 35
-36
-37</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_integer?'>is_integer?</span>
   <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>!</span><span class='kw'>self</span> <span class='op'>||</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>INTEGER_MATCHER</span>
@@ -1762,12 +1763,12 @@
       <pre class="lines">
 
 
+27
 28
-29
-30</pre>
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span>
   <span class='id identifier rubyid_is_boolean?'>is_boolean?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>:</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\.,](?=(.*[\.,]))</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1840,15 +1841,15 @@
       <pre class="lines">
 
 
+142
 143
-144
-145</pre>
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_round_to_precision'>round_to_precision</span><span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='int'>2</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_is_number?'>is_number?</span> <span class='op'>?</span> <span class='id identifier rubyid_number_with_precision'>number_with_precision</span><span class='lparen'>(</span><span class='id identifier rubyid_to_float'>to_float</span><span class='comma'>,</span> <span class='label'>precision:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_is_number?'>is_number?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1897,12 +1898,12 @@
       <pre class="lines">
 
 
+118
 119
-120
-121</pre>
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_boolean'>to_boolean</span>
   <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>self</span> <span class='op'>==</span> <span class='float'>1.0</span> <span class='op'>||</span> <span class='kw'>self</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>||</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>BOOLEAN_TRUE_MATCHER</span> <span class='op'>||</span> <span class='kw'>false</span>
@@ -1975,12 +1976,12 @@
       <pre class="lines">
 
 
+134
 135
-136
-137</pre>
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='float'>0.0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_is_float?'>is_float?</span> <span class='op'>?</span> <span class='op'>::</span><span class='const'>Kernel</span><span class='period'>.</span><span class='const'>Float</span><span class='lparen'>(</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Numeric</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_default_value'>default_value</span>
@@ -2053,12 +2054,12 @@
       <pre class="lines">
 
 
+126
 127
-128
-129</pre>
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_integer'>to_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -2073,7 +2074,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Aug 18 16:31:09 2013 by
+  Generated on Mon Sep  2 17:35:26 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-2.0.0).
 </div>
