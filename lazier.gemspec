@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 1.9.3"
 
   gem.add_dependency("json", "~> 1.8.0")
-  gem.add_dependency("actionpack", ">= 3.2.13") # We don't use ~> to enable use with 4.0
+  gem.add_dependency("activesupport", ">= 3.2.13") # We don't use ~> to enable use with 4.0
   gem.add_dependency("tzinfo", ">= 0.3.37") # We don't use ~> to enable use with 0.3.37 (required by activesupport 4.0) and 1.x, which is the latest available
   gem.add_dependency("r18n-desktop", "~> 1.1.5")
   gem.add_dependency("hashie", "~> 2.0.5")

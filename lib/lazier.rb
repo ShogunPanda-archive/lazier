@@ -6,8 +6,7 @@
 
 require "json"
 require "tzinfo"
-require "active_support/all"
-require "action_view"
+require "active_support/core_ext"
 require "r18n-desktop"
 require "hashie"
 
@@ -109,7 +108,7 @@ module Lazier
   # Finds a class to instantiate.
   #
   # @param cls [Symbol|String|Object] If a `String` or a `Symbol` or a `Class`, then it will be the class to instantiate. Otherwise the class of the object will returned.
-  # @param scope [String] An additional scope to find the class. `%CLASS%` will be substituted with the class name.
+  # @param scope [String] An additional scope to find the class. `%CLASS%`, `%`, `$`, `?` and `@` will be substituted with the class name.
   # @param only_in_scope [Boolean] If only try to instantiate the class in the scope.
   # @return [Class] The found class.
   def self.find_class(cls, scope = "::%CLASS%", only_in_scope = false)
@@ -123,11 +122,22 @@ module Lazier
         rv = search_class(cls) # Search outside scope
       end
 
-      rv = search_class(scope.to_s.gsub("%CLASS%", cls)) if !rv && cls !~ /^::/ && scope.present? # Search inside scope
+      rv = search_class(scope.to_s.gsub(/%CLASS%|[@%$?]/, cls)) if !rv && cls !~ /^::/ && scope.present? # Search inside scope
       rv || raise(NameError.new("", cls))
     else
       cls.is_a?(::Class) ? cls : cls.class
     end
+  end
+
+  # Measure the time in milliseconds required to execute the given block.
+  #
+  # @param message [String|NilClass] An optional message (see return value).
+  # @param precision [Fixnum] The precision for the message (see return value)..
+  # @param block [Proc] The block to evaluate.
+  # @return [Float|String] If a `message` is provided, then the message itself plus the duration under parenthesis will be returned, otherwise the duration alone as a number.
+  def self.benchmark(message = nil, precision = 0, &block)
+    rv = Benchmark.ms(&block)
+    message ? ("%s (%0.#{precision}f ms)" % [message, rv]) : rv
   end
 
   private

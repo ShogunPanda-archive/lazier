@@ -52,6 +52,10 @@ describe Lazier do
     it "should return a valid class" do
       expect(::Lazier.find_class("String")).to eq(String)
       expect(::Lazier.find_class("TestClass", "::LazierTest::%CLASS%")).to eq(::LazierTest::TestClass)
+      expect(::Lazier.find_class("TestClass", "::LazierTest::@")).to eq(::LazierTest::TestClass)
+      expect(::Lazier.find_class("TestClass", "::LazierTest::$")).to eq(::LazierTest::TestClass)
+      expect(::Lazier.find_class("TestClass", "::LazierTest::?")).to eq(::LazierTest::TestClass)
+      expect(::Lazier.find_class("TestClass", "::LazierTest::%")).to eq(::LazierTest::TestClass)
     end
 
     it "should raise an exception if the class is not found" do
@@ -72,6 +76,23 @@ describe Lazier do
       expect(::Lazier.find_class(["A"])).to eq(Array)
       expect(::Lazier.find_class({a: "b"})).to eq(Hash)
       expect(::Lazier.find_class(Hash)).to eq(Hash)
+    end
+  end
+
+  describe ".benchmark" do
+    it "should execute the given block" do
+      control = ""
+      Lazier.benchmark { control = "OK" }
+      expect(control).to eq("OK")
+    end
+
+    it "without a message should return the elapsed time" do
+      expect(Lazier.benchmark { control = "OK" }).to be_a(Float)
+    end
+
+    it "with a message should embed the elapsed time into the given message" do
+      expect(Lazier.benchmark("MESSAGE") { control = "OK" }).to match(/^MESSAGE \(\d+ ms\)$/)
+      expect(Lazier.benchmark("MESSAGE", 2) { control = "OK" }).to match(/^MESSAGE \(\d+\.\d+ ms\)$/)
     end
   end
 end

@@ -7,7 +7,6 @@
 module Lazier
   # Extensions for all objects.
   module Object
-    include ::ActionView::Helpers::NumberHelper
     extend ::ActiveSupport::Concern
 
     # Expression to match a boolean value.
@@ -141,7 +140,7 @@ module Lazier
     # @param precision [Fixnum] The precision to keep.
     # @return [Float] The rounded float representaton of the object.
     def round_to_precision(precision = 2)
-      is_number? ? number_with_precision(to_float, precision: [precision, 0].max) : nil
+      is_number? ? to_float.round([precision, 0].max) : nil
     end
 
     # Formats a number.
@@ -156,9 +155,12 @@ module Lazier
       if is_number? then
         settings = ::Lazier.settings.format_number
         add_string ||= settings[:add_string]
-        format, unit = (add_string  ? ["%n %u", add_string] : ["%n", ""])
 
-        number_to_currency(self, {precision: [precision || settings[:precision], 0].max, separator: decimal_separator || settings[:decimal_separator], delimiter: k_separator || settings[:k_separator], format: format, unit: unit})
+        rv = ("%0.#{[precision || settings[:precision], 0].max}f" % to_float).split(".")
+        rv[0].gsub!(/(\d)(?=(\d{3})+(?!\d))/, "\\1#{k_separator || settings[:k_separator]}")
+        rv = rv.join(decimal_separator || settings[:decimal_separator])
+        rv += " #{add_string}" if add_string
+        rv
       else
         nil
       end

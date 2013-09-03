@@ -251,10 +251,10 @@ describe Lazier::Object do
 
   describe "#round_to_precision" do
     it "should round number" do
-      expect(123.456789.round_to_precision(2)).to eq("123.46")
-      expect(123.456789.round_to_precision(0)).to eq("123")
-      expect("123.456789".round_to_precision(2)).to eq("123.46")
-      expect(123.456789.round_to_precision(-1)).to eq("123")
+      expect(123.456789.round_to_precision(2)).to eq(123.46)
+      expect(123.456789.round_to_precision(0)).to eq(123)
+      expect("123.456789".round_to_precision(2)).to eq(123.46)
+      expect(123.456789.round_to_precision(-1)).to eq(123)
     end
 
     it "should return nil for non numeric values" do
@@ -264,7 +264,11 @@ describe Lazier::Object do
 
   describe "#format_number" do
     it "should format number" do
+      expect(123.format_number(0)).to eq("123")
+      expect(123.456789.format_number).to eq("123.46")
+      expect(12312.456789.format_number).to eq("12,312.46")
       expect(123123.456789.format_number).to eq("123,123.46")
+      expect(1123123.456789.format_number).to eq("1,123,123.46")
       expect(123123.456789.format_number(2)).to eq("123,123.46")
       expect(123123.456789.format_number(3, "@")).to eq("123,123@457")
       expect(123123.456789.format_number(3, "@", "$")).to eq("123,123@457 $")
