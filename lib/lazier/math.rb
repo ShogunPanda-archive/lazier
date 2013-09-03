@@ -13,16 +13,16 @@ module Lazier
     module ClassMethods
       # Returns the minimum value in the arguments
       #
-      # @param args [Array] A collection of object to compare (with the `<` operator).
-      # @return [Object] The minimum value or `nil` (if the collection is empty).
+      # @param args [Array] A mapion of object to compare (with the `<` operator).
+      # @return [Object] The minimum value or `nil` (if the mapion is empty).
       def min(*args)
         args.ensure_array.flatten.min
       end
 
       # Returns the maximum value in the arguments
       #
-      # @param args [Array] A collection of object to compare (with the `>` operator).
-      # @return [Object] The maximum value or `nil` (if the collection is empty).
+      # @param args [Array] A mapion of object to compare (with the `>` operator).
+      # @return [Object] The maximum value or `nil` (if the mapion is empty).
       def max(*args)
         args.ensure_array.flatten.max
       end

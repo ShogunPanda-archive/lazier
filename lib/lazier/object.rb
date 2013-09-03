@@ -80,7 +80,7 @@ module Lazier
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
     def ensure_array(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &block)
       rv = is_a?(::Array) ? dup : (default_value || [self])
-      rv = manipulate_array(rv, uniq, compact, flatten).collect(&(block || sanitizer)) if block_given? || sanitizer
+      rv = manipulate_array(rv, uniq, compact, flatten).map(&(block || sanitizer)) if block_given? || sanitizer
       manipulate_array(rv, uniq, compact, flatten)
     end
 
@@ -103,7 +103,7 @@ module Lazier
       end
 
       if block_given? || sanitizer then
-        rv = rv.inject({}) {|h, (k, v)|
+        rv = rv.reduce({}) {|h, (k, v)|
           h[k] = block_given? ? yield(v) : v.send(sanitizer)
           h
         }

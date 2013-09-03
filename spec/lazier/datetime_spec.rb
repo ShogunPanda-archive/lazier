@@ -24,7 +24,7 @@ describe Lazier::DateTime do
       expect(::DateTime.days(false)).to be_a(::Array)
       expect(::DateTime.days(false)[3]).to eq({value: "4", label: "Wednesday"})
 
-      ::Lazier.settings.setup_date_names(nil, nil, 7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s})
+      ::Lazier.settings.setup_date_names(nil, nil, 7.times.map {|i| (i + 1).to_s * 2}, 7.times.map {|i| (i + 1).to_s})
       expect(::DateTime.days).to be_a(::Array)
       expect(::DateTime.days[3]).to eq({value: "4", label: "4"})
       expect(::DateTime.days(false)).to be_a(::Array)
@@ -39,7 +39,7 @@ describe Lazier::DateTime do
       expect(::DateTime.months(false)).to be_a(::Array)
       expect(::DateTime.months(false)[6]).to eq({value: "07", label: "July"})
 
-      ::Lazier.settings.setup_date_names(12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s}, nil, nil)
+      ::Lazier.settings.setup_date_names(12.times.map {|i| (i + 1).to_s * 2}, 12.times.map {|i| (i + 1).to_s}, nil, nil)
       expect(::DateTime.months).to be_a(::Array)
       expect(::DateTime.months[6]).to eq({value: "07", label: "7"})
       expect(::DateTime.months(false)).to be_a(::Array)
@@ -51,7 +51,7 @@ describe Lazier::DateTime do
     it "should return a range of years" do
       expect(::DateTime.years).to eq((::Date.today.year - 10..::Date.today.year + 10).to_a)
       expect(::DateTime.years(5)).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
-      expect(::DateTime.years(5, true, nil, true).collect(&:value)).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
+      expect(::DateTime.years(5, true, nil, true).map(&:value)).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
       expect(::DateTime.years(5, false)).to eq((::Date.today.year - 5..::Date.today.year).to_a)
       expect(::DateTime.years(5, false, 1900)).to eq((1895..1900).to_a)
     end
@@ -165,8 +165,8 @@ describe Lazier::DateTime do
       expect(fixed_reference.lstrftime(:ct_local_test)).to eq("Tue Tuesday Jun June 07 2005 08")
 
       ::Lazier.settings.setup_date_names(
-          12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s},
-          7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s}
+          12.times.map {|i| (i + 1).to_s * 2}, 12.times.map {|i| (i + 1).to_s},
+          7.times.map {|i| (i + 1).to_s * 2}, 7.times.map {|i| (i + 1).to_s}
       )
 
       expect(fixed_reference.lstrftime(:ct_local_test)).to eq("3 33 6 66 07 2005 08")
@@ -189,8 +189,8 @@ describe Lazier::DateTime do
       ::Lazier.settings.setup_date_formats({ct_local_test: "%a %A %b %B %d %Y %H"})
 
       ::Lazier.settings.setup_date_names(
-          12.times.collect {|i| (i + 1).to_s * 2}, 12.times.collect {|i| (i + 1).to_s},
-          7.times.collect {|i| (i + 1).to_s * 2}, 7.times.collect {|i| (i + 1).to_s}
+          12.times.map {|i| (i + 1).to_s * 2}, 12.times.map {|i| (i + 1).to_s},
+          7.times.map {|i| (i + 1).to_s * 2}, 7.times.map {|i| (i + 1).to_s}
       )
 
       expect(fixed_reference.local_lstrftime(:ct_local_test)).to eq("3 33 6 66 07 2005 01")
@@ -253,7 +253,7 @@ describe Lazier::TimeZone do
 
   describe ".list_all" do
     it "should list all timezones" do
-      expect(::ActiveSupport::TimeZone.list_all(false)).to eq(::ActiveSupport::TimeZone.all.collect(&:to_s))
+      expect(::ActiveSupport::TimeZone.list_all(false)).to eq(::ActiveSupport::TimeZone.all.map(&:to_s))
       expect(::ActiveSupport::TimeZone.list_all(true)).to include("(GMT-06:00) #{reference_zone.aliases.first} (DST)")
       expect(::ActiveSupport::TimeZone.list_all(true, "Daylight Saving Time")).to include("(GMT-06:00) #{reference_zone.aliases.first} Daylight Saving Time")
     end

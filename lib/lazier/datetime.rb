@@ -17,7 +17,7 @@ module Lazier
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of days.
       def days(short = true)
-        ::Lazier.settings.date_names[short ? :short_days : :long_days].collect.with_index {|label, index|
+        ::Lazier.settings.date_names[short ? :short_days : :long_days].map.with_index {|label, index|
           {value: (index + 1).to_s, label: label}
         }
       end
@@ -28,7 +28,7 @@ module Lazier
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of months.
       def months(short = true)
-        ::Lazier.settings.date_names[short ? :short_months : :long_months].collect.with_index {|label, index|
+        ::Lazier.settings.date_names[short ? :short_months : :long_months].map.with_index {|label, index|
           {value: (index + 1).to_s.rjust(2, "0"), label: label}
         }
       end
@@ -53,7 +53,7 @@ module Lazier
       # @return [Array] A range of years. Every entry is
       def years(offset = 10, also_future = true, reference = nil, as_objects = false)
         y = reference || ::Date.today.year
-        (y - offset..(also_future ? y + offset : y)).collect { |year| as_objects ? {value: year, label: year} : year }
+        (y - offset..(also_future ? y + offset : y)).map { |year| as_objects ? {value: year, label: year} : year }
       end
 
       # Returns all the availabe timezones.
@@ -316,8 +316,8 @@ module Lazier
       def list_all(with_dst = true, dst_label = nil)
         dst_label ||= "(DST)"
 
-        @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.collect(&:to_s) }
-        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.collect { |zone| fetch_aliases(zone, dst_label) }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
+        @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.map(&:to_s) }
+        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.map { |zone| fetch_aliases(zone, dst_label) }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
 
         @zones_names["#{with_dst ? "DST[#{dst_label}]-" : ""}STANDARD"]
       end
@@ -384,7 +384,7 @@ module Lazier
         def fetch_aliases(zone, dst_label = "(DST)")
           matcher = /(#{Regexp.quote(dst_label)})$/
 
-          zone.aliases.collect { |zone_alias|
+          zone.aliases.map { |zone_alias|
             [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ matcher) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil]
           }
         end
@@ -394,7 +394,7 @@ module Lazier
     # @return [Array] A list of aliases for this timezone
     def aliases
       reference = self.class::MAPPING.fetch(name, name).gsub("_", " ")
-      @aliases ||= ([reference] + self.class::MAPPING.collect { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
+      @aliases ||= ([reference] + self.class::MAPPING.map { |name, zone| format_alias(name, zone, reference) }).uniq.compact.sort
     end
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).

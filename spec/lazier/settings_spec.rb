@@ -106,10 +106,10 @@ describe Lazier::Settings do
       reference.setup_date_names
       reference.setup_date_formats({sdn: "%B %b %A %a"})
 
-      long_months = 12.times.collect {|i| (i + 1).to_s * 2}
-      short_months = 12.times.collect {|i| (i + 1).to_s}
-      long_days = 7.times.collect {|i| (i + 1).to_s * 2}
-      short_days = 7.times.collect {|i| (i + 1).to_s}
+      long_months = 12.times.map {|i| (i + 1).to_s * 2}
+      short_months = 12.times.map {|i| (i + 1).to_s}
+      long_days = 7.times.map {|i| (i + 1).to_s * 2}
+      short_days = 7.times.map {|i| (i + 1).to_s}
 
       reference.setup_date_names(long_months)
       expect(date_reference.lstrftime(:sdn)).to eq("66 Jun Tuesday Tue")

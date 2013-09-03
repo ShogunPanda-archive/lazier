@@ -54,7 +54,7 @@ module Lazier
 
         begin
           tokens = @i18n_root.to_s.split(/[:.]/)
-          translation = tokens.inject(R18n::I18n.new(locales, path).t) {|accu, token| accu.send(token) }
+          translation = tokens.reduce(R18n::I18n.new(locales, path).t) {|accu, token| accu.send(token) }
           raise ArgumentError if translation.is_a?(R18n::Untranslated)
           translation
         rescue
@@ -68,7 +68,7 @@ module Lazier
       # @param path [String] The path where look into.
       # @return [Array] The list of valid locales.
       def validate_locales(locales, path)
-        (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path)}.uniq.collect(&:to_s)
+        (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path)}.uniq.map(&:to_s)
       end
 
       # Find a locale file in a path.
