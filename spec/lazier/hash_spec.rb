@@ -17,7 +17,18 @@ describe Lazier::Hash do
     ::Lazier.load!
   end
 
+
+  describe "method access" do
+    it "it is not enabled by default" do
+      expect { reference.b }.to raise_error(NoMethodError)
+    end
+  end
+
   describe "allows access to keys using dotted notation" do
+    before(:each) do
+      ::Lazier.load!(:hash_method_access)
+    end
+
     it "should allow method reference for symbol key" do
       reference.b.f = 4
 

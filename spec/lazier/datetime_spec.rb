@@ -51,7 +51,7 @@ describe Lazier::DateTime do
     it "should return a range of years" do
       expect(::DateTime.years).to eq((::Date.today.year - 10..::Date.today.year + 10).to_a)
       expect(::DateTime.years(5)).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
-      expect(::DateTime.years(5, true, nil, true).map(&:value)).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
+      expect(::DateTime.years(5, true, nil, true).map {|d| d[:value]}).to eq((::Date.today.year - 5..::Date.today.year + 5).to_a)
       expect(::DateTime.years(5, false)).to eq((::Date.today.year - 5..::Date.today.year).to_a)
       expect(::DateTime.years(5, false, 1900)).to eq((1895..1900).to_a)
     end

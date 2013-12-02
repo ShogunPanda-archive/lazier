@@ -228,24 +228,25 @@ describe Lazier::Object do
 
   describe "#to_boolean" do
     it "should return true for a valid true boolean" do
-      expect(true.to_boolean).to be_true
-      expect("y".to_boolean).to be_true
-      expect("yes".to_boolean).to be_true
-      expect("1".to_boolean).to be_true
-      expect(1.to_boolean).to be_true
-      expect(1.0.to_boolean).to be_true
+      expect(true.to_boolean.class).to eq(TrueClass)
+      expect("true".to_boolean.class).to eq(TrueClass)
+      expect("y".to_boolean.class).to eq(TrueClass)
+      expect("yes".to_boolean.class).to eq(TrueClass)
+      expect("1".to_boolean.class).to eq(TrueClass)
+      expect(1.to_boolean.class).to eq(TrueClass)
+      expect(1.0.to_boolean.class).to eq(TrueClass)
     end
 
     it "should return false for all other values" do
-      expect(false.to_boolean).to be_false
-      expect(nil.to_boolean).to be_false
-      expect("n".to_boolean).to be_false
-      expect("no".to_boolean).to be_false
-      expect("2".to_boolean).to be_false
-      expect(2.0.to_boolean).to be_false
-      expect("false".to_boolean).to be_false
-      expect("abc".to_boolean).to be_false
-      expect(0.to_boolean).to be_false
+      expect(false.to_boolean.class).to eq(FalseClass)
+      expect(nil.to_boolean.class).to eq(FalseClass)
+      expect("n".to_boolean.class).to eq(FalseClass)
+      expect("no".to_boolean.class).to eq(FalseClass)
+      expect("2".to_boolean.class).to eq(FalseClass)
+      expect(2.0.to_boolean.class).to eq(FalseClass)
+      expect("false".to_boolean.class).to eq(FalseClass)
+      expect("abc".to_boolean.class).to eq(FalseClass)
+      expect(0.to_boolean.class).to eq(FalseClass)
     end
   end
 

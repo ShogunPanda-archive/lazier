@@ -41,12 +41,15 @@ module Lazier
   #   @option boolean Extensions for boolean values.
   #   @option string Extensions for strings.
   #   @option hash Extensions for hashs.
+  #   @option hash_method_access Extensions for hash to allow method access. Not included by default.
   #   @option datetime Extensions date and time objects.
   #   @option math Extensions for Math module.
   #   @option pathname Extensions for path objects.
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
-    (what.present? ? what : ["object", "boolean", "string", "hash", "datetime", "math", "pathname"]).each { |w| ::Lazier.send("load_#{w}") }
+    modules = what.present? ? what.flatten.uniq.compact.map(&:to_s) : ["object", "boolean", "string", "hash", "datetime", "math", "pathname"]
+    modules.each { |w| ::Lazier.send("load_#{w}") }
+
     yield if block_given?
     ::Lazier::Settings.instance
   end
@@ -76,10 +79,12 @@ module Lazier
 
   # Loads Hash extensions.
   def self.load_hash
-    ::Hash.class_eval do
-      include Hashie::Extensions::MethodAccess
-      include ::Lazier::Hash
-    end
+    ::Hash.class_eval { include ::Lazier::Hash }
+  end
+
+  # Loads Hash method access extensions.
+  def self.load_hash_method_access
+    ::Hash.class_eval { include Hashie::Extensions::MethodAccess }
   end
 
   # Loads DateTime extensions.
