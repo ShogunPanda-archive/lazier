@@ -388,7 +388,8 @@
 79
 80
 81
-82</pre>
+82
+83</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 16</span>
@@ -403,6 +404,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_enforce_available_locales'>enforce_available_locales</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='ivar'>@i18n_root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@i18n_locales_path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>end</span>
@@ -575,7 +577,8 @@
 79
 80
 81
-82</pre>
+82
+83</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 16</span>
@@ -590,6 +593,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_enforce_available_locales'>enforce_available_locales</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='ivar'>@i18n_root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@i18n_locales_path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>end</span>
@@ -762,7 +766,8 @@
 79
 80
 81
-82</pre>
+82
+83</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 16</span>
@@ -777,6 +782,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_enforce_available_locales'>enforce_available_locales</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='ivar'>@i18n_root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@i18n_locales_path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>end</span>
@@ -888,12 +894,12 @@
       <pre class="lines">
 
 
-33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_i18n'>i18n</span>
   <span class='ivar'>@i18n</span> <span class='op'>||=</span> <span class='id identifier rubyid_i18n_load_locale'>i18n_load_locale</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='rparen'>)</span>
@@ -964,13 +970,13 @@
       <pre class="lines">
 
 
-41
 42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_i18n='>i18n=</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
   <span class='ivar'>@i18n_locale</span> <span class='op'>=</span> <span class='id identifier rubyid_locale'>locale</span>
@@ -1043,12 +1049,14 @@
 25
 26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_i18n_setup'>i18n_setup</span><span class='lparen'>(</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_enforce_available_locales'>enforce_available_locales</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='ivar'>@i18n_root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='ivar'>@i18n_locales_path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
@@ -1062,9 +1070,9 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Dec  2 15:35:20 2013 by
+  Generated on Sat Jan 25 11:01:53 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.1.0).
 </div>
 
   </body>

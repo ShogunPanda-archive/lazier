@@ -116,6 +116,75 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#compact-instance_method" title="#compact (instance method)">- (Hash) <strong>compact</strong>(&amp;validator) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a new hash, removing all keys which values are blank.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compact%21-instance_method" title="#compact! (instance method)">- (Object) <strong>compact!</strong>(&amp;validator) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Compacts the current hash, removing all keys which values are blank.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enable_dotted_access-instance_method" title="#enable_dotted_access (instance method)">- (Object) <strong>enable_dotted_access</strong>(readonly = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Makes sure that the hash is accessible using dotted notation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#ensure_access-instance_method" title="#ensure_access (instance method)">- (Object) <strong>ensure_access</strong>(access) </a>
     
 
@@ -147,7 +216,231 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="ensure_access-instance_method">
+  <h3 class="signature first" id="compact-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>compact</strong>(&amp;validator) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new hash, removing all keys which values are blank.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>validator</span>
+      
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>, if present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Lazier::Hash (module)">Hash</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The hash with all blank values removed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compact'>compact</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_validator'>validator</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validator'>validator</span> <span class='op'>||=</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_validator'>validator</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="compact!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>compact!</strong>(&amp;validator) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Compacts the current hash, removing all keys which values are blank.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>validator</span>
+      
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>, if present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compact!'>compact!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_validator'>validator</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validator'>validator</span> <span class='op'>||=</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_reject!'>reject!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_validator'>validator</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="enable_dotted_access-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>enable_dotted_access</strong>(readonly = true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Makes sure that the hash is accessible using dotted notation. This is also applied to every embedded hash.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>readonly</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If the dotted notation is only enable for reading. <code>true</code> by default.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_enable_dotted_access'>enable_dotted_access</span><span class='lparen'>(</span><span class='id identifier rubyid_readonly'>readonly</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Extensions</span><span class='op'>::</span><span class='const'>MethodReader</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Extensions</span><span class='op'>::</span><span class='const'>MethodQuery</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Extensions</span><span class='op'>::</span><span class='const'>MethodWriter</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_readonly'>readonly</span>
+
+  <span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_enable_dotted_access'>enable_dotted_access</span><span class='lparen'>(</span><span class='id identifier rubyid_readonly'>readonly</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:each</span><span class='rparen'>)</span> <span class='kw'>then</span>
+      <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
+        <span class='id identifier rubyid_element'>element</span><span class='period'>.</span><span class='id identifier rubyid_enable_dotted_access'>enable_dotted_access</span><span class='lparen'>(</span><span class='id identifier rubyid_readonly'>readonly</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_element'>element</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ensure_access-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Lazier::Object (module)">Object</a></span></tt>) <strong>ensure_access</strong>(access) 
   
@@ -190,16 +483,16 @@
       <pre class="lines">
 
 
-15
-16
-17
-18</pre>
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/hash.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>strings:</span> <span class='symbol'>:stringify_keys</span><span class='comma'>,</span> <span class='label'>symbols:</span> <span class='symbol'>:symbolize_keys</span><span class='comma'>,</span> <span class='label'>indifferent:</span> <span class='symbol'>:with_indifferent_access</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>strings:</span> <span class='symbol'>:stringify_keys</span><span class='comma'>,</span> <span class='label'>symbols:</span> <span class='symbol'>:symbolize_keys</span><span class='comma'>,</span> <span class='label'>indifferent:</span> <span class='symbol'>:with_indifferent_access</span><span class='comma'>,</span> <span class='label'>dotted:</span> <span class='symbol'>:enable_dotted_access</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>?</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -212,9 +505,9 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Dec  2 15:35:20 2013 by
+  Generated on Sat Jan 25 11:01:53 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.1.0).
 </div>
 
   </body>
