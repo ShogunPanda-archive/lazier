@@ -50,6 +50,16 @@ module Lazier
       is_a?(::TrueClass) || !self || to_s =~ ::Lazier::Object::BOOLEAN_MATCHER
     end
 
+    # Sends a method to the object. If the objects doesn't not respond to the method, it returns `nil` instead of raising an exception.
+    #
+    # @param method [Symbol] The method to send.
+    # @param args [Array] The arguments to send.
+    # @param &block [Proc] The block to pass to the method.
+    # @return [Object|nil] The return value of the method or `nil`, if the object does not respond to the method.
+    def safe_send(method, *args, &block)
+      respond_to?(method) ? send(method, *args, &block) : nil
+    end
+
     # Makes sure that the object is set to something meaningful.
     #
     # @param default_value [String] The default value to return if the `verifier` or the block returns true.

@@ -23,6 +23,7 @@ module Lazier
     # @param root [Symbol] The root level of the translation.
     # @param path [String] The path where the translations are stored.
     def i18n_setup(root, path)
+      ::I18n.enforce_available_locales = true
       @i18n_root = root.to_sym
       @i18n_locales_path = path
     end

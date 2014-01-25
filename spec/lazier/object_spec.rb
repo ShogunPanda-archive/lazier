@@ -96,6 +96,17 @@ describe Lazier::Object do
     end
   end
 
+  describe "#safe_send" do
+    it "should run the method by default" do
+      expect("STRING".safe_send(:gsub, "T", "E")).to eq("SERING")
+      expect("STRING".safe_send(:gsub, "T") { "E" }).to eq("SERING")
+    end
+
+    it "should silently fail if the method is not supported" do
+      expect("STRING".safe_send(:invalid_gsub, "T", "E")).to be_nil
+    end
+  end
+
   describe "#ensure" do
     it "should assign a default value to an object" do
       expect(nil.ensure("VALUE")).to eq("VALUE")
