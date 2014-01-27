@@ -29,6 +29,7 @@ module Lazier
     # Makes sure that the keys of the hash are accessible in the desired way.
     #
     # @param access [Symbol|NilClass] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
+    # @return [Hash] The current hash with keys modified.
     def ensure_access(access)
       method = {strings: :stringify_keys, symbols: :symbolize_keys, indifferent: :with_indifferent_access, dotted: :enable_dotted_access}.fetch(access, nil)
       method ? send(method) : self
@@ -37,7 +38,7 @@ module Lazier
     # Makes sure that the hash is accessible using dotted notation. This is also applied to every embedded hash.
     #
     # @param readonly [Boolean] If the dotted notation is only enable for reading. `true` by default.
-    #
+    # @return [Hash] The current hash with keys enabled for dotted access.
     def enable_dotted_access(readonly = true)
       extend(Hashie::Extensions::MethodReader)
       extend(Hashie::Extensions::MethodQuery)
@@ -52,6 +53,8 @@ module Lazier
           end
         end
       end
+
+      self
     end
   end
 end

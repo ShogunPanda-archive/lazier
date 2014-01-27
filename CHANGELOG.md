@@ -1,3 +1,7 @@
+### 3.4.1 / 2014-01-27
+
+* Fixed return value for `Lazier::Hash#enable_dotted_access`.
+
 ### 3.4.0 / 2014-01-25
 
 * Added dotted notation access for Hashes. See: `Lazier::Hash#enable_dotted_access`.
