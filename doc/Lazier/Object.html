@@ -834,7 +834,7 @@
       <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_dup'>dup</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_dup'>dup</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>NilClass</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_block'>block</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span>
   <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -1931,7 +1931,7 @@
   
     <li>
       
-        <span class='name'>&amp;block</span>
+        <span class='name'>block</span>
       
       
         <span class='type'>(<tt>Proc</tt>)</span>
@@ -2203,7 +2203,7 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Jan 27 12:18:41 2014 by
+  Generated on Wed Jan 29 16:33:02 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.3 (ruby-2.1.0).
 </div>
