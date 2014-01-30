@@ -54,7 +54,7 @@ module Lazier
     #
     # @param method [Symbol] The method to send.
     # @param args [Array] The arguments to send.
-    # @param &block [Proc] The block to pass to the method.
+    # @param block [Proc] The block to pass to the method.
     # @return [Object|nil] The return value of the method or `nil`, if the object does not respond to the method.
     def safe_send(method, *args, &block)
       respond_to?(method) ? send(method, *args, &block) : nil
@@ -89,7 +89,7 @@ module Lazier
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
     def ensure_array(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &block)
-      rv = is_a?(::Array) ? dup : (default_value || [self])
+      rv = is_a?(::Array) ? dup : (default_value || (self.is_a?(NilClass) ? [] : [self]))
       rv = manipulate_array(rv, uniq, compact, flatten).map(&(block || sanitizer)) if block_given? || sanitizer
       manipulate_array(rv, uniq, compact, flatten)
     end

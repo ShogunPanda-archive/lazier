@@ -130,7 +130,7 @@ describe Lazier::Object do
   describe "#ensure_string" do
     it "should correctly handle strings" do
       expect(" abc ".ensure_string).to eq(" abc ")
-      1.ensure_string == "1"
+      expect(1.ensure_string).to eq("1")
       expect(1.0.ensure_string).to eq("1.0")
       expect(:abc.ensure_string).to eq("abc")
       expect(nil.ensure_string).to eq("")
@@ -148,7 +148,7 @@ describe Lazier::Object do
 
   describe "#ensure_array" do
     it "should convert to an array with the object it self or a default value" do
-      expect(nil.ensure_array).to eq([nil])
+      expect(nil.ensure_array).to eq([])
       expect("A".ensure_array).to eq(["A"])
       expect({a: "b"}.ensure_array).to eq([{a: "b"}])
       expect(nil.ensure_array(["1"])).to eq(["1"])

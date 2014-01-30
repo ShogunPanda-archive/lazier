@@ -1,3 +1,7 @@
+### 3.4.2 / 2014-01-29
+
+* `Lazier::Object#ensure_array` returns `[]` for `nil` when no default_value is specified.
+
 ### 3.4.1 / 2014-01-27
 
 * Fixed return value for `Lazier::Hash#enable_dotted_access`.
