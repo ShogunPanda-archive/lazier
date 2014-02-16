@@ -56,4 +56,15 @@ describe Lazier::String do
       expect(amp_reference.value).to eq(amp_reference)
     end
   end
+
+  describe "split_tokens" do
+    it "should return a valid array" do
+      expect("  1, 2,3,4,,,,,5,5".split_tokens()).to eq(["1", "2", "3", "4", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".split_tokens(false)).to eq(["1", "2", "3", "4", "", "", "", "", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, false)).to eq(["  1", "2", "3", "4", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, true, true)).to eq(["1", "2", "3", "4", "5"])
+      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, true, false, "@")).to eq(["1, 2,3,4,,,,,5,5"])
+      expect("1@2@3@4@5".split_tokens(true, true, false, "@")).to eq(["1", "2", "3", "4", "5"])
+    end
+  end
 end

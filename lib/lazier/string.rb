@@ -57,5 +57,20 @@ module Lazier
     def value
       self
     end
+
+    # Splits a string containing tokens using a specified pattern and applying some sanitizations.
+    #
+    # @param no_blanks [Boolean] If filter out blank tokens.
+    # @param strip [Boolean] If strip single tokens.
+    # @param uniq [Boolean] If return uniques elements.
+    # @param pattern [String|Regexp] The pattern to use.
+    # @return [Array] An array of tokens.
+    def split_tokens(no_blanks = true, strip = true, uniq = false, pattern = /\s*,\s*/)
+      rv = self.split(pattern)
+      rv.map!(&:strip) if strip
+      rv.select!(&:present?) if no_blanks
+      rv.uniq! if uniq
+      rv
+    end
   end
 end
