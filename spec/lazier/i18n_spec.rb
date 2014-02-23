@@ -7,8 +7,8 @@
 require "spec_helper"
 
 describe Lazier::I18n do
-  let(:object) {
-    c = Object.new
+  subject {
+    c = ::Object.new
     c.class_eval { include Lazier::I18n }
     c
   }
@@ -22,39 +22,39 @@ describe Lazier::I18n do
 
   describe "#i18n_setup" do
     it "should set the root and the path" do
-      object.i18n_setup("ROOT", root_path)
-      expect(object.instance_variable_get(:@i18n_root)).to eq(:ROOT)
-      expect(object.instance_variable_get(:@i18n_locales_path)).to eq(root_path)
+      subject.i18n_setup("ROOT", root_path)
+      expect(subject.instance_variable_get(:@i18n_root)).to eq(:ROOT)
+      expect(subject.instance_variable_get(:@i18n_locales_path)).to eq(root_path)
     end
   end
 
   describe "#i18n" do
     it "should call the private method if nothing is set" do
-      object.instance_variable_set(:@i18n, nil)
-      expect(object).to receive(:i18n_load_locale)
-      object.i18n
+      subject.instance_variable_set(:@i18n, nil)
+      expect(subject).to receive(:i18n_load_locale)
+      subject.i18n
     end
   end
 
   describe "#i18n=" do
     it "should call the private method if nothing is set" do
-      expect(object).to receive(:i18n_load_locale).and_return("LOCALE")
-      object.i18n = :en
-      expect(object.instance_variable_get(:@i18n)).to eq("LOCALE")
+      expect(subject).to receive(:i18n_load_locale).and_return("LOCALE")
+      subject.i18n = :en
+      expect(subject.instance_variable_get(:@i18n)).to eq("LOCALE")
     end
   end
 
   describe "#i18n_load_locale" do
     it "should set using system locale if called without arguments" do
-      object.i18n_setup("lazier", root_path)
+      subject.i18n_setup("lazier", root_path)
       expect(::R18n::I18n).to receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
-      object.i18n = nil
+      subject.i18n = nil
     end
 
     it "should set the requested locale" do
-      object.i18n_setup("lazier", root_path)
+      subject.i18n_setup("lazier", root_path)
       expect(::R18n::I18n).to receive(:new).with(["it", ENV["LANG"]].compact.uniq, root_path).and_call_original
-      object.i18n = :it
+      subject.i18n = :it
     end
 
     it "should call the root" do
@@ -62,21 +62,21 @@ describe Lazier::I18n do
       t = ::Object.new
       expect_any_instance_of(::R18n::I18n).to receive(:t).and_return(t)
       expect(t).to receive("ROOT")
-      object.i18n_setup("ROOT", root_path)
-      object.i18n = :it
+      subject.i18n_setup("ROOT", root_path)
+      subject.i18n = :it
     end
 
     it "should only pass valid translations" do
-      object.i18n_setup("lazier", root_path)
+      subject.i18n_setup("lazier", root_path)
       expect(::R18n::I18n).to receive(:new).with([ENV["LANG"]].compact.uniq, root_path).and_call_original
-      object.i18n = "INVALID"
+      subject.i18n = "INVALID"
     end
 
     it "should raise an exception if no valid translation are found" do
       ENV["LANG"] = "INVALID"
       allow(::R18n::I18n).to receive(:system_locale).and_return("INVALID")
-      object.i18n_setup("ROOT", "/dev/")
-      expect { object.i18n = "INVALID" }.to raise_error(::Lazier::Exceptions::MissingTranslation)
+      subject.i18n_setup("ROOT", "/dev/")
+      expect { subject.i18n = "INVALID" }.to raise_error(::Lazier::Exceptions::MissingTranslation)
     end
   end
 end

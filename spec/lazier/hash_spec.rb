@@ -7,7 +7,7 @@
 require "spec_helper"
 
 describe Lazier::Hash do
-  let(:reference) {
+  subject {
     rv = {a: 1, "b" => {c: 2, d: {"e" => 3}}}
     rv.default = 0
     rv
@@ -17,10 +17,9 @@ describe Lazier::Hash do
     ::Lazier.load!
   end
 
-
   describe "method access" do
     it "it is not enabled by default" do
-      expect { reference.b }.to raise_error(NoMethodError)
+      expect { subject.b }.to raise_error(NoMethodError)
     end
   end
 
@@ -29,12 +28,12 @@ describe Lazier::Hash do
       ::Lazier.load!(:hash_method_access)
     end
 
-    it "should allow method reference for symbol key" do
-      reference.b.f = 4
+    it "should allow method subject for symbol key" do
+      subject.b.f = 4
 
-      expect(reference.a).to eq(1)
-      expect(reference.b.c).to eq(2)
-      expect(reference["b"]["f"]).to eq(4)
+      expect(subject.a).to eq(1)
+      expect(subject.b.c).to eq(2)
+      expect(subject["b"]["f"]).to eq(4)
     end
   end
 
@@ -48,23 +47,23 @@ describe Lazier::Hash do
     end
 
     it "should not be destructive" do
-      reference = {a: 1, b: nil}
-      reference.compact
-      expect(reference).to eq({a: 1, b: nil})
+      subject = {a: 1, b: nil}
+      subject.compact
+      expect(subject).to eq({a: 1, b: nil})
     end
   end
 
   describe "#compact!" do
     it "should remove blank keys" do
-      reference = {a: 1, b: nil}
-      reference.compact!
-      expect(reference).to eq({a: 1})
+      subject = {a: 1, b: nil}
+      subject.compact!
+      expect(subject).to eq({a: 1})
     end
 
     it "should use a custom validator" do
-      reference = {a: 1, b: nil, c: 3}
-      reference.compact! {|k, v| v == 1 || k == :c}
-      expect(reference).to eq({b: nil})
+      subject = {a: 1, b: nil, c: 3}
+      subject.compact! {|k, v| v == 1 || k == :c}
+      expect(subject).to eq({b: nil})
     end
   end
 
@@ -79,25 +78,27 @@ describe Lazier::Hash do
       expect({a: "b"}.ensure_access(:indifferent)).to be_a(::HashWithIndifferentAccess)
       expect({a: "b"}.ensure_access(:other)).to eq({a: "b"})
 
-      reference.ensure_access(:dotted)
-      expect(reference.a).to eq(1)
-      expect(reference.b.c).to eq(2)
+      accessed = subject.ensure_access(:indifferent, :dotted)
+      expect(accessed[:a]).to eq(1)
+      expect(accessed["a"]).to eq(1)
+      expect(accessed.a).to eq(1)
+      expect(accessed.b.c).to eq(2)
     end
   end
 
   describe "#with_dotted_access" do
     it "should recursively enable dotted access on a hash" do
-      reference = {a: 1, b: {c: 3}, c: [1, {f: {g: 1}}]}
+      subject = {a: 1, b: {c: 3}, c: [1, {f: {g: 1}}]}
 
-      reference.enable_dotted_access
-      expect(reference.b.c).to eq(3)
-      expect(reference.c[1].f.g).to eq(1)
+      subject.enable_dotted_access
+      expect(subject.b.c).to eq(3)
+      expect(subject.c[1].f.g).to eq(1)
     end
 
     it "should also provide write access if asked" do
-      reference.enable_dotted_access(false)
-      expect { reference.b.f = 4 }.not_to raise_error
-      expect(reference["b"]["f"]).to eq(4)
+      subject.enable_dotted_access(false)
+      expect { subject.b.f = 4 }.not_to raise_error
+      expect(subject["b"]["f"]).to eq(4)
     end
   end
 end

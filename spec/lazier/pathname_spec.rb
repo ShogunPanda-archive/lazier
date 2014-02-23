@@ -7,7 +7,7 @@
 require "spec_helper"
 
 describe Lazier::Pathname do
-  let(:reference) { ::Pathname.new($0) }
+  subject { ::Pathname.new($0) }
 
   before(:all) do
     ::Lazier.load!
@@ -15,7 +15,7 @@ describe Lazier::Pathname do
 
   describe "#components" do
     it "should return the components of the path" do
-      expect([""] + reference.components).to eq(reference.to_s.split("/"))
+      expect([""] + subject.components).to eq(subject.to_s.split("/"))
     end
   end
 end

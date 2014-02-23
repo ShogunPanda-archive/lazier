@@ -7,10 +7,10 @@
 require "spec_helper"
 
 describe Lazier::String do
-  let(:reference) { "abc òùà èé &amp;gt;" }
-  let(:translated_reference) { "abc oua ee &amp;gt;" }
-  let(:untitleized_reference) { "abc-òùà-èé-&amp;gt;" }
-  let(:amp_reference) { "abc òùà èé &gt;" }
+  subject { "abc òùà èé &amp;gt;" }
+  let(:translated_subject) { "abc oua ee &amp;gt;" }
+  let(:untitleized_subject) { "abc-òùà-èé-&amp;gt;" }
+  let(:amp_subject) { "abc òùà èé &gt;" }
 
   before(:all) do
     ::Lazier.load!
@@ -18,7 +18,7 @@ describe Lazier::String do
 
   describe "#remove_accents" do
     it "should translate accents" do
-      expect(reference.remove_accents).to eq(translated_reference)
+      expect(subject.remove_accents).to eq(translated_subject)
     end
   end
 
@@ -38,22 +38,22 @@ describe Lazier::String do
 
   describe "#untitleize" do
     it "should convert spaces to dashes" do
-      expect(reference.untitleize).to eq(untitleized_reference)
+      expect(subject.untitleize).to eq(untitleized_subject)
     end
   end
 
   describe "#replace_ampersands" do
     it "should remove HTML ampersands" do
-      expect(reference.replace_ampersands).to eq(amp_reference)
+      expect(subject.replace_ampersands).to eq(amp_subject)
     end
   end
 
   describe "#value" do
     it "should return the string itself" do
-      expect(reference.value).to eq(reference)
-      expect(translated_reference.value).to eq(translated_reference)
-      expect(untitleized_reference.value).to eq(untitleized_reference)
-      expect(amp_reference.value).to eq(amp_reference)
+      expect(subject.value).to eq(subject)
+      expect(translated_subject.value).to eq(translated_subject)
+      expect(untitleized_subject.value).to eq(untitleized_subject)
+      expect(amp_subject.value).to eq(amp_subject)
     end
   end
 

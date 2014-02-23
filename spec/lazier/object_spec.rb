@@ -187,10 +187,10 @@ describe Lazier::Object do
     end
 
     it "should grant access" do
-      reference = {a: "b"}
+      subject = {a: "b"}
 
-      expect(reference).to receive(:ensure_access).with("ACCESS")
-      reference.ensure_hash("ACCESS")
+      expect(subject ).to receive(:ensure_access).with("ACCESS")
+      subject .ensure_hash("ACCESS")
     end
   end
 
@@ -329,10 +329,10 @@ describe Lazier::Object do
 
   describe "#for_debug" do
     it "should return the correct representation for an object" do
-      reference = {a: "b"}
-      expect(reference.for_debug(:json, false)).to eq(reference.to_json)
-      expect(reference.for_debug(:pretty_json, false)).to eq(::JSON.pretty_generate(reference))
-      expect(reference.for_debug(:yaml, false)).to eq(reference.to_yaml)
+      subject = {a: "b"}
+      expect(subject.for_debug(:json, false)).to eq(subject .to_json)
+      expect(subject.for_debug(:pretty_json, false)).to eq(::JSON.pretty_generate(subject ))
+      expect(subject.for_debug(:yaml, false)).to eq(subject .to_yaml)
     end
 
     it "should raise an exception if requested" do

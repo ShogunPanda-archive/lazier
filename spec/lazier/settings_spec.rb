@@ -7,9 +7,9 @@
 require "spec_helper"
 
 describe Lazier::Settings do
-  let(:reference) { ::Lazier::Settings.instance }
-  let(:number_reference) { 123456.654321 }
-  let(:date_reference) { DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rationalize_offset(25200)) }
+  let(:subject) { ::Lazier::Settings.instance }
+  let(:number_subject) { 123456.654321 }
+  let(:date_subject) { DateTime.civil(2005, 6, 7, 8, 9, 10, DateTime.rationalize_offset(25200)) }
 
   before(:all) do
     Lazier.load!
@@ -45,86 +45,86 @@ describe Lazier::Settings do
 
   describe "#setup_format_number" do
     it "should save format numbering options for usage" do
-      reference.setup_format_number(2)
-      expect(number_reference.format_number).to eq("123,456.65")
+      subject.setup_format_number(2)
+      expect(number_subject.format_number).to eq("123,456.65")
 
-      reference.setup_format_number(3, "A")
-      expect(number_reference.format_number).to eq("123,456A654")
+      subject.setup_format_number(3, "A")
+      expect(number_subject.format_number).to eq("123,456A654")
 
-      reference.setup_format_number(4, "A", "B")
-      expect(number_reference.format_number).to eq("123,456A6543 B")
+      subject.setup_format_number(4, "A", "B")
+      expect(number_subject.format_number).to eq("123,456A6543 B")
 
-      reference.setup_format_number(5, "A", "B", "C")
-      expect(number_reference.format_number).to eq("123C456A65432 B")
+      subject.setup_format_number(5, "A", "B", "C")
+      expect(number_subject.format_number).to eq("123C456A65432 B")
 
-      reference.setup_format_number
-      expect(number_reference.format_number).to eq("123,456.65")
+      subject.setup_format_number
+      expect(number_subject.format_number).to eq("123,456.65")
     end
   end
 
   describe "#setup_boolean_names" do
     it "should save names for boolean values" do
-      reference.setup_boolean_names("TRUE1")
+      subject.setup_boolean_names("TRUE1")
       expect([true.format_boolean, false.format_boolean]).to eq(["TRUE1", "No"])
 
-      reference.setup_boolean_names(nil, "FALSE1")
+      subject.setup_boolean_names(nil, "FALSE1")
       expect([true.format_boolean, false.format_boolean]).to eq(["Yes", "FALSE1"])
 
-      reference.setup_boolean_names("TRUE2", "FALSE2")
+      subject.setup_boolean_names("TRUE2", "FALSE2")
       expect([true.format_boolean, false.format_boolean]).to eq(["TRUE2", "FALSE2"])
 
-      reference.setup_boolean_names
+      subject.setup_boolean_names
       expect([true.format_boolean, false.format_boolean]).to eq(["Yes", "No"])
     end
   end
 
   describe "#setup_date_formats" do
     it "should save formats for date formatting" do
-      reference.setup_date_formats(nil, true)
+      subject.setup_date_formats(nil, true)
 
-      reference.setup_date_formats({c1: "%Y"})
-      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
-      expect(date_reference.lstrftime("c1")).to eq(date_reference.year.to_s)
+      subject.setup_date_formats({c1: "%Y"})
+      expect(date_subject.lstrftime(:ct_date)).to eq(date_subject.strftime("%Y-%m-%d"))
+      expect(date_subject.lstrftime("c1")).to eq(date_subject.year.to_s)
 
-      reference.setup_date_formats({c1: "%Y"}, true)
-      expect(date_reference.lstrftime("ct_date")).to eq("ct_date")
-      expect(date_reference.lstrftime(:c1)).to eq(date_reference.year.to_s)
+      subject.setup_date_formats({c1: "%Y"}, true)
+      expect(date_subject.lstrftime("ct_date")).to eq("ct_date")
+      expect(date_subject.lstrftime(:c1)).to eq(date_subject.year.to_s)
 
-      reference.setup_date_formats
-      expect(date_reference.lstrftime(:ct_date)).to eq(date_reference.strftime("%Y-%m-%d"))
-      expect(date_reference.lstrftime("c1")).to eq(date_reference.year.to_s)
+      subject.setup_date_formats
+      expect(date_subject.lstrftime(:ct_date)).to eq(date_subject.strftime("%Y-%m-%d"))
+      expect(date_subject.lstrftime("c1")).to eq(date_subject.year.to_s)
 
-      reference.setup_date_formats(nil, true)
-      expect(date_reference.lstrftime("ct_date")).to eq(date_reference.strftime("%Y-%m-%d"))
-      expect(date_reference.lstrftime(:c1)).to eq("c1")
+      subject.setup_date_formats(nil, true)
+      expect(date_subject.lstrftime("ct_date")).to eq(date_subject.strftime("%Y-%m-%d"))
+      expect(date_subject.lstrftime(:c1)).to eq("c1")
     end
   end
 
   describe "#setup_date_names" do
     it "should save names for days and months" do
-      reference.i18n = :en
-      reference.setup_date_names
-      reference.setup_date_formats({sdn: "%B %b %A %a"})
+      subject.i18n = :en
+      subject.setup_date_names
+      subject.setup_date_formats({sdn: "%B %b %A %a"})
 
       long_months = 12.times.map {|i| (i + 1).to_s * 2}
       short_months = 12.times.map {|i| (i + 1).to_s}
       long_days = 7.times.map {|i| (i + 1).to_s * 2}
       short_days = 7.times.map {|i| (i + 1).to_s}
 
-      reference.setup_date_names(long_months)
-      expect(date_reference.lstrftime(:sdn)).to eq("66 Jun Tuesday Tue")
+      subject.setup_date_names(long_months)
+      expect(date_subject.lstrftime(:sdn)).to eq("66 Jun Tuesday Tue")
 
-      reference.setup_date_names(long_months, short_months)
-      expect(date_reference.lstrftime("sdn")).to eq("66 6 Tuesday Tue")
+      subject.setup_date_names(long_months, short_months)
+      expect(date_subject.lstrftime("sdn")).to eq("66 6 Tuesday Tue")
 
-      reference.setup_date_names(long_months, short_months, long_days)
-      expect(date_reference.lstrftime(:sdn)).to eq("66 6 33 Tue")
+      subject.setup_date_names(long_months, short_months, long_days)
+      expect(date_subject.lstrftime(:sdn)).to eq("66 6 33 Tue")
 
-      reference.setup_date_names(long_months, short_months, long_days, short_days)
-      expect(date_reference.lstrftime("sdn")).to eq("66 6 33 3")
+      subject.setup_date_names(long_months, short_months, long_days, short_days)
+      expect(date_subject.lstrftime("sdn")).to eq("66 6 33 3")
 
-      reference.setup_date_names
-      expect(date_reference.lstrftime(:sdn)).to eq("June Jun Tuesday Tue")
+      subject.setup_date_names
+      expect(date_subject.lstrftime(:sdn)).to eq("June Jun Tuesday Tue")
     end
   end
 end

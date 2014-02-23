@@ -1,3 +1,7 @@
+### 3.5.1 / 2014-02-16
+
+* `Lazier::Hash#ensure_access` now supports multiple accesses.
+
 ### 3.5.0 / 2014-02-16
 
 * Added `Lazier::String#split_tokens`.

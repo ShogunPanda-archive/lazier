@@ -7,6 +7,14 @@
 module Lazier
   # Extensions for Hash objects.
   module Hash
+    # The supported accesses for #ensure_access
+    VALID_ACCESSES = {
+      strings: :stringify_keys,
+      symbols: :symbolize_keys,
+      indifferent: :with_indifferent_access,
+      dotted: :enable_dotted_access
+    }
+
     extend ::ActiveSupport::Concern
 
     # Returns a new hash, removing all keys which values are blank.
@@ -28,11 +36,14 @@ module Lazier
 
     # Makes sure that the keys of the hash are accessible in the desired way.
     #
-    # @param access [Symbol|NilClass] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
+    # @param accesses [Array] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
     # @return [Hash] The current hash with keys modified.
-    def ensure_access(access)
-      method = {strings: :stringify_keys, symbols: :symbolize_keys, indifferent: :with_indifferent_access, dotted: :enable_dotted_access}.fetch(access, nil)
-      method ? send(method) : self
+    def ensure_access(*accesses)
+      accesses.compact.inject(self) do |rv, access|
+        method = VALID_ACCESSES.fetch(access.ensure_string.to_sym, nil)
+        rv = rv.send(method) if method
+        rv
+      end
     end
 
     # Makes sure that the hash is accessible using dotted notation. This is also applied to every embedded hash.

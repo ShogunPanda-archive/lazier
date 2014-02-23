@@ -22,10 +22,10 @@ describe Lazier::Configuration do
     end
 
     it "should not allow writing readonly properties" do
-      reference = ConfigurationSpecSample.new(required: 1)
+      subject = ConfigurationSpecSample.new(required: 1)
 
-      expect { reference.readonly = "4" }.to raise_error(ArgumentError)
-      expect(reference.readonly).to eq("2")
+      expect { subject .readonly = "4" }.to raise_error(ArgumentError)
+      expect(subject .readonly).to eq("2")
     end
 
     it "should blow up for require properties" do
