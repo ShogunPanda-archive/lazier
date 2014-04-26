@@ -6,7 +6,7 @@
 
 require "rubygems"
 require "bundler/setup"
-require "lazier"
+require File.dirname(__FILE__) + "/../lib/lazier"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

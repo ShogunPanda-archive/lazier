@@ -23,16 +23,10 @@ describe Lazier::String do
   end
 
   describe "#ensure_valid_utf8" do
-    if !defined?(JRUBY_VERSION) then
-      it "converts to a valid UTF-8, leaving valid strings untouched" do
-        expect("this is valid".ensure_valid_utf8).to eq("this is valid")
-        expect("this is invalid - \xEA\xF3\xEF\xE8\xF2\xFC inv \xE2 \xC0\xC2\xD2\xCED\xCE\xCC\xE5 - \xE1\xEC\xE2 3 \xF1\xE5\xF0\xE8\xE8".ensure_valid_utf8).to eq("this is invalid -  inv  D -  3 ")
-        expect("this is invalid - \xEA\xF3\xEF\xE8\xF2\xFC inv \xE2 \xC0\xC2\xD2\xCED\xCE\xCC\xE5 - \xE1\xEC\xE2 3 \xF1\xE5\xF0\xE8\xE8".ensure_valid_utf8("X")).to eq("this is invalid - XXXXXX inv X XXXXDXXX - XXX 3 XXXXX")
-      end
-    else
-      it "raise an exception" do
-        expect { "this is valid".ensure_valid_utf8 }.to raise_error(RuntimeError)
-      end
+    it "converts to a valid UTF-8, leaving valid strings untouched" do
+      expect("this is valid".ensure_valid_utf8).to eq("this is valid")
+      expect("this is invalid - \xEA\xF3\xEF\xE8\xF2\xFC inv \xE2 \xC0\xC2\xD2\xCED\xCE\xCC\xE5 - \xE1\xEC\xE2 3 \xF1\xE5\xF0\xE8\xE8".ensure_valid_utf8).to eq("this is invalid -  inv  D -  3 ")
+      expect("this is invalid - \xEA\xF3\xEF\xE8\xF2\xFC inv \xE2 \xC0\xC2\xD2\xCED\xCE\xCC\xE5 - \xE1\xEC\xE2 3 \xF1\xE5\xF0\xE8\xE8".ensure_valid_utf8("X")).to eq("this is invalid - XXXXXX inv X XXXXDXXX - XXX 3 XXXXX")
     end
   end
 

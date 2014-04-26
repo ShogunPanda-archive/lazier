@@ -39,6 +39,22 @@ describe Lazier::Object do
     end
   end
 
+  describe "#is_numeric?" do
+    it "should return true for a valid number" do
+      expect(true.is_numeric?).to be_true
+      expect(false.is_numeric?).to be_true
+      expect(nil.is_numeric?).to be_true
+      expect("123".is_numeric?).to be_true
+      expect("-123".is_numeric?).to be_true
+      expect("+123.45".is_numeric?(Float, ::Lazier::Object::FLOAT_MATCHER)).to be_true
+    end
+
+    it "should return false for a invalid number" do
+      expect("s123".is_numeric?).to be_false
+      expect("123.12".is_numeric?).to be_false
+    end
+  end
+  
   describe "#is_integer?" do
     it "should return true for a valid number" do
       expect(true.is_integer?).to be_true

@@ -51,14 +51,14 @@ module Lazier
       #
       # @param property [String|Symbol] The property to check.
       def assert_property_set!(property)
-        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if send(property).nil?
+        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if send(property).is_a?(NilClass)
       end
 
       # Checks if a property is required.
       #
       # @param property [String|Symbol] The property to check.
       def assert_property_required!(property, value)
-        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.nil?
+        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.is_a?(NilClass)
       end
   end
 end

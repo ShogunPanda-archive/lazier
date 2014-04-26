@@ -32,15 +32,23 @@ module Lazier
     #
     # @return [Boolean] `true` is a valid integer, `false` otherwise.
     def is_integer?
-      is_a?(::Integer) || is_a?(::TrueClass) || !self || normalize_number =~ ::Lazier::Object::INTEGER_MATCHER
+      is_numeric?(Integer, ::Lazier::Object::INTEGER_MATCHER)
     end
 
     # Checks if the object is a valid float.
     #
     # @return [Boolean] `true` is a valid float, `false` otherwise.
     def is_float?
-      is_a?(::Numeric) || is_a?(::TrueClass) || !self || normalize_number =~ ::Lazier::Object::FLOAT_MATCHER
+      is_numeric?(Numeric, ::Lazier::Object::FLOAT_MATCHER)
     end
+
+    # Checks if the object is of a numeric class of matches a numeric string expression.
+    #
+    # @return [Boolean] `true` is a valid numeric object, `false` otherwise.
+    def is_numeric?(klass = Integer, matcher = ::Lazier::Object::INTEGER_MATCHER)
+      is_a?(klass) || is_a?(::TrueClass) || !self || normalize_number =~ matcher
+    end
+
     alias :is_number? :is_float?
 
     # Checks if the object is a valid boolean value.
@@ -76,7 +84,7 @@ module Lazier
     # @param stringifier [Symbol] The method used to convert the object to a string. *Ignored if a block is passed.*
     # @return [String] The string representation of the object.
     def ensure_string(default_value = "", stringifier = :to_s)
-      !nil? ? (block_given? ? yield(self, default_value) : send(stringifier)) : default_value
+      !is_a?(NilClass) ? (block_given? ? yield(self, default_value) : send(stringifier)) : default_value
     end
 
     # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
@@ -96,28 +104,19 @@ module Lazier
 
     # Makes sure that the object is an hash. For non hash objects, return an hash basing on the `default_value` parameter.
     #
-    # @param access [Symbol|NilClass] The requested access for the keys of the returned object. Can be `:strings`, `:symbols` or `indifferent`. If `nil` the keys are not modified.
-    # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`). Passing `nil` is equal to pass an empty Hash.
-    # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if a block is present.*
+    # @param access [Symbol|NilClass] The requested access for the keys of the returned object. Can be `:strings`, `:symbols` or `indifferent`.
+    #   If `nil` the keys are not modified.
+    # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build
+    #   as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+    #   Passing `nil` is equal to pass an empty Hash.
+    # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
+    # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
-    def ensure_hash(access = nil, default_value = nil, sanitizer = nil)
-      default_value = {} if default_value.nil?
+    def ensure_hash(access = nil, default_value = nil, sanitizer = nil, &block)
+      default_value = {} if default_value.is_a?(NilClass)
 
-      rv = if is_a?(::Hash) then
-        self
-      elsif default_value.is_a?(::Hash) then
-        default_value
-      else
-        key = default_value.is_a?(::String) || default_value.is_a?(::Symbol) ? default_value : :key
-        {key => self}
-      end
-
-      if block_given? || sanitizer then
-        rv = rv.reduce({}) {|h, (k, v)|
-          h[k] = block_given? ? yield(v) : v.send(sanitizer)
-          h
-        }
-      end
+      rv = convert_to_hash(default_value)
+      rv = sanitize_hash(rv, sanitizer, block) if block || sanitizer
 
       rv.respond_to?(:ensure_access) ? rv.ensure_access(access) :rv
     end
@@ -227,5 +226,36 @@ module Lazier
         rv = rv.compact if compact
         rv
       end
+
+      # Converts the object to a hash.
+      #
+      # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build
+      #   as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+      #   Passing `nil` is equal to pass an empty Hash.
+      # @return [Hash] An hash.
+      def convert_to_hash(default_value)
+        if is_a?(::Hash)
+          self
+        elsif default_value.is_a?(::Hash)
+          default_value
+        else
+          key = default_value.is_a?(::String) || default_value.is_a?(::Symbol) ? default_value : :key
+          {key => self}
+        end
+      end
+
+      # Sanitizes an hash
+      #
+      # @param hash [Hash] The hash to sanitize.
+      # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
+      # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
+      # @return [Hash] The sanitized hash.
+      def sanitize_hash(hash, sanitizer, block)
+        hash.reduce({}) { |h, (k, v)|
+          h[k] = block ? block.call(v) : v.send(sanitizer)
+          h
+        }
+      end
+
   end
 end

@@ -79,7 +79,15 @@ module Lazier
 
   # Loads Hash extensions.
   def self.load_hash
-    ::Hash.class_eval { include ::Lazier::Hash }
+    ::Hash.class_eval do
+      begin
+        remove_method(:compact)
+        remove_method(:compact!)
+      rescue
+      end
+
+      include ::Lazier::Hash
+    end
   end
 
   # Loads Hash method access extensions.
@@ -112,7 +120,8 @@ module Lazier
 
   # Finds a class to instantiate.
   #
-  # @param cls [Symbol|String|Object] If a `String` or a `Symbol` or a `Class`, then it will be the class to instantiate. Otherwise the class of the object will returned.
+  # @param cls [Symbol|String|Object] If a `String` or a `Symbol` or a `Class`, then it will be the class to instantiate.
+  #   Otherwise the class of the object will returned.
   # @param scope [String] An additional scope to find the class. `%CLASS%`, `%`, `$`, `?` and `@` will be substituted with the class name.
   # @param only_in_scope [Boolean] If only try to instantiate the class in the scope.
   # @return [Class] The found class.
@@ -127,7 +136,7 @@ module Lazier
         rv = search_class(cls) # Search outside scope
       end
 
-      rv = search_class(scope.to_s.gsub(/%CLASS%|[@%$?]/, cls)) if !rv && cls !~ /^::/ && scope.present? # Search inside scope
+      rv = search_inside_scope(rv, cls, scope) # Search inside scope
       rv || raise(NameError.new("", cls))
     else
       cls.is_a?(::Class) ? cls : cls.class
@@ -139,7 +148,8 @@ module Lazier
   # @param message [String|NilClass] An optional message (see return value).
   # @param precision [Fixnum] The precision for the message (see return value)..
   # @param block [Proc] The block to evaluate.
-  # @return [Float|String] If a `message` is provided, then the message itself plus the duration under parenthesis will be returned, otherwise the duration alone as a number.
+  # @return [Float|String] If a `message` is provided, then the message itself plus the duration under parenthesis will be returned,
+  #   otherwise the duration alone as a number.
   def self.benchmark(message = nil, precision = 0, &block)
     rv = Benchmark.ms(&block)
     message ? ("%s (%0.#{precision}f ms)" % [message, rv]) : rv
@@ -152,5 +162,15 @@ module Lazier
     # @return [Class] The instantiated class or `nil`, if the class was not found.
     def self.search_class(cls)
       cls.constantize rescue nil
+    end
+
+    # Finds a class inside a specific scope.
+    #
+    # @param current [Class] The class found outside the scope.
+    # @param cls [String] The class to search.
+    # @param scope [String] The scope to search the class into.
+    # @return [Class] The found class.
+    def self.search_inside_scope(current, cls, scope)
+      !current && cls !~ /^::/ && scope.present? ? search_class(scope.to_s.gsub(/%CLASS%|[@%$?]/, cls)) : current
     end
 end

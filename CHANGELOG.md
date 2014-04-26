@@ -1,3 +1,8 @@
+### 3.5.2 / 2014-04-26
+
+* Added `Lazier::Object#is_numeric?`.
+* Metrics and style fixes.
+
 ### 3.5.1 / 2014-02-16
 
 * `Lazier::Hash#ensure_access` now supports multiple accesses.

@@ -22,8 +22,7 @@ module Lazier
     # @param validator [Proc], if present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.
     # @return [Hash] The hash with all blank values removed.
     def compact(&validator)
-      validator ||= ->(_, v) { v.blank? }
-      reject(&validator)
+      dup.compact!(&validator)
     end
 
     # Compacts the current hash, removing all keys which values are blank.
@@ -39,7 +38,7 @@ module Lazier
     # @param accesses [Array] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
     # @return [Hash] The current hash with keys modified.
     def ensure_access(*accesses)
-      accesses.compact.inject(self) do |rv, access|
+      accesses.compact.reduce(self) do |rv, access|
         method = VALID_ACCESSES.fetch(access.ensure_string.to_sym, nil)
         rv = rv.send(method) if method
         rv
@@ -56,16 +55,25 @@ module Lazier
       extend(Hashie::Extensions::MethodWriter) if !readonly
 
       each do |_, value|
-        if value.is_a?(Hash) then
-          value.enable_dotted_access(readonly)
-        elsif value.respond_to?(:each) then
-          value.each do |element|
-            element.enable_dotted_access(readonly) if element.is_a?(Hash)
-          end
-        end
+        enable_dotted_access_for_value(value, readonly)
       end
 
       self
+    end
+
+    # Makes sure that the value is accessible using dotted notation. This is also applied to every embedded hash.
+    #
+    # @param value [Object] The value to manipulate.
+    # @param readonly [Boolean] If the dotted notation is only enable for reading. `true` by default.
+    # @return [Hash] The current value enabled for dotted access.
+    def enable_dotted_access_for_value(value, readonly)
+      if value.is_a?(Hash) then
+        value.enable_dotted_access(readonly)
+      elsif value.respond_to?(:each) then
+        value.each do |element|
+          element.enable_dotted_access(readonly) if element.is_a?(Hash)
+        end
+      end
     end
   end
 end

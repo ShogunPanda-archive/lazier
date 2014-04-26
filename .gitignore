@@ -9,3 +9,7 @@ pkg/
 /metrics
 /.metrics
 /tmp/metric_fu
+
+/metrics
+/.metrics
+/tmp/metric_fu

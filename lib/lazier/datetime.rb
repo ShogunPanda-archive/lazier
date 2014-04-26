@@ -123,9 +123,9 @@ module Lazier
 
         # Compute using Anonymous Gregorian Algorithm: http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
         data = easter_start(year)
-        data = easter_part_1(data)
-        data = easter_part_2(year, data)
-        data = easter_part_3(year, data)
+        data = easter_divide(data)
+        data = easter_aggregate(year, data)
+        data = easter_prepare(year, data)
         day, month = easter_end(data)
 
         ::Date.civil(year, month, day)
@@ -147,22 +147,22 @@ module Lazier
       # @param format [String] The format to check the value against.
       # @return [Boolean] `true` if the value is valid against the format, `false` otherwise.
       def is_valid?(value, format = "%F %T")
-        !(::DateTime.strptime(value, self.custom_format(format)) rescue nil).nil?
+        !(::DateTime.strptime(value, self.custom_format(format)) rescue nil).is_a?(NilClass)
       end
 
       private
         # Part one of Easter calculation.
         #
         # @param year [Fixnum] The year to compute the date for.
-        # @return [Array] Partial variables for #easter_part_1.
+        # @return [Array] Partial variables for #easter_divide.
         def easter_start(year)
           [year % 19, (year / 100.0).floor, year % 100]
         end
 
         # Part two of Easter calculation.
         # @param data [Fixnum] Partial variables from #easter_start.
-        # @return [Array] Partial variables for #easter_part_2.
-        def easter_part_1(data)
+        # @return [Array] Partial variables for #easter_aggregate.
+        def easter_divide(data)
           _, b, c = data
 
           [
@@ -175,9 +175,9 @@ module Lazier
 
         # Part three of Easter calculation.
         #
-        # @param data [Fixnum] Partial variables from #easter_part_1.
-        # @return [Array] Partial variables for #easter_part_3.
-        def easter_part_2(year, data)
+        # @param data [Fixnum] Partial variables from #easter_divide.
+        # @return [Array] Partial variables for #easter_prepare.
+        def easter_aggregate(year, data)
           a = year % 19
           x, e, i, k = data
           h = ((19 * a) + x + 15) % 30
@@ -185,9 +185,9 @@ module Lazier
         end
 
         # Part four of Easter calculation
-        # @param data [Arrays] Partial variables from #easter_part_2.
+        # @param data [Arrays] Partial variables from #easter_aggregate.
         # @return [Array] Partial variables for #easter_end.
-        def easter_part_3(year, data)
+        def easter_prepare(year, data)
           a = year % 19
           h, l = data
           [h, l, ((a + (11 * h) + (22 * l)) / 451.0).floor]
@@ -195,7 +195,7 @@ module Lazier
 
         # Final part of Easter calculation.
         #
-        # @param data [Fixnum] Variable from #easter_part_3.
+        # @param data [Fixnum] Variable from #easter_prepare.
         # @return [Array] Day and month of Easter day.
         def easter_end(data)
           h, l, m = data
@@ -317,7 +317,9 @@ module Lazier
         dst_label ||= "(DST)"
 
         @zones_names ||= { "STANDARD" => ::ActiveSupport::TimeZone.all.map(&:to_s) }
-        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all.map { |zone| fetch_aliases(zone, dst_label) }.flatten.compact.uniq.sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
+        @zones_names["DST[#{dst_label}]-STANDARD"] ||= ::ActiveSupport::TimeZone.all
+          .map { |zone| fetch_aliases(zone, dst_label) }.flatten.compact.uniq
+          .sort { |a,b| ::ActiveSupport::TimeZone.compare(a, b) } # Sort by name
 
         @zones_names["#{with_dst ? "DST[#{dst_label}]-" : ""}STANDARD"]
       end
@@ -352,17 +354,13 @@ module Lazier
       # @return [String|TimeZone] The found timezone or `nil` if the zone is not valid.
       def unparameterize_zone(tz, as_string = false, dst_label = nil)
         tz = parameterize_zone(tz, false)
-        matcher = /(#{Regexp.quote(tz)})$/
+        rv = find_parameterized_zone(dst_label, /(#{Regexp.quote(tz)})$/)
 
-        rv = catch(:zone) do
-          list_all(true, dst_label).each do |zone|
-            throw(:zone, zone) if parameterize_zone(zone, false) =~ matcher
-          end
-
+        if rv
+          as_string ? rv : self.find(rv, dst_label)
+        else
           nil
         end
-
-        rv ? (as_string ? rv : self.find(rv, dst_label)) : nil
       end
 
       # Compares two timezones. They are sorted by the location name.
@@ -387,6 +385,21 @@ module Lazier
           zone.aliases.map { |zone_alias|
             [zone.to_str(zone_alias), (zone.uses_dst? && zone_alias !~ matcher) ? zone.to_str_with_dst(dst_label, nil, zone_alias) : nil]
           }
+        end
+
+        # Finds a parameterized timezone.
+        #
+        # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
+        # @param matcher [Regexp] The expression to match.
+        # @return [TimeZone] The found timezone or `nil` if the zone is not valid.
+        def find_parameterized_zone(dst_label, matcher)
+          catch(:zone) do
+            list_all(true, dst_label).each do |zone|
+              throw(:zone, zone) if parameterize_zone(zone, false) =~ matcher
+            end
+
+            nil
+          end
         end
     end
 
@@ -505,7 +518,7 @@ module Lazier
     # @param name [String] The name to use for this zone. Defaults to the zone name.
     # @return [String] The string representation for the zone with DST or `nil`, if the timezone doesn't use DST for that year.
     def to_str_with_dst(dst_label = nil, year = nil, name = nil)
-      self.uses_dst?(year) ? "(GMT#{self.class.seconds_to_utc_offset(dst_period(year).utc_total_offset)}) #{name || current_alias} #{dst_label || "(DST)"}" : nil
+      uses_dst?(year) ? "(GMT#{self.class.seconds_to_utc_offset(dst_period(year).utc_total_offset)}) #{name || current_alias} #{dst_label || "(DST)"}" : nil
     end
 
     # Returns a parameterized string representation for this zone.
@@ -536,7 +549,11 @@ module Lazier
       # @param reference [String] The main name for the zone.
       # @return [String|nil] The formatted alias.
       def format_alias(name, zone, reference)
-        zone.gsub("_", " ") == reference ? (["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)")) ? name : reference.gsub(/\/.*/, "/#{name}") : nil
+        if zone.gsub("_", " ") == reference then
+          ["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)") ? name : reference.gsub(/\/.*/, "/#{name}")
+        else
+          nil
+        end
       end
   end
 end

@@ -6,7 +6,7 @@
 
 require "spec_helper"
 
-describe Lazier::Hash do
+describe Object do
   subject {
     rv = {a: 1, "b" => {c: 2, d: {"e" => 3}}}
     rv.default = 0
@@ -43,7 +43,7 @@ describe Lazier::Hash do
     end
 
     it "should use a custom validator" do
-      expect({a: 1, b: nil, c: 3}.compact {|k, v| v == 1 || k == :c}).to eq({b: nil})
+      expect({a: 1, b: nil, c: 3}.compact{|k, v| v == 1 || k == :c}).to eq({b: nil})
     end
 
     it "should not be destructive" do

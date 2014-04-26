@@ -66,7 +66,9 @@ module Lazier
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
     def setup_format_number(precision = 2, decimal_separator = ".", add_string = nil, k_separator = ",")
-      @format_number = ::HashWithIndifferentAccess.new({precision: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator})
+      @format_number = ::HashWithIndifferentAccess.new({
+        precision: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator
+      })
     end
 
     # Setups strings representation of booleans.
