@@ -31,32 +31,36 @@ module Lazier
     # Checks if the object is a valid integer.
     #
     # @return [Boolean] `true` is a valid integer, `false` otherwise.
-    def is_integer?
-      is_numeric?(Integer, ::Lazier::Object::INTEGER_MATCHER)
+    def integer?
+      numeric?(Integer, ::Lazier::Object::INTEGER_MATCHER)
     end
+    alias_method :is_integer?, :integer?
 
     # Checks if the object is a valid float.
     #
     # @return [Boolean] `true` is a valid float, `false` otherwise.
-    def is_float?
-      is_numeric?(Numeric, ::Lazier::Object::FLOAT_MATCHER)
+    def float?
+      numeric?(Numeric, ::Lazier::Object::FLOAT_MATCHER)
     end
+    alias_method :number?, :float?
+    alias_method :is_float?, :float?
+    alias_method :is_number?, :float?
 
     # Checks if the object is of a numeric class of matches a numeric string expression.
     #
     # @return [Boolean] `true` is a valid numeric object, `false` otherwise.
-    def is_numeric?(klass = Integer, matcher = ::Lazier::Object::INTEGER_MATCHER)
+    def numeric?(klass = Integer, matcher = ::Lazier::Object::INTEGER_MATCHER)
       is_a?(klass) || is_a?(::TrueClass) || !self || normalize_number =~ matcher
     end
-
-    alias :is_number? :is_float?
+    alias_method :is_numeric?, :numeric?
 
     # Checks if the object is a valid boolean value.
     #
     # @return [Boolean] `true` is a valid boolean value, `false` otherwise.
-    def is_boolean?
+    def boolean?
       is_a?(::TrueClass) || !self || to_s =~ ::Lazier::Object::BOOLEAN_MATCHER
     end
+    alias_method :is_boolean?, :boolean?
 
     # Sends a method to the object. If the objects doesn't not respond to the method, it returns `nil` instead of raising an exception.
     #
@@ -84,7 +88,11 @@ module Lazier
     # @param stringifier [Symbol] The method used to convert the object to a string. *Ignored if a block is passed.*
     # @return [String] The string representation of the object.
     def ensure_string(default_value = "", stringifier = :to_s)
-      !is_a?(NilClass) ? (block_given? ? yield(self, default_value) : send(stringifier)) : default_value
+      if is_a?(NilClass)
+        default_value
+      else
+        block_given? ? yield(self, default_value) : send(stringifier)
+      end
     end
 
     # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
@@ -97,7 +105,13 @@ module Lazier
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
     def ensure_array(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &block)
-      rv = is_a?(::Array) ? dup : (default_value || (self.is_a?(NilClass) ? [] : [self]))
+      rv =
+        if is_a?(::Array)
+          dup
+        else
+          default_value || (self.is_a?(NilClass) ? [] : [self])
+        end
+
       rv = manipulate_array(rv, uniq, compact, flatten).map(&(block || sanitizer)) if block_given? || sanitizer
       manipulate_array(rv, uniq, compact, flatten)
     end
@@ -118,14 +132,14 @@ module Lazier
       rv = convert_to_hash(default_value)
       rv = sanitize_hash(rv, sanitizer, block) if block || sanitizer
 
-      rv.respond_to?(:ensure_access) ? rv.ensure_access(access) :rv
+      rv.respond_to?(:ensure_access) ? rv.ensure_access(access) : rv
     end
 
     # Converts the object to a boolean.
     #
     # @return [Boolean] The boolean representation of the object.
     def to_boolean
-      is_a?(TrueClass) || self == 1.0 || self == 1 || !!(ensure_string =~ ::Lazier::Object::BOOLEAN_TRUE_MATCHER) || false
+      is_a?(TrueClass) || to_integer == 1 || ::Lazier::Object::BOOLEAN_TRUE_MATCHER.match(ensure_string).is_a?(MatchData)
     end
 
     # Converts the object to a integer.
@@ -141,7 +155,11 @@ module Lazier
     # @param default_value [Float] The value to return if the conversion is not possible.
     # @return [Float] The float representation of the object.
     def to_float(default_value = 0.0)
-      is_float? ? ::Kernel.Float(is_a?(::Numeric) ? self : normalize_number) : default_value
+      if is_float?
+        ::Kernel.Float(is_a?(::Numeric) ? self : normalize_number)
+      else
+        default_value
+      end
     end
 
     # Returns the rounded float representaton of the object.
@@ -161,15 +179,14 @@ module Lazier
     # @param k_separator [String] The string to use as thousands separator.
     # @return [String] The string representation of the object.
     def format_number(precision = nil, decimal_separator = nil, add_string = nil, k_separator = nil)
-      if is_number? then
+      if is_number?
         settings = ::Lazier.settings.format_number
         add_string ||= settings[:add_string]
 
-        rv = ("%0.#{[precision || settings[:precision], 0].max}f" % to_float).split(".")
+        rv = format("%0.#{[precision || settings[:precision], 0].max}f", to_float).split(".")
         rv[0].gsub!(/(\d)(?=(\d{3})+(?!\d))/, "\\1#{k_separator || settings[:k_separator]}")
         rv = rv.join(decimal_separator || settings[:decimal_separator])
-        rv += " #{add_string}" if add_string
-        rv
+        add_string ? rv + " #{add_string}" : rv
       else
         nil
       end
@@ -193,7 +210,7 @@ module Lazier
     # @param formatter [Symbol] The method to use to format the label. Must accept the `length` and the `filler arguments.
     # @return [String] The object inspected and formatted.
     def indexize(length = 2, filler = "0", formatter = :rjust)
-      self.ensure_string.send(formatter, length, filler)
+      ensure_string.send(formatter, length, filler)
     end
 
     # Inspects an object.
@@ -202,60 +219,59 @@ module Lazier
     # @param as_exception [Boolean] If raise an exception.
     # @return [String] The object inspected and formatted.
     def for_debug(format = :yaml, as_exception = true)
-      rv = case format
-        when :pretty_json
-          ::JSON.pretty_generate(self)
-        else
-          send("to_#{format}")
-      end
+      rv =
+        case format
+        when :pretty_json then ::JSON.pretty_generate(self)
+        else send("to_#{format}")
+        end
 
-      as_exception ? raise(::Lazier::Exceptions::Debug.new(rv)) : rv
+      as_exception ? raise(::Lazier::Exceptions::Debug, rv) : rv
     end
 
     private
-      # Performs manipulation on an array.
-      #
-      # @param rv [Array] The input array.
-      # @param uniq [Boolean] If to remove duplicates from the array.
-      # @param compact [Boolean] If to compact the array.
-      # @param flatten [Boolean] If to flatten the array.
-      # @return [Array] The manipulated array.
-      def manipulate_array(rv, uniq, compact, flatten)
-        rv = rv.flatten if flatten
-        rv = rv.uniq if uniq
-        rv = rv.compact if compact
-        rv
-      end
 
-      # Converts the object to a hash.
-      #
-      # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build
-      #   as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
-      #   Passing `nil` is equal to pass an empty Hash.
-      # @return [Hash] An hash.
-      def convert_to_hash(default_value)
-        if is_a?(::Hash)
-          self
-        elsif default_value.is_a?(::Hash)
-          default_value
-        else
-          key = default_value.is_a?(::String) || default_value.is_a?(::Symbol) ? default_value : :key
-          {key => self}
-        end
-      end
+    # Performs manipulation on an array.
+    #
+    # @param rv [Array] The input array.
+    # @param uniq [Boolean] If to remove duplicates from the array.
+    # @param compact [Boolean] If to compact the array.
+    # @param flatten [Boolean] If to flatten the array.
+    # @return [Array] The manipulated array.
+    def manipulate_array(rv, uniq, compact, flatten)
+      rv = rv.flatten if flatten
+      rv = rv.uniq if uniq
+      rv = rv.compact if compact
+      rv
+    end
 
-      # Sanitizes an hash
-      #
-      # @param hash [Hash] The hash to sanitize.
-      # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
-      # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
-      # @return [Hash] The sanitized hash.
-      def sanitize_hash(hash, sanitizer, block)
-        hash.reduce({}) { |h, (k, v)|
-          h[k] = block ? block.call(v) : v.send(sanitizer)
-          h
-        }
+    # Converts the object to a hash.
+    #
+    # @param default_value [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build
+    #   as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
+    #   Passing `nil` is equal to pass an empty Hash.
+    # @return [Hash] An hash.
+    def convert_to_hash(default_value)
+      if is_a?(::Hash)
+        self
+      elsif default_value.is_a?(::Hash)
+        default_value
+      else
+        key = default_value.is_a?(::String) || default_value.is_a?(::Symbol) ? default_value : :key
+        {key => self}
       end
+    end
 
+    # Sanitizes an hash
+    #
+    # @param hash [Hash] The hash to sanitize.
+    # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
+    # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
+    # @return [Hash] The sanitized hash.
+    def sanitize_hash(hash, sanitizer, block)
+      hash.reduce({}) { |h, (k, v)|
+        h[k] = block ? block.call(v) : v.send(sanitizer)
+        h
+      }
+    end
   end
 end

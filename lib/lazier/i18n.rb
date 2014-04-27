@@ -45,40 +45,41 @@ module Lazier
     end
 
     private
-      # Loads a locale for messages.
-      #
-      # @param locale [Symbol] The new locale. Default is the current system locale.
-      # @return [R18n::Translation] The new translation object.
-      def i18n_load_locale(locale)
-        path = @i18n_locales_path || ""
-        locales = validate_locales([locale], path)
 
-        begin
-          tokens = @i18n_root.to_s.split(/[:.]/)
-          translation = tokens.reduce(R18n::I18n.new(locales, path).t) {|accu, token| accu.send(token) }
-          raise ArgumentError if translation.is_a?(R18n::Untranslated)
-          translation
-        rescue
-          raise Lazier::Exceptions::MissingTranslation.new(locales, path)
-        end
-      end
+    # Loads a locale for messages.
+    #
+    # @param locale [Symbol] The new locale. Default is the current system locale.
+    # @return [R18n::Translation] The new translation object.
+    def i18n_load_locale(locale)
+      path = @i18n_locales_path || ""
+      locales = validate_locales([locale], path)
 
-      # Validates locales for messages.
-      #
-      # @param locales [Array] The list of locales to validate. English is added as fallback.
-      # @param path [String] The path where look into.
-      # @return [Array] The list of valid locales.
-      def validate_locales(locales, path)
-        (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path)}.uniq.map(&:to_s)
+      begin
+        tokens = @i18n_root.to_s.split(/[:.]/)
+        translation = tokens.reduce(R18n::I18n.new(locales, path).t) { |a, e| a.send(e) }
+        raise ArgumentError if translation.is_a?(R18n::Untranslated)
+        translation
+      rescue
+        raise Lazier::Exceptions::MissingTranslation.new(locales, path)
       end
+    end
 
-      # Find a locale file in a path.
-      #
-      # @param locale [String] The locale to find.
-      # @param path [String] The path where look into.
-      # @return [String|nil] The version of the locale found or `nil`, if nothing was found.
-      def find_locale_in_path(locale, path)
-        locale ? [locale, locale[0, 5], locale[0, 2]].select {|l| File.exists?("#{path}/#{l}.yml") }.first : nil
-      end
+    # Validates locales for messages.
+    #
+    # @param locales [Array] The list of locales to validate. English is added as fallback.
+    # @param path [String] The path where look into.
+    # @return [Array] The list of valid locales.
+    def validate_locales(locales, path)
+      (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path) }.uniq.map(&:to_s)
+    end
+
+    # Find a locale file in a path.
+    #
+    # @param locale [String] The locale to find.
+    # @param path [String] The path where look into.
+    # @return [String|nil] The version of the locale found or `nil`, if nothing was found.
+    def find_locale_in_path(locale, path)
+      locale ? [locale, locale[0, 5], locale[0, 2]].select { |l| File.exist?("#{path}/#{l}.yml") }.first : nil
+    end
   end
 end

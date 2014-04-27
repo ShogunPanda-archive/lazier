@@ -52,7 +52,7 @@ module Lazier
     def enable_dotted_access(readonly = true)
       extend(Hashie::Extensions::MethodReader)
       extend(Hashie::Extensions::MethodQuery)
-      extend(Hashie::Extensions::MethodWriter) if !readonly
+      extend(Hashie::Extensions::MethodWriter) unless readonly
 
       each do |_, value|
         enable_dotted_access_for_value(value, readonly)
@@ -67,7 +67,7 @@ module Lazier
     # @param readonly [Boolean] If the dotted notation is only enable for reading. `true` by default.
     # @return [Hash] The current value enabled for dotted access.
     def enable_dotted_access_for_value(value, readonly)
-      if value.is_a?(Hash) then
+      if value.is_a?(Hash)
         value.enable_dotted_access(readonly)
       elsif value.respond_to?(:each) then
         value.each do |element|

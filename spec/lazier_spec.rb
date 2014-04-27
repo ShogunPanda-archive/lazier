@@ -13,33 +13,33 @@ describe Lazier do
       ::Lazier.load!
 
       it "for Boolean" do
-        expect(true).to respond_to("value")
-        expect(true).to respond_to("to_i")
+        expect(true).to respond_to(:value)
+        expect(true).to respond_to(:to_i)
       end
 
       it "for DateTime" do
-        expect(::DateTime).to respond_to("custom_format")
-        expect(::DateTime.now).to respond_to("lstrftime")
+        expect(::DateTime).to respond_to(:custom_format)
+        expect(::DateTime.now).to respond_to(:lstrftime)
       end
 
       it "for Hash" do
-        expect({a: "b"}).to respond_to("a")
+        expect({a: "b"}).to respond_to(:ensure_access)
       end
 
       it "for Math" do
-        expect(::Math).to respond_to("min")
+        expect(::Math).to respond_to(:min)
       end
 
       it "for Object" do
-        expect(0).to respond_to("for_debug")
+        expect(0).to respond_to(:for_debug)
       end
 
       it "for Pathname" do
-        expect(::Pathname.new($0)).to respond_to("components")
+        expect(::Pathname.new($0)).to respond_to(:components)
       end
 
       it "for String" do
-        expect("").to respond_to("remove_accents")
+        expect("").to respond_to(:remove_accents)
       end
     end
   end

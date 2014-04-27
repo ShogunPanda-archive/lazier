@@ -1,4 +1,4 @@
-### 3.5.2 / 2014-04-26
+### 3.5.2 / 2014-04-27
 
 * Added `Lazier::Object#is_numeric?`.
 * Metrics and style fixes.

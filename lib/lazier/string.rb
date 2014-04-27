@@ -66,7 +66,7 @@ module Lazier
     # @param pattern [String|Regexp] The pattern to use.
     # @return [Array] An array of tokens.
     def split_tokens(no_blanks = true, strip = true, uniq = false, pattern = /\s*,\s*/)
-      rv = self.split(pattern)
+      rv = split(pattern)
       rv.map!(&:strip) if strip
       rv.select!(&:present?) if no_blanks
       rv.uniq! if uniq

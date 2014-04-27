@@ -30,7 +30,7 @@ module Lazier
     def self.property(property_name, options = {})
       super(property_name, options)
 
-      if options[:readonly] then
+      if options[:readonly]
         class_eval <<-ACCESSOR
           def #{property_name}=(_)
             raise ArgumentError.new(@lazier_i18n.configuration.readonly("#{property_name}", "#{name}"))
@@ -40,25 +40,26 @@ module Lazier
     end
 
     private
-      # Checks if a property exists.
-      #
-      # @param property [String|Symbol] The property to check.
-      def assert_property_exists!(property)
-        raise ArgumentError.new(@lazier_i18n.configuration.not_found(property, self.class.name)) if !self.class.property?(property)
-      end
 
-      # Checks if a property has been set.
-      #
-      # @param property [String|Symbol] The property to check.
-      def assert_property_set!(property)
-        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if send(property).is_a?(NilClass)
-      end
+    # Checks if a property exists.
+    #
+    # @param property [String|Symbol] The property to check.
+    def assert_property_exists!(property)
+      raise(ArgumentError, @lazier_i18n.configuration.not_found(property, self.class.name)) unless self.class.property?(property)
+    end
 
-      # Checks if a property is required.
-      #
-      # @param property [String|Symbol] The property to check.
-      def assert_property_required!(property, value)
-        raise ArgumentError.new(@lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.is_a?(NilClass)
-      end
+    # Checks if a property has been set.
+    #
+    # @param property [String|Symbol] The property to check.
+    def assert_property_set!(property)
+      raise(ArgumentError, @lazier_i18n.configuration.required(property, self.class.name)) if send(property).is_a?(NilClass)
+    end
+
+    # Checks if a property is required.
+    #
+    # @param property [String|Symbol] The property to check.
+    def assert_property_required!(property, value)
+      raise(ArgumentError, @lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.is_a?(NilClass)
+    end
   end
 end
