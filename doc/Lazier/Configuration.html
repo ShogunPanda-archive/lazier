@@ -6,7 +6,7 @@
 <title>
   Class: Lazier::Configuration
   
-    &mdash; Documentation by YARD 0.8.7.3
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Lazier/Configuration.html";
 </script>
 
 
@@ -368,7 +368,7 @@ Options are as follows:</p>
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_property'>property</span><span class='lparen'>(</span><span class='id identifier rubyid_property_name'>property_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_property_name'>property_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:readonly</span><span class='rbracket'>]</span> <span class='kw'>then</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:readonly</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_class_eval'>class_eval</span> <span class='heredoc_beg'>&lt;&lt;-ACCESSOR</span>
 <span class='tstring_content'>      def </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_property_name'>property_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>=(_)
         raise ArgumentError.new(@lazier_i18n.configuration.readonly(&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_property_name'>property_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;, &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;))
@@ -386,9 +386,9 @@ Options are as follows:</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Feb 23 15:47:04 2014 by
+  Generated on Sun Apr 27 17:16:43 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.0).
 </div>
 
   </body>

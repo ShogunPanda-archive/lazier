@@ -6,7 +6,7 @@
 <title>
   Module: Lazier::String
   
-    &mdash; Documentation by YARD 0.8.7.3
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Lazier/String.html";
 </script>
 
 
@@ -334,7 +334,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_valid_utf8'>ensure_valid_utf8</span><span class='lparen'>(</span><span class='id identifier rubyid_replacement'>replacement</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='comment'># This odd line is because if need to specify a different encoding (without losing infos) to replace invalid bytes and then we go back to utf-8
-</span>  <span class='op'>!</span><span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>JRUBY_VERSION</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-16</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>invalid:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>undef:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>replace:</span> <span class='id identifier rubyid_replacement'>replacement</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-8</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>RuntimeError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sorry, Lazier::String#ensure_valid_utf8 is not available on JRuby.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+</span>  <span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-16</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>invalid:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>undef:</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='label'>replace:</span> <span class='id identifier rubyid_replacement'>replacement</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>utf-8</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -586,7 +586,7 @@
       <pre class="code"><span class="info file"># File 'lib/lazier/string.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_split_tokens'>split_tokens</span><span class='lparen'>(</span><span class='id identifier rubyid_no_blanks'>no_blanks</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_strip'>strip</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*,\s*</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_map!'>map!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_strip'>strip</span>
   <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_select!'>select!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_no_blanks'>no_blanks</span>
   <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_uniq!'>uniq!</span> <span class='kw'>if</span> <span class='id identifier rubyid_uniq'>uniq</span>
@@ -723,9 +723,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Feb 23 15:47:03 2014 by
+  Generated on Sun Apr 27 17:16:42 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.0).
 </div>
 
   </body>

@@ -6,7 +6,7 @@
 <title>
   Module: Lazier::DateTime
   
-    &mdash; Documentation by YARD 0.8.7.3
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Lazier/DateTime.html";
 </script>
 
 
@@ -339,12 +339,12 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-222
-223
-224</pre>
+227
+228
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 222</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 227</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_months'>in_months</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>||</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>12</span> <span class='op'>+</span> <span class='id identifier rubyid_month'>month</span>
@@ -424,12 +424,12 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-255
-256
-257</pre>
+260
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 260</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_local_lstrftime'>local_lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_lstrftime'>lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
@@ -502,12 +502,12 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-246
-247
-248</pre>
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 251</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_local_strftime'>local_strftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -587,15 +587,15 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-238
-239
-240</pre>
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lstrftime'>lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;!%)(%[ab])</span><span class='regexp_end'>/i</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_mo'>mo</span><span class='op'>|</span> <span class='id identifier rubyid_localize_time_component'>localize_time_component</span><span class='lparen'>(</span><span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;!%)(%[ab])</span><span class='regexp_end'>/i</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mo'>mo</span><span class='op'>|</span> <span class='id identifier rubyid_localize_time_component'>localize_time_component</span><span class='lparen'>(</span><span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -644,12 +644,12 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-229
-230
-231</pre>
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 229</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 234</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_padded_month'>padded_month</span>
   <span class='id identifier rubyid_month'>month</span><span class='period'>.</span><span class='id identifier rubyid_indexize'>indexize</span>
@@ -701,12 +701,12 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-209
-210
-211</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_utc_time'>utc_time</span>
   <span class='id identifier rubyid_utc'>utc</span><span class='period'>.</span><span class='id identifier rubyid_to_time'>to_time</span>
@@ -721,9 +721,9 @@ DateTime.civil(2013, 6, 1).in_months(2011)
 </div>
 
     <div id="footer">
-  Generated on Sun Feb 23 15:47:03 2014 by
+  Generated on Sun Apr 27 17:16:42 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.0).
 </div>
 
   </body>
