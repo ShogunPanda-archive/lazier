@@ -7,6 +7,7 @@
 require "json"
 require "tzinfo"
 require "active_support/core_ext"
+require "active_support/deprecation"
 require "r18n-desktop"
 require "hashie"
 
