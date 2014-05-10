@@ -22,6 +22,7 @@ require "lazier/boolean"
 require "lazier/string"
 require "lazier/hash"
 require "lazier/datetime"
+require "lazier/timezone"
 require "lazier/math"
 require "lazier/pathname"
 
