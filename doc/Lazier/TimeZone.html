@@ -83,7 +83,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/lazier/datetime.rb</dd>
+    <dd class="r2 last">lib/lazier/timezone.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -474,13 +474,13 @@
       <pre class="lines">
 
 
-416
-417
-418
-419</pre>
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 416</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_aliases'>aliases</span>
   <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>MAPPING</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -533,20 +533,20 @@
       <pre class="lines">
 
 
-435
-436
-437
-438
-439
-440
-441
-442
-443
-444
-445</pre>
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 435</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_alias'>current_alias</span>
   <span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='id identifier rubyid_tzinfo'>tzinfo</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span>
@@ -644,14 +644,14 @@
       <pre class="lines">
 
 
-426
-427
-428
-429
-430</pre>
+157
+158
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 426</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_offset'>current_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_date'>date</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_date'>date</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
@@ -743,12 +743,12 @@
       <pre class="lines">
 
 
-487
-488
-489</pre>
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 487</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dst_correction'>dst_correction</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_dst_offset'>dst_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='symbol'>:std_offset</span><span class='rparen'>)</span>
@@ -855,12 +855,12 @@
       <pre class="lines">
 
 
-509
-510
-511</pre>
+240
+241
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 509</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 240</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dst_name'>dst_name</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(DST)</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -967,14 +967,14 @@
       <pre class="lines">
 
 
-497
-498
-499
-500
-501</pre>
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 497</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dst_offset'>dst_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='symbol'>:utc_total_offset</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span>
@@ -1049,19 +1049,19 @@
       <pre class="lines">
 
 
-459
-460
-461
-462
-463
-464
-465
-466
-467
-468</pre>
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 459</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 190</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_year'>year</span> <span class='op'>||=</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span>
@@ -1141,12 +1141,12 @@
       <pre class="lines">
 
 
-451
-452
-453</pre>
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 451</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span><span class='lparen'>(</span><span class='id identifier rubyid_rational'>rational</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rational'>rational</span> <span class='op'>?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rationalize_offset'>rationalize_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_utc_offset'>utc_offset</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_utc_offset'>utc_offset</span>
@@ -1236,12 +1236,12 @@
       <pre class="lines">
 
 
-518
-519
-520</pre>
+249
+250
+251</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 518</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 249</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str'>to_str</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_colon'>colon</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(GMT</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_formatted_offset'>formatted_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_colon'>colon</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span> <span class='op'>||</span> <span class='id identifier rubyid_current_alias'>current_alias</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1331,12 +1331,12 @@
       <pre class="lines">
 
 
-537
-538
-539</pre>
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 537</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 268</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str_parameterized'>to_str_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>||</span> <span class='id identifier rubyid_to_str'>to_str</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span><span class='rparen'>)</span>
@@ -1443,12 +1443,12 @@
       <pre class="lines">
 
 
-528
-529
-530</pre>
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 528</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 259</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(GMT</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_seconds_to_utc_offset'>seconds_to_utc_offset</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_period'>dst_period</span><span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc_total_offset'>utc_total_offset</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span> <span class='op'>||</span> <span class='id identifier rubyid_current_alias'>current_alias</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(DST)</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -1555,13 +1555,13 @@
       <pre class="lines">
 
 
-547
-548
-549
-550</pre>
+278
+279
+280
+281</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 547</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 278</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str_with_dst_parameterized'>to_str_with_dst_parameterized</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='comma'>,</span> <span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1635,16 +1635,16 @@
       <pre class="lines">
 
 
-474
-475
-476
-477
-478
-479
-480</pre>
+205
+206
+207
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 474</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uses_dst?'>uses_dst?</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:year</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:utc</span><span class='rparen'>)</span> <span class='comment'># This is a date like object
@@ -1663,7 +1663,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Apr 27 17:16:42 2014 by
+  Generated on Sat May 10 10:54:36 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.0).
 </div>
