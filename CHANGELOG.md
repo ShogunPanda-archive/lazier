@@ -1,3 +1,11 @@
+### 3.5.4 / 2014-04-11
+
+* Dropped support for Ruby < 2.1, even though the code is compatible yet.
+
+### 3.5.3 / 2014-04-10
+
+* Code style fixes.
+
 ### 3.5.2 / 2014-04-27
 
 * Added `Lazier::Object#is_numeric?`.
