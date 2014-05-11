@@ -162,7 +162,7 @@ module Lazier
   # @return [Array] The found class (if any) and the sanitized name.
   def self.perform_initial_class_search(cls, only_in_scope)
     rv = nil
-    cls.to_s.camelize
+    cls = cls.to_s.camelize
 
     if only_in_scope
       cls.gsub!(/^::/, "") # Mark only search only inside scope

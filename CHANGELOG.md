@@ -1,3 +1,7 @@
+### 3.5.5 / 2014-04-11
+
+* Bugfix for `Lazier.find_class`.
+
 ### 3.5.4 / 2014-04-11
 
 * Dropped support for Ruby < 2.1, even though the code is compatible yet.
