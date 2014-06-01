@@ -23,6 +23,10 @@ Lazier.load!
 That's all!
 See documentation for more informations.
 
+## Supported implementations.
+
+A Ruby 2.1 implementation is required. So far, only MRI supports all Ruby 2.1 requirements.
+
 ## Contributing to lazier
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

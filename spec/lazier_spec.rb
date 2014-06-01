@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -9,7 +8,6 @@ require "spec_helper"
 describe Lazier do
   describe ".load!" do
     describe "should load all extensions by default" do
-      ENV["LANG"] = "en"
       ::Lazier.load!
 
       it "for Boolean" do
@@ -19,7 +17,7 @@ describe Lazier do
 
       it "for DateTime" do
         expect(::DateTime).to respond_to(:custom_format)
-        expect(::DateTime.now).to respond_to(:lstrftime)
+        expect(::DateTime.now).to respond_to(:format)
       end
 
       it "for Hash" do
@@ -31,7 +29,7 @@ describe Lazier do
       end
 
       it "for Object" do
-        expect(0).to respond_to(:for_debug)
+        expect(0).to respond_to(:to_debug)
       end
 
       it "for Pathname" do
@@ -39,7 +37,7 @@ describe Lazier do
       end
 
       it "for String" do
-        expect("").to respond_to(:remove_accents)
+        expect("").to respond_to(:ensure_valid_utf8)
       end
     end
   end
@@ -87,12 +85,31 @@ describe Lazier do
     end
 
     it "without a message should return the elapsed time" do
-      expect(Lazier.benchmark { control = "OK" }).to be_a(Float)
+      expect(Lazier.benchmark { "OK" }).to be_a(Float)
     end
 
     it "with a message should embed the elapsed time into the given message" do
-      expect(Lazier.benchmark("MESSAGE") { control = "OK" }).to match(/^MESSAGE \(\d+ ms\)$/)
-      expect(Lazier.benchmark("MESSAGE", 2) { control = "OK" }).to match(/^MESSAGE \(\d+\.\d+ ms\)$/)
+      expect(Lazier.benchmark(message: "MESSAGE") { "OK" }).to match(/^MESSAGE \(\d+ ms\)$/)
+      expect(Lazier.benchmark(message: "MESSAGE", precision: 2) { "OK" }).to match(/^MESSAGE \(\d+\.\d+ ms\)$/)
+    end
+  end
+
+  describe ".platform" do
+    it "should detect the right platform" do
+      stub_const("RUBY_PLATFORM", "cygwin")
+      expect(Lazier.platform(true)).to eq(:win32)
+
+      stub_const("RUBY_PLATFORM", "darwin")
+      expect(Lazier.platform(true)).to eq(:osx)
+
+      stub_const("RUBY_PLATFORM", "java")
+      expect(Lazier.platform(true)).to eq(:java)
+
+      stub_const("RUBY_PLATFORM", "whatever")
+      expect(Lazier.platform(true)).to eq(:posix)
+
+      stub_const("RUBY_PLATFORM", "osx")
+      expect(Lazier.platform).to eq(:posix)
     end
   end
 end

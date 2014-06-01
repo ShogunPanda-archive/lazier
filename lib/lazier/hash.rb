@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -38,11 +37,8 @@ module Lazier
     # @param accesses [Array] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
     # @return [Hash] The current hash with keys modified.
     def ensure_access(*accesses)
-      accesses.compact.reduce(self) do |rv, access|
-        method = VALID_ACCESSES.fetch(access.ensure_string.to_sym, nil)
-        rv = rv.send(method) if method
-        rv
-      end
+      methods = accesses.ensure_array(compact: true, no_duplicates: true, flatten: true) { |m| VALID_ACCESSES[m.ensure_string.to_sym] }.compact
+      methods.reduce(self) { |a, e| a.send(e) }
     end
 
     # Makes sure that the hash is accessible using dotted notation. This is also applied to every embedded hash.
@@ -54,22 +50,18 @@ module Lazier
       extend(Hashie::Extensions::MethodQuery)
       extend(Hashie::Extensions::MethodWriter) unless readonly
 
-      each do |_, value|
-        enable_dotted_access_for_value(value, readonly)
-      end
+      each { |_, value| enable_dotted_access_for_value(value, readonly) }
 
       self
     end
 
-    # Makes sure that the value is accessible using dotted notation. This is also applied to every embedded hash.
-    #
-    # @param value [Object] The value to manipulate.
-    # @param readonly [Boolean] If the dotted notation is only enable for reading. `true` by default.
-    # @return [Hash] The current value enabled for dotted access.
+    private
+
+    # :nodoc:
     def enable_dotted_access_for_value(value, readonly)
       if value.is_a?(Hash)
         value.enable_dotted_access(readonly)
-      elsif value.respond_to?(:each) then
+      elsif value.respond_to?(:each)
         value.each do |element|
           element.enable_dotted_access(readonly) if element.is_a?(Hash)
         end

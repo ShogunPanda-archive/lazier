@@ -9,13 +9,14 @@ source "http://rubygems.org"
 gemspec
 
 # Testing
-gem "rspec", "~> 2.14.1"
-gem "rake", "~> 10.3.1"
+gem "rspec", "~> 3.0.0.rc1"
+gem "rspec-support", github: "rspec/rspec-support" if RUBY_ENGINE == "jruby"
+gem "rake", "~> 10.3"
 
 # Documentation
-gem "simplecov", ">= 0.8.2"
-gem "coveralls", ">= 0.7.0", require: false
-gem "pry", ">= 0"
-gem "yard", ">= 0.8.7"
-gem "kramdown", ">= 1.3.3"
-gem "github-markup", ">= 1.2.1" if RUBY_ENGINE != "jruby"
+gem "simplecov", "~> 0.8"
+gem "coveralls", "~> 0.7", require: false
+gem "pry", "~> 0"
+gem "yard", "~> 0.8"
+gem "kramdown", "~> 1.3"
+gem "github-markup", "~> 1.2" if RUBY_ENGINE != "jruby"

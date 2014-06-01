@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -7,14 +6,11 @@
 module Lazier
   # A configuration class to set properties.
   class Configuration < Hashie::Dash
-    include ::Lazier::I18n
-
     # Initializes a new configuration object.
     #
     # @param attributes [Hash] The initial values of properties of this configuration.
     def initialize(attributes = {}, &block)
-      @lazier_i18n = Lazier::Localizer.new(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/")).i18n
-      i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Lazier::I18n.instance
       super(attributes, &block)
     end
 
@@ -25,41 +21,43 @@ module Lazier
     # * :required - Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
     # * :readonly - Specify if the property is readonly, which means that it can only defined during creation of the configuration.
     #
-    # @param property_name [String|Symbol] The new property name.
+    # @param name [String|Symbol] The new property name.
     # @param options [Hash] The options for the property.
-    def self.property(property_name, options = {})
-      super(property_name, options)
+    def self.property(name, options = {})
+      super(name, options)
 
       if options[:readonly]
-        class_eval <<-ACCESSOR
-          def #{property_name}=(_)
-            raise ArgumentError.new(@lazier_i18n.configuration.readonly("#{property_name}", "#{name}"))
-          end
-        ACCESSOR
+        send(:define_method, "#{name}=") do |_|
+          assert_readonly_property!(name)
+        end
       end
     end
 
     private
 
-    # Checks if a property exists.
-    #
-    # @param property [String|Symbol] The property to check.
-    def assert_property_exists!(property)
-      raise(ArgumentError, @lazier_i18n.configuration.not_found(property, self.class.name)) unless self.class.property?(property)
+    # :nodoc:
+    def assert_readonly_property!(name)
+      raise(ArgumentError, assertion_error("configuration.readonly", name))
     end
 
-    # Checks if a property has been set.
-    #
-    # @param property [String|Symbol] The property to check.
-    def assert_property_set!(property)
-      raise(ArgumentError, @lazier_i18n.configuration.required(property, self.class.name)) if send(property).is_a?(NilClass)
+    # :nodoc:
+    def assert_property_exists!(name)
+      raise(ArgumentError, assertion_error("configuration.not_found", name)) unless self.class.property?(name)
     end
 
-    # Checks if a property is required.
-    #
-    # @param property [String|Symbol] The property to check.
-    def assert_property_required!(property, value)
-      raise(ArgumentError, @lazier_i18n.configuration.required(property, self.class.name)) if self.class.required?(property) && value.is_a?(NilClass)
+    # :nodoc:
+    def assert_property_set!(name)
+      raise(ArgumentError, assertion_error("configuration.required", name)) if send(name).nil?
+    end
+
+    # :nodoc:
+    def assert_property_required!(name, value)
+      raise(ArgumentError, assertion_error("configuration.required", name)) if value.nil? && self.class.required?(name)
+    end
+
+    # :nodoc:
+    def assertion_error(label, name)
+      @i18n.translate(label, name: name, class: self.class.name)
     end
   end
 end

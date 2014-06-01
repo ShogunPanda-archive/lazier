@@ -126,7 +126,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#in_months-instance_method" title="#in_months (instance method)">- (Fixnum) <strong>in_months</strong>(base = nil) </a>
+      <a href="#format-instance_method" title="#format (instance method)">- (String) <strong>format</strong>(format = nil, custom: true, change_time_zone: false) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Formats a datetime, eventually looking up also custom formats and/or moving to the current timezone.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#months_since_year-instance_method" title="#months_since_year (instance method)">- (Fixnum) <strong>months_since_year</strong>(base = nil) </a>
     
 
     
@@ -141,75 +164,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Returns the number of months passed between the beginning of the base year and the current date.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#local_lstrftime-instance_method" title="#local_lstrftime (instance method)">- (String) <strong>local_lstrftime</strong>(format = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Formats a datetime in the current timezone, looking up also custom formats.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#local_strftime-instance_method" title="#local_strftime (instance method)">- (String) <strong>local_strftime</strong>(format = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Formats a datetime in the current timezone.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#lstrftime-instance_method" title="#lstrftime (instance method)">- (String) <strong>lstrftime</strong>(format = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Formats a datetime, looking up also custom formats.</p>
 </div></span>
   
 </li>
@@ -238,29 +192,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#utc_time-instance_method" title="#utc_time (instance method)">- (UTC::Time) <strong>utc_time</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Returns the UTC::Time representation of the current datetime.</p>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -272,9 +203,128 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="in_months-instance_method">
+  <h3 class="signature first" id="format-instance_method">
   
-    - (<tt>Fixnum</tt>) <strong>in_months</strong>(base = nil) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>format</strong>(format = nil, custom: true, change_time_zone: false) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Formats a datetime, eventually looking up also custom formats and/or moving to the current timezone.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A format or a custom format name to use for formatting.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>custom</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to use custom formats.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>change_time_zone</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to move the date to the current timezone.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The formatted date.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Settings.html#setup_date_formats-instance_method" title="Lazier::Settings#setup_date_formats (method)">Settings#setup_date_formats</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168
+169
+170</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 166</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>custom:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>change_time_zone:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_target'>target</span> <span class='op'>=</span> <span class='id identifier rubyid_change_time_zone'>change_time_zone</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span>
+  <span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='id identifier rubyid_custom'>custom</span> <span class='op'>?</span> <span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;!%)(%[ab])</span><span class='regexp_end'>/i</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mo'>mo</span><span class='op'>|</span> <span class='id identifier rubyid_localize_time_component'>localize_time_component</span><span class='lparen'>(</span><span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="months_since_year-instance_method">
+  
+    - (<tt>Fixnum</tt>) <strong>months_since_year</strong>(base = nil) 
   
 
   
@@ -339,263 +389,15 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-227
-228
-229</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 227</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 148</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_in_months'>in_months</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_months_since_year'>months_since_year</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>||</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>12</span> <span class='op'>+</span> <span class='id identifier rubyid_month'>month</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="local_lstrftime-instance_method">
-  
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>local_lstrftime</strong>(format = nil) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Formats a datetime in the current timezone, looking up also custom formats.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>format</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>A format or a custom format name.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The formatted date.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="Settings.html#setup_date_formats-instance_method" title="Lazier::Settings#setup_date_formats (method)">Settings#setup_date_formats</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-260
-261
-262</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 260</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_local_lstrftime'>local_lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_lstrftime'>lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="local_strftime-instance_method">
-  
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>local_strftime</strong>(format = nil) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Formats a datetime in the current timezone.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>format</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>The format to use for formatting.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The formatted date.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-251
-252
-253</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 251</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_local_strftime'>local_strftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="lstrftime-instance_method">
-  
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>lstrftime</strong>(format = nil) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Formats a datetime, looking up also custom formats.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>format</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>A format or a custom format name to use for formatting.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The formatted date.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="Settings.html#setup_date_formats-instance_method" title="Lazier::Settings#setup_date_formats (method)">Settings#setup_date_formats</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-243
-244
-245</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 243</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_lstrftime'>lstrftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_custom_format'>custom_format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?&lt;!%)(%[ab])</span><span class='regexp_end'>/i</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mo'>mo</span><span class='op'>|</span> <span class='id identifier rubyid_localize_time_component'>localize_time_component</span><span class='lparen'>(</span><span class='id identifier rubyid_mo'>mo</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -644,72 +446,15 @@ DateTime.civil(2013, 6, 1).in_months(2011)
       <pre class="lines">
 
 
-234
-235
-236</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_padded_month'>padded_month</span>
   <span class='id identifier rubyid_month'>month</span><span class='period'>.</span><span class='id identifier rubyid_indexize'>indexize</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="utc_time-instance_method">
-  
-    - (<tt>UTC::Time</tt>) <strong>utc_time</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Returns the UTC::Time representation of the current datetime.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>UTC::Time</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The UTC::Time representation of the current datetime.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-214
-215
-216</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 214</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_utc_time'>utc_time</span>
-  <span class='id identifier rubyid_utc'>utc</span><span class='period'>.</span><span class='id identifier rubyid_to_time'>to_time</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -721,9 +466,9 @@ DateTime.civil(2013, 6, 1).in_months(2011)
 </div>
 
     <div id="footer">
-  Generated on Sun May 11 14:35:06 2014 by
+  Generated on Sun Jun  1 15:41:43 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>

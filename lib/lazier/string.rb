@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -9,18 +8,6 @@ module Lazier
   module String
     extend ::ActiveSupport::Concern
 
-    # Removes accents from the string, normalizing to the normal letter.
-    #
-    # ```ruby
-    # "èòàù".remove_accents
-    # # => "eoau"
-    # ```
-    #
-    # @return The string with all accents removed.
-    def remove_accents
-      silence_warnings { mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, "").to_s }
-    end
-
     # Makes sure the string only contains valid UTF-8 sequences.
     #
     # @param replacement [String] The string to use to replace invalid sequences.
@@ -28,27 +15,6 @@ module Lazier
     def ensure_valid_utf8(replacement = "")
       # This odd line is because if need to specify a different encoding (without losing infos) to replace invalid bytes and then we go back to utf-8
       encode("utf-16", invalid: :replace, undef: :replace, replace: replacement).encode("utf-8")
-    end
-
-    # Returns the tagged version of a string.
-    #
-    # The string is downcased and spaces are substituted with `-`.
-    #
-    # ```ruby
-    # "ABC cde".untitleize
-    # # => "abc-cde"
-    # ```
-    #
-    # @return [String] The untitleized version of the string.
-    def untitleize
-      downcase.gsub(" ", "-")
-    end
-
-    # Returns the string with all `&amp;` replaced with `&`.
-    #
-    # @return [String] The string with all `&amp;` replaced with `&`.
-    def replace_ampersands
-      gsub(/&amp;(\S+);/, "&\\1;")
     end
 
     # Returns the string itself for use in form helpers.
@@ -62,15 +28,28 @@ module Lazier
     #
     # @param no_blanks [Boolean] If filter out blank tokens.
     # @param strip [Boolean] If strip single tokens.
-    # @param uniq [Boolean] If return uniques elements.
+    # @param no_duplicates [Boolean] If return uniques elements.
     # @param pattern [String|Regexp] The pattern to use.
+    # @param presence_method [Symbol] The method to use to check if a token is present or not.
     # @return [Array] An array of tokens.
-    def split_tokens(no_blanks = true, strip = true, uniq = false, pattern = /\s*,\s*/)
+    def tokenize(no_blanks: true, strip: true, no_duplicates: false, pattern: /\s*,\s*/, presence_method: :present?)
       rv = split(pattern)
       rv.map!(&:strip) if strip
-      rv.select!(&:present?) if no_blanks
-      rv.uniq! if uniq
+      rv.select!(&presence_method) if no_blanks
+      rv.uniq! if no_duplicates
       rv
+    end
+
+    # Removes accents from the string, normalizing to the normal letter.
+    #
+    # ```ruby
+    # "èòàù".remove_accents
+    # # => "eoau"
+    # ```
+    #
+    # @return The string with all accents removed.
+    def remove_accents
+      ::I18n.transliterate(self)
     end
   end
 end

@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -15,26 +14,6 @@ describe Object do
 
   before(:each) do
     ::Lazier.load!
-  end
-
-  describe "method access" do
-    it "it is not enabled by default" do
-      expect { subject.b }.to raise_error(NoMethodError)
-    end
-  end
-
-  describe "allows access to keys using dotted notation" do
-    before(:each) do
-      ::Lazier.load!(:hash_method_access)
-    end
-
-    it "should allow method subject for symbol key" do
-      subject.b.f = 4
-
-      expect(subject.a).to eq(1)
-      expect(subject.b.c).to eq(2)
-      expect(subject["b"]["f"]).to eq(4)
-    end
   end
 
   describe "#compact" do

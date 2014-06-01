@@ -5,53 +5,54 @@
 #
 
 ---
-  lazier:
-    boolean:
-      - "Yes"
-      - "No"
-    date:
-      long_months:
-        - "Gennaio"
-        - "Febbraio"
-        - "Marzo"
-        - "Aprile"
-        - "Maggio"
-        - "Giugno"
-        - "Luglio"
-        - "Agosto"
-        - "Settembre"
-        - "Ottobre"
-        - "Novembre"
-        - "Dicembre"
-      short_monts:
-        - "Gen"
-        - "Feb"
-        - "Mar"
-        - "Apr"
-        - "Mag"
-        - "Giu"
-        - "Lug"
-        - "Ago"
-        - "SetOtt"
-        - "Nov"
-        - "Dic"
-      long_days:
-        - "Domenica"
-        - "Lunedì"
-        - "Martedì"
-        - "Mercoledì"
-        - "Giovedì"
-        - "Venerdì"
-        - "Sabato"
-      short_days:
-        - "Dom"
-        - "Lun"
-        - "Mar"
-        - "Mer"
-        - "Gio"
-        - "Ven"
-        - "Sab"
-    configuration:
-      not_defined: "La proprietà %1 non è definita per %2."
-      required: "La proprietà %1 è obbligatoria per %2."
-      readonly: "La proprietà %1 è in sola lettura per %2."
+  it:
+    lazier:
+      boolean:
+        - "Sì"
+        - "No"
+      date:
+        long_months:
+          - "Gennaio"
+          - "Febbraio"
+          - "Marzo"
+          - "Aprile"
+          - "Maggio"
+          - "Giugno"
+          - "Luglio"
+          - "Agosto"
+          - "Settembre"
+          - "Ottobre"
+          - "Novembre"
+          - "Dicembre"
+        short_months:
+          - "Gen"
+          - "Feb"
+          - "Mar"
+          - "Apr"
+          - "Mag"
+          - "Giu"
+          - "Lug"
+          - "Ago"
+          - "SetOtt"
+          - "Nov"
+          - "Dic"
+        long_days:
+          - "Domenica"
+          - "Lunedì"
+          - "Martedì"
+          - "Mercoledì"
+          - "Giovedì"
+          - "Venerdì"
+          - "Sabato"
+        short_days:
+          - "Dom"
+          - "Lun"
+          - "Mar"
+          - "Mer"
+          - "Gio"
+          - "Ven"
+          - "Sab"
+      configuration:
+        not_defined: "La proprietà %{name} non è definita per %{class}."
+        required: "La proprietà %{name} è obbligatoria per %{class}."
+        readonly: "La proprietà %{name} è in sola lettura per %{class}."

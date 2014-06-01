@@ -187,8 +187,6 @@
     
 
     
-      (also: #is_boolean?)
-    
   </span>
   
   
@@ -208,7 +206,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ensure-instance_method" title="#ensure (instance method)">- (String) <strong>ensure</strong>(default_value, verifier = :blank?) </a>
+      <a href="#ensure-instance_method" title="#ensure (instance method)">- (String) <strong>ensure</strong>(default, verifier = :blank?) </a>
     
 
     
@@ -231,7 +229,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ensure_array-instance_method" title="#ensure_array (instance method)">- (Array) <strong>ensure_array</strong>(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &amp;block) </a>
+      <a href="#ensure_array-instance_method" title="#ensure_array (instance method)">- (Array) <strong>ensure_array</strong>(default: nil, no_duplicates: false, compact: false, flatten: false, sanitizer: nil, &amp;block) </a>
     
 
     
@@ -254,7 +252,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ensure_hash-instance_method" title="#ensure_hash (instance method)">- (Hash) <strong>ensure_hash</strong>(access = nil, default_value = nil, sanitizer = nil, &amp;block) </a>
+      <a href="#ensure_hash-instance_method" title="#ensure_hash (instance method)">- (Hash) <strong>ensure_hash</strong>(accesses: nil, default: {}, sanitizer: nil, &amp;block) </a>
     
 
     
@@ -277,7 +275,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ensure_string-instance_method" title="#ensure_string (instance method)">- (String) <strong>ensure_string</strong>(default_value = &quot;&quot;, stringifier = :to_s) </a>
+      <a href="#ensure_string-instance_method" title="#ensure_string (instance method)">- (String) <strong>ensure_string</strong>(default = &quot;&quot;, conversion_method = :to_s) </a>
     
 
     
@@ -304,8 +302,6 @@
     
 
     
-      (also: #number?, #is_float?, #is_number?)
-    
   </span>
   
   
@@ -325,30 +321,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#for_debug-instance_method" title="#for_debug (instance method)">- (String) <strong>for_debug</strong>(format = :yaml, as_exception = true) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Inspects an object.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#format_boolean-instance_method" title="#format_boolean (instance method)">- (String) <strong>format_boolean</strong>(true_name = nil, false_name = nil) </a>
+      <a href="#format_boolean-instance_method" title="#format_boolean (instance method)">- (String) <strong>format_boolean</strong>(true_name: nil, false_name: nil) </a>
     
 
     
@@ -371,7 +344,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#format_number-instance_method" title="#format_number (instance method)">- (String) <strong>format_number</strong>(precision = nil, decimal_separator = nil, add_string = nil, k_separator = nil) </a>
+      <a href="#format_number-instance_method" title="#format_number (instance method)">- (String) <strong>format_number</strong>(precision: nil, decimal_separator: nil, add_string: nil, k_separator: nil) </a>
     
 
     
@@ -394,7 +367,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#indexize-instance_method" title="#indexize (instance method)">- (String) <strong>indexize</strong>(length = 2, filler = &quot;0&quot;, formatter = :rjust) </a>
+      <a href="#indexize-instance_method" title="#indexize (instance method)">- (String) <strong>indexize</strong>(length: 2, filler: &quot;0&quot;, formatter: :rjust) </a>
     
 
     
@@ -420,8 +393,6 @@
       <a href="#integer%3F-instance_method" title="#integer? (instance method)">- (Boolean) <strong>integer?</strong> </a>
     
 
-    
-      (also: #is_integer?)
     
   </span>
   
@@ -465,11 +436,9 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#numeric%3F-instance_method" title="#numeric? (instance method)">- (Boolean) <strong>numeric?</strong>(klass = Integer, matcher = ::Lazier::Object::INTEGER_MATCHER) </a>
+      <a href="#number%3F-instance_method" title="#number? (instance method)">- (Boolean) <strong>number?</strong>(klass = Integer, matcher = ::Lazier::Object::FLOAT_MATCHER) </a>
     
 
-    
-      (also: #is_numeric?)
     
   </span>
   
@@ -559,7 +528,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_float-instance_method" title="#to_float (instance method)">- (Float) <strong>to_float</strong>(default_value = 0.0) </a>
+      <a href="#to_debug-instance_method" title="#to_debug (instance method)">- (String) <strong>to_debug</strong>(format: :pretty_json, as_exception: true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Inspects an object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_float-instance_method" title="#to_float (instance method)">- (Float) <strong>to_float</strong>(default = 0.0) </a>
     
 
     
@@ -582,7 +574,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_integer-instance_method" title="#to_integer (instance method)">- (Fixnum) <strong>to_integer</strong>(default_value = 0) </a>
+      <a href="#to_integer-instance_method" title="#to_integer (instance method)">- (Fixnum) <strong>to_integer</strong>(default = 0) </a>
     
 
     
@@ -597,6 +589,29 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Converts the object to a integer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_pretty_json-instance_method" title="#to_pretty_json (instance method)">- (String) <strong>to_pretty_json</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Converts an object to a pretty formatted JSON string.</p>
 </div></span>
   
 </li>
@@ -618,10 +633,6 @@
     - (<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>boolean?</strong> 
   
 
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='is_boolean?-instance_method'>is_boolean?</span></span>
-    </span>
   
 
   
@@ -658,15 +669,15 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_boolean?'>boolean?</span>
-  <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>!</span><span class='kw'>self</span> <span class='op'>||</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>BOOLEAN_MATCHER</span>
+  <span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>FalseClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>BOOLEAN_MATCHER</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -676,7 +687,7 @@
       <div class="method_details ">
   <h3 class="signature " id="ensure-instance_method">
   
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>ensure</strong>(default_value, verifier = :blank?) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>ensure</strong>(default, verifier = :blank?) 
   
 
   
@@ -695,7 +706,7 @@
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
@@ -751,17 +762,17 @@
       <pre class="lines">
 
 
-80
-81
-82
-83</pre>
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 75</span>
 
-<span class='kw'>def</span> <span class='kw'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span><span class='comma'>,</span> <span class='id identifier rubyid_verifier'>verifier</span> <span class='op'>=</span> <span class='symbol'>:blank?</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='kw'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span><span class='comma'>,</span> <span class='id identifier rubyid_verifier'>verifier</span> <span class='op'>=</span> <span class='symbol'>:blank?</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_valid'>valid</span> <span class='op'>=</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_verifier'>verifier</span><span class='rparen'>)</span>
-  <span class='op'>!</span><span class='id identifier rubyid_valid'>valid</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_default_value'>default_value</span>
+  <span class='op'>!</span><span class='id identifier rubyid_valid'>valid</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_default'>default</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -771,7 +782,7 @@
       <div class="method_details ">
   <h3 class="signature " id="ensure_array-instance_method">
   
-    - (<tt>Array</tt>) <strong>ensure_array</strong>(default_value = nil, uniq = false, compact = false, flatten = false, sanitizer = nil, &amp;block) 
+    - (<tt>Array</tt>) <strong>ensure_array</strong>(default: nil, no_duplicates: false, compact: false, flatten: false, sanitizer: nil, &amp;block) 
   
 
   
@@ -790,13 +801,11 @@
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt>Array|NilClass</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -807,13 +816,11 @@
   
     <li>
       
-        <span class='name'>uniq</span>
+        <span class='name'>no_duplicates</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>false</tt>)</em>
       
       
         &mdash;
@@ -830,8 +837,6 @@
         <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>If to compact the array before sanitizing.</p>
@@ -847,8 +852,6 @@
         <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>If to flatten the array before sanitizing.</p>
@@ -863,8 +866,6 @@
       
         <span class='type'>(<tt>Symbol|nil</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -914,31 +915,31 @@
       <pre class="lines">
 
 
+102
+103
+104
+105
+106
 107
 108
 109
 110
 111
-112
-113
-114
-115
-116
-117</pre>
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 102</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='lparen'>(</span><span class='label'>default:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>no_duplicates:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>flatten:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>sanitizer:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Array</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_dup'>dup</span>
+      <span class='kw'>self</span>
     <span class='kw'>else</span>
-      <span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>NilClass</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_default'>default</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
     <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_block'>block</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span>
-  <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_uniq'>uniq</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_no_duplicates'>no_duplicates</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='lparen'>(</span><span class='id identifier rubyid_block'>block</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span>
+  <span class='id identifier rubyid_manipulate_array'>manipulate_array</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_no_duplicates'>no_duplicates</span><span class='comma'>,</span> <span class='id identifier rubyid_compact'>compact</span><span class='comma'>,</span> <span class='id identifier rubyid_flatten'>flatten</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -948,7 +949,7 @@
       <div class="method_details ">
   <h3 class="signature " id="ensure_hash-instance_method">
   
-    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>ensure_hash</strong>(access = nil, default_value = nil, sanitizer = nil, &amp;block) 
+    - (<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>) <strong>ensure_hash</strong>(accesses: nil, default: {}, sanitizer: nil, &amp;block) 
   
 
   
@@ -967,31 +968,26 @@
   
     <li>
       
-        <span class='name'>access</span>
+        <span class='name'>accesses</span>
       
       
-        <span class='type'>(<tt>Symbol|NilClass</tt>)</span>
+        <span class='type'>(<tt>Symbol|NilClass|Array</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>The requested access for the keys of the returned object. Can be <code>:strings</code>, <code>:symbols</code> or <code>indifferent</code>.
-If <code>nil</code> the keys are not modified.</p>
+        <div class='inline'><p>The requested access for the keys of the returned object.</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span>|<span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span>|Symbol|NilClass</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -1009,8 +1005,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       
         <span class='type'>(<tt>Symbol|nil</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -1054,31 +1048,34 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
   
 </ul>
 
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Hash.html#ensure_access-instance_method" title="Lazier::Hash#ensure_access (method)">Hash#ensure_access</a></span></li>
+    
+  </ul>
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+125
+126
+127
+128
 129
-130
-131
-132
-133
-134
-135
-136</pre>
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 125</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_default_value'>default_value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>NilClass</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_to_hash'>convert_to_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_hash'>ensure_hash</span><span class='lparen'>(</span><span class='label'>accesses:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>default:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>sanitizer:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_to_hash'>convert_to_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_sanitize_hash'>sanitize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>||</span> <span class='id identifier rubyid_sanitizer'>sanitizer</span>
 
-  <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:ensure_access</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='id identifier rubyid_access'>access</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+  <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:ensure_access</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='id identifier rubyid_accesses'>accesses</span><span class='period'>.</span><span class='id identifier rubyid_ensure_array'>ensure_array</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1088,7 +1085,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <div class="method_details ">
   <h3 class="signature " id="ensure_string-instance_method">
   
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>ensure_string</strong>(default_value = &quot;&quot;, stringifier = :to_s) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>ensure_string</strong>(default = &quot;&quot;, conversion_method = :to_s) 
   
 
   
@@ -1107,7 +1104,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
@@ -1124,7 +1121,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
   
     <li>
       
-        <span class='name'>stringifier</span>
+        <span class='name'>conversion_method</span>
       
       
         <span class='type'>(<tt>Symbol</tt>)</span>
@@ -1165,22 +1162,22 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
+85
+86
+87
+88
+89
 90
-91
-92
-93
-94
-95
-96</pre>
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 85</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_stringifier'>stringifier</span> <span class='op'>=</span> <span class='symbol'>:to_s</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_conversion_method'>conversion_method</span> <span class='op'>=</span> <span class='symbol'>:to_s</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>NilClass</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_default_value'>default_value</span>
+    <span class='id identifier rubyid_default'>default</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_default_value'>default_value</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_stringifier'>stringifier</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_conversion_method'>conversion_method</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1194,10 +1191,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
     - (<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>float?</strong> 
   
 
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='number?-instance_method'>number?</span>, <span id='is_float?-instance_method'>is_float?</span>, <span id='is_number?-instance_method'>is_number?</span></span>
-    </span>
   
 
   
@@ -1234,122 +1227,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_float?'>float?</span>
-  <span class='id identifier rubyid_numeric?'>numeric?</span><span class='lparen'>(</span><span class='const'>Numeric</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>FLOAT_MATCHER</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="for_debug-instance_method">
-  
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>for_debug</strong>(format = :yaml, as_exception = true) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Inspects an object.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>format</span>
-      
-      
-        <span class='type'></span>
-      
-      
-        <em class="default">(defaults to: <tt>:yaml</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>The format to use.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>as_exception</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>If raise an exception.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The object inspected and formatted.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-221
-222
-223
-224
-225
-226
-227
-228
-229</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 221</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_for_debug'>for_debug</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='symbol'>:yaml</span><span class='comma'>,</span> <span class='id identifier rubyid_as_exception'>as_exception</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_format'>format</span>
-    <span class='kw'>when</span> <span class='symbol'>:pretty_json</span> <span class='kw'>then</span> <span class='op'>::</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_pretty_generate'>pretty_generate</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
-    <span class='kw'>else</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_as_exception'>as_exception</span> <span class='op'>?</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>Debug</span><span class='comma'>,</span> <span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+  <span class='id identifier rubyid_number?'>number?</span><span class='lparen'>(</span><span class='const'>Numeric</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>FLOAT_MATCHER</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1359,7 +1245,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <div class="method_details ">
   <h3 class="signature " id="format_boolean-instance_method">
   
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>format_boolean</strong>(true_name = nil, false_name = nil) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>format_boolean</strong>(true_name: nil, false_name: nil) 
   
 
   
@@ -1384,8 +1270,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>The string representation of <code>true</code>. Defaults to <code>Yes</code>.</p>
@@ -1400,8 +1284,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -1443,15 +1325,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-201
-202
-203
-204</pre>
+212
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 212</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_boolean'>format_boolean</span><span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format_boolean'>format_boolean</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_settings'>settings</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_boolean_names'>boolean_names</span>
   <span class='id identifier rubyid_to_boolean'>to_boolean</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='id identifier rubyid_true_name'>true_name</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_false_name'>false_name</span> <span class='op'>||</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -1463,7 +1345,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <div class="method_details ">
   <h3 class="signature " id="format_number-instance_method">
   
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>format_number</strong>(precision = nil, decimal_separator = nil, add_string = nil, k_separator = nil) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>format_number</strong>(precision: nil, decimal_separator: nil, add_string: nil, k_separator: nil) 
   
 
   
@@ -1488,8 +1370,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
         <span class='type'>(<tt>Fixnum</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>The precision to show.</p>
@@ -1504,8 +1384,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -1522,8 +1400,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>The string to append to the number.</p>
@@ -1538,8 +1414,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -1581,25 +1455,25 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
 192
-193</pre>
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 192</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_number'>format_number</span><span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_separator'>decimal_separator</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_k_separator'>k_separator</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_is_number?'>is_number?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format_number'>format_number</span><span class='lparen'>(</span><span class='label'>precision:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_number?'>number?</span>
     <span class='id identifier rubyid_settings'>settings</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_format_number'>format_number</span>
     <span class='id identifier rubyid_add_string'>add_string</span> <span class='op'>||=</span> <span class='id identifier rubyid_settings'>settings</span><span class='lbracket'>[</span><span class='symbol'>:add_string</span><span class='rbracket'>]</span>
 
@@ -1619,7 +1493,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <div class="method_details ">
   <h3 class="signature " id="indexize-instance_method">
   
-    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>indexize</strong>(length = 2, filler = &quot;0&quot;, formatter = :rjust) 
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>indexize</strong>(length: 2, filler: &quot;0&quot;, formatter: :rjust) 
   
 
   
@@ -1644,8 +1518,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
         <span class='type'>(<tt>Fixnum</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>2</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>The minimum length of the label.</p>
@@ -1661,8 +1533,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
         <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&quot;0&quot;</tt>)</em>
-      
       
         &mdash;
         <div class='inline'><p>The minimum length of the label.</p>
@@ -1677,8 +1547,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       
         <span class='type'>(<tt>Symbol</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>:rjust</tt>)</em>
       
       
         &mdash;
@@ -1713,14 +1581,14 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-212
-213
-214</pre>
+223
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 223</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_indexize'>indexize</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_filler'>filler</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_formatter'>formatter</span> <span class='op'>=</span> <span class='symbol'>:rjust</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_indexize'>indexize</span><span class='lparen'>(</span><span class='label'>length:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>filler:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>formatter:</span> <span class='symbol'>:rjust</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_formatter'>formatter</span><span class='comma'>,</span> <span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_filler'>filler</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1734,10 +1602,6 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
     - (<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>integer?</strong> 
   
 
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='is_integer?-instance_method'>is_integer?</span></span>
-    </span>
   
 
   
@@ -1774,15 +1638,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-34
-35
-36</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_integer?'>integer?</span>
-  <span class='id identifier rubyid_numeric?'>numeric?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>INTEGER_MATCHER</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_number?'>number?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>INTEGER_MATCHER</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1831,15 +1695,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
+26
 27
-28
-29</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span>
-  <span class='id identifier rubyid_is_boolean?'>is_boolean?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>:</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\.,](?=(.*[\.,]))</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_boolean?'>boolean?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>:</span> <span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\.,](?=(.*[\.,]))</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1847,15 +1711,11 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="numeric?-instance_method">
+  <h3 class="signature " id="number?-instance_method">
   
-    - (<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>numeric?</strong>(klass = Integer, matcher = ::Lazier::Object::INTEGER_MATCHER) 
+    - (<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>) <strong>number?</strong>(klass = Integer, matcher = ::Lazier::Object::FLOAT_MATCHER) 
   
 
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='is_numeric?-instance_method'>is_numeric?</span></span>
-    </span>
   
 
   
@@ -1892,15 +1752,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-52
-53
-54</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_numeric?'>numeric?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='id identifier rubyid_matcher'>matcher</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>INTEGER_MATCHER</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>!</span><span class='kw'>self</span> <span class='op'>||</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span> <span class='op'>=~</span> <span class='id identifier rubyid_matcher'>matcher</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_number?'>number?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='id identifier rubyid_matcher'>matcher</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>FLOAT_MATCHER</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_boolean?'>boolean?</span> <span class='op'>||</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span> <span class='op'>=~</span> <span class='id identifier rubyid_matcher'>matcher</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1970,15 +1830,15 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-169
-170
-171</pre>
+180
+181
+182</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_round_to_precision'>round_to_precision</span><span class='lparen'>(</span><span class='id identifier rubyid_precision'>precision</span> <span class='op'>=</span> <span class='int'>2</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_is_number?'>is_number?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_number?'>number?</span> <span class='op'>?</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_precision'>precision</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2076,15 +1936,19 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_send'>safe_send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2133,12 +1997,12 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-141
-142
-143</pre>
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_boolean'>to_boolean</span>
   <span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>TrueClass</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_to_integer'>to_integer</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>||</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Object</span><span class='op'>::</span><span class='const'>BOOLEAN_TRUE_MATCHER</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>MatchData</span><span class='rparen'>)</span>
@@ -2149,9 +2013,102 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="to_debug-instance_method">
+  
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>to_debug</strong>(format: :pretty_json, as_exception: true) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Inspects an object.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>format</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The format to use. If different from <code>:pretty_json</code>, the object must respond to the <code>to_#{format}</code> method.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>as_exception</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>If raise an exception.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The object inspected and formatted.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+171
+172
+173
+174</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 171</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_debug'>to_debug</span><span class='lparen'>(</span><span class='label'>format:</span> <span class='symbol'>:pretty_json</span><span class='comma'>,</span> <span class='label'>as_exception:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_as_exception'>as_exception</span> <span class='op'>?</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>Debug</span><span class='comma'>,</span> <span class='id identifier rubyid_rv'>rv</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="to_float-instance_method">
   
-    - (<tt>Float</tt>) <strong>to_float</strong>(default_value = 0.0) 
+    - (<tt>Float</tt>) <strong>to_float</strong>(default = 0.0) 
   
 
   
@@ -2170,7 +2127,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt>Float</tt>)</span>
@@ -2211,22 +2168,22 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-157
-158
-159
-160
-161
-162
-163</pre>
+151
+152
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 151</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='float'>0.0</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_is_float?'>is_float?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='float'>0.0</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_float?'>float?</span>
     <span class='op'>::</span><span class='const'>Kernel</span><span class='period'>.</span><span class='const'>Float</span><span class='lparen'>(</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Numeric</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_normalize_number'>normalize_number</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_default_value'>default_value</span>
+    <span class='id identifier rubyid_default'>default</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2237,7 +2194,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <div class="method_details ">
   <h3 class="signature " id="to_integer-instance_method">
   
-    - (<tt>Fixnum</tt>) <strong>to_integer</strong>(default_value = 0) 
+    - (<tt>Fixnum</tt>) <strong>to_integer</strong>(default = 0) 
   
 
   
@@ -2256,7 +2213,7 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
   
     <li>
       
-        <span class='name'>default_value</span>
+        <span class='name'>default</span>
       
       
         <span class='type'>(<tt>Fixnum</tt>)</span>
@@ -2297,15 +2254,72 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
       <pre class="lines">
 
 
-149
-150
-151</pre>
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 143</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_integer'>to_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default_value'>default_value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_integer'>to_integer</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_float'>to_float</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_pretty_json-instance_method">
+  
+    - (<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>) <strong>to_pretty_json</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Converts an object to a pretty formatted JSON string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The object as a pretty JSON string.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+162
+163
+164</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lazier/object.rb', line 162</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_pretty_json'>to_pretty_json</span>
+  <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_platform'>platform</span> <span class='op'>!=</span> <span class='symbol'>:java</span> <span class='op'>?</span> <span class='const'>Oj</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='label'>mode:</span> <span class='symbol'>:compat</span><span class='comma'>,</span> <span class='label'>indent:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='op'>::</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_pretty_generate'>pretty_generate</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2317,9 +2331,9 @@ Passing <code>nil</code> is equal to pass an empty Hash.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun May 11 14:35:06 2014 by
+  Generated on Sun Jun  1 15:41:42 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>

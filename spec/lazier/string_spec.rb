@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -30,18 +29,6 @@ describe Lazier::String do
     end
   end
 
-  describe "#untitleize" do
-    it "should convert spaces to dashes" do
-      expect(subject.untitleize).to eq(untitleized_subject)
-    end
-  end
-
-  describe "#replace_ampersands" do
-    it "should remove HTML ampersands" do
-      expect(subject.replace_ampersands).to eq(amp_subject)
-    end
-  end
-
   describe "#value" do
     it "should return the string itself" do
       expect(subject.value).to eq(subject)
@@ -51,14 +38,14 @@ describe Lazier::String do
     end
   end
 
-  describe "split_tokens" do
+  describe "tokenize" do
     it "should return a valid array" do
-      expect("  1, 2,3,4,,,,,5,5".split_tokens()).to eq(["1", "2", "3", "4", "5", "5"])
-      expect("  1, 2,3,4,,,,,5,5".split_tokens(false)).to eq(["1", "2", "3", "4", "", "", "", "", "5", "5"])
-      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, false)).to eq(["  1", "2", "3", "4", "5", "5"])
-      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, true, true)).to eq(["1", "2", "3", "4", "5"])
-      expect("  1, 2,3,4,,,,,5,5".split_tokens(true, true, false, "@")).to eq(["1, 2,3,4,,,,,5,5"])
-      expect("1@2@3@4@5".split_tokens(true, true, false, "@")).to eq(["1", "2", "3", "4", "5"])
+      expect("  1, 2,3,4,,,,,5,5".tokenize()).to eq(["1", "2", "3", "4", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".tokenize(no_blanks: false)).to eq(["1", "2", "3", "4", "", "", "", "", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".tokenize(strip: false)).to eq(["  1", "2", "3", "4", "5", "5"])
+      expect("  1, 2,3,4,,,,,5,5".tokenize(no_duplicates: true)).to eq(["1", "2", "3", "4", "5"])
+      expect("  1, 2,3,4,,,,,5,5".tokenize(pattern: "@")).to eq(["1, 2,3,4,,,,,5,5"])
+      expect("1@2@3@4@5".tokenize(pattern: "@")).to eq(["1", "2", "3", "4", "5"])
     end
   end
 end

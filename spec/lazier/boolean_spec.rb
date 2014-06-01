@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -23,8 +22,8 @@ describe Lazier::Boolean do
 
   describe "#value" do
     it "should return self" do
-      expect(true.value).to be_true
-      expect(false.value).to be_false
+      expect(true.value).to be_truthy
+      expect(false.value).to be_falsey
     end
   end
 end

@@ -5,54 +5,55 @@
 #
 
 ---
-  lazier:
-    boolean:
-      - "Yes"
-      - "No"
-    date:
-      long_months:
-        - "January"
-        - "February"
-        - "March"
-        - "April"
-        - "May"
-        - "June"
-        - "July"
-        - "August"
-        - "September"
-        - "October"
-        - "November"
-        - "December"
-      short_months:
-        - "Jan"
-        - "Feb"
-        - "Mar"
-        - "Apr"
-        - "May"
-        - "Jun"
-        - "Jul"
-        - "Aug"
-        - "Sep"
-        - "Oct"
-        - "Nov"
-        - "Dec"
-      long_days:
-        - "Sunday"
-        - "Monday"
-        - "Tuesday"
-        - "Wednesday"
-        - "Thursday"
-        - "Friday"
-        - "Saturday"
-      short_days:
-        - "Sun"
-        - "Mon"
-        - "Tue"
-        - "Wed"
-        - "Thu"
-        - "Fri"
-        - "Sat"
-    configuration:
-      not_defined: "Property %1 is not defined for %2."
-      required: "Property %1 is required for %2."
-      readonly: "Property %1 is readonly for %2."
+  en:
+    lazier:
+      boolean:
+        - "Yes"
+        - "No"
+      date:
+        long_months:
+          - "January"
+          - "February"
+          - "March"
+          - "April"
+          - "May"
+          - "June"
+          - "July"
+          - "August"
+          - "September"
+          - "October"
+          - "November"
+          - "December"
+        short_months:
+          - "Jan"
+          - "Feb"
+          - "Mar"
+          - "Apr"
+          - "May"
+          - "Jun"
+          - "Jul"
+          - "Aug"
+          - "Sep"
+          - "Oct"
+          - "Nov"
+          - "Dec"
+        long_days:
+          - "Sunday"
+          - "Monday"
+          - "Tuesday"
+          - "Wednesday"
+          - "Thursday"
+          - "Friday"
+          - "Saturday"
+        short_days:
+          - "Sun"
+          - "Mon"
+          - "Tue"
+          - "Wed"
+          - "Thu"
+          - "Fri"
+          - "Sat"
+      configuration:
+        not_defined: "Property %{name} is not defined for %{class}."
+        required: "Property %{name} is required for %{class}."
+        readonly: "Property %{name} is readonly for %{class}."

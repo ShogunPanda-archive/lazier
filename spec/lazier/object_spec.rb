@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -25,90 +24,78 @@ describe Lazier::Object do
     end
   end
 
-  describe "#is_number?" do
+  describe "#number?" do
     it "should return true for a valid number" do
-      expect("123.45".is_number?).to be_true
-      expect("1,23.45".is_number?).to be_true
-      expect("-1.23.45".is_number?).to be_true
-      expect("+123.45".is_number?).to be_true
-      expect("+1.231,45".is_number?).to be_true
+      expect("123.45".number?).to be_truthy
+      expect("1,23.45".number?).to be_truthy
+      expect("-1.23.45".number?).to be_truthy
+      expect("+123.45".number?).to be_truthy
+      expect("+1.231,45".number?).to be_truthy
+      expect(true.number?).to be_truthy
+      expect(false.number?).to be_truthy
+      expect(nil.number?).to be_truthy
+      expect("a".number?(Float, /[a-z]/)).to be_truthy
     end
 
     it "should return false for a invalid number" do
-      expect("s213".is_number?).to be_false
+      expect("s213".number?).to be_falsey
     end
   end
 
-  describe "#is_numeric?" do
+  describe "#integer?" do
     it "should return true for a valid number" do
-      expect(true.is_numeric?).to be_true
-      expect(false.is_numeric?).to be_true
-      expect(nil.is_numeric?).to be_true
-      expect("123".is_numeric?).to be_true
-      expect("-123".is_numeric?).to be_true
-      expect("+123.45".is_numeric?(Float, ::Lazier::Object::FLOAT_MATCHER)).to be_true
+      expect(true.integer?).to be_truthy
+      expect(false.integer?).to be_truthy
+      expect(nil.integer?).to be_truthy
+      expect("123".integer?).to be_truthy
+      expect("-123".integer?).to be_truthy
+      expect("+123".integer?).to be_truthy
     end
 
     it "should return false for a invalid number" do
-      expect("s123".is_numeric?).to be_false
-      expect("123.12".is_numeric?).to be_false
+      expect("s123".integer?).to be_falsey
+      expect("123.12".integer?).to be_falsey
     end
   end
-  
-  describe "#is_integer?" do
+
+  describe "#float?" do
     it "should return true for a valid number" do
-      expect(true.is_integer?).to be_true
-      expect(false.is_integer?).to be_true
-      expect(nil.is_integer?).to be_true
-      expect("123".is_integer?).to be_true
-      expect("-123".is_integer?).to be_true
-      expect("+123".is_integer?).to be_true
+      expect(true.float?).to be_truthy
+      expect(false.float?).to be_truthy
+      expect(nil.float?).to be_truthy
+      expect("123.45".float?).to be_truthy
+      expect("1,23.45".float?).to be_truthy
+      expect("-1.23.45".float?).to be_truthy
+      expect("+123.45".float?).to be_truthy
+      expect("+1.231,45".float?).to be_truthy
     end
 
     it "should return false for a invalid number" do
-      expect("s123".is_integer?).to be_false
-      expect("123.12".is_integer?).to be_false
+      expect("s213".float?).to be_falsey
     end
   end
 
-  describe "#is_float?" do
-    it "should return true for a valid number" do
-      expect(true.is_float?).to be_true
-      expect(false.is_float?).to be_true
-      expect(nil.is_float?).to be_true
-      expect("123.45".is_float?).to be_true
-      expect("1,23.45".is_float?).to be_true
-      expect("-1.23.45".is_float?).to be_true
-      expect("+123.45".is_float?).to be_true
-      expect("+1.231,45".is_float?).to be_true
-    end
-
-    it "should return false for a invalid number" do
-      expect("s213".is_float?).to be_false
-    end
-  end
-
-  describe "#is_boolean?" do
+  describe "#boolean?" do
     it "should return true for a valid boolean" do
-      expect(true.is_boolean?).to be_true
-      expect(false.is_boolean?).to be_true
-      expect(nil.is_boolean?).to be_true
-      expect("y".is_boolean?).to be_true
-      expect("n".is_boolean?).to be_true
-      expect("yes".is_boolean?).to be_true
-      expect("no".is_boolean?).to be_true
-      expect("1".is_boolean?).to be_true
-      expect("0".is_boolean?).to be_true
-      expect("true".is_boolean?).to be_true
-      expect("false".is_boolean?).to be_true
-      expect("t".is_boolean?).to be_true
-      expect("f".is_boolean?).to be_true
-      expect(1.is_boolean?).to be_true
-      expect(0.is_boolean?).to be_true
+      expect(true.boolean?).to be_truthy
+      expect(false.boolean?).to be_truthy
+      expect(nil.boolean?).to be_truthy
+      expect("y".boolean?).to be_truthy
+      expect("n".boolean?).to be_truthy
+      expect("yes".boolean?).to be_truthy
+      expect("no".boolean?).to be_truthy
+      expect("1".boolean?).to be_truthy
+      expect("0".boolean?).to be_truthy
+      expect("true".boolean?).to be_truthy
+      expect("false".boolean?).to be_truthy
+      expect("t".boolean?).to be_truthy
+      expect("f".boolean?).to be_truthy
+      expect(1.boolean?).to be_truthy
+      expect(0.boolean?).to be_truthy
     end
 
     it "should return false for a invalid boolean" do
-      expect("11".is_boolean?).to be_false
+      expect("11".boolean?).to be_falsey
     end
   end
 
@@ -167,46 +154,46 @@ describe Lazier::Object do
       expect(nil.ensure_array).to eq([])
       expect("A".ensure_array).to eq(["A"])
       expect({a: "b"}.ensure_array).to eq([{a: "b"}])
-      expect(nil.ensure_array(["1"])).to eq(["1"])
-      expect("A".ensure_array(["2"])).to eq(["2"])
-      expect({a: "b"}.ensure_array(["3"])).to eq(["3"])
+      expect(nil.ensure_array(default: ["1"])).to eq(["1"])
+      expect("A".ensure_array(default: ["2"])).to eq(["2"])
+      expect({a: "b"}.ensure_array(default: ["3"])).to eq(["3"])
     end
 
     it "should sanitize elements of the array using a method or a block" do
       expect(" 123 ".ensure_array).to eq([" 123 "])
-      expect(" 123 ".ensure_array(nil, false, false, false, :strip)).to eq(["123"])
-      expect(" 123 ".ensure_array(nil, false, false) { |e| e.reverse }).to eq([" 321 "])
+      expect(" 123 ".ensure_array(sanitizer: :strip)).to eq(["123"])
+      expect(" 123 ".ensure_array { |e| e.reverse }).to eq([" 321 "])
     end
 
     it "should unicize, compact and flatten, array if requested to" do
-      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, false)).to eq([1, 2, 3, nil, [4]])
-      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, false, true)).to eq([1, 2, 3, 3, 2, 1, [4]])
-      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, true)).to eq([1, 2, 3, [4]])
-      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(nil, true, true, true)).to eq([1, 2, 3, 4])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(no_duplicates: true)).to eq([1, 2, 3, nil, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(compact: true)).to eq([1, 2, 3, 3, 2, 1, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(no_duplicates: true, compact: true)).to eq([1, 2, 3, [4]])
+      expect([1, 2, 3, nil, 3, 2, 1, [4]].ensure_array(no_duplicates: true, compact: true, flatten: true)).to eq([1, 2, 3, 4])
     end
   end
 
   describe "#ensure_hash" do
     it "should return an hash" do
       expect({a: "b"}.ensure_hash).to eq({a: "b"})
-      expect(nil.ensure_hash(nil, {a: "b"})).to eq({a: "b"})
+      expect(nil.ensure_hash(default: {a: "b"})).to eq({a: "b"})
 
       expect(1.ensure_hash).to eq({})
-      expect(1.ensure_hash(nil, :test)).to eq({test: 1})
-      expect(1.ensure_hash(nil, "test")).to eq({"test" => 1})
-      expect(1.ensure_hash(nil, 2)).to eq({key: 1})
+      expect(1.ensure_hash(default: :test)).to eq({test: 1})
+      expect(1.ensure_hash(default: "test")).to eq({"test" => 1})
+      expect(1.ensure_hash(default: 2)).to eq({key: 1})
     end
 
     it "should sanitize values" do
-      expect(" 1 ".ensure_hash(nil, :key, &:strip)).to eq({key: "1"})
-      expect(1.ensure_hash(nil, :key) { |v| v * 2 }).to eq({key: 2})
+      expect(" 1 ".ensure_hash(default: nil, sanitizer: :strip)).to eq({key: "1"})
+      expect(1.ensure_hash(default: nil) { |v| v * 2 }).to eq({key: 2})
     end
 
     it "should grant access" do
       subject = {a: "b"}
 
-      expect(subject ).to receive(:ensure_access).with("ACCESS")
-      subject .ensure_hash("ACCESS")
+      expect(subject ).to receive(:ensure_access).with(["ACCESS"])
+      subject.ensure_hash(accesses: "ACCESS")
     end
   end
 
@@ -224,7 +211,7 @@ describe Lazier::Object do
       expect("+1.231,45".to_float).to eq(1231.45)
     end
 
-    it "should return 0.0 for a invalid number without a default" do
+    it "should return 0.0 for a invalid number? without a default" do
       expect("s213".to_float).to eq(0.0)
     end
 
@@ -244,7 +231,7 @@ describe Lazier::Object do
       expect("-123".to_integer).to eq(-123)
     end
 
-    it "should return 0 for a invalid number without a default" do
+    it "should return 0 for a invalid number? without a default" do
       expect("s213".to_integer).to eq(0)
     end
 
@@ -292,25 +279,25 @@ describe Lazier::Object do
 
   describe "#format_number" do
     it "should format number" do
-      expect(123.format_number(0)).to eq("123")
+      expect(123.format_number(precision: 0)).to eq("123")
       expect(123.456789.format_number).to eq("123.46")
       expect(12312.456789.format_number).to eq("12,312.46")
       expect(123123.456789.format_number).to eq("123,123.46")
       expect(1123123.456789.format_number).to eq("1,123,123.46")
-      expect(123123.456789.format_number(2)).to eq("123,123.46")
-      expect(123123.456789.format_number(3, "@")).to eq("123,123@457")
-      expect(123123.456789.format_number(3, "@", "$")).to eq("123,123@457 $")
-      expect("123123.456789".format_number(3, "@", "$", "!")).to eq("123!123@457 $")
+      expect(123123.456789.format_number(precision: 2)).to eq("123,123.46")
+      expect(123123.456789.format_number(precision: 3, decimal_separator: "@")).to eq("123,123@457")
+      expect(123123.456789.format_number(precision: 3, decimal_separator: "@", add_string: "$")).to eq("123,123@457 $")
+      expect("123123.456789".format_number(precision: 3, decimal_separator: "@", add_string: "$", k_separator: "!")).to eq("123!123@457 $")
 
-      Lazier.settings.setup_format_number(5, ",", "£", ".")
+      Lazier.settings.setup_format_number(precision: 5, decimal_separator: ",", add_string: "£", k_separator:".")
       expect(123123.456789.format_number).to eq("123.123,45679 £")
 
-      Lazier.settings.setup_format_number(2)
-      expect(123.456789.format_number(-1)).to eq("123")
+      Lazier.settings.setup_format_number(precision: 2)
+      expect(123.456789.format_number(precision: -1)).to eq("123")
     end
 
     it "should return nil for non numeric values" do
-      expect("abc".format_number(-1)).to eq(nil)
+      expect("abc".format_number(precision: -1)).to eq(nil)
     end
   end
 
@@ -321,38 +308,56 @@ describe Lazier::Object do
     end
 
     it "should support localization" do
-      Lazier.settings.setup_boolean_names("YYY", "NNN")
+      Lazier.settings.setup_boolean_names(true_name: "YYY", false_name: "NNN")
       expect("yes".format_boolean).to eq("YYY")
       expect("abc".format_boolean).to eq("NNN")
     end
 
     it "should support overrides" do
       Lazier.settings.setup_boolean_names
-      expect("yes".format_boolean("TTT")).to eq("TTT")
-      expect("yes".format_boolean(nil, "FFF")).to eq("Yes")
-      expect("abc".format_boolean("TTT")).to eq("No")
-      expect("abc".format_boolean(nil, "FFF")).to eq("FFF")
+      expect("yes".format_boolean(true_name: "TTT")).to eq("TTT")
+      expect("yes".format_boolean(false_name: "FFF")).to eq("Yes")
+      expect("abc".format_boolean(true_name: "TTT")).to eq("No")
+      expect("abc".format_boolean(false_name: "FFF")).to eq("FFF")
     end
   end
 
   describe "#indexize" do
     it "should format for printing" do
       expect(1.indexize).to eq("01")
-      expect(21.indexize(3, "A")).to eq("A21")
-      expect(21.indexize(3, "A", :ljust)).to eq("21A")
+      expect(21.indexize(length: 3, filler: "A")).to eq("A21")
+      expect(21.indexize(length: 3, filler: "A", formatter: :ljust)).to eq("21A")
     end
   end
 
-  describe "#for_debug" do
+  describe "#to_pretty_json" do
+    subject { {a: "b", c: [1, 2, "3"]} }
+
+    it "should use json gem for JRuby" do
+      allow(Lazier).to receive(:platform).and_return(:java)
+      stub_const("JSON", "JSON")
+      expect(JSON).to receive(:pretty_generate).with(subject).and_return("JSON")
+      expect(subject.to_pretty_json).to eq("JSON")
+    end
+
+    it "should use Oj gem for other implementations" do
+      allow(Lazier).to receive(:platform).and_return(:posix)
+      stub_const("Oj", "OJ")
+      expect(Oj).to receive(:dump).with(subject, mode: :compat, indent: 2).and_return("JSON")
+      expect(subject.to_pretty_json).to eq("JSON")
+    end
+  end
+
+  describe "#to_debug" do
     it "should return the correct representation for an object" do
       subject = {a: "b"}
-      expect(subject.for_debug(:json, false)).to eq(subject .to_json)
-      expect(subject.for_debug(:pretty_json, false)).to eq(::JSON.pretty_generate(subject ))
-      expect(subject.for_debug(:yaml, false)).to eq(subject .to_yaml)
+      expect(subject.to_debug(format: :json, as_exception: false)).to eq(subject.to_json)
+      expect(subject.to_debug(format: :pretty_json, as_exception: false)).to eq(subject.to_pretty_json)
+      expect(subject.to_debug(format: :yaml, as_exception: false)).to eq(subject.to_yaml)
     end
 
     it "should raise an exception if requested" do
-      expect { {a: "b"}.for_debug }.to raise_error(::Lazier::Exceptions::Debug)
+      expect { {a: "b"}.to_debug }.to raise_error(::Lazier::Exceptions::Debug)
     end
   end
 end

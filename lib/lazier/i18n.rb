@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -7,79 +6,162 @@
 module Lazier
   # Provides an easy way to localized messages in a class.
   #
-  # @attribute [r] i18n_locale
+  # @attribute locale
   #   @return [String|Symbol|nil] The current locale.
-  # @attribute [r] i18n_root
+  # @attribute [r] root
   #   @return [Symbol] The root level of the translation.
-  # @attribute [r] i18n_locales_path
+  # @attribute [r] path
   #   @return [String] The path where the translations are stored.
-  module I18n
-    attr_reader :i18n_locale
-    attr_reader :i18n_root
-    attr_reader :i18n_locales_path
+  # @attribute [r] backend
+  #   @return [I18n::Backend] The backend used for translations.
+  class I18n
+    attr_accessor :locale
+    attr_reader :root, :path, :backend
 
-    # Setup all I18n translations.
+    # The default locale for new instances.
+    mattr_accessor :default_locale
+
+    # Returns the singleton instance of the settings.
     #
+    # @param locale [Symbol] The locale to use for translations. Default is the current system locale.
     # @param root [Symbol] The root level of the translation.
     # @param path [String] The path where the translations are stored.
-    def i18n_setup(root, path)
-      ::I18n.enforce_available_locales = true
-      @i18n_root = root.to_sym
-      @i18n_locales_path = path
+    # @param force [Boolean] If to force recreation of the instance.
+    # @return [I18n] The singleton instance of the i18n.
+    def self.instance(locale = nil, root: :lazier, path: nil, force: false)
+      @instance = nil if force
+      @instance ||= new(locale, root: root, path: path)
     end
 
-    # Get the list of available translation for the current locale.
+    # Creates a new I18n object.
     #
-    # @return [R18N::Translation] The translation object.
-    def i18n
-      @i18n ||= i18n_load_locale(nil)
+    # @param locale [Symbol] The locale to use. Defaults to the current locale.
+    # @param root [Symbol] The root level of the translation.
+    # @param path [String] The path where the translations are stored.
+    def initialize(locale = nil, root: :lazier, path: nil)
+      path ||= Lazier::ROOT + "/locales"
+      @root = root.to_sym
+      @path = File.absolute_path(path.to_s)
+
+      setup_backend
+
+      self.locale = (locale || Lazier::I18n.default_locale || system_locale).to_sym
     end
 
-    # Set the current locale for messages.
+    # Reloads all the I18n translations.
+    def reload
+      # Extract the backend to an attribute
+      ::I18n.backend.load_translations
+    end
+
+    # Gets the list of available translation for a locale.
     #
-    # @param locale [String|Symbol|nil] The new locale. Default is the current system locale.
-    # @return [R18n::Translation] The new translation object.
-    def i18n=(locale)
-      @i18n_locale = locale
-      @i18n = i18n_load_locale(locale)
+    # @param locale [Symbol] The locale to list. Defaults to the current locale.
+    # @return [Hash] The available translations for the specified locale.
+    def translations(locale = nil)
+      locale ||= @locale
+      @backend.send(:translations)[locale.to_sym] || {}
+    end
+
+    # Sets the current locale.
+    #
+    # @param value [Symbol] The locale to use for translations. Default is the current system locale.
+    def locale=(value)
+      @locale = value.to_sym
+      ::I18n.locale = @locale
+    end
+
+    # Get the list of available translation for a locale.
+    #
+    # @return [Array] The list of available locales.
+    def locales
+      ::I18n.available_locales
+    end
+
+    # Localize a message.
+    #
+    # @param message [String|Symbol] The message to localize.
+    # @param args [Array] Optional arguments to localize the message.
+    # @return [String] The localized message.
+    def translate(message, **args)
+      # PI: Ignore reek on this.
+      message = "#{root}.#{message}" if message !~ /^(\.|::)/
+
+      begin
+        ::I18n.translate(message, **(args.merge(raise: true)))
+      rescue ::I18n::MissingTranslationData
+        raise Lazier::Exceptions::MissingTranslation, [locale, message]
+      end
+    end
+    alias_method :t, :translate
+
+    # Localize a message in a specific locale.
+    #
+    # @param message [String|Symbol] The message to localize.
+    # @param locale [String|Symbol] The new locale to use for localization.
+    # @param args [Array] Optional arguments to localize the message.
+    # @return [String] The localized message.
+    def translate_in_locale(locale, message, *args)
+      with_locale(locale) { translate(message, *args) }
+    end
+    alias_method :tl, :translate_in_locale
+
+    # Temporary sets a different locale and execute the given block.
+    #
+    # @param locale [String|Symbol] The new locale to use for localization.
+    def with_locale(locale)
+      old_locale = self.locale
+
+      begin
+        self.locale = locale
+        return yield
+      ensure
+        self.locale = old_locale
+      end
     end
 
     private
 
-    # Loads a locale for messages.
-    #
-    # @param locale [Symbol] The new locale. Default is the current system locale.
-    # @return [R18n::Translation] The new translation object.
-    def i18n_load_locale(locale)
-      path = @i18n_locales_path || ""
-      locales = validate_locales([locale], path)
+    # :nodoc:
+    OSX_DETECTION = "defaults read .GlobalPreferences AppleLanguages | awk 'NR==2{gsub(/[ ,]/, \"\");print}'"
 
-      begin
-        tokens = @i18n_root.to_s.split(/[:.]/)
-        translation = tokens.reduce(R18n::I18n.new(locales, path).t) { |a, e| a.send(e) }
-        raise ArgumentError if translation.is_a?(R18n::Untranslated)
-        translation
-      rescue
-        raise Lazier::Exceptions::MissingTranslation.new(locales, path)
+    # :nodoc:
+    def system_locale
+      platform = Lazier.platform
+
+      if [:java, :osx, :posix].include?(platform)
+        send("system_locale_#{Lazier.platform}")
+      else
+        raise(RuntimeError)
       end
+    rescue
+      "en"
     end
 
-    # Validates locales for messages.
-    #
-    # @param locales [Array] The list of locales to validate. English is added as fallback.
-    # @param path [String] The path where look into.
-    # @return [Array] The list of valid locales.
-    def validate_locales(locales, path)
-      (locales + [ENV["LANG"], R18n::I18n.system_locale, "en"]).select { |l| find_locale_in_path(l, path) }.uniq.map(&:to_s)
+    # :nodoc:
+    def system_locale_java
+      Java.java.util.Locale.getDefault.toString
     end
 
-    # Find a locale file in a path.
-    #
-    # @param locale [String] The locale to find.
-    # @param path [String] The path where look into.
-    # @return [String|nil] The version of the locale found or `nil`, if nothing was found.
-    def find_locale_in_path(locale, path)
-      locale ? [locale, locale[0, 5], locale[0, 2]].select { |l| File.exist?("#{path}/#{l}.yml") }.first : nil
+    # :nodoc:
+    def system_locale_osx
+      `#{OSX_DETECTION}`.strip
+    end
+
+    # :nodoc:
+    def system_locale_posix
+      ENV["LANG"]
+    end
+
+    # :nodoc:
+    def setup_backend
+      ::I18n.enforce_available_locales = true
+      ::I18n.load_path += Dir["#{@path}/*.yml"]
+      ::I18n.load_path.uniq!
+      ::I18n.exception_handler = ::Lazier::Exceptions::TranslationExceptionHandler.new
+      reload
+
+      @backend = ::I18n.backend
     end
   end
 end

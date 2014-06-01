@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the lazier gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -18,12 +17,7 @@ module Lazier
   # @attribute [r] i18n
   #   @return [R18n::Translation] The translation object.
   class Settings
-    attr_reader :format_number
-    attr_reader :boolean_names
-    attr_reader :date_names
-    attr_reader :date_formats
-
-    include Lazier::I18n
+    attr_reader :format_number, :boolean_names, :date_names, :date_formats, :i18n
 
     # Returns the singleton instance of the settings.
     #
@@ -31,12 +25,12 @@ module Lazier
     # @return [Settings] The singleton instance of the settings.
     def self.instance(force = false)
       @instance = nil if force
-      @instance ||= ::Lazier::Settings.new
+      @instance ||= new
     end
 
     # Initializes a new settings object.
     def initialize
-      i18n_setup(:lazier, ::File.absolute_path(::Pathname.new(::File.dirname(__FILE__)).to_s + "/../../locales/"))
+      @i18n = Lazier::I18n.instance
       setup
     end
 
@@ -48,15 +42,6 @@ module Lazier
       setup_date_names
     end
 
-    # Set the current locale for messages.
-    #
-    # @param locale [String] The new locale. Default is the current system locale.
-    # @return [R18n::Translation] The new translation object.
-    def i18n=(locale)
-      super(locale)
-      setup
-    end
-
     # Setups formatters for a number.
     # @see Object#format_number
     #
@@ -65,7 +50,7 @@ module Lazier
     # @param add_string [String] The string to append to the number.
     # @param k_separator [String] The string to use as thousands separator.
     # @return [Hash] The new formatters.
-    def setup_format_number(precision = 2, decimal_separator = ".", add_string = nil, k_separator = ",")
+    def setup_format_number(precision: 2, decimal_separator: ".", add_string: nil, k_separator: ",")
       @format_number = ::HashWithIndifferentAccess.new(
         precision: precision, decimal_separator: decimal_separator, add_string: add_string, k_separator: k_separator
       )
@@ -77,8 +62,9 @@ module Lazier
     # @param true_name [String] The string representation of `true`. Defaults to `Yes`.
     # @param false_name [String] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
-    def setup_boolean_names(true_name = nil, false_name = nil)
-      @boolean_names = {true => true_name || i18n.boolean[0], false => false_name || i18n.boolean[1]}
+    def setup_boolean_names(true_name: nil, false_name: nil)
+      names = i18n.translate("boolean")
+      @boolean_names = {true => true_name || names[0], false => false_name || names[1]}
     end
 
     # Setups custom formats for dates and times.
@@ -90,7 +76,8 @@ module Lazier
     def setup_date_formats(formats = nil, replace = false)
       @date_formats = HashWithIndifferentAccess.new if replace || !@date_formats
 
-      @date_formats.merge!(formats.ensure_hash(nil, {ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" }))
+      formats = {ct_date: "%Y-%m-%d", ct_time: "%H:%M:%S", ct_date_time: "%F %T", ct_iso_8601: "%FT%T%z" } unless formats.is_a?(::Hash)
+      @date_formats.merge!(formats)
       ::Time::DATE_FORMATS.merge!(@date_formats)
 
       @date_formats
@@ -106,15 +93,15 @@ module Lazier
     # @param long_days [Array] The string representation of days.
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
-    def setup_date_names(long_months = nil, short_months = nil, long_days = nil, short_days = nil)
-      definitions = i18n.date
+    def setup_date_names(long_months: nil, short_months: nil, long_days: nil, short_days: nil)
+      definitions = i18n.translate("date").ensure_access(:dotted)
 
       @date_names = {
         long_months: long_months.ensure(definitions.long_months),
         short_months: short_months.ensure(definitions.short_months),
         long_days: long_days.ensure(definitions.long_days),
         short_days: short_days.ensure(definitions.short_days)
-      }.with_indifferent_access
+      }.ensure_access(:indifferent, :dotted)
     end
   end
 end
