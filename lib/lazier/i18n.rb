@@ -156,7 +156,6 @@ module Lazier
 
     # :nodoc:
     def setup_backend
-      ::I18n.enforce_available_locales = true
       ::I18n.load_path += Dir["#{@path}/*.yml"]
       ::I18n.load_path.uniq!
       ::I18n.exception_handler = ::Lazier::Exceptions::TranslationExceptionHandler.new

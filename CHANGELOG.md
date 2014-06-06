@@ -1,3 +1,11 @@
+### 4.0.2 / 2014-06-06
+
+* Don't force locales validation.
+
+### 4.0.1 / 2014-06-06
+
+* Dependencies fixes.
+
 ### 4.0.0 / 2014-06-01
 
 #### General

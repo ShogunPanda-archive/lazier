@@ -91,7 +91,6 @@ describe Lazier::I18n do
       open("/tmp/it.yml", "w") {|f| f.write("---\nit:\n  lazier:") }
       subject = Lazier::I18n.new("it", path: "/tmp")
 
-      expect(::I18n.enforce_available_locales).to be_truthy
       expect(::I18n.load_path).to include("/tmp/it.yml")
       expect(::I18n.exception_handler).to be_a(::Lazier::Exceptions::TranslationExceptionHandler)
       expect(subject.backend).to be_a(::I18n::Backend::Simple)
