@@ -111,7 +111,7 @@ describe Lazier::I18n do
     it "should return the list of translations" do
       subject.locale = "en"
       subject.reload
-      expect(subject.translations.keys).to eq([:lazier])
+      expect(subject.translations.keys).to eq([:date, :time, :support, :number, :lazier])
     end
   end
 
@@ -119,6 +119,7 @@ describe Lazier::I18n do
     it "should assign the new locale" do
       expect(::I18n).to receive("locale=").with(:it)
       expect(subject.locale).to eq(:it)
+      subject.locale = :it
     end
   end
 
