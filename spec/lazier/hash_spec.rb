@@ -12,8 +12,8 @@ describe Object do
     rv
   }
 
-  before(:each) do
-    ::Lazier.load!
+  before(:all) do
+    ::Lazier.load!(:hash)
   end
 
   describe "#compact" do

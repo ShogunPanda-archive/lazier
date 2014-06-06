@@ -10,6 +10,7 @@ require "active_support"
 require "active_support/core_ext"
 require "i18n"
 require "hashie"
+require "pathname"
 
 require "lazier/version" unless defined?(Lazier::Version)
 require "lazier/exceptions"
@@ -52,7 +53,7 @@ module Lazier
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
     valid_modules = [:object, :boolean, :string, :hash, :datetime, :math, :pathname]
-    modules = what.present? ? what.flatten.uniq.compact.map(&:to_s) : valid_modules
+    modules = what.present? ? what.flatten.uniq.compact.map(&:to_sym) : valid_modules
     (modules & valid_modules).each { |w| ::Lazier.send("load_#{w}") }
 
     yield if block_given?
@@ -61,55 +62,59 @@ module Lazier
 
   # Loads Object extensions.
   def self.load_object
-    ::Object.class_eval { include ::Lazier::Object }
+    Lazier.load_boolean
+    perform_load(:object, ::Object, ::Lazier::Object)
   end
 
   # Loads Boolean extensions.
   def self.load_boolean
-    ::TrueClass.class_eval do
-      include ::Lazier::Object
-      include ::Lazier::Boolean
-    end
-
-    ::FalseClass.class_eval do
-      include ::Lazier::Object
-      include ::Lazier::Boolean
+    perform_load(:boolean) do
+      [::TrueClass, ::FalseClass].each do |klass|
+        klass.class_eval do
+          include ::Lazier::Object
+          include ::Lazier::Boolean
+        end
+      end
     end
   end
 
   # Loads String extensions.
   def self.load_string
-    ::String.class_eval { include ::Lazier::String }
+    perform_load(:string, ::String, ::Lazier::String)
   end
 
   # Loads Hash extensions.
   def self.load_hash
-    clean_hash_compact
     Lazier.load_object
-    ::Hash.class_eval { include ::Lazier::Hash }
+
+    perform_load(:hash) do
+      clean_hash_compact
+      ::Hash.class_eval { include ::Lazier::Hash }
+    end
   end
 
   # Loads DateTime extensions.
   def self.load_datetime
     Lazier.load_object
 
-    [::Time, ::Date, ::DateTime].each do |c|
-      c.class_eval { include ::Lazier::DateTime }
-    end
+    perform_load(:datetime) do
+      [::Time, ::Date, ::DateTime].each do |c|
+        c.class_eval { include ::Lazier::DateTime }
+      end
 
-    ::ActiveSupport::TimeZone.class_eval { include ::Lazier::TimeZone }
+      ::ActiveSupport::TimeZone.class_eval { include ::Lazier::TimeZone }
+    end
   end
 
   # Loads Math extensions.
   def self.load_math
     Lazier.load_object
-    ::Math.class_eval { include ::Lazier::Math }
+    perform_load(:math, ::Math, ::Lazier::Math)
   end
 
   # Loads Pathname extensions.
   def self.load_pathname
-    require "pathname"
-    ::Pathname.class_eval { include ::Lazier::Pathname }
+    perform_load(:pathname, ::Pathname, ::Lazier::Pathname)
   end
 
   # Finds a class to instantiate.
@@ -159,27 +164,30 @@ module Lazier
 
   private
 
-  # Removes existing `compact` and `compact!` methods from the Hash class to avoid conflicts with ActiveSupport.
+  # :nodoc:
   def self.clean_hash_compact
     ::Hash.class_eval do
-      begin
-        remove_method(:compact)
-        remove_method(:compact!)
-      rescue
-        nil
-      end
+      remove_method(:compact) if {}.respond_to?(:compact)
+      remove_method(:compact!) if {}.respond_to?(:compact!)
     end
   end
 
-  # Tries to search a class.
-  #
-  # @param cls [String] The class to search.
-  # @param scope [String] Scope to find the class. `%CLASS%`, `%`, `$`, `?` and `@` will be substituted with the class name.
-  # @return [Class] The instantiated class.
+  # :nodoc:
   def self.search_class(cls, scope = nil)
     cls = scope.gsub(/%CLASS%|[@%$?]/, cls)
     cls.constantize
   rescue
     nil
+  end
+
+  # :nodoc:
+  # TODO@PI: On 4.1, make loaded accessible publicly and add a Lazier.loaded? method.
+  def self.perform_load(mod, target = nil, extension = nil, &block)
+    @loaded ||= []
+
+    unless @loaded.include?(mod)
+      block_given? ? block.call : target.class_eval { include extension }
+      @loaded << mod
+    end
   end
 end

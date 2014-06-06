@@ -11,7 +11,7 @@ describe Lazier::Math do
   let(:third) { 0 }
 
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:math)
   end
 
   describe "::min" do

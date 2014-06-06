@@ -9,7 +9,7 @@ describe Lazier::Pathname do
   subject { ::Pathname.new($0) }
 
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:pathname)
   end
 
   describe "#components" do

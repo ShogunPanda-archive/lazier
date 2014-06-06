@@ -11,7 +11,7 @@ describe Lazier::Settings do
   let(:date_subject) { DateTime.civil(2005, 6, 7, 8, 9, 10, ::ActiveSupport::TimeZone.rationalize_offset(25200)) }
 
   before(:all) do
-    Lazier.load!
+    Lazier.load!(:object)
   end
 
   describe ".instance" do

@@ -12,7 +12,7 @@ describe Lazier::String do
   let(:amp_subject) { "abc òùà èé &gt;" }
 
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:string)
   end
 
   describe "#remove_accents" do

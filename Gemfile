@@ -9,8 +9,7 @@ source "http://rubygems.org"
 gemspec
 
 # Testing
-gem "rspec", "~> 3.0.0.rc1"
-gem "rspec-support", github: "rspec/rspec-support" if RUBY_ENGINE == "jruby"
+gem "rspec", "~> 3.0"
 gem "rake", "~> 10.3"
 
 # Documentation

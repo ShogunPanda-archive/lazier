@@ -39,6 +39,7 @@ module Lazier
     # @param root [Symbol] The root level of the translation.
     # @param path [String] The path where the translations are stored.
     def initialize(locale = nil, root: :lazier, path: nil)
+      Lazier.load_object
       path ||= Lazier::ROOT + "/locales"
       @root = root.to_sym
       @path = File.absolute_path(path.to_s)

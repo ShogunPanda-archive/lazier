@@ -30,6 +30,7 @@ module Lazier
 
     # Initializes a new settings object.
     def initialize
+      Lazier.load_datetime
       @i18n = Lazier::I18n.instance
       setup
     end
@@ -94,14 +95,26 @@ module Lazier
     # @param short_days [Array] The abbreviated string representation of days.
     # @return [Hash] The new representations.
     def setup_date_names(long_months: nil, short_months: nil, long_days: nil, short_days: nil)
-      definitions = i18n.translate("date").ensure_access(:dotted)
+      definitions = prepare_definitions
 
       @date_names = {
         long_months: long_months.ensure(definitions.long_months),
         short_months: short_months.ensure(definitions.short_months),
         long_days: long_days.ensure(definitions.long_days),
         short_days: short_days.ensure(definitions.short_days)
-      }.ensure_access(:indifferent, :dotted)
+      }
+
+      @date_names.extend(Lazier::Hash)
+      @date_names = @date_names.ensure_access(:dotted, :indifferent)
+    end
+
+    private
+
+    # :nodoc:
+    def prepare_definitions
+      definitions = i18n.translate("date")
+      definitions.extend(Lazier::Hash)
+      definitions.ensure_access(:dotted)
     end
   end
 end

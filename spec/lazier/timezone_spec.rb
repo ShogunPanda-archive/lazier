@@ -11,7 +11,7 @@ describe Lazier::TimeZone do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:datetime)
     ::Time.zone = ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"]
   end
 

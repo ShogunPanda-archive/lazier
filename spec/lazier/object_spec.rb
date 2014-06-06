@@ -7,7 +7,7 @@ require "spec_helper"
 
 describe Lazier::Object do
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:object)
   end
 
   describe "#normalize_number" do

@@ -6,8 +6,17 @@
 require "spec_helper"
 
 describe Lazier::I18n do
-  before(:each) do
+  before(:all) do
     Lazier::I18n.default_locale = :en
+  end
+
+  before(:each) do |example|
+    unless example.metadata[:skip_locale_whitelist]
+      allow(::I18n).to receive("locale=")
+      Lazier::I18n.default_locale = nil
+    else
+      Lazier::I18n.default_locale = :en
+    end
   end
 
   subject! { Lazier::I18n.instance(force: true) }
@@ -33,17 +42,11 @@ describe Lazier::I18n do
     end
 
     it "should fallback to the default locale" do
-      allow(::I18n).to receive("locale=")
       Lazier::I18n.default_locale = "pt"
       expect(Lazier::I18n.new.locale).to eq(:pt)
     end
 
     describe "should fallback to the system locale" do
-      before(:each) do
-        allow(::I18n).to receive("locale=")
-        Lazier::I18n.default_locale = nil
-      end
-
       it "in JRuby" do
         expect(Lazier).to receive(:platform).exactly(2).and_return(:java)
 
@@ -105,7 +108,7 @@ describe Lazier::I18n do
 
   describe "#translations" do
     it "should return the list of translations" do
-      expect(subject.translations.keys).to eq([:date, :time, :support, :number, :lazier])
+      expect(subject.translations.keys).to eq([:lazier])
     end
   end
 
@@ -132,13 +135,13 @@ describe Lazier::I18n do
   end
 
   describe "#translate_in_locale" do
-    it "should return the translation in the desired locale" do
+    it "should return the translation in the desired locale", skip_locale_whitelist: true do
       expect(subject.translate_in_locale(:it, "configuration.not_defined", name: "foo", class: "bar")).to eq("La proprietà foo non è definita per bar.")
     end
   end
 
   describe "#with_locale" do
-    it "should execute a block with the new locale and then set the old locale back" do
+    it "should execute a block with the new locale and then set the old locale back", skip_locale_whitelist: true do
       new_locale = nil
 
       subject.with_locale(:it) do
@@ -149,7 +152,7 @@ describe Lazier::I18n do
       expect(subject.locale).to eq(:en)
     end
 
-    it "should raise exception after having restored the old locale" do
+    it "should raise exception after having restored the old locale", skip_locale_whitelist: true do
       new_locale = nil
 
       expect {

@@ -12,7 +12,7 @@ describe Lazier::DateTime do
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
-    Lazier.load!
+    Lazier.load!(:datetime)
   end
 
   describe ".days" do

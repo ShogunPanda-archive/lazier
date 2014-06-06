@@ -7,7 +7,7 @@ require "spec_helper"
 
 describe Lazier::Boolean do
   before(:all) do
-    ::Lazier.load!
+    ::Lazier.load!(:boolean)
   end
 
   describe "#to_i" do
