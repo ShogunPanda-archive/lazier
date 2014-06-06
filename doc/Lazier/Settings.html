@@ -475,12 +475,14 @@
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
   <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='id identifier rubyid_setup'>setup</span>
 <span class='kw'>end</span></pre>
@@ -625,7 +627,20 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 19</span>
@@ -644,6 +659,7 @@
 
   <span class='comment'># Initializes a new settings object.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
     <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
     <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>end</span>
@@ -708,14 +724,26 @@
 </span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
     <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
       <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># :nodoc:
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -854,7 +882,20 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 19</span>
@@ -873,6 +914,7 @@
 
   <span class='comment'># Initializes a new settings object.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
     <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
     <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>end</span>
@@ -937,14 +979,26 @@
 </span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
     <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
       <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># :nodoc:
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1083,7 +1137,20 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 19</span>
@@ -1102,6 +1169,7 @@
 
   <span class='comment'># Initializes a new settings object.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
     <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
     <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>end</span>
@@ -1166,14 +1234,26 @@
 </span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
     <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
       <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># :nodoc:
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1312,7 +1392,20 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 19</span>
@@ -1331,6 +1424,7 @@
 
   <span class='comment'># Initializes a new settings object.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
     <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
     <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>end</span>
@@ -1395,14 +1489,26 @@
 </span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
     <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
       <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># :nodoc:
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1541,7 +1647,20 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 19</span>
@@ -1560,6 +1679,7 @@
 
   <span class='comment'># Initializes a new settings object.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
     <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
     <span class='id identifier rubyid_setup'>setup</span>
   <span class='kw'>end</span>
@@ -1624,14 +1744,26 @@
 </span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
     <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
       <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+
+    <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># :nodoc:
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
+    <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1757,15 +1889,15 @@
       <pre class="lines">
 
 
-38
 39
 40
 41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span>
   <span class='id identifier rubyid_setup_format_number'>setup_format_number</span>
@@ -1861,13 +1993,13 @@
       <pre class="lines">
 
 
-65
 66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1965,7 +2097,6 @@
       <pre class="lines">
 
 
-76
 77
 78
 79
@@ -1973,10 +2104,11 @@
 81
 82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -2109,7 +2241,6 @@
       <pre class="lines">
 
 
-96
 97
 98
 99
@@ -2118,20 +2249,27 @@
 102
 103
 104
-105</pre>
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
 
   <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='label'>long_months:</span> <span class='id identifier rubyid_long_months'>long_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_months'>long_months</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>short_months:</span> <span class='id identifier rubyid_short_months'>short_months</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_months'>short_months</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>long_days:</span> <span class='id identifier rubyid_long_days'>long_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_long_days'>long_days</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>short_days:</span> <span class='id identifier rubyid_short_days'>short_days</span><span class='period'>.</span><span class='id identifier rubyid_ensure'>ensure</span><span class='lparen'>(</span><span class='id identifier rubyid_definitions'>definitions</span><span class='period'>.</span><span class='id identifier rubyid_short_days'>short_days</span><span class='rparen'>)</span>
-  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:indifferent</span><span class='comma'>,</span> <span class='symbol'>:dotted</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Hash</span><span class='rparen'>)</span>
+  <span class='ivar'>@date_names</span> <span class='op'>=</span> <span class='ivar'>@date_names</span><span class='period'>.</span><span class='id identifier rubyid_ensure_access'>ensure_access</span><span class='lparen'>(</span><span class='symbol'>:dotted</span><span class='comma'>,</span> <span class='symbol'>:indifferent</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2251,14 +2389,14 @@
       <pre class="lines">
 
 
-53
 54
 55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/settings.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup_format_number'>setup_format_number</span><span class='lparen'>(</span><span class='label'>precision:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>decimal_separator:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>add_string:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>k_separator:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@format_number</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -2275,7 +2413,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Jun  1 15:50:06 2014 by
+  Generated on Fri Jun  6 11:15:49 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.2).
 </div>

@@ -531,12 +531,14 @@
 46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>||=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>ROOT</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/locales</span><span class='tstring_end'>&quot;</span></span>
   <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -748,7 +750,8 @@
 163
 164
 165
-166</pre>
+166
+167</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 17</span>
@@ -778,6 +781,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
     <span class='id identifier rubyid_path'>path</span> <span class='op'>||=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>ROOT</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/locales</span><span class='tstring_end'>&quot;</span></span>
     <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1101,7 +1105,8 @@
 163
 164
 165
-166</pre>
+166
+167</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 17</span>
@@ -1131,6 +1136,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
     <span class='id identifier rubyid_path'>path</span> <span class='op'>||=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>ROOT</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/locales</span><span class='tstring_end'>&quot;</span></span>
     <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1454,7 +1460,8 @@
 163
 164
 165
-166</pre>
+166
+167</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 17</span>
@@ -1484,6 +1491,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
     <span class='id identifier rubyid_path'>path</span> <span class='op'>||=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>ROOT</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/locales</span><span class='tstring_end'>&quot;</span></span>
     <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1807,7 +1815,8 @@
 163
 164
 165
-166</pre>
+166
+167</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 17</span>
@@ -1837,6 +1846,7 @@
 </span>  <span class='comment'># @param root [Symbol] The root level of the translation.
 </span>  <span class='comment'># @param path [String] The path where the translations are stored.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='symbol'>:lazier</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
     <span class='id identifier rubyid_path'>path</span> <span class='op'>||=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>ROOT</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/locales</span><span class='tstring_end'>&quot;</span></span>
     <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_absolute_path'>absolute_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -2147,12 +2157,12 @@
       <pre class="lines">
 
 
-77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_locales'>locales</span>
   <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_available_locales'>available_locales</span>
@@ -2187,13 +2197,13 @@
       <pre class="lines">
 
 
-52
 53
 54
-55</pre>
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reload'>reload</span>
   <span class='comment'># Extract the backend to an attribute
@@ -2284,7 +2294,6 @@
       <pre class="lines">
 
 
-86
 87
 88
 89
@@ -2293,10 +2302,11 @@
 92
 93
 94
-95</pre>
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='comment'># PI: Ignore reek on this.
@@ -2408,12 +2418,12 @@
       <pre class="lines">
 
 
-104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_translate_in_locale'>translate_in_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_with_locale'>with_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -2486,13 +2496,13 @@
       <pre class="lines">
 
 
-61
 62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_translations'>translations</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_locale'>locale</span> <span class='op'>||=</span> <span class='ivar'>@locale</span>
@@ -2547,7 +2557,6 @@
       <pre class="lines">
 
 
-112
 113
 114
 115
@@ -2556,10 +2565,11 @@
 118
 119
 120
-121</pre>
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/i18n.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_locale'>with_locale</span><span class='lparen'>(</span><span class='id identifier rubyid_locale'>locale</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_old_locale'>old_locale</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_locale'>locale</span>
@@ -2581,7 +2591,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Jun  1 15:50:06 2014 by
+  Generated on Fri Jun  6 11:15:48 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.2).
 </div>
