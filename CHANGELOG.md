@@ -1,3 +1,7 @@
+### 4.0.3 / 2014-06-06
+
+* System locale detection fix.
+
 ### 4.0.2 / 2014-06-06
 
 * Don't force locales validation.

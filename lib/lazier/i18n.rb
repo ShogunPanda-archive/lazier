@@ -130,11 +130,9 @@ module Lazier
     def system_locale
       platform = Lazier.platform
 
-      if [:java, :osx, :posix].include?(platform)
-        send("system_locale_#{Lazier.platform}")
-      else
-        raise(RuntimeError)
-      end
+      rv = [:java, :osx, :posix].include?(platform) ? send("system_locale_#{Lazier.platform}") : nil
+      raise(RuntimeError) if rv.blank?
+      rv
     rescue
       "en"
     end
