@@ -108,6 +108,7 @@ describe Lazier::I18n do
 
   describe "#translations" do
     it "should return the list of translations" do
+      subject.reload
       expect(subject.translations.keys).to eq([:lazier])
     end
   end
