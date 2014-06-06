@@ -118,8 +118,8 @@ describe Lazier::I18n do
   describe "#locale=" do
     it "should assign the new locale" do
       expect(::I18n).to receive("locale=").with(:it)
-      expect(subject.locale).to eq(:it)
       subject.locale = :it
+      expect(subject.locale).to eq(:it)
     end
   end
 
