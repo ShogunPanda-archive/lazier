@@ -12,6 +12,7 @@ describe Lazier::I18n do
 
   before(:each) do |example|
     unless example.metadata[:skip_locale_whitelist]
+      ::I18n.locale = :en
       allow(::I18n).to receive("locale=")
       Lazier::I18n.default_locale = nil
     else
@@ -108,6 +109,7 @@ describe Lazier::I18n do
 
   describe "#translations" do
     it "should return the list of translations" do
+      subject.locale = "en"
       subject.reload
       expect(subject.translations.keys).to eq([:lazier])
     end
@@ -116,7 +118,6 @@ describe Lazier::I18n do
   describe "#locale=" do
     it "should assign the new locale" do
       expect(::I18n).to receive("locale=").with(:it)
-      subject.locale = "it"
       expect(subject.locale).to eq(:it)
     end
   end
