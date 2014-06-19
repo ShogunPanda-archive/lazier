@@ -164,15 +164,26 @@ module Lazier
     #
     # @return [String] The current alias or the first alias of the current timezone.
     def current_alias
-      identifier = tzinfo.identifier
+      if @current_alias
+        @current_alias
+      else
+        identifier = tzinfo.identifier
 
-      catch(:alias) do
-        aliases.each do |a|
-          throw(:alias, a) if a == identifier
+        catch(:alias) do
+          aliases.each do |a|
+            throw(:alias, a) if a == identifier
+          end
+
+          aliases.first
         end
-
-        aliases.first
       end
+    end
+
+    # Sets the current alias.
+    #
+    # @param new_alias [String] The new current alias.
+    def current_alias=(new_alias)
+      @current_alias = new_alias.ensure_string
     end
 
     # Returns the standard offset for this timezone.

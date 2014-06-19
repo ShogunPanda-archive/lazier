@@ -1,3 +1,7 @@
+### 3.5.6 / 2014-06-19
+
+* Added `Lazier::Timezone#current_alias=`.
+
 ### 3.5.5 / 2014-04-11
 
 * Bugfix for `Lazier.find_class`.

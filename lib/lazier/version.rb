@@ -16,7 +16,7 @@ module Lazier
     MINOR = 5
 
     # The patch version.
-    PATCH = 5
+    PATCH = 6
 
     # The current version of lazier.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

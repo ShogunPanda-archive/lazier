@@ -89,6 +89,14 @@ describe Lazier::TimeZone do
     end
   end
 
+  describe "#current_alias=" do
+    it "should set the current alias alias" do
+      zone = ActiveSupport::TimeZone["America/Halifax"]
+      zone.current_alias = "ALIAS"
+      expect(zone.current_alias).to eq("ALIAS")
+    end
+  end
+
   describe "#dst_period" do
     it "should correctly return zone offset" do
       expect(subject_zone.dst_period).to be_a(::TZInfo::TimezonePeriod)
