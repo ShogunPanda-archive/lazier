@@ -1,3 +1,7 @@
+### 4.0.4 / 2014-06-19
+
+* Added `Lazier::Timezone#current_alias=`.
+
 ### 4.0.3 / 2014-06-06
 
 * System locale detection fix.
@@ -74,6 +78,10 @@
 * Merged `Lazier::Timezone#dst_name` in `Lazier::Timezone#name`.
 * Merged `Lazier::Timezone.to_str`, `Lazier::Timezone.to_str_with_dst`, `Lazier::Timezone.to_str_parameterized` and 
   `Lazier::Timezone.to_str_with_dst_parameterized` in `Lazier::Timezone.to_str`.
+
+### 3.5.6 / 2014-06-19
+
+* Added `Lazier::Timezone#current_alias=`.
 
 ### 3.5.5 / 2014-04-11
 

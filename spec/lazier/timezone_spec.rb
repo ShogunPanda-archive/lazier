@@ -108,6 +108,14 @@ describe Lazier::TimeZone do
     end
   end
 
+  describe "#current_alias=" do
+    it "should set the current alias alias" do
+      zone = ActiveSupport::TimeZone["America/Halifax"]
+      zone.current_alias = "ALIAS"
+      expect(zone.current_alias).to eq("ALIAS")
+    end
+  end
+
   describe "#current_name" do
     it "should correctly get zone name with Daylight Saving Time" do
       expect(subject_zone.current_name).to eq("Mountain Time (US & Canada)")
