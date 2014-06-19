@@ -32,6 +32,7 @@ describe Lazier::TimeZone do
     it "should find timezones" do
       expect(::ActiveSupport::TimeZone.find("(GMT-07:00) Mountain Time (US & Canada)")).to eq(subject_zone)
       expect(::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) (DST)")).to eq(subject_zone)
+      expect(::ActiveSupport::TimeZone.find("(GMT-06:00) America/Denver (DST)")).to eq(subject_zone)
       expect(::ActiveSupport::TimeZone.find("(GMT-06:00) Mountain Time (US & Canada) Daylight Saving Time", " Daylight Saving Time")).to eq(subject_zone)
       expect(::ActiveSupport::TimeZone.find("INVALID", "INVALID")).to be_nil
     end

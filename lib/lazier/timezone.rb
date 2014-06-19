@@ -17,8 +17,7 @@ module Lazier
         [a-z]+ # UTC Label
         (?<offset>([+-])(\d{2})(:?)(\d{2}))
       \)
-      \s
-      (?<label>.+)
+      \s(?<label>.+)
     )$/xi
 
     # General methods.
@@ -47,7 +46,9 @@ module Lazier
       # @param dst_label [String] Label for the DST indication. Defaults to ` (DST)`.
       # @return [TimeZone] A timezone or `nil` if no zone was found.
       def find(name, dst_label = " (DST)")
-        list(true, dst_label: dst_label, as_hash: true)[name]
+        rv = list(true, dst_label: dst_label, as_hash: true)[name]
+        rv.current_alias = name.gsub(/\(GMT(.{6})\) (.+)(#{Regexp.quote(dst_label)})$/, "\\2") if rv
+        rv
       end
 
       # Returns a list of names of all timezones.
@@ -128,9 +129,7 @@ module Lazier
 
       # :nodoc:
       def finalize_list_as_list(all, dst_label, parameterized, sort_by_name)
-        rv = all.map { |zone|
-          fetch_aliases(zone, dst_label, parameterized)
-        }.flatten.uniq
+        rv = all.map { |zone| fetch_aliases(zone, dst_label, parameterized) }.flatten.uniq
 
         sort_by_name ? rv.sort { |a, b| ::ActiveSupport::TimeZone.compare(a, b) } : rv
       end
@@ -173,14 +172,7 @@ module Lazier
         @current_alias
       else
         identifier = name
-
-        catch(:alias) do
-          aliases.each do |a|
-            throw(:alias, a) if a == identifier
-          end
-
-          aliases.first
-        end
+        aliases.find { |a| a == identifier } || aliases.first
       end
     end
 
@@ -281,9 +273,7 @@ module Lazier
         self.class.parameterize(to_str(dst, label: label, dst_label: dst_label, utc_label: utc_label, year: year, parameterized: false), with_offset)
       else
         offset_label = self.class.seconds_to_utc_offset(offset(rational: false, dst: dst, year: year), colon)
-        dst_label = "" unless dst
-
-        to_str_unparameterized(dst_label, label, offset_label, offset_position, utc_label, with_offset)
+        to_str_unparameterized(dst ? dst_label : "", label, offset_label, offset_position, utc_label, with_offset)
       end
     end
 
