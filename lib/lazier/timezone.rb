@@ -37,7 +37,10 @@ module Lazier
         catch(:zone) do
           ::ActiveSupport::TimeZone.all.each do |zone|
             zone.aliases.each do |zone_alias|
-              throw(:zone, zone) if [zone.to_str(zone_alias), zone.to_str_with_dst(dst_label, nil, zone_alias)].include?(name)
+              if [zone.to_str(zone_alias), zone.to_str_with_dst(dst_label, nil, zone_alias)].include?(name)
+                zone.current_alias = zone_alias
+                throw(:zone, zone)
+              end
             end
           end
 
@@ -130,7 +133,7 @@ module Lazier
       #
       # @param dst_label [String] Label for the DST indication. Defaults to `(DST)`.
       # @param matcher [Regexp] The expression to match.
-      # @return [TimeZone] The found timezone or `nil` if the zone is not valid.
+      # @return [String] The found timezone or `nil` if the zone is not valid.
       def find_parameterized_zone(dst_label, matcher)
         catch(:zone) do
           list_all(true, dst_label).each do |zone|

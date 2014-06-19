@@ -1,3 +1,7 @@
+### 3.5.7 / 2014-06-19
+
+* Save alias upon timezone finding.
+
 ### 3.5.6 / 2014-06-19
 
 * Added `Lazier::Timezone#current_alias=`.

@@ -355,14 +355,14 @@
       <pre class="lines">
 
 
-109
-110
-111
 112
-113</pre>
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compare'>compare</span><span class='lparen'>(</span><span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_right'>right</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_left'>left</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='period'>.</span><span class='id identifier rubyid_to_str'>to_str</span> <span class='kw'>if</span> <span class='id identifier rubyid_left'>left</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='rparen'>)</span>
@@ -462,7 +462,10 @@
 43
 44
 45
-46</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 36</span>
@@ -471,7 +474,10 @@
   <span class='id identifier rubyid_catch'>catch</span><span class='lparen'>(</span><span class='symbol'>:zone</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='op'>::</span><span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>TimeZone</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_zone'>zone</span><span class='op'>|</span>
       <span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_aliases'>aliases</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_zone_alias'>zone_alias</span><span class='op'>|</span>
-        <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:zone</span><span class='comma'>,</span> <span class='id identifier rubyid_zone'>zone</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='lbracket'>[</span><span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_to_str'>to_str</span><span class='lparen'>(</span><span class='id identifier rubyid_zone_alias'>zone_alias</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_zone_alias'>zone_alias</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+        <span class='kw'>if</span> <span class='lbracket'>[</span><span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_to_str'>to_str</span><span class='lparen'>(</span><span class='id identifier rubyid_zone_alias'>zone_alias</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_to_str_with_dst'>to_str_with_dst</span><span class='lparen'>(</span><span class='id identifier rubyid_dst_label'>dst_label</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_zone_alias'>zone_alias</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_current_alias'>current_alias</span> <span class='op'>=</span> <span class='id identifier rubyid_zone_alias'>zone_alias</span>
+          <span class='id identifier rubyid_throw'>throw</span><span class='lparen'>(</span><span class='symbol'>:zone</span><span class='comma'>,</span> <span class='id identifier rubyid_zone'>zone</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
 
@@ -656,19 +662,19 @@
       <pre class="lines">
 
 
-53
-54
-55
 56
 57
 58
 59
 60
 61
-62</pre>
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_all'>list_all</span><span class='lparen'>(</span><span class='id identifier rubyid_with_dst'>with_dst</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(DST)</span><span class='tstring_end'>&quot;</span></span>
@@ -768,9 +774,6 @@ DateTime.parameterize_zone(ActiveSupport::TimeZone["Pacific Time (US &amp; Canad
       <pre class="lines">
 
 
-73
-74
-75
 76
 77
 78
@@ -779,10 +782,13 @@ DateTime.parameterize_zone(ActiveSupport::TimeZone["Pacific Time (US &amp; Canad
 81
 82
 83
-84</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_tz'>tz</span><span class='comma'>,</span> <span class='id identifier rubyid_with_offset'>with_offset</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_tz'>tz</span> <span class='op'>=</span> <span class='id identifier rubyid_tz'>tz</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='kw'>unless</span> <span class='id identifier rubyid_tz'>tz</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span>
@@ -979,19 +985,19 @@ DateTime.parameterize_zone(ActiveSupport::TimeZone["Pacific Time (US &amp; Canad
       <pre class="lines">
 
 
-93
-94
-95
 96
 97
 98
 99
 100
 101
-102</pre>
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unparameterize_zone'>unparameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_tz'>tz</span><span class='comma'>,</span> <span class='id identifier rubyid_as_string'>as_string</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_dst_label'>dst_label</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_tz'>tz</span> <span class='op'>=</span> <span class='id identifier rubyid_parameterize_zone'>parameterize_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_tz'>tz</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -1013,7 +1019,7 @@ DateTime.parameterize_zone(ActiveSupport::TimeZone["Pacific Time (US &amp; Canad
 </div>
 
     <div id="footer">
-  Generated on Thu Jun 19 11:34:24 2014 by
+  Generated on Thu Jun 19 11:49:05 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.2).
 </div>

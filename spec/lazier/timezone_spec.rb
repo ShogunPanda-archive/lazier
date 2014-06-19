@@ -8,7 +8,6 @@ require "spec_helper"
 
 describe Lazier::TimeZone do
   let(:subject_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
-  let(:subject_zone) { ::ActiveSupport::TimeZone["Mountain Time (US & Canada)"] }
   let(:zone_without_dst) { ::ActiveSupport::TimeZone["International Date Line West"] }
 
   before(:all) do
@@ -144,8 +143,8 @@ describe Lazier::TimeZone do
 
   describe "#to_str_with_dst" do
     it "should correctly format zone with Daylight Saving Time" do
-      expect(subject_zone.to_str_with_dst).to eq("(GMT-06:00) #{subject_zone.aliases.first} (DST)")
-      expect(subject_zone.to_str_with_dst("Daylight Saving Time")).to eq("(GMT-06:00) #{subject_zone.aliases.first} Daylight Saving Time")
+      expect(subject_zone.to_str_with_dst).to eq("(GMT-06:00) #{subject_zone.current_alias} (DST)")
+      expect(subject_zone.to_str_with_dst("Daylight Saving Time")).to eq("(GMT-06:00) #{subject_zone.current_alias} Daylight Saving Time")
       expect(subject_zone.to_str_with_dst("Daylight Saving Time", nil, "NAME")).to eq("(GMT-06:00) NAME Daylight Saving Time")
       expect(subject_zone.to_str_with_dst(nil, 1000)).to be_nil
       expect(zone_without_dst.to_str_with_dst).to be_nil
@@ -162,8 +161,8 @@ describe Lazier::TimeZone do
 
   describe "#to_str_with_dst_parameterized" do
     it "should correctly format (parameterized) zone with Daylight Saving Time" do
-      expect(subject_zone.to_str_with_dst_parameterized).to eq("-0600@america-denver-dst")
-      expect(subject_zone.to_str_with_dst_parameterized("Daylight Saving Time")).to eq("-0600@america-denver-daylight-saving-time")
+      expect(subject_zone.to_str_with_dst_parameterized).to eq("-0600@mountain-time-us-canada-dst")
+      expect(subject_zone.to_str_with_dst_parameterized("Daylight Saving Time")).to eq("-0600@mountain-time-us-canada-daylight-saving-time")
       expect(subject_zone.to_str_with_dst_parameterized(nil, 1000)).to be_nil
       expect(subject_zone.to_str_with_dst_parameterized("Daylight Saving Time", nil, "NAME SPACE")).to eq("-0600@name-space-daylight-saving-time")
       expect(zone_without_dst.to_str_with_dst_parameterized).to be_nil
