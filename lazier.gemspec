@@ -9,7 +9,7 @@ require File.expand_path('../lib/lazier/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name = "lazier"
   gem.version = Lazier::Version::STRING
-  gem.homepage = "http://sw.cow.tc/lazier"
+  gem.homepage = "http://sw.cowtech.it/lazier"
   gem.summary = %q{Several Ruby object enhancements.}
   gem.description = %q{Several Ruby object enhancements.}
   gem.rubyforge_project = "lazier"

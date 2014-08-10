@@ -9,7 +9,7 @@
 
 Several Ruby object enhancements.
 
-http://sw.cow.tc/lazier
+http://sw.cowtech.it/lazier
 
 http://rdoc.info/gems/lazier
 
