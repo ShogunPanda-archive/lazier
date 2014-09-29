@@ -523,13 +523,13 @@ otherwise the duration alone as a number.</p>
       <pre class="lines">
 
 
-144
-145
 146
-147</pre>
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 146</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_benchmark'>benchmark</span><span class='lparen'>(</span><span class='label'>message:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>precision:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='const'>Benchmark</span><span class='period'>.</span><span class='id identifier rubyid_ms'>ms</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -636,18 +636,18 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-127
-128
 129
 130
 131
 132
 133
 134
-135</pre>
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find_class'>find_class</span><span class='lparen'>(</span><span class='id identifier rubyid_cls'>cls</span><span class='comma'>,</span> <span class='id identifier rubyid_scope'>scope</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::@</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_only_in_scope'>only_in_scope</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='lbracket'>[</span><span class='op'>::</span><span class='const'>String</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Symbol</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_cls'>cls</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rparen'>)</span>
@@ -733,17 +733,17 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-54
-55
 56
 57
 58
 59
 60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_what'>what</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_valid_modules'>valid_modules</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:object</span><span class='comma'>,</span> <span class='symbol'>:boolean</span><span class='comma'>,</span> <span class='symbol'>:string</span><span class='comma'>,</span> <span class='symbol'>:hash</span><span class='comma'>,</span> <span class='symbol'>:datetime</span><span class='comma'>,</span> <span class='symbol'>:math</span><span class='comma'>,</span> <span class='symbol'>:pathname</span><span class='rbracket'>]</span>
@@ -783,8 +783,6 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-70
-71
 72
 73
 74
@@ -792,10 +790,12 @@ Otherwise the class of the object will returned.</p>
 76
 77
 78
-79</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_boolean'>load_boolean</span>
   <span class='id identifier rubyid_perform_load'>perform_load</span><span class='lparen'>(</span><span class='symbol'>:boolean</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -837,8 +837,6 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-97
-98
 99
 100
 101
@@ -847,10 +845,12 @@ Otherwise the class of the object will returned.</p>
 104
 105
 106
-107</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_datetime'>load_datetime</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -893,17 +893,17 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-87
-88
 89
 90
 91
 92
 93
-94</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_hash'>load_hash</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -943,13 +943,13 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-110
-111
 112
-113</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_math'>load_math</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
@@ -985,13 +985,13 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-64
-65
 66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_object'>load_object</span>
   <span class='const'>Lazier</span><span class='period'>.</span><span class='id identifier rubyid_load_boolean'>load_boolean</span>
@@ -1027,12 +1027,12 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-116
-117
-118</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_pathname'>load_pathname</span>
   <span class='id identifier rubyid_perform_load'>perform_load</span><span class='lparen'>(</span><span class='symbol'>:pathname</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Pathname</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Pathname</span><span class='rparen'>)</span>
@@ -1067,12 +1067,12 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-82
-83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load_string'>load_string</span>
   <span class='id identifier rubyid_perform_load'>perform_load</span><span class='lparen'>(</span><span class='symbol'>:string</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>String</span><span class='comma'>,</span> <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>String</span><span class='rparen'>)</span>
@@ -1137,8 +1137,6 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-153
-154
 155
 156
 157
@@ -1147,10 +1145,12 @@ Otherwise the class of the object will returned.</p>
 160
 161
 162
-163</pre>
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_platform'>platform</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@platform</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -1210,12 +1210,12 @@ Otherwise the class of the object will returned.</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span>
   <span class='op'>::</span><span class='const'>Lazier</span><span class='op'>::</span><span class='const'>Settings</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -1230,9 +1230,9 @@ Otherwise the class of the object will returned.</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Jun 19 12:10:35 2014 by
+  Generated on Mon Sep 29 16:27:06 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.2).
+  0.8.7.4 (ruby-2.1.3).
 </div>
 
   </body>
