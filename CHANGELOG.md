@@ -1,3 +1,7 @@
+### 4.0.6 / 2014-09-29
+
+* Include fallback mechanism for translations lookup.
+
 ### 4.0.5 / 2014-06-19
 
 * Save alias upon timezone finding.

@@ -10,6 +10,9 @@ BracesAroundHashParameters:
 CyclomaticComplexity:
   Max: 15
 
+EachWithObject:
+  Enabled: false
+
 IndentationConsistency:
   Enabled: false
 

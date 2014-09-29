@@ -9,13 +9,13 @@ source "http://rubygems.org"
 gemspec
 
 # Testing
-gem "rspec", "~> 3.0"
+gem "rspec", "~> 3.1"
 gem "rake", "~> 10.3"
 
 # Documentation
-gem "simplecov", "~> 0.8"
+gem "simplecov", "~> 0.9"
 gem "coveralls", "~> 0.7", require: false
 gem "pry", "~> 0"
 gem "yard", "~> 0.8"
-gem "kramdown", "~> 1.3"
-gem "github-markup", "~> 1.2" if RUBY_ENGINE != "jruby"
+gem "kramdown", "~> 1.4"
+gem "github-markup", "~> 1.3" if RUBY_ENGINE != "jruby"

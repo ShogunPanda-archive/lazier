@@ -13,4 +13,5 @@ RSpec.configure do |config|
   end
 end
 
+::I18n.enforce_available_locales = false
 Lazier::I18n.default_locale = :en

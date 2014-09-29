@@ -9,9 +9,11 @@ require "tzinfo"
 require "active_support"
 require "active_support/core_ext"
 require "i18n"
+require "i18n/backend/fallbacks"
 require "hashie"
 require "pathname"
 
+I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 require "lazier/version" unless defined?(Lazier::Version)
 require "lazier/exceptions"
 require "lazier/i18n"
