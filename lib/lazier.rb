@@ -119,6 +119,20 @@ module Lazier
     perform_load(:pathname, ::Pathname, ::Lazier::Pathname)
   end
 
+  # Returns the list of loaded Lazier modules.
+  #
+  # @return [Array] The list of loaded Lazier modules.
+  def self.loaded_modules
+    @loaded || []
+  end
+
+  # Checks if *all* of the specified modules have been loaded.
+  #
+  # @return [Boolean] `true` if the *all* of the specified modules has already been loaded, `false` otherwise.
+  def self.modules_loaded?(*modules)
+    (modules.flatten.uniq.compact.map(&:to_sym) - @loaded).blank?
+  end
+
   # Finds a class to instantiate.
   #
   # @param cls [Symbol|String|Object] If a `String` or a `Symbol` or a `Class`, then it will be the class to instantiate.
@@ -183,7 +197,6 @@ module Lazier
   end
 
   # :nodoc:
-  # TODO@PI: On 4.1, make loaded accessible publicly and add a Lazier.loaded? method.
   def self.perform_load(mod, target = nil, extension = nil, &block)
     @loaded ||= []
 

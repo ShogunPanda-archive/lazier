@@ -42,6 +42,20 @@ describe Lazier do
     end
   end
 
+  describe ".loaded" do
+    it "should return the list of loaded modules" do
+      expect(Lazier.loaded_modules).to eq([:boolean, :object, :string, :hash, :datetime, :math, :pathname])
+    end
+  end
+
+  describe ".modules_loaded?" do
+    it "should return true if all specified modules are loaded" do
+      expect(Lazier.modules_loaded?(:boolean)).to be_truthy
+      expect(Lazier.modules_loaded?(:boolean, [:string, "object"])).to be_truthy
+      expect(Lazier.modules_loaded?(:boolean, :foo)).to be_falsey
+    end
+  end
+
   describe ".find_class" do
     before(:each) do
       stub_const("::LazierTest::TestClass", Class.new)

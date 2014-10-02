@@ -25,7 +25,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.1"
 
-  # TODO@PI: Drop ActiveSupport requirement
   gem.add_dependency("activesupport", "~> 4.1")
   gem.add_dependency("hashie", "~> 3.3")
 

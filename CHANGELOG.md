@@ -1,3 +1,7 @@
+### 4.1.0 / 2014-10-02
+
+* Added `Lazier.loaded_modules` and `Lazier.modules_loaded?`.
+
 ### 4.0.6 / 2014-09-29
 
 * Include fallback mechanism for translations lookup.
