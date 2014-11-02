@@ -1,3 +1,7 @@
+### 4.2.0 / 2014-11-02
+
+* Added `Lazier::String#ensure_url_with_scheme`.
+
 ### 4.1.0 / 2014-10-02
 
 * Added `Lazier.loaded_modules` and `Lazier.modules_loaded?`.

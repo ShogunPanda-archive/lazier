@@ -47,7 +47,7 @@ module Lazier
       #
       # @param offset [Fixnum] The width of the range.
       # @param also_future [Boolean] If return also future years.
-      # @param reference [Fixnum] The ending (or middle, if `also_future` is `true`) value of the range. Defaults to the current year.
+      # @param reference [Fixnum|NilClass] The ending (or middle, if `also_future` is `true`) value of the range. Defaults to the current year.
       # @param as_objects [Boolean] If to return years in hashes with `:value` and `label` keys.
       # @return [Array] A range of years. Every entry is
       def years(offset: 10, also_future: true, reference: nil, as_objects: false)
@@ -80,7 +80,7 @@ module Lazier
       # Returns the Easter (according to Gregorian calendar) date for the year.
       # @see http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
       #
-      # @param year [Fixnum] The year to compute the date for. Defaults to the current year.
+      # @param year [Fixnum|NilClass] The year to compute the date for. Defaults to the current year.
       # @return [Date] The Easter date for the year.
       def easter(year = nil)
         year = ::Date.today.year unless year.integer?
@@ -143,7 +143,7 @@ module Lazier
     # # => 18
     # ```
     #
-    # @param base [DateTime] The base year to start computation from. Default to current year.
+    # @param base [DateTime|NilClass] The base year to start computation from. Default to current year.
     # @return [Fixnum] Returns the number of months passed between the beginning of the base year and the current date.
     def months_since_year(base = nil)
       (year - (base || ::Date.today.year)) * 12 + month
@@ -159,7 +159,7 @@ module Lazier
     # Formats a datetime, eventually looking up also custom formats and/or moving to the current timezone.
     # @see Settings#setup_date_formats
     #
-    # @param format [String] A format or a custom format name to use for formatting.
+    # @param format [String|NilClass] A format or a custom format name to use for formatting.
     # @param custom [Boolean] Whether to use custom formats.
     # @param change_time_zone [Boolean] Whether to move the date to the current timezone.
     # @return [String] The formatted date.

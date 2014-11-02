@@ -96,7 +96,7 @@ module Lazier
     # @param no_duplicates [Boolean] If to remove duplicates from the array before sanitizing.
     # @param compact [Boolean] If to compact the array before sanitizing.
     # @param flatten [Boolean] If to flatten the array before sanitizing.
-    # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
+    # @param sanitizer [Symbol|NilClass] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
     def ensure_array(default: nil, no_duplicates: false, compact: false, flatten: false, sanitizer: nil, &block)
@@ -119,7 +119,7 @@ module Lazier
     # @param default [Hash|String|Symbol|NilClass] The default value to use. If it is an `Hash`, it is returned as value otherwise it is used to build
     #   as a key to build an hash with the current object as only value (everything but strings and symbols are mapped to `key`).
     #   Passing `nil` is equal to pass an empty Hash.
-    # @param sanitizer [Symbol|nil] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
+    # @param sanitizer [Symbol|NilClass] If not `nil`, the method to use to sanitize values of the hash. *Ignored if `block` is present.*
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Hash] If the object is an hash, then the object itself, a hash with the object as single value otherwise.
     def ensure_hash(accesses: nil, default: {}, sanitizer: nil, &block)
@@ -184,11 +184,11 @@ module Lazier
     # Formats a number.
     # @see Settings#setup_format_number
     #
-    # @param precision [Fixnum] The precision to show.
-    # @param decimal_separator [String] The string to use as decimal separator.
-    # @param add_string [String] The string to append to the number.
-    # @param k_separator [String] The string to use as thousands separator.
-    # @return [String] The string representation of the object.
+    # @param precision [Fixnum|NilClass] The precision to show.
+    # @param decimal_separator [String|NilClass] The string to use as decimal separator.
+    # @param add_string [String|NilClass] The string to append to the number.
+    # @param k_separator [String|NilClass] The string to use as thousands separator.
+    # @return [String|NilClass] The string representation of the object or `nil`, if the object is not a number.
     def format_number(precision: nil, decimal_separator: nil, add_string: nil, k_separator: nil)
       if number?
         settings = ::Lazier.settings.format_number
@@ -206,8 +206,8 @@ module Lazier
     # Formats a boolean.
     # @see Settings#setup_boolean_names
     #
-    # @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-    # @param false_name [String] The string representation of `false`. Defaults to `No`.
+    # @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+    # @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
     # @return [String] The string representation of the object.
     def format_boolean(true_name: nil, false_name: nil)
       settings = ::Lazier.settings.boolean_names

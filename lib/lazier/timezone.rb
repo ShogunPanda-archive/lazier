@@ -157,7 +157,7 @@ module Lazier
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
     #
     # @param rational [Boolean] If to return the offset as a Rational.
-    # @param date [DateTime] The date to consider. Defaults to now.
+    # @param date [DateTime|NilClass] The date to consider. Defaults to now.
     # @return [Fixnum|Rational] The offset of this timezone.
     def current_offset(rational = false, date = nil)
       date = (date || ::DateTime.current).in_time_zone
@@ -200,7 +200,7 @@ module Lazier
     #
     # @param rational [Boolean] If to return the offset as a Rational.
     # @param dst [Boolean] If to return the offset when the DST is active.
-    # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+    # @param year [Fixnum|NilClass] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The offset of this timezone.
     def offset(rational: false, dst: false, year: nil)
       rv =
@@ -216,7 +216,7 @@ module Lazier
 
     # Checks if the timezone uses Daylight Saving Time (DST) for that date or year.
     #
-    # @param reference [Date|DateTime] The date or year to check. Defaults to the current year.
+    # @param reference [Date|DateTime|NilClass] The date or year to check. Defaults to the current year.
     # @return [Boolean] `true` if the zone uses DST for that date or year, `false` otherwise.
     def uses_dst?(reference = nil)
       if reference.is_a?(Date) || reference.is_a?(DateTime) || reference.is_a?(Time)
@@ -228,7 +228,7 @@ module Lazier
 
     # Gets a period for this timezone when the Daylight Saving Time (DST) is active (it takes care of different hemispheres).
     #
-    # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+    # @param year [Fixnum|NilClass] The year to which refer to. Defaults to the current year.
     # @return [TimezonePeriod] A period when the Daylight Saving Time (DST) is active or `nil` if the timezone doesn't use DST for that year.
     def dst_period(year = nil)
       year ||= ::Date.current.year
@@ -243,7 +243,7 @@ module Lazier
     # Return the correction applied to the standard offset the timezone when the Daylight Saving Time (DST) is active.
     #
     # @param rational [Boolean] If to return the offset as a Rational.
-    # @param year [Fixnum] The year to which refer to. Defaults to the current year.
+    # @param year [Fixnum|NilClass] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The correction for dst.
     def dst_correction(rational = false, year = nil)
       rv = dst_offset(year, :std_offset)

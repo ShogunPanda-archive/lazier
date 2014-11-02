@@ -23,9 +23,9 @@ module Lazier
 
     # Returns the singleton instance of the settings.
     #
-    # @param locale [Symbol] The locale to use for translations. Default is the current system locale.
+    # @param locale [Symbol|NilClass] The locale to use for translations. Default is the current system locale.
     # @param root [Symbol] The root level of the translation.
-    # @param path [String] The path where the translations are stored.
+    # @param path [String|NilClass] The path where the translations are stored.
     # @param force [Boolean] If to force recreation of the instance.
     # @return [I18n] The singleton instance of the i18n.
     def self.instance(locale = nil, root: :lazier, path: nil, force: false)
@@ -35,9 +35,9 @@ module Lazier
 
     # Creates a new I18n object.
     #
-    # @param locale [Symbol] The locale to use. Defaults to the current locale.
+    # @param locale [Symbol|NilClass] The locale to use. Defaults to the current locale.
     # @param root [Symbol] The root level of the translation.
-    # @param path [String] The path where the translations are stored.
+    # @param path [String|NilClass] The path where the translations are stored.
     def initialize(locale = nil, root: :lazier, path: nil)
       Lazier.load_object
       path ||= Lazier::ROOT + "/locales"
@@ -57,7 +57,7 @@ module Lazier
 
     # Gets the list of available translation for a locale.
     #
-    # @param locale [Symbol] The locale to list. Defaults to the current locale.
+    # @param locale [Symbol|NilClass] The locale to list. Defaults to the current locale.
     # @return [Hash] The available translations for the specified locale.
     def translations(locale = nil)
       locale ||= @locale

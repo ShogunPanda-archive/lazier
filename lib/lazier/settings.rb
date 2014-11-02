@@ -60,8 +60,8 @@ module Lazier
     # Setups strings representation of booleans.
     # @see Object#format_boolean
     #
-    # @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-    # @param false_name [String] The string representation of `false`. Defaults to `No`.
+    # @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+    # @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
     # @return [Hash] The new representations.
     def setup_boolean_names(true_name: nil, false_name: nil)
       names = i18n.translate("boolean")
@@ -71,7 +71,7 @@ module Lazier
     # Setups custom formats for dates and times.
     # @see DateTime#lstrftime
     #
-    # @param formats [Hash] The format to add or replace.
+    # @param formats [Hash|NilClass] The format to add or replace.
     # @param replace [Boolean] If to discard current formats.
     # @return [Hash] The new formats.
     def setup_date_formats(formats = nil, replace = false)
@@ -89,10 +89,10 @@ module Lazier
     # @see DateTime::ClassMethods#months
     # @see DateTime#lstrftime
     #
-    # @param long_months [Array] The string representation of months.
-    # @param short_months [Array] The abbreviated string representation of months.
-    # @param long_days [Array] The string representation of days.
-    # @param short_days [Array] The abbreviated string representation of days.
+    # @param long_months [Array|NilClass] The string representation of months.
+    # @param short_months [Array|NilClass] The abbreviated string representation of months.
+    # @param long_days [Array|NilClass] The string representation of days.
+    # @param short_days [Array|NilClass] The abbreviated string representation of days.
     # @return [Hash] The new representations.
     def setup_date_names(long_months: nil, short_months: nil, long_days: nil, short_days: nil)
       definitions = prepare_definitions

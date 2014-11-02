@@ -17,6 +17,15 @@ module Lazier
       encode("utf-16", invalid: :replace, undef: :replace, replace: replacement).encode("utf-8")
     end
 
+    # Makes sure the string starts with the scheme for the specified protocol.
+    #
+    # @param protocol [String] The protocol for the URL.
+    # @param secure [Boolean] If the scheme should be secure or not.
+    def ensure_url_with_scheme(protocol = "http", secure: false)
+      schema = protocol + (secure ? "s" : "")
+      self !~ /^(#{protocol}(s?):\/\/)/ ? "#{schema}://#{self}" : self
+    end
+
     # Returns the string itself for use in form helpers.
     #
     # @return [String] The string itself.

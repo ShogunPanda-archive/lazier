@@ -29,6 +29,20 @@ describe Lazier::String do
     end
   end
 
+  describe "#ensure_url_with_scheme" do
+    it "should return a URL with scheme" do
+      expect("http://google.com".ensure_url_with_scheme).to eq("http://google.com")
+      expect("http://google.com".ensure_url_with_scheme(secure: true)).to eq("http://google.com")
+      expect("google.com".ensure_url_with_scheme).to eq("http://google.com")
+      expect("google.com".ensure_url_with_scheme(secure: true)).to eq("https://google.com")
+
+      expect("http://google.com".ensure_url_with_scheme("ftp")).to eq("ftp://http://google.com")
+      expect("ftp://google.com".ensure_url_with_scheme("ftp", secure: true)).to eq("ftp://google.com")
+      expect("google.com".ensure_url_with_scheme("ftp")).to eq("ftp://google.com")
+      expect("google.com".ensure_url_with_scheme("ftp", secure: true)).to eq("ftps://google.com")
+    end
+  end
+
   describe "#value" do
     it "should return the string itself" do
       expect(subject.value).to eq(subject)

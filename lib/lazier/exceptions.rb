@@ -23,7 +23,7 @@ module Lazier
       # Creates a new missing translation exception.
       #
       # @param locale [Array] The locale that was requested to use.
-      # @param message [String] The message that was requested to translate.
+      # @param message [String|NilClass] The message that was requested to translate.
       def initialize(locale, message = nil)
         locale, message = locale if message.nil?
         super("Unable to load the translation \"#{message}\" for the locale \"#{locale}\".")
