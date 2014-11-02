@@ -4,7 +4,7 @@
 #
 
 module Lazier
-  # Extensions for timezone objects.
+  # Extensions for `TimeZone` objects.
   module TimeZone
     extend ::ActiveSupport::Concern
 
@@ -34,7 +34,7 @@ module Lazier
       # Returns a +HH:MM formatted representation of the offset.
       #
       # @param offset [Rational|Fixnum] The offset to represent, in seconds or as a rational.
-      # @param colon [Boolean] If to put the colon in the output string.
+      # @param colon [Boolean] Whether to put the colon in the output string.
       # @return [String] The formatted offset.
       def format_offset(offset, colon = true)
         seconds_to_utc_offset(offset.is_a?(::Rational) ? (offset * 86_400).to_i : offset, colon)
@@ -78,7 +78,7 @@ module Lazier
       # # => "-0800@pacific-time-us-canada"
       # ```
       # @param tz [TimeZone|String] The zone to represent.
-      # @param with_offset [Boolean] If to include offset into the representation.
+      # @param with_offset [Boolean] Whether to include offset into the representation.
       # @return [String] A string representation which can be used for searches.
       def parameterize(tz, with_offset = true)
         tz = tz.to_str unless tz.is_a?(::String)
@@ -147,7 +147,7 @@ module Lazier
       end
     end
 
-    # Returns a list of valid aliases (city names) for this timezone (basing on offset).
+    # Returns a list of valid aliases (city names) for this timezone (basing on the offset).
     # @return [Array] A list of aliases for this timezone
     def aliases
       reference = self.class::MAPPING.fetch(name, name).gsub("_", " ")
@@ -156,7 +156,7 @@ module Lazier
 
     # Returns the current offset for this timezone, taking care of Daylight Saving Time (DST).
     #
-    # @param rational [Boolean] If to return the offset as a Rational.
+    # @param rational [Boolean] Whether to return the offset as a Rational.
     # @param date [DateTime|NilClass] The date to consider. Defaults to now.
     # @return [Fixnum|Rational] The offset of this timezone.
     def current_offset(rational = false, date = nil)
@@ -185,7 +185,7 @@ module Lazier
 
     # Returns the current name.
     #
-    # @param dst [Boolean] If to return the name with DST indication.
+    # @param dst [Boolean] Whether to return the name with DST indication.
     # @param dst_label [String] Label for the DST indication. Defaults to ` (DST)`.
     # @param year [Fixnum] The year to which refer to. Defaults to the current year. *Only required when `dst` is true*.
     # @return [String] The name for the zone.
@@ -198,8 +198,8 @@ module Lazier
 
     # Returns the standard offset for this timezone.
     #
-    # @param rational [Boolean] If to return the offset as a Rational.
-    # @param dst [Boolean] If to return the offset when the DST is active.
+    # @param rational [Boolean] Whether to return he offset as a `Rational`.
+    # @param dst [Boolean] Whether to return the offset when the DST is active.
     # @param year [Fixnum|NilClass] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The offset of this timezone.
     def offset(rational: false, dst: false, year: nil)
@@ -242,7 +242,7 @@ module Lazier
 
     # Return the correction applied to the standard offset the timezone when the Daylight Saving Time (DST) is active.
     #
-    # @param rational [Boolean] If to return the offset as a Rational.
+    # @param rational [Boolean] Whether to return the offset as a Rational.
     # @param year [Fixnum|NilClass] The year to which refer to. Defaults to the current year.
     # @return [Fixnum|Rational] The correction for dst.
     def dst_correction(rational = false, year = nil)
@@ -252,18 +252,16 @@ module Lazier
 
     # Formats this zone as a string.
     #
-    # @param dst [Boolean] If to represent with (DST) active.
+    # @param dst [Boolean] Whether to represent with (DST) active.
     # @param args [Hash] Parameters for the formatting:
-    #
-    #   * **label** (`String`): The label to use. Default to the current alias.
-    #   * **dst_label** (`String`): Label for the DST indication. Defaults to ` (DST)`.
-    #   * **utc_label** (`String`): Label for the UTC name. Defaults to `GMT`. *Only used when `parameterized` is `false`.
-    #   * **year** (`Fixnum`): The year to which refer to. Defaults to the current year.
-    #   * **parameterized** (`Boolean`): If to represent as parameterized.
-    #   * **with_offset** (`Boolean`): If to include offset into the representation. *Only used when `parameterized` is `true`.
-    #   * **offset_position** (`Symbol`): Where to put the offset. Valid values are `:begin` or `:end`. *Only used when `parameterized` is `false`.
-    #   * **colon** (`Boolean`): If include a colon in the offset. *Only used when `parameterized` is `false`.
-    #
+    # @option args label [String]: The label to use. Default to the current alias.
+    # @option args dst_label [String]: Label for the DST indication. Defaults to ` (DST)`.
+    # @option args utc_label [String]: Label for the UTC name. Defaults to `GMT`. *Only used when `parameterized` is `false`.
+    # @option args year [Fixnum]: The year to which refer to. Defaults to the current year.
+    # @option args parameterized [Boolean]: Whether to represent as parameterized.
+    # @option args with_offset [Boolean]: Whether to include offset into the representation. *Only used when `parameterized` is `true`.
+    # @option args offset_position [Symbol]: Where to put the offset. Valid values are `:begin` or `:end`. *Only used when `parameterized` is `false`.
+    # @option args colon [Boolean]: If include a colon in the offset. *Only used when `parameterized` is `false`.
     # @return [String] The string representation for this zone.
     def to_str(dst = false, **args)
       # PI: Ignore reek on this.

@@ -8,7 +8,7 @@ module Lazier
   module Boolean
     extend ::ActiveSupport::Concern
 
-    # Converts the boolean to an integer.
+    # Converts the boolean to a integer.
     #
     # @return [Fixnum] `1` for `true`, `0` for `false`.
     def to_i

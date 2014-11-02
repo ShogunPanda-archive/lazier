@@ -6,7 +6,7 @@
 <title>
   Class: Lazier::Settings
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -650,7 +650,7 @@
 
   <span class='comment'># Returns the singleton instance of the settings.
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @param force [Boolean] Whether to force recreation of the instance.
 </span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -689,8 +689,8 @@
   <span class='comment'># Setups strings representation of booleans.
 </span>  <span class='comment'># @see Object#format_boolean
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -700,8 +700,8 @@
   <span class='comment'># Setups custom formats for dates and times.
 </span>  <span class='comment'># @see DateTime#lstrftime
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
-</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @param formats [Hash|NilClass] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] Whether to discard current formats.
 </span>  <span class='comment'># @return [Hash] The new formats.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -716,12 +716,12 @@
   <span class='comment'># Setups strings representation of days and months.
 </span>  <span class='comment'># @see DateTime::ClassMethods#days
 </span>  <span class='comment'># @see DateTime::ClassMethods#months
-</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'># @see Lazier::DateTime#format
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param long_months [Array] The string representation of months.
-</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
-</span>  <span class='comment'># @param long_days [Array] The string representation of days.
-</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @param long_months [Array|NilClass] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array|NilClass] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array|NilClass] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array|NilClass] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
@@ -905,7 +905,7 @@
 
   <span class='comment'># Returns the singleton instance of the settings.
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @param force [Boolean] Whether to force recreation of the instance.
 </span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -944,8 +944,8 @@
   <span class='comment'># Setups strings representation of booleans.
 </span>  <span class='comment'># @see Object#format_boolean
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -955,8 +955,8 @@
   <span class='comment'># Setups custom formats for dates and times.
 </span>  <span class='comment'># @see DateTime#lstrftime
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
-</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @param formats [Hash|NilClass] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] Whether to discard current formats.
 </span>  <span class='comment'># @return [Hash] The new formats.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -971,12 +971,12 @@
   <span class='comment'># Setups strings representation of days and months.
 </span>  <span class='comment'># @see DateTime::ClassMethods#days
 </span>  <span class='comment'># @see DateTime::ClassMethods#months
-</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'># @see Lazier::DateTime#format
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param long_months [Array] The string representation of months.
-</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
-</span>  <span class='comment'># @param long_days [Array] The string representation of days.
-</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @param long_months [Array|NilClass] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array|NilClass] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array|NilClass] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array|NilClass] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
@@ -1160,7 +1160,7 @@
 
   <span class='comment'># Returns the singleton instance of the settings.
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @param force [Boolean] Whether to force recreation of the instance.
 </span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -1199,8 +1199,8 @@
   <span class='comment'># Setups strings representation of booleans.
 </span>  <span class='comment'># @see Object#format_boolean
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1210,8 +1210,8 @@
   <span class='comment'># Setups custom formats for dates and times.
 </span>  <span class='comment'># @see DateTime#lstrftime
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
-</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @param formats [Hash|NilClass] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] Whether to discard current formats.
 </span>  <span class='comment'># @return [Hash] The new formats.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -1226,12 +1226,12 @@
   <span class='comment'># Setups strings representation of days and months.
 </span>  <span class='comment'># @see DateTime::ClassMethods#days
 </span>  <span class='comment'># @see DateTime::ClassMethods#months
-</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'># @see Lazier::DateTime#format
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param long_months [Array] The string representation of months.
-</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
-</span>  <span class='comment'># @param long_days [Array] The string representation of days.
-</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @param long_months [Array|NilClass] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array|NilClass] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array|NilClass] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array|NilClass] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
@@ -1415,7 +1415,7 @@
 
   <span class='comment'># Returns the singleton instance of the settings.
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @param force [Boolean] Whether to force recreation of the instance.
 </span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -1454,8 +1454,8 @@
   <span class='comment'># Setups strings representation of booleans.
 </span>  <span class='comment'># @see Object#format_boolean
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1465,8 +1465,8 @@
   <span class='comment'># Setups custom formats for dates and times.
 </span>  <span class='comment'># @see DateTime#lstrftime
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
-</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @param formats [Hash|NilClass] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] Whether to discard current formats.
 </span>  <span class='comment'># @return [Hash] The new formats.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -1481,12 +1481,12 @@
   <span class='comment'># Setups strings representation of days and months.
 </span>  <span class='comment'># @see DateTime::ClassMethods#days
 </span>  <span class='comment'># @see DateTime::ClassMethods#months
-</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'># @see Lazier::DateTime#format
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param long_months [Array] The string representation of months.
-</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
-</span>  <span class='comment'># @param long_days [Array] The string representation of days.
-</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @param long_months [Array|NilClass] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array|NilClass] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array|NilClass] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array|NilClass] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
@@ -1670,7 +1670,7 @@
 
   <span class='comment'># Returns the singleton instance of the settings.
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param force [Boolean] If to force recreation of the instance.
+</span>  <span class='comment'># @param force [Boolean] Whether to force recreation of the instance.
 </span>  <span class='comment'># @return [Settings] The singleton instance of the settings.
 </span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@instance</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
@@ -1709,8 +1709,8 @@
   <span class='comment'># Setups strings representation of booleans.
 </span>  <span class='comment'># @see Object#format_boolean
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param true_name [String] The string representation of `true`. Defaults to `Yes`.
-</span>  <span class='comment'># @param false_name [String] The string representation of `false`. Defaults to `No`.
+</span>  <span class='comment'># @param true_name [String|NilClass] The string representation of `true`. Defaults to `Yes`.
+</span>  <span class='comment'># @param false_name [String|NilClass] The string representation of `false`. Defaults to `No`.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_boolean_names'>setup_boolean_names</span><span class='lparen'>(</span><span class='label'>true_name:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>false_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n'>i18n</span><span class='period'>.</span><span class='id identifier rubyid_translate'>translate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boolean</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1720,8 +1720,8 @@
   <span class='comment'># Setups custom formats for dates and times.
 </span>  <span class='comment'># @see DateTime#lstrftime
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param formats [Hash] The format to add or replace.
-</span>  <span class='comment'># @param replace [Boolean] If to discard current formats.
+</span>  <span class='comment'># @param formats [Hash|NilClass] The format to add or replace.
+</span>  <span class='comment'># @param replace [Boolean] Whether to discard current formats.
 </span>  <span class='comment'># @return [Hash] The new formats.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_formats'>setup_date_formats</span><span class='lparen'>(</span><span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='ivar'>@date_formats</span> <span class='op'>=</span> <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_replace'>replace</span> <span class='op'>||</span> <span class='op'>!</span><span class='ivar'>@date_formats</span>
@@ -1736,12 +1736,12 @@
   <span class='comment'># Setups strings representation of days and months.
 </span>  <span class='comment'># @see DateTime::ClassMethods#days
 </span>  <span class='comment'># @see DateTime::ClassMethods#months
-</span>  <span class='comment'># @see DateTime#lstrftime
+</span>  <span class='comment'># @see Lazier::DateTime#format
 </span>  <span class='comment'>#
-</span>  <span class='comment'># @param long_months [Array] The string representation of months.
-</span>  <span class='comment'># @param short_months [Array] The abbreviated string representation of months.
-</span>  <span class='comment'># @param long_days [Array] The string representation of days.
-</span>  <span class='comment'># @param short_days [Array] The abbreviated string representation of days.
+</span>  <span class='comment'># @param long_months [Array|NilClass] The string representation of months.
+</span>  <span class='comment'># @param short_months [Array|NilClass] The abbreviated string representation of months.
+</span>  <span class='comment'># @param long_days [Array|NilClass] The string representation of days.
+</span>  <span class='comment'># @param short_days [Array|NilClass] The abbreviated string representation of days.
 </span>  <span class='comment'># @return [Hash] The new representations.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_setup_date_names'>setup_date_names</span><span class='lparen'>(</span><span class='label'>long_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_months:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>long_days:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>short_days:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_definitions'>definitions</span> <span class='op'>=</span> <span class='id identifier rubyid_prepare_definitions'>prepare_definitions</span>
@@ -1810,7 +1810,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to force recreation of the instance.</p>
+        <div class='inline'><p>Whether to force recreation of the instance.</p>
 </div>
       
     </li>
@@ -1935,7 +1935,7 @@
         <span class='name'>true_name</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span>|NilClass</tt>)</span>
       
       
       
@@ -1950,7 +1950,7 @@
         <span class='name'>false_name</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span>|NilClass</tt>)</span>
       
       
       
@@ -2035,7 +2035,7 @@
         <span class='name'>formats</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Hash.html" title="Lazier::Hash (module)">Hash</a></span>|NilClass</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -2059,7 +2059,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to discard current formats.</p>
+        <div class='inline'><p>Whether to discard current formats.</p>
 </div>
       
     </li>
@@ -2149,7 +2149,7 @@
         <span class='name'>long_months</span>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array|NilClass</tt>)</span>
       
       
       
@@ -2164,7 +2164,7 @@
         <span class='name'>short_months</span>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array|NilClass</tt>)</span>
       
       
       
@@ -2179,7 +2179,7 @@
         <span class='name'>long_days</span>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array|NilClass</tt>)</span>
       
       
       
@@ -2194,7 +2194,7 @@
         <span class='name'>short_days</span>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array|NilClass</tt>)</span>
       
       
       
@@ -2231,7 +2231,7 @@
     
       <li><span class='object_link'><a href="DateTime/ClassMethods.html#months-instance_method" title="Lazier::DateTime::ClassMethods#months (method)">DateTime::ClassMethods#months</a></span></li>
     
-      <li>DateTime#lstrftime</li>
+      <li><span class='object_link'><a href="DateTime.html#format-instance_method" title="Lazier::DateTime#format (method)">DateTime#format</a></span></li>
     
   </ul>
 
@@ -2413,9 +2413,9 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Oct  2 10:38:44 2014 by
+  Generated on Sun Nov  2 10:59:28 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.1.3).
 </div>
 
   </body>

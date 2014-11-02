@@ -3,6 +3,8 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+# PI: Ignore flog on this file.
+
 require(RUBY_ENGINE != "jruby" ? "oj" : "json")
 require "English"
 require "tzinfo"
@@ -43,15 +45,14 @@ module Lazier
   # Loads the extensions.
   #
   # @param what [Array] The modules to load. Valid values are:
-  #
-  #   @option object Extensions for all objects.
-  #   @option boolean Extensions for boolean values.
-  #   @option string Extensions for strings.
-  #   @option hash Extensions for hashs.
-  #   @option hash_method_access Extensions for hash to allow method access. Not included by default.
-  #   @option datetime Extensions date and time objects.
-  #   @option math Extensions for Math module.
-  #   @option pathname Extensions for path objects.
+  # @option object Extensions for all objects.
+  # @option boolean Extensions for boolean values.
+  # @option string Extensions for strings.
+  # @option hash Extensions for hashs.
+  # @option hash_method_access Extensions for hash to allow method access. Not included by default.
+  # @option datetime Extensions date and time objects.
+  # @option math Extensions for Math module.
+  # @option pathname Extensions for path objects.
   # @return [Settings] The settings for the extensions.
   def self.load!(*what)
     valid_modules = [:object, :boolean, :string, :hash, :datetime, :math, :pathname]
@@ -62,13 +63,13 @@ module Lazier
     ::Lazier::Settings.instance
   end
 
-  # Loads Object extensions.
+  # Loads `Object` extensions.
   def self.load_object
     Lazier.load_boolean
     perform_load(:object, ::Object, ::Lazier::Object)
   end
 
-  # Loads Boolean extensions.
+  # Loads `Boolean` extensions.
   def self.load_boolean
     perform_load(:boolean) do
       [::TrueClass, ::FalseClass].each do |klass|
@@ -80,12 +81,12 @@ module Lazier
     end
   end
 
-  # Loads String extensions.
+  # Loads `String` extensions.
   def self.load_string
     perform_load(:string, ::String, ::Lazier::String)
   end
 
-  # Loads Hash extensions.
+  # Loads `Hash` extensions.
   def self.load_hash
     Lazier.load_object
 
@@ -95,7 +96,7 @@ module Lazier
     end
   end
 
-  # Loads DateTime extensions.
+  # Loads `DateTime` extensions.
   def self.load_datetime
     Lazier.load_object
 
@@ -108,13 +109,13 @@ module Lazier
     end
   end
 
-  # Loads Math extensions.
+  # Loads `Math` extensions.
   def self.load_math
     Lazier.load_object
     perform_load(:math, ::Math, ::Lazier::Math)
   end
 
-  # Loads Pathname extensions.
+  # Loads `Pathname` extensions.
   def self.load_pathname
     perform_load(:pathname, ::Pathname, ::Lazier::Pathname)
   end
@@ -153,7 +154,7 @@ module Lazier
   # Measure the time in milliseconds required to execute the given block.
   #
   # @param message [String|NilClass] An optional message (see return value).
-  # @param precision [Fixnum] The precision for the message (see return value)..
+  # @param precision [Fixnum] The precision for the message (see return value).
   # @param block [Proc] The block to evaluate.
   # @return [Float|String] If a `message` is provided, then the message itself plus the duration under parenthesis will be returned,
   #   otherwise the duration alone as a number.

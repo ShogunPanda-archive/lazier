@@ -93,9 +93,9 @@ module Lazier
     # Makes sure that the object is an array. For non array objects, return a single element array containing the object.
     #
     # @param default [Array|NilClass] The default array to use. If not specified, an array containing the object is returned.
-    # @param no_duplicates [Boolean] If to remove duplicates from the array before sanitizing.
-    # @param compact [Boolean] If to compact the array before sanitizing.
-    # @param flatten [Boolean] If to flatten the array before sanitizing.
+    # @param no_duplicates [Boolean] Whether to remove duplicates from the array before sanitizing.
+    # @param compact [Boolean] Whether to compact the array before sanitizing.
+    # @param flatten [Boolean] Whether to flatten the array before sanitizing.
     # @param sanitizer [Symbol|NilClass] If not `nil`, the method to use to sanitize entries of the array. *Ignored if a block is present.*
     # @param block [Proc] A block to sanitize entries. It must accept the value as unique argument.
     # @return [Array] If the object is an array, then the object itself, a single element array containing the object otherwise.
@@ -214,11 +214,13 @@ module Lazier
       to_boolean ? (true_name || settings[true]) : (false_name || settings[false])
     end
 
-    # Prepares an object to be printed in list summaries, like `[01/04] Opening this...`.
+    # Prepares an object to be printed in list summaries, like
+    #
+    #     [01/04] Opening this...
     #
     # @param length [Fixnum] The minimum length of the label.
-    # @param filler [String] The minimum length of the label.
-    # @param formatter [Symbol] The method to use to format the label. Must accept the `length` and the `filler arguments.
+    # @param filler [String] The character to use to fill the label.
+    # @param formatter [Symbol] The method to use to format the label. Must accept the `length` and the `filler` arguments.
     # @return [String] The object inspected and formatted.
     def indexize(length: 2, filler: "0", formatter: :rjust)
       ensure_string.send(formatter, length, filler)

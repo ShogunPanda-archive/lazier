@@ -11,5 +11,5 @@ gemspec
 # Testing
 gem "rspec", "~> 3.1"
 gem "rake", "~> 10.3"
-gem "simplecov", "~> 0.9"
-gem "coveralls", "~> 0.7", require: false
+gem "simplecov", ">= 0.9"
+gem "coveralls", ">= 0.7", require: false

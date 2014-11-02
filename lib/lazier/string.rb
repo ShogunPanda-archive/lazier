@@ -4,7 +4,7 @@
 #
 
 module Lazier
-  # Extensions for the String class.
+  # Extensions for the `String` class.
   module String
     extend ::ActiveSupport::Concern
 

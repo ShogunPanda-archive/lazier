@@ -7,22 +7,22 @@ module Lazier
   # A configuration class to set properties.
   class Configuration < Hashie::Dash
     # Initializes a new configuration object.
+    # @see Hash#initialize
     #
     # @param attributes [Hash] The initial values of properties of this configuration.
+    # @param block [Proc] A block to use for default values.
     def initialize(attributes = {}, &block)
       @i18n = Lazier::I18n.instance
       super(attributes, &block)
     end
 
     # Defines a property on the configuration.
-    # Options are as follows:
-    #
-    # * :default - Specify a default value for this property.
-    # * :required - Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
-    # * :readonly - Specify if the property is readonly, which means that it can only defined during creation of the configuration.
-    #
+
     # @param name [String|Symbol] The new property name.
     # @param options [Hash] The options for the property.
+    # @option options [Boolean] :default Specify a default value for this property.
+    # @option options [Boolean] :required Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
+    # @option options [Boolean] :readonly Specify if the property is readonly, which means that it can only defined during creation of the configuration.
     def self.property(name, options = {})
       super(name, options)
 

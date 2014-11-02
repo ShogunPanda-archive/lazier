@@ -12,7 +12,12 @@ module Lazier
 
     # This is the handler for the core I18n gem.
     class TranslationExceptionHandler < ::I18n::ExceptionHandler
-      # :nodoc:
+      # Implements the ExceptionHandler interface for I18n.
+      #
+      # @param exception [Exception] The error to raise.
+      # @param locale [String|Symbol] The locale that was requested.
+      # @param key [String|Symbol] The key that was requested.
+      # @param options [Hash] The options passed to the translation.
       def call(exception, locale, key, options)
         exception.is_a?(::I18n::MissingTranslation) ? raise(exception.to_exception) : super
       end

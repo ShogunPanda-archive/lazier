@@ -6,7 +6,7 @@
 <title>
   Class: Lazier::Configuration
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -143,7 +143,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Defines a property on the configuration.</p>
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -227,8 +227,30 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>block</span>
+      
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A block to use for default values.</p>
+</div>
+      
+    </li>
+  
 </ul>
 
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Hash#initialize</li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -236,13 +258,13 @@
       <pre class="lines">
 
 
-12
-13
 14
-15</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/configuration.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/configuration.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@i18n</span> <span class='op'>=</span> <span class='const'>Lazier</span><span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
@@ -271,14 +293,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Defines a property on the configuration.
-Options are as follows:</p>
-
-<ul>
-  <li>:default - Specify a default value for this property.</li>
-  <li>:required - Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.</li>
-  <li>:readonly - Specify if the property is readonly, which means that it can only defined during creation of the configuration.</li>
-</ul>
+    
 
 
   </div>
@@ -321,6 +336,53 @@ Options are as follows:</p>
   
 </ul>
 
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:default</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specify a default value for this property.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:required</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:readonly</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specify if the property is readonly, which means that it can only defined during creation of the configuration.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
 
 </div><table class="source_code">
   <tr>
@@ -360,9 +422,9 @@ Options are as follows:</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Oct  2 10:38:45 2014 by
+  Generated on Sun Nov  2 10:59:28 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.1.3).
 </div>
 
   </body>

@@ -48,7 +48,7 @@ module Lazier
       # @param offset [Fixnum] The width of the range.
       # @param also_future [Boolean] If return also future years.
       # @param reference [Fixnum|NilClass] The ending (or middle, if `also_future` is `true`) value of the range. Defaults to the current year.
-      # @param as_objects [Boolean] If to return years in hashes with `:value` and `label` keys.
+      # @param as_objects [Boolean] Whether to return years in hashes with `:value` and `label` keys.
       # @return [Array] A range of years. Every entry is
       def years(offset: 10, also_future: true, reference: nil, as_objects: false)
         y = reference || ::Date.today.year
@@ -138,10 +138,10 @@ module Lazier
 
     # Returns the number of months passed between the beginning of the base year and the current date.
     #
-    # ```ruby
-    # DateTime.civil(2013, 6, 1).in_months(2011)
-    # # => 18
-    # ```
+    # Example:
+    #
+    #     DateTime.civil(2013, 6, 1).in_months(2011)
+    #     # => 18
     #
     # @param base [DateTime|NilClass] The base year to start computation from. Default to current year.
     # @return [Fixnum] Returns the number of months passed between the beginning of the base year and the current date.
@@ -149,9 +149,9 @@ module Lazier
       (year - (base || ::Date.today.year)) * 12 + month
     end
 
-    # Returns the current month number with leading 0.
+    # Returns the current month number with a leading zero if needed.
     #
-    # @return [String] The current month number with leading 0.
+    # @return [String] The current month number with leading zero if needed.
     def padded_month
       month.indexize
     end

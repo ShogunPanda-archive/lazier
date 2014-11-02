@@ -25,7 +25,7 @@ See documentation for more informations.
 
 ## Supported implementations.
 
-A Ruby 2.1 implementation is required. So far, only MRI supports all Ruby 2.1 requirements.
+A Ruby 2.1 implementation is required.
 
 ## Contributing to lazier
  

@@ -4,7 +4,7 @@
 #
 
 module Lazier
-  # Extensions for Hash objects.
+  # Extensions for `Hash` objects.
   module Hash
     # The supported accesses for #ensure_access
     VALID_ACCESSES = {
@@ -18,7 +18,7 @@ module Lazier
 
     # Returns a new hash, removing all keys which values are blank.
     #
-    # @param validator [Proc], if present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.
+    # @param validator [Proc] If present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.
     # @return [Hash] The hash with all blank values removed.
     def compact(&validator)
       dup.compact!(&validator)
@@ -26,7 +26,7 @@ module Lazier
 
     # Compacts the current hash, removing all keys which values are blank.
     #
-    # @param validator [Proc], if present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.
+    # @param validator [Proc] If present all the keys which evaluates to true will be removed. Otherwise all blank values will be removed.
     def compact!(&validator)
       validator ||= ->(_, v) { v.blank? }
       reject!(&validator)
@@ -34,7 +34,7 @@ module Lazier
 
     # Makes sure that the keys of the hash are accessible in the desired way.
     #
-    # @param accesses [Array] The requested access for the keys. Can be `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
+    # @param accesses [Array] The requested access for the keys. Can be `:dotted`, `:strings`, `:symbols` or `:indifferent`. If `nil` the keys are not modified.
     # @return [Hash] The current hash with keys modified.
     def ensure_access(*accesses)
       methods = accesses.ensure_array(compact: true, no_duplicates: true, flatten: true) { |m| VALID_ACCESSES[m.ensure_string.to_sym] }.compact

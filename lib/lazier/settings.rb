@@ -21,7 +21,7 @@ module Lazier
 
     # Returns the singleton instance of the settings.
     #
-    # @param force [Boolean] If to force recreation of the instance.
+    # @param force [Boolean] Whether to force recreation of the instance.
     # @return [Settings] The singleton instance of the settings.
     def self.instance(force = false)
       @instance = nil if force
@@ -72,7 +72,7 @@ module Lazier
     # @see DateTime#lstrftime
     #
     # @param formats [Hash|NilClass] The format to add or replace.
-    # @param replace [Boolean] If to discard current formats.
+    # @param replace [Boolean] Whether to discard current formats.
     # @return [Hash] The new formats.
     def setup_date_formats(formats = nil, replace = false)
       @date_formats = HashWithIndifferentAccess.new if replace || !@date_formats
@@ -87,7 +87,7 @@ module Lazier
     # Setups strings representation of days and months.
     # @see DateTime::ClassMethods#days
     # @see DateTime::ClassMethods#months
-    # @see DateTime#lstrftime
+    # @see Lazier::DateTime#format
     #
     # @param long_months [Array|NilClass] The string representation of months.
     # @param short_months [Array|NilClass] The abbreviated string representation of months.

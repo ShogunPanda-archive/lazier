@@ -6,7 +6,7 @@
 <title>
   Module: Lazier::TimeZone
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -90,7 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Extensions for timezone objects.</p>
+    <p>Extensions for <code>TimeZone</code> objects.</p>
 
 
   </div>
@@ -183,7 +183,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns a list of valid aliases (city names) for this timezone (basing on offset).</p>
+    <span class="summary_desc"><div class='inline'><p>Returns a list of valid aliases (city names) for this timezone (basing on the offset).</p>
 </div></span>
   
 </li>
@@ -417,7 +417,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns a list of valid aliases (city names) for this timezone (basing on offset).</p>
+    <p>Returns a list of valid aliases (city names) for this timezone (basing on the offset).</p>
 
 
   </div>
@@ -623,7 +623,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to return the name with DST indication.</p>
+        <div class='inline'><p>Whether to return the name with DST indication.</p>
 </div>
       
     </li>
@@ -737,7 +737,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to return the offset as a Rational.</p>
+        <div class='inline'><p>Whether to return the offset as a Rational.</p>
 </div>
       
     </li>
@@ -747,7 +747,7 @@
         <span class='name'>date</span>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span>|NilClass</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -834,7 +834,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to return the offset as a Rational.</p>
+        <div class='inline'><p>Whether to return the offset as a Rational.</p>
 </div>
       
     </li>
@@ -844,7 +844,7 @@
         <span class='name'>year</span>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt>Fixnum|NilClass</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -924,7 +924,7 @@
         <span class='name'>year</span>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt>Fixnum|NilClass</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -1019,7 +1019,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to return the offset as a Rational.</p>
+        <div class='inline'><p>Whether to return he offset as a <code>Rational</code>.</p>
 </div>
       
     </li>
@@ -1034,7 +1034,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to return the offset when the DST is active.</p>
+        <div class='inline'><p>Whether to return the offset when the DST is active.</p>
 </div>
       
     </li>
@@ -1044,7 +1044,7 @@
         <span class='name'>year</span>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt>Fixnum|NilClass</tt>)</span>
       
       
       
@@ -1143,7 +1143,7 @@
       
       
         &mdash;
-        <div class='inline'><p>If to represent with (DST) active.</p>
+        <div class='inline'><p>Whether to represent with (DST) active.</p>
 </div>
       
     </li>
@@ -1159,22 +1159,118 @@
       
         &mdash;
         <div class='inline'><p>Parameters for the formatting:</p>
-
-<ul>
-  <li><strong>label</strong> (<code>String</code>): The label to use. Default to the current alias.</li>
-  <li><strong>dst_label</strong> (<code>String</code>): Label for the DST indication. Defaults to ` (DST)`.</li>
-  <li><strong>utc_label</strong> (<code>String</code>): Label for the UTC name. Defaults to <code>GMT</code>. *Only used when <code>parameterized</code> is <code>false</code>.</li>
-  <li><strong>year</strong> (<code>Fixnum</code>): The year to which refer to. Defaults to the current year.</li>
-  <li><strong>parameterized</strong> (<code>Boolean</code>): If to represent as parameterized.</li>
-  <li><strong>with_offset</strong> (<code>Boolean</code>): If to include offset into the representation. *Only used when <code>parameterized</code> is <code>true</code>.</li>
-  <li><strong>offset_position</strong> (<code>Symbol</code>): Where to put the offset. Valid values are <code>:begin</code> or <code>:end</code>. *Only used when <code>parameterized</code> is <code>false</code>.</li>
-  <li><strong>colon</strong> (<code>Boolean</code>): If include a colon in the offset. *Only used when <code>parameterized</code> is <code>false</code>.</li>
-</ul>
 </div>
       
     </li>
   
 </ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>**args</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">label</span>
+          <span class="type">(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: The label to use. Default to the current alias.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">dst_label</span>
+          <span class="type">(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: Label for the DST indication. Defaults to ` (DST)`.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">utc_label</span>
+          <span class="type">(<tt><span class='object_link'><a href="String.html" title="Lazier::String (module)">String</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: Label for the UTC name. Defaults to <code>GMT</code>. *Only used when <code>parameterized</code> is <code>false</code>.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">year</span>
+          <span class="type">(<tt>Fixnum</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: The year to which refer to. Defaults to the current year.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">parameterized</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: Whether to represent as parameterized.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">with_offset</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: Whether to include offset into the representation. *Only used when <code>parameterized</code> is <code>true</code>.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">offset_position</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: Where to put the offset. Valid values are <code>:begin</code> or <code>:end</code>. *Only used when <code>parameterized</code> is <code>false</code>.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">colon</span>
+          <span class="type">(<tt><span class='object_link'><a href="Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>: If include a colon in the offset. *Only used when <code>parameterized</code> is <code>false</code>.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -1200,6 +1296,8 @@
       <pre class="lines">
 
 
+266
+267
 268
 269
 270
@@ -1208,12 +1306,10 @@
 273
 274
 275
-276
-277
-278</pre>
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 268</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/timezone.rb', line 266</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str'>to_str</span><span class='lparen'>(</span><span class='id identifier rubyid_dst'>dst</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='comment'># PI: Ignore reek on this.
@@ -1256,7 +1352,7 @@
         <span class='name'>reference</span>
       
       
-        <span class='type'>(<tt>Date|<span class='object_link'><a href="DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span></tt>)</span>
+        <span class='type'>(<tt>Date|<span class='object_link'><a href="DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span>|NilClass</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -1322,9 +1418,9 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Oct  2 10:38:44 2014 by
+  Generated on Sun Nov  2 10:59:27 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.1.3).
 </div>
 
   </body>

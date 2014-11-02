@@ -26,7 +26,7 @@ module Lazier
     # @param locale [Symbol|NilClass] The locale to use for translations. Default is the current system locale.
     # @param root [Symbol] The root level of the translation.
     # @param path [String|NilClass] The path where the translations are stored.
-    # @param force [Boolean] If to force recreation of the instance.
+    # @param force [Boolean] Whether to force recreation of the instance.
     # @return [I18n] The singleton instance of the i18n.
     def self.instance(locale = nil, root: :lazier, path: nil, force: false)
       @instance = nil if force
@@ -98,8 +98,8 @@ module Lazier
 
     # Localize a message in a specific locale.
     #
-    # @param message [String|Symbol] The message to localize.
     # @param locale [String|Symbol] The new locale to use for localization.
+    # @param message [String|Symbol] The message to localize.
     # @param args [Array] Optional arguments to localize the message.
     # @return [String] The localized message.
     def translate_in_locale(locale, message, *args)

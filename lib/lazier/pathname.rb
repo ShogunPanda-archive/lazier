@@ -4,16 +4,14 @@
 #
 
 module Lazier
-  # Extensions for the Pathname class.
+  # Extensions for the `Pathname` class.
   module Pathname
     extend ::ActiveSupport::Concern
 
     # Returns all the components that are included in this path.
     #
-    # ```ruby
-    # Pathname.new("/usr/bin/ruby").components
-    # # => ["usr", "bin", "ruby"]
-    # ```
+    #     Pathname.new("/usr/bin/ruby").components
+    #     # => ["usr", "bin", "ruby"]
     #
     # @return [Array] A list of all components that are included in this path.
     def components
