@@ -302,14 +302,14 @@
       <pre class="lines">
 
 
-166
-167
-168
-169
-170</pre>
+171
+172
+173
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>custom:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>change_time_zone:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_target'>target</span> <span class='op'>=</span> <span class='id identifier rubyid_change_time_zone'>change_time_zone</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:in_time_zone</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span> <span class='op'>:</span> <span class='kw'>self</span>
@@ -390,12 +390,12 @@
       <pre class="lines">
 
 
-148
-149
-150</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_months_since_year'>months_since_year</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_year'>year</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>||</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>12</span> <span class='op'>+</span> <span class='id identifier rubyid_month'>month</span>
@@ -447,12 +447,12 @@
       <pre class="lines">
 
 
-155
-156
-157</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/lazier/datetime.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_padded_month'>padded_month</span>
   <span class='id identifier rubyid_month'>month</span><span class='period'>.</span><span class='id identifier rubyid_indexize'>indexize</span>
@@ -467,9 +467,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Nov  2 11:08:44 2014 by
+  Generated on Tue Mar 29 11:11:04 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.3.0).
 </div>
 
   </body>
