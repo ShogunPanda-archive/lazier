@@ -119,12 +119,14 @@ module Lazier
 
       # :nodoc:
       def fetch_aliases(zone, dst_label = "(DST)", parameterized = false)
-        zone.aliases.map { |zone_alias|
+        rv = zone.aliases.map do |zone_alias|
           [
             zone.to_str(false, label: zone_alias, parameterized: parameterized),
             (zone.uses_dst? && dst_label) ? zone.to_str(true, label: zone_alias, dst_label: dst_label, parameterized: parameterized) : nil
           ]
-        }.flatten.uniq.compact
+        end
+
+        rv.flatten.uniq.compact
       end
 
       # :nodoc:
@@ -136,12 +138,12 @@ module Lazier
 
       # :nodoc:
       def finalize_list_as_hash(all, dst_label, parameterized, sort_by_name)
-        rv = all.reduce({}) { |accu, zone|
-          accu.merge(fetch_aliases(zone, dst_label, parameterized).reduce({}) { |a, e|
+        rv = all.reduce({}) do |accu, zone|
+          accu.merge(fetch_aliases(zone, dst_label, parameterized).reduce({}) do |a, e|
             a[e] = zone
             a
-          })
-        }
+          end)
+        end
 
         sort_by_name ? ::Hash[rv.sort { |a, b| ::ActiveSupport::TimeZone.compare(a[0], b[0]) }] : rv
       end
@@ -281,8 +283,6 @@ module Lazier
     def format_alias(name, zone, reference)
       if zone.gsub("_", " ") == reference
         ["International Date Line West", "UTC"].include?(name) || name.include?("(US & Canada)") ? name : reference.gsub(/\/.*/, "/#{name}")
-      else
-        nil
       end
     end
 

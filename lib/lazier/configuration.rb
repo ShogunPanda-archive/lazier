@@ -21,7 +21,7 @@ module Lazier
     # @param name [String|Symbol] The new property name.
     # @param options [Hash] The options for the property.
     # @option options [Boolean] :default Specify a default value for this property.
-    # @option options [Boolean] :required Specify the value as required for this property, to raise an error if a value is unset in a new or existing configuration.
+    # @option options [Boolean] :required Set the value as required for this property, this will raise an error if the value is unset when creating or editing.
     # @option options [Boolean] :readonly Specify if the property is readonly, which means that it can only defined during creation of the configuration.
     def self.property(name, options = {})
       super(name, options)

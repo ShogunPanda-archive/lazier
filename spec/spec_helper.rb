@@ -4,6 +4,23 @@
 #
 
 require "bundler/setup"
+
+if ENV["COVERAGE"]
+  require "simplecov"
+  require "coveralls"
+
+  Coveralls.wear! if ENV["CI"]
+
+  SimpleCov.start do
+    root = Pathname.new(File.dirname(__FILE__)) + ".."
+
+    add_filter do |src_file|
+      path = Pathname.new(src_file.filename).relative_path_from(root).to_s
+      path !~ /^lib/
+    end
+  end
+end
+
 require File.dirname(__FILE__) + "/../lib/lazier"
 
 ::I18n.enforce_available_locales = false

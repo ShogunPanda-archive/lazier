@@ -1,3 +1,7 @@
+### 4.2.1 / 2016-03-29
+
+* Updated dependencies and linted code.
+
 ### 4.2.0 / 2014-11-02
 
 * Added `Lazier::String#ensure_url_with_scheme`.

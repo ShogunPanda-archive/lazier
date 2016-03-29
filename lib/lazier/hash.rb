@@ -12,7 +12,7 @@ module Lazier
       symbols: :symbolize_keys,
       indifferent: :with_indifferent_access,
       dotted: :enable_dotted_access
-    }
+    }.freeze
 
     extend ::ActiveSupport::Concern
 

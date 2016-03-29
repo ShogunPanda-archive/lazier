@@ -16,9 +16,9 @@ module Lazier
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of days.
       def days(short = true)
-        ::Lazier.settings.date_names[short ? :short_days : :long_days].map.with_index {|label, index|
+        ::Lazier.settings.date_names[short ? :short_days : :long_days].map.with_index do |label, index|
           {value: (index + 1).to_s, label: label}
-        }
+        end
       end
 
       # Returns strings representations of months.
@@ -27,9 +27,9 @@ module Lazier
       # @param short [Boolean] If return the abbreviated representations.
       # @return [Array] Return string representations of months.
       def months(short = true)
-        ::Lazier.settings.date_names[short ? :short_months : :long_months].map.with_index {|label, index|
+        ::Lazier.settings.date_names[short ? :short_months : :long_months].map.with_index do |label, index|
           {value: (index + 1).to_s.rjust(2, "0"), label: label}
-        }
+        end
       end
 
       # Returns a range of years.
@@ -107,11 +107,16 @@ module Lazier
         _, b, c = data
 
         [
-          b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor,
+          easter_divide_first(b),
           b % 4,
           (c / 4.0).floor,
           c % 4
         ]
+      end
+
+      # :nodoc:
+      def easter_divide_first(b)
+        b - (b / 4.0).floor - ((b - ((b + 8) / 25.0).floor + 1) / 3.0).floor
       end
 
       # :nodoc:

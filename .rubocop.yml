@@ -1,7 +1,19 @@
-AsciiComments:
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - "*/**/.rb"
+    - "config.ru"
+    - "Rakefile"
+    - "Gemfile"
+  Exclude:
+    - "config/**/*"
+    - "db/**/*"
+    - "spec/**/*"
+
+Alias:
   Enabled: false
 
-Blocks:
+AsciiComments:
   Enabled: false
 
 BracesAroundHashParameters:
@@ -10,7 +22,19 @@ BracesAroundHashParameters:
 CyclomaticComplexity:
   Max: 15
 
+ClassLength:
+  Max: 150
+
+Documentation:
+  Enabled: false
+
 EachWithObject:
+  Enabled: false
+
+FormatString:
+  Enabled: false
+
+FrozenStringLiteralComment:
   Enabled: false
 
 IndentationConsistency:
@@ -19,8 +43,20 @@ IndentationConsistency:
 LineLength:
   Max: 160
 
+MethodLength:
+  Max: 15
+
+ModuleLength:
+  Max: 200
+
+MultilineMethodCallIndentation:
+  Enabled: false
+
 ParameterLists:
-  Max: 6
+  Max: 8
+
+RegexpLiteral:
+  Enabled: false
 
 SignalException:
   Enabled: false
@@ -29,4 +65,13 @@ SpaceInsideHashLiteralBraces:
   Enabled: false
 
 StringLiterals:
+  Enabled: false
+
+StringLiteralsInInterpolation:
+  Enabled: false
+
+StringReplacement:
+  Enabled: false
+
+WordArray:
   Enabled: false

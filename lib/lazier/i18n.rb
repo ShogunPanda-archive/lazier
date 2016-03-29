@@ -89,7 +89,7 @@ module Lazier
       message = "#{root}.#{message}" if message !~ /^(\.|::)/
 
       begin
-        ::I18n.translate(message, **(args.merge(raise: true)))
+        ::I18n.translate(message, **args.merge(raise: true))
       rescue ::I18n::MissingTranslationData
         raise Lazier::Exceptions::MissingTranslation, [locale, message]
       end
@@ -124,7 +124,7 @@ module Lazier
     private
 
     # :nodoc:
-    OSX_DETECTION = "defaults read .GlobalPreferences AppleLanguages | awk 'NR==2{gsub(/[ ,]/, \"\");print}'"
+    OSX_DETECTION = "defaults read .GlobalPreferences AppleLanguages | awk 'NR==2{gsub(/[ ,]/, \"\");print}'".freeze
 
     # :nodoc:
     def system_locale

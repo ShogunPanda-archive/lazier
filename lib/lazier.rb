@@ -179,8 +179,6 @@ module Lazier
       end
   end
 
-  private
-
   # :nodoc:
   def self.clean_hash_compact
     ::Hash.class_eval do

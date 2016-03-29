@@ -191,15 +191,12 @@ module Lazier
     # @return [String|NilClass] The string representation of the object or `nil`, if the object is not a number.
     def format_number(precision: nil, decimal_separator: nil, add_string: nil, k_separator: nil)
       if number?
-        settings = ::Lazier.settings.format_number
-        add_string ||= settings[:add_string]
+        precision, decimal_separator, add_string, k_separator = format_number_sanitize(precision, decimal_separator, add_string, k_separator)
 
-        rv = format("%0.#{[precision || settings[:precision], 0].max}f", to_float).split(".")
-        rv[0].gsub!(/(\d)(?=(\d{3})+(?!\d))/, "\\1#{k_separator || settings[:k_separator]}")
-        rv = rv.join(decimal_separator || settings[:decimal_separator])
+        rv = format("%0.#{precision}f", to_float).split(".")
+        rv[0].gsub!(/(\d)(?=(\d{3})+(?!\d))/, "\\1#{k_separator}")
+        rv = rv.join(decimal_separator)
         add_string ? rv + " #{add_string}" : rv
-      else
-        nil
       end
     end
 
@@ -238,7 +235,7 @@ module Lazier
 
     # :nodoc:
     def convert_to_hash(value)
-      if self.is_a?(::Hash)
+      if is_a?(::Hash)
         self
       elsif value.is_a?(::Hash)
         value
@@ -252,10 +249,21 @@ module Lazier
     def sanitize_hash(hash, sanitizer, block)
       operator = block ? block : ->(v) { v.send(sanitizer) }
 
-      hash.reduce(hash.class.new) { |h, (k, v)|
+      hash.reduce(hash.class.new) do |h, (k, v)|
         h[k] = operator.call(v)
         h
-      }
+      end
+    end
+
+    # :nodoc:
+    def format_number_sanitize(precision, decimal_separator, add_string, k_separator)
+      settings = ::Lazier.settings.format_number
+      precision = [precision || settings[:precision], 0].max
+      decimal_separator ||= settings[:decimal_separator]
+      add_string ||= settings[:add_string]
+      k_separator ||= settings[:k_separator]
+
+      [precision, decimal_separator, add_string, k_separator]
     end
   end
 end
