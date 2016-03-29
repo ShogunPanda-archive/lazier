@@ -4,7 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require File.expand_path('../lib/lazier/version', __FILE__)
+require File.expand_path("../lib/lazier/version", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = "lazier"
