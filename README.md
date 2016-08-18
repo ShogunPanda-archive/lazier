@@ -4,13 +4,11 @@
 [![Dependency Status](https://gemnasium.com/ShogunPanda/lazier.png?travis)](https://gemnasium.com/ShogunPanda/lazier)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/lazier.png)](https://codeclimate.com/github/ShogunPanda/lazier)
-[![Coverage Status](https://coveralls.io/repos/ShogunPanda/lazier/badge.png)](https://coveralls.io/r/ShogunPanda/lazier)
+[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/lazier/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/lazier?branch=master)
 
 Several Ruby object enhancements.
 
-http://sw.cowtech.it/lazier
-
-http://rdoc.info/gems/lazier
+https://sw.cowtech.it/lazier
 
 ## Usage
 
@@ -26,8 +24,12 @@ See documentation for more informations.
 
 A Ruby 2.1 implementation is required.
 
+## API Documentation
+
+The API documentation can be found [here](https://sw.cowtech.it/lazier/docs).
+
 ## Contributing to lazier
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
