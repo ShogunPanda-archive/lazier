@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
     
       <link rel="stylesheet" href="css/full_list.css" type="text/css" media="screen" charset="utf-8" />
     
@@ -19,38 +19,31 @@
     <base id="base_target" target="_parent" />
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      var hasFrames = false;
-      try {
-        hasFrames = window.top.frames.main ? true : false;
-      } catch (e) { }
-      if (hasFrames) {
-        document.getElementById('base_target').target = 'main';
-        document.body.className = 'frames';
-      }
-    </script>
     <div id="content">
-      <h1 id="full_list_header">Class List</h1>
-      <div id="nav">
-        
-          <span><a target="_self" href="class_list.html">
-            Classes
-          </a></span>
-        
-          <span><a target="_self" href="method_list.html">
-            Methods
-          </a></span>
-        
-          <span><a target="_self" href="file_list.html">
-            Files
-          </a></span>
-        
+      <div class="fixed_header">
+        <h1 id="full_list_header">Class List</h1>
+        <div id="full_list_nav">
+          
+            <span><a target="_self" href="class_list.html">
+              Classes
+            </a></span>
+          
+            <span><a target="_self" href="method_list.html">
+              Methods
+            </a></span>
+          
+            <span><a target="_self" href="file_list.html">
+              Files
+            </a></span>
+          
+        </div>
+
+        <div id="search">Search: <input type="text" /></div>
       </div>
-      <div id="search">Search: <input type="text" /></div>
 
       <ul id="full_list" class="class">
-        <li><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">Top Level Namespace</a></span></li>
-<li><a class='toggle'></a> <span class='object_link'><a href="Lazier.html" title="Lazier (module)">Lazier</a></span><small class='search_info'>Top Level Namespace</small></li><ul><li><span class='object_link'><a href="Lazier/Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span><small class='search_info'>Lazier</small></li><li><span class='object_link'><a href="Lazier/Configuration.html" title="Lazier::Configuration (class)">Configuration</a></span> &lt; Dash<small class='search_info'>Lazier</small></li><li><a class='toggle'></a> <span class='object_link'><a href="Lazier/DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span><small class='search_info'>Lazier</small></li><ul><li><span class='object_link'><a href="Lazier/DateTime/ClassMethods.html" title="Lazier::DateTime::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::DateTime</small></li></ul><li><a class='toggle'></a> <span class='object_link'><a href="Lazier/Exceptions.html" title="Lazier::Exceptions (module)">Exceptions</a></span><small class='search_info'>Lazier</small></li><ul><li><span class='object_link'><a href="Lazier/Exceptions/Debug.html" title="Lazier::Exceptions::Debug (class)">Debug</a></span> &lt; RuntimeError<small class='search_info'>Lazier::Exceptions</small></li><li><span class='object_link'><a href="Lazier/Exceptions/MissingTranslation.html" title="Lazier::Exceptions::MissingTranslation (class)">MissingTranslation</a></span> &lt; RuntimeError<small class='search_info'>Lazier::Exceptions</small></li><li><span class='object_link'><a href="Lazier/Exceptions/TranslationExceptionHandler.html" title="Lazier::Exceptions::TranslationExceptionHandler (class)">TranslationExceptionHandler</a></span> &lt; ExceptionHandler<small class='search_info'>Lazier::Exceptions</small></li></ul><li><span class='object_link'><a href="Lazier/Hash.html" title="Lazier::Hash (module)">Hash</a></span><small class='search_info'>Lazier</small></li><li><span class='object_link'><a href="Lazier/I18n.html" title="Lazier::I18n (class)">I18n</a></span> &lt; Object<small class='search_info'>Lazier</small></li><li><a class='toggle'></a> <span class='object_link'><a href="Lazier/Math.html" title="Lazier::Math (module)">Math</a></span><small class='search_info'>Lazier</small></li><ul><li><span class='object_link'><a href="Lazier/Math/ClassMethods.html" title="Lazier::Math::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::Math</small></li></ul><li><span class='object_link'><a href="Lazier/Object.html" title="Lazier::Object (module)">Object</a></span><small class='search_info'>Lazier</small></li><li><span class='object_link'><a href="Lazier/Pathname.html" title="Lazier::Pathname (module)">Pathname</a></span><small class='search_info'>Lazier</small></li><li><span class='object_link'><a href="Lazier/Settings.html" title="Lazier::Settings (class)">Settings</a></span> &lt; Object<small class='search_info'>Lazier</small></li><li><span class='object_link'><a href="Lazier/String.html" title="Lazier::String (module)">String</a></span><small class='search_info'>Lazier</small></li><li><a class='toggle'></a> <span class='object_link'><a href="Lazier/TimeZone.html" title="Lazier::TimeZone (module)">TimeZone</a></span><small class='search_info'>Lazier</small></li><ul><li><span class='object_link'><a href="Lazier/TimeZone/ClassMethods.html" title="Lazier::TimeZone::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::TimeZone</small></li></ul><li><span class='object_link'><a href="Lazier/Version.html" title="Lazier::Version (module)">Version</a></span><small class='search_info'>Lazier</small></li></ul>
+        <li id="object_" class="odd"><div class="item" style="padding-left:30px"><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">Top Level Namespace</a></span></div></li>
+<li id='object_Lazier' class='even'><div class='item' style='padding-left:30px'><a class='toggle'></a> <span class='object_link'><a href="Lazier.html" title="Lazier (module)">Lazier</a></span><small class='search_info'>Top Level Namespace</small></div><ul><li id='object_Lazier::Boolean' class='collapsed odd'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Boolean.html" title="Lazier::Boolean (module)">Boolean</a></span><small class='search_info'>Lazier</small></div></li><li id='object_Lazier::Configuration' class='collapsed even'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Configuration.html" title="Lazier::Configuration (class)">Configuration</a></span> &lt; Dash<small class='search_info'>Lazier</small></div></li><li id='object_Lazier::DateTime' class='collapsed odd'><div class='item' style='padding-left:45px'><a class='toggle'></a> <span class='object_link'><a href="Lazier/DateTime.html" title="Lazier::DateTime (module)">DateTime</a></span><small class='search_info'>Lazier</small></div><ul><li id='object_Lazier::DateTime::ClassMethods' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/DateTime/ClassMethods.html" title="Lazier::DateTime::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::DateTime</small></div></li></ul></li><li id='object_Lazier::Exceptions' class='collapsed even'><div class='item' style='padding-left:45px'><a class='toggle'></a> <span class='object_link'><a href="Lazier/Exceptions.html" title="Lazier::Exceptions (module)">Exceptions</a></span><small class='search_info'>Lazier</small></div><ul><li id='object_Lazier::Exceptions::Debug' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/Exceptions/Debug.html" title="Lazier::Exceptions::Debug (class)">Debug</a></span> &lt; RuntimeError<small class='search_info'>Lazier::Exceptions</small></div></li><li id='object_Lazier::Exceptions::MissingTranslation' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/Exceptions/MissingTranslation.html" title="Lazier::Exceptions::MissingTranslation (class)">MissingTranslation</a></span> &lt; RuntimeError<small class='search_info'>Lazier::Exceptions</small></div></li><li id='object_Lazier::Exceptions::TranslationExceptionHandler' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/Exceptions/TranslationExceptionHandler.html" title="Lazier::Exceptions::TranslationExceptionHandler (class)">TranslationExceptionHandler</a></span> &lt; ExceptionHandler<small class='search_info'>Lazier::Exceptions</small></div></li></ul></li><li id='object_Lazier::Hash' class='collapsed odd'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Hash.html" title="Lazier::Hash (module)">Hash</a></span><small class='search_info'>Lazier</small></div></li><li id='object_Lazier::I18n' class='collapsed even'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/I18n.html" title="Lazier::I18n (class)">I18n</a></span> &lt; Object<small class='search_info'>Lazier</small></div></li><li id='object_Lazier::Math' class='collapsed odd'><div class='item' style='padding-left:45px'><a class='toggle'></a> <span class='object_link'><a href="Lazier/Math.html" title="Lazier::Math (module)">Math</a></span><small class='search_info'>Lazier</small></div><ul><li id='object_Lazier::Math::ClassMethods' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/Math/ClassMethods.html" title="Lazier::Math::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::Math</small></div></li></ul></li><li id='object_Lazier::Object' class='collapsed even'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Object.html" title="Lazier::Object (module)">Object</a></span><small class='search_info'>Lazier</small></div></li><li id='object_Lazier::Pathname' class='collapsed odd'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Pathname.html" title="Lazier::Pathname (module)">Pathname</a></span><small class='search_info'>Lazier</small></div></li><li id='object_Lazier::Settings' class='collapsed even'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Settings.html" title="Lazier::Settings (class)">Settings</a></span> &lt; Object<small class='search_info'>Lazier</small></div></li><li id='object_Lazier::String' class='collapsed odd'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/String.html" title="Lazier::String (module)">String</a></span><small class='search_info'>Lazier</small></div></li><li id='object_Lazier::TimeZone' class='collapsed even'><div class='item' style='padding-left:45px'><a class='toggle'></a> <span class='object_link'><a href="Lazier/TimeZone.html" title="Lazier::TimeZone (module)">TimeZone</a></span><small class='search_info'>Lazier</small></div><ul><li id='object_Lazier::TimeZone::ClassMethods' class='collapsed'><div class='item' style='padding-left:60px'><span class='object_link'><a href="Lazier/TimeZone/ClassMethods.html" title="Lazier::TimeZone::ClassMethods (module)">ClassMethods</a></span><small class='search_info'>Lazier::TimeZone</small></div></li></ul></li><li id='object_Lazier::Version' class='collapsed odd'><div class='item' style='padding-left:45px'><span class='object_link'><a href="Lazier/Version.html" title="Lazier::Version (module)">Version</a></span><small class='search_info'>Lazier</small></div></li></ul></li>
 
       </ul>
     </div>
