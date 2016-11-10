@@ -25,12 +25,12 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.3.0"
 
-  gem.add_dependency("activesupport", "~> 4.1")
-  gem.add_dependency("hashie", "~> 3.3")
+  gem.add_dependency("activesupport", "> 4.1")
+  gem.add_dependency("hashie", "~> 3.4")
 
   if RUBY_ENGINE != "jruby"
-    gem.add_dependency("oj", "~> 2.15")
+    gem.add_dependency("oj", "~> 2.17")
   else
-    gem.add_dependency("json", "~> 1.8")
+    gem.add_dependency("json", "~> 2.0")
   end
 end
