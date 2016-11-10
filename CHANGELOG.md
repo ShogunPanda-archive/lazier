@@ -1,3 +1,7 @@
+### 4.2.2 / 2016-11-10
+
+* Updated dependencies.
+
 ### 4.2.1 / 2016-03-29
 
 * Updated dependencies and linted code.
