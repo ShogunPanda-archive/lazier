@@ -3,6 +3,7 @@ tester.rb
 coverage/
 pkg/
 tmp/
+.history/
 .idea/
 .yardoc/
 .bundle
