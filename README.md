@@ -1,10 +1,9 @@
 # lazier
 
-[![Gem Version](https://badge.fury.io/rb/lazier.png)](http://badge.fury.io/rb/lazier)
-[![Dependency Status](https://gemnasium.com/ShogunPanda/lazier.png?travis)](https://gemnasium.com/ShogunPanda/lazier)
-[![Build Status](https://secure.travis-ci.org/ShogunPanda/lazier.png?branch=master)](http://travis-ci.org/ShogunPanda/lazier)
-[![Code Climate](https://codeclimate.com/github/ShogunPanda/lazier.png)](https://codeclimate.com/github/ShogunPanda/lazier)
-[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/lazier/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/lazier?branch=master)
+[![Gem Version](https://img.shields.io/gem/v/lazier.svg)](https://rubygems.org/gems/lazier)
+[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/lazier.svg)](https://gemnasium.com/ShogunPanda/lazier)
+[![Build Status](https://img.shields.io/travis/ShogunPanda/lazier.svg)](http://travis-ci.org/ShogunPanda/lazier)
+[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/lazier.svg)](https://coveralls.io/github/ShogunPanda/lazier)
 
 Several Ruby object enhancements.
 
@@ -42,4 +41,4 @@ The API documentation can be found [here](https://sw.cowtech.it/lazier/docs).
 
 Copyright (C) 2013 and above Shogun (shogun@cowtech.it).
 
-Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
+Licensed under the MIT license, which can be found at https://choosealicense.com/licenses/mit.
