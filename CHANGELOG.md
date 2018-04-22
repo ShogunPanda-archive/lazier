@@ -1,3 +1,8 @@
+### 2018-04-22 / 4.2.7
+
+* Version 4.0.2.
+* Updated CHANGELOG.md.
+
 ### 2018-04-22 / 4.0.2
 
 * Updated license links and badges.
