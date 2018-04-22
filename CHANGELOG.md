@@ -1,3 +1,34 @@
+### 2018-04-22 / 4.0.2
+
+* Updated license links and badges.
+* Updated CHANGELOG.
+* Version 4.2.2
+* Version 4.2.2.
+* Updated dependencies.
+* Updated docs location.
+* Updated docs.
+* Added missing copyright notes.
+* Updated Travis Gemfile.
+* Typo fix.
+* Version 4.2.1
+* Version 4.2.0
+* Updated dependencies and linted code.
+* Version 4.2.0
+* Improved documentation.
+* Added Lazier::String#ensure_url_with_scheme
+* Version 4.1.0
+* Prepare for version 4.1.0.
+* Version 4.0.6
+* Prepare for version 4.0.6.
+* Fixed URL.
+* Version 4.0.5
+* Save alias upon timezone finding.
+* Version 4.0.4
+* Version 4.0.3
+* System locale detection fix.
+* Version 4.0.2
+* Don't force locales validation.
+
 ### 4.2.2 / 2016-11-10
 
 * Updated dependencies.
