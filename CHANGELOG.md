@@ -1,3 +1,8 @@
+### 2018-04-22 / 4.2.3
+
+* Updated license links and badges.
+* Updated CHANGELOG.
+
 ### 4.2.2 / 2016-11-10
 
 * Updated dependencies.
