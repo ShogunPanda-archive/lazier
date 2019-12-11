@@ -1,13 +1,8 @@
 # lazier
 
-[![Gem Version](https://img.shields.io/gem/v/lazier.svg)](https://rubygems.org/gems/lazier)
-[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/lazier.svg)](https://gemnasium.com/ShogunPanda/lazier)
-[![Build Status](https://img.shields.io/travis/ShogunPanda/lazier.svg)](http://travis-ci.org/ShogunPanda/lazier)
-[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/lazier.svg)](https://coveralls.io/github/ShogunPanda/lazier)
+## END OF DEVELOPMENT NOTICE - This gem has been discontinued
 
 Several Ruby object enhancements.
-
-https://sw.cowtech.it/lazier
 
 ## Usage
 
@@ -29,13 +24,13 @@ The API documentation can be found [here](https://sw.cowtech.it/lazier/docs).
 
 ## Contributing to lazier
 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Fork the project.
+- Start a feature/bugfix branch.
+- Commit and push until you are happy with your contribution.
+- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+- Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 ## Copyright
 
